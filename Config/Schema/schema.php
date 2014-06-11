@@ -34,4 +34,15 @@ class WebzashSchema extends CakeSchema {
 	public function after($event = array()) {
 	}
 
+	public $groups = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'parent_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'affects_gross' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
 }
