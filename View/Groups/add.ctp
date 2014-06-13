@@ -49,7 +49,8 @@ $(document).ready(function() {
 			}
 		});
 	});
-	$('#GroupParentId').trigger('change');});
+	$('#GroupParentId').trigger('change');
+});
 </script>
 
 <div class="groups add form">
