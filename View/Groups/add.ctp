@@ -58,7 +58,7 @@ $(document).ready(function() {
 		echo $this->Form->create('Group');
 		echo $this->Form->input('name', array('label' => __('Group name')));
 		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'label' => __('Parent group')));
-		echo $this->Form->input('affects_gross', array('type' => 'checkbox', 'label' => __('Affects Gross Profit/Loss Calculations')));
+		echo $this->Form->input('affects_gross', array('type' => 'checkbox', 'label' => __('Affects gross profit/loss calculations')));
 		echo $this->Form->end(__('Submit'));
 		echo $this->Html->link(__('Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
