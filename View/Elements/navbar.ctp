@@ -35,7 +35,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="http://webzash.org">Webzash</a>
+			<?php echo $this->Html->link('Webzash', 'http://webzash.org', array('class' => 'navbar-brand', 'target' => '_blank')); ?>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
