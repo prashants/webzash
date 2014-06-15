@@ -36,6 +36,13 @@ App::uses('WebzashAppController', 'Webzash.Controller');
 class DashboardController extends AppController {
 
 /**
+ * This controller does not use a model
+ *
+ * @var array
+ */
+	public $uses = array();
+
+/**
  * index method
  *
  * @return void
