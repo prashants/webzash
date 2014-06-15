@@ -138,6 +138,54 @@ class GroupsController extends WebzashAppController {
 	}
 
 /**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @throws MethodNotAllowedException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		/* GET access not allowed */
+		if ($this->request->is('get')) {
+			throw new MethodNotAllowedException();
+		}
+
+		/* Check if valid id */
+		if (!$id) {
+			throw new NotFoundException(__('Invalid account group.'));
+		}
+
+		/* Check if group exists */
+		if (!$this->Group->exists($id)) {
+			throw new NotFoundException(__('Invalid account group.'));
+		}
+
+		/* Check if group can be deleted */
+		if ($id <= 4) {
+			throw new ForbiddenException(__('Cannot delete basic account groups.'));
+		}
+
+		/* Check if any child groups exists */
+		$child = $this->Group->find('count', array('conditions' => array('parent_id' => $id)));
+		if ($child > 0) {
+			$this->Session->setFlash(__('The account group could not be deleted since it has one or more child account groups still present.'), 'default', array(), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
+		}
+
+		/* TODO : Check if any child ledgers exists */
+
+		/* Delete group */
+		if ($this->Group->delete($id)) {
+			$this->Session->setFlash(__('The account group has been deleted.'), 'default', array(), 'success');
+		} else {
+			$this->Session->setFlash(__('The account group could not be deleted. Please, try again.'), 'default', array(), 'error');
+		}
+
+		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
+	}
+
+/**
  * showgross method
  *
  * Checks if the top level parent group is either income or expenses, if yes
