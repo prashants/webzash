@@ -25,4 +25,23 @@
  * THE SOFTWARE.
  */
 
-Router::connect('/webzash', array('plugin' => 'webzash', 'controller' => 'dashboard'));
+App::uses('WebzashAppController', 'Webzash.Controller');
+
+/**
+ * Webzash Plugin Dashboard Controller
+ *
+ * @package Webzash
+ * @subpackage Webzash.controllers
+ */
+class DashboardController extends AppController {
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		return;
+	}
+
+}

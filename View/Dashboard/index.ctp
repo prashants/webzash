@@ -24,5 +24,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+?>
+<div>
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">Account Details</div>
+			<div class="panel-body">
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">Bank & Cash Summary</div>
+			<div class="panel-body">
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">Account Summary</div>
+			<div class="panel-body">
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">Recent Activity</div>
+			<div class="panel-body">
+			</div>
+		</div>
+	</div>
+</div>
 
-Router::connect('/webzash', array('plugin' => 'webzash', 'controller' => 'dashboard'));
