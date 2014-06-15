@@ -36,7 +36,7 @@ $(document).ready(function() {
 	 */
 	$('#GroupParentId').change(function() {
 		$.ajax({
-			url: 'showgross',
+			url: '<?php echo $this->Html->url(array("controller" => "groups", "action" => "showgross")); ?>',
 			data: 'id=' + $(this).val(),
 			dataType: 'json',
 			success: function(data)
