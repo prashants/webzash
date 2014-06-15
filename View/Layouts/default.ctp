@@ -29,8 +29,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->script('Webzash.jquery-1.10.2.js');
+		echo $this->Html->script('Webzash.jquery-1.10.2.js?'.time());
 		echo $this->Html->css('Webzash.bootstrap.min.css?'.time());
+		echo $this->Html->script('Webzash.bootstrap.min.js?'.time());
 		echo $this->Html->css('Webzash.style.css?'.time());
 		echo $this->Html->css('Webzash.custom.css?'.time());
 
