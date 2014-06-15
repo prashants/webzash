@@ -1,0 +1,46 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+p {
+	margin: 0 0 1em 0;
+}
+
+#actionlinks ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#actionlinks ul li {
+	display: inline;
+	margin: 0 10px 0 0;
+}
+
+#actionlinks ul li a {
+	text-decoration: none;
+}
+
+#content {
+	margin: 0 0 0 20px;
+}
+
+#footer {
+	clear: both;
+	padding: 6px 10px;
+	text-align: right;
+}
+
+.navbar-default .navbar-brand {
+	background: #444444;
+	color: #FFFFFF;
+	font-size: 25px;
+}
+
+.navbar-default .navbar-brand:hover {
+	background: #444444;
+	color: #FFFFFF;
+	font-size: 25px;
+}
+
