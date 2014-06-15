@@ -25,36 +25,15 @@
  * THE SOFTWARE.
  */
 
-App::uses('WebzashAppController', 'Webzash.Controller');
+/* Show the action links button */
 
-/**
- * Webzash Plugin Accounts Controller
- *
- * @package Webzash
- * @subpackage Webzash.controllers
- */
-class AccountsController extends AppController {
-
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
-		return $this->redirect(array('action' => 'show'));
+if (isset($actionlinks)) {
+	echo '<div id="action-links">';
+	echo '<ul>';
+	foreach ($actionlinks as $key => $item) {
+		echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action'])) . '</li>';
 	}
-
-/**
- * show method
- *
- * @return void
- */
-	public function show() {
-		$this->set('actionlinks', array(
-			array('controller' => 'groups', 'action' => 'add', 'title' => 'Add Group'),
-			array('controller' => 'ledgers', 'action' => 'add', 'title' => 'Add Ledger')
-		));
-		return;
-	}
-
+	echo '</ul>';
+	echo "</div>";
 }
+

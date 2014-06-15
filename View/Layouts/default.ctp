@@ -45,8 +45,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			<h1><?php echo $this->Html->link('Webzash', 'http://webzash.org'); ?></h1>
 		</div>
 		<div id="content">
+			<?php echo $this->element('actionlinks'); ?>
 
-			<?php echo $this->Session->flash(); ?>
+			<?php echo $this->Session->flash('error'); ?>
+			<?php echo $this->Session->flash('success'); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
