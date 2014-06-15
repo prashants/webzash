@@ -69,7 +69,7 @@ class GroupsController extends WebzashAppController {
 
 				/* Save group */
 				if ($this->Group->save($this->request->data)) {
-					$this->Session->setFlash(__('The account group has been created'), 'default', array(), 'success');
+					$this->Session->setFlash(__('The account group has been created.'), 'default', array(), 'success');
 					return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 				} else {
 					$this->Session->setFlash(__('The account group could not be saved. Please, try again.'), 'default', array(), 'error');
@@ -82,6 +82,60 @@ class GroupsController extends WebzashAppController {
 		}
 	}
 
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @throws ForbiddenException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		/* Check for valid group */
+		if (!$id) {
+			throw new NotFoundException(__('Invalid account group.'));
+		}
+		$group = $this->Group->findById($id);
+		if (!$group) {
+			throw new NotFoundException(__('Invalid account group.'));
+		}
+		if ($id <= 4) {
+			throw new ForbiddenException(__('Cannot edit basic account groups.'));
+		}
+
+		/* Create list of parent groups */
+		$parents = $this->Group->find('list', array(
+			'conditions' => array('Group.id !=' => $id),
+			'fields' => array('Group.id', 'Group.name'),
+			'order' => array('Group.name')
+		));
+		$this->set('parents', $parents);
+
+		/* on POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+			/* Set group id */
+			$this->Group->id = $id;
+
+			/* Check if group and parent group are not same */
+			if ($id == $this->request->data['Group']['parent_id']) {
+				$this->Session->setFlash(__('The account group and parent group cannot be same.'), 'default', array(), 'error');
+				return;
+			}
+
+			/* Save group */
+			if ($this->Group->save($this->request->data)) {
+				$this->Session->setFlash(__('The account group has been updated.'), 'default', array(), 'success');
+				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
+			} else {
+				$this->Session->setFlash(__('The account group could not be updated. Please, try again.'), 'default', array(), 'error');
+				return;
+			}
+		} else {
+			$this->request->data = $group;
+			return;
+		}
+	}
 
 /**
  * showgross method
