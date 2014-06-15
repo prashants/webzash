@@ -28,10 +28,10 @@
 /* Show the action links button */
 
 if (isset($actionlinks)) {
-	echo '<div id="action-links">';
+	echo '<div id="actionlinks">';
 	echo '<ul>';
 	foreach ($actionlinks as $key => $item) {
-		echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action'])) . '</li>';
+		echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action']), array('class' => 'btn btn-primary')) . '</li>';
 	}
 	echo '</ul>';
 	echo "</div>";
