@@ -30,8 +30,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->script('Webzash.jquery-1.10.2.js');
-		echo $this->Html->css('Webzash.bootstrap.min.css');
-		echo $this->Html->css('Webzash.style.css');
+		echo $this->Html->css('Webzash.bootstrap.min.css?'.time());
+		echo $this->Html->css('Webzash.style.css?'.time());
+		echo $this->Html->css('Webzash.custom.css?'.time());
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -42,7 +43,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link('Webzash', 'http://webzash.org'); ?></h1>
+			<?php echo $this->element('navbar'); ?>
 		</div>
 		<div id="content">
 			<?php echo $this->element('actionlinks'); ?>
