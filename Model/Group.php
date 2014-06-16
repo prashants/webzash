@@ -38,28 +38,64 @@ class Group extends WebzashAppModel {
 	/* Validation rules for the Group table */
 	public $validate = array(
 		'parent_id' => array(
-			'rule' => 'parentValid',
-			'message' => 'Parent group is not valid',
-			'required'   => true,
-			'allowEmpty' => false,
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Parent group cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'numeric',
+				'message' => 'Parent group is not a valid number',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => 'parentValid',
+				'message' => 'Parent group is not valid',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule' => array('maxLength', 11),
+				'message' => 'Parent group id length cannot be more than 11',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
 		),
 		'name' => array(
 			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Group name cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
 				'rule' => 'isUnique',
 				'message' => 'Group name is already in use',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
-			'rule2' => array(
+			'rule3' => array(
 				'rule' => array('maxLength', 100),
 				'message' => 'Group name cannot be more than 100 characters',
+				'required'   => true,
+				'allowEmpty' => false,
 			),
 		),
 		'affects_gross' => array(
-			'rule' => array('boolean'),
-			'message' => 'Incorrect value for whether the account group affects gross calculations',
-			'required'   => true,
-			'allowEmpty' => false,
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Affects gross profit/loss calculations cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for whether the account group affects gross calculations',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
 		),
 	);
 
