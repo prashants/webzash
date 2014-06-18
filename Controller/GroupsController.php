@@ -115,6 +115,7 @@ class GroupsController extends WebzashAppController {
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 			/* Set group id */
+			unset($this->request->data['Group']['id']);
 			$this->Group->id = $id;
 
 			/* Check if group and parent group are not same */
@@ -146,6 +147,8 @@ class GroupsController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
+		$this->loadModel('Ledger');
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -169,11 +172,16 @@ class GroupsController extends WebzashAppController {
 		/* Check if any child groups exists */
 		$child = $this->Group->find('count', array('conditions' => array('parent_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__('The account group could not be deleted since it has one or more child account groups still present.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The account group cannot be deleted since it has one or more child group accounts still present.'), 'default', array(), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
-		/* TODO : Check if any child ledgers exists */
+		/* Check if any child ledgers exists */
+		$child = $this->Ledger->find('count', array('conditions' => array('group_id' => $id)));
+		if ($child > 0) {
+			$this->Session->setFlash(__('The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'default', array(), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
+		}
 
 		/* Delete group */
 		if ($this->Group->delete($id)) {
