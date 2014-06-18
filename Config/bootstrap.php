@@ -40,6 +40,8 @@
  * @return float result of the operation
 */
 
+/* TODO : Use libraries for larger calculations */
+
 function calculate($param1 = 0, $param2 = 0, $op = '') {
 	$result = 0;
 	$param1 = $param1 * 100;
