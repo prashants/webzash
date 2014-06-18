@@ -100,13 +100,13 @@ class Group extends WebzashAppModel {
 	);
 
 	/* Validation - Check if parent_id is a valid id */
-	public function parentValid($check) {
-		if (!isset($check['parent_id'])) {
+	public function parentValid($data) {
+		if (!isset($data['parent_id'])) {
 			return false;
 		}
 
 		$parentCount = $this->find('count', array(
-		    'conditions' => array('id' => $check['parent_id']),
+		    'conditions' => array('id' => $data['parent_id']),
 		));
 
 		if ($parentCount < 1) {
