@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('AccountList', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Accounts Controller
@@ -41,6 +42,8 @@ class AccountsController extends AppController {
  * @var array
  */
 	public $uses = array();
+
+	var $helpers = array('Html');
 
 /**
  * index method
@@ -61,6 +64,9 @@ class AccountsController extends AppController {
 			array('controller' => 'groups', 'action' => 'add', 'title' => 'Add Group'),
 			array('controller' => 'ledgers', 'action' => 'add', 'title' => 'Add Ledger')
 		));
+		$accountlist = new AccountList();
+		$accountlist->start(0);
+		$this->set('accountlist', $accountlist);
 		return;
 	}
 
