@@ -7,6 +7,10 @@ p {
 	margin: 0 0 1em 0;
 }
 
+#actionlinks {
+	margin-bottom: 15px;
+}
+
 #actionlinks ul {
 	margin: 0;
 	padding: 0;
@@ -33,15 +37,13 @@ p {
 }
 
 .navbar-default .navbar-brand {
-	background: #444444;
-	color: #FFFFFF;
 	font-size: 25px;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-brand:hover {
-	background: #444444;
-	color: #FFFFFF;
 	font-size: 25px;
+	font-weight: bold;
 }
 
 ul.nav li.dropdown:hover > ul.dropdown-menu {

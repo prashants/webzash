@@ -34,6 +34,6 @@ if (isset($actionlinks)) {
 		echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action']), array('class' => 'btn btn-primary')) . '</li>';
 	}
 	echo '</ul>';
-	echo "</div>";
+	echo '</div>';
 }
 
