@@ -43,8 +43,6 @@ class AccountsController extends AppController {
  */
 	public $uses = array();
 
-	var $helpers = array('Html');
-
 /**
  * index method
  *
