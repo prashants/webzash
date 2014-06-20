@@ -60,4 +60,37 @@ class WebzashSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
+
+	public $settings = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'address' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'fy_start' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'fy_end' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'currency_symbol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 10, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'date_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 30, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'timezone' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'manage_inventory' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
+		'account_locked' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
+		'email_protocol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 9, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_host' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_port' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 5),
+		'email_username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'print_paper_height' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_paper_width' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_margin_top' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_margin_bottom' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_margin_left' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_margin_right' => array('type' => 'float', 'null' => false, 'default' => null),
+		'print_orientation' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'print_page_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'database_version' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
+		'indexes' => array(
+			'id' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
 }
