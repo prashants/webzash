@@ -127,7 +127,7 @@ class TagsController extends WebzashAppController {
 	public function delete($id = null) {
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
-			//throw new MethodNotAllowedException();
+			throw new MethodNotAllowedException();
 		}
 
 		/* Check if valid id */
