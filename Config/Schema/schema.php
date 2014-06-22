@@ -75,7 +75,7 @@ class WebzashSchema extends CakeSchema {
 		'account_locked' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
 		'email_protocol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 9, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'email_host' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email_port' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 5),
+		'email_port' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 5),
 		'email_username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'email_password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'print_paper_height' => array('type' => 'float', 'null' => false, 'default' => null),
@@ -86,7 +86,7 @@ class WebzashSchema extends CakeSchema {
 		'print_margin_right' => array('type' => 'float', 'null' => false, 'default' => null),
 		'print_orientation' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'print_page_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'database_version' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
+		'database_version' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 10),
 		'indexes' => array(
 			'id' => array('column' => 'id', 'unique' => 1)
 		),
@@ -95,9 +95,26 @@ class WebzashSchema extends CakeSchema {
 
 	public $tags = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'color' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'background' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
+	public $entry_types = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'label' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'description' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'base_type' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 2),
+		'numbering' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 2),
+		'prefix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'suffix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'zero_padding' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 2),
+		'bank_cash_ledger_restriction' => array('type' => 'integer', 'null' => false, 'default' => '1', 'length' => 2),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
