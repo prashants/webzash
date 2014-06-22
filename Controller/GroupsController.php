@@ -69,14 +69,14 @@ class GroupsController extends WebzashAppController {
 
 				/* Save group */
 				if ($this->Group->save($this->request->data)) {
-					$this->Session->setFlash(__('The account group has been created.'), 'default', array(), 'success');
+					$this->Session->setFlash(__('The account group has been created.'), 'success');
 					return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 				} else {
-					$this->Session->setFlash(__('The account group could not be saved. Please, try again.'), 'default', array(), 'error');
+					$this->Session->setFlash(__('The account group could not be saved. Please, try again.'), 'error');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__('No data. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('No data. Please, try again.'), 'error');
 				return;
 			}
 		}
@@ -120,16 +120,16 @@ class GroupsController extends WebzashAppController {
 
 			/* Check if group and parent group are not same */
 			if ($id == $this->request->data['Group']['parent_id']) {
-				$this->Session->setFlash(__('The account group and parent group cannot be same.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('The account group and parent group cannot be same.'), 'error');
 				return;
 			}
 
 			/* Save group */
 			if ($this->Group->save($this->request->data)) {
-				$this->Session->setFlash(__('The account group has been updated.'), 'default', array(), 'success');
+				$this->Session->setFlash(__('The account group has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 			} else {
-				$this->Session->setFlash(__('The account group could not be updated. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('The account group could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -172,22 +172,22 @@ class GroupsController extends WebzashAppController {
 		/* Check if any child groups exists */
 		$child = $this->Group->find('count', array('conditions' => array('parent_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__('The account group cannot be deleted since it has one or more child group accounts still present.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The account group cannot be deleted since it has one or more child group accounts still present.'), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child ledgers exists */
 		$child = $this->Ledger->find('count', array('conditions' => array('group_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__('The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Delete group */
 		if ($this->Group->delete($id)) {
-			$this->Session->setFlash(__('The account group has been deleted.'), 'default', array(), 'success');
+			$this->Session->setFlash(__('The account group has been deleted.'), 'success');
 		} else {
-			$this->Session->setFlash(__('The account group could not be deleted. Please, try again.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The account group could not be deleted. Please, try again.'), 'error');
 		}
 
 		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));

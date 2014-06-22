@@ -81,14 +81,14 @@ class LedgersController extends WebzashAppController {
 
 				/* Save group */
 				if ($this->Ledger->save($this->request->data)) {
-					$this->Session->setFlash(__('The account ledger has been created.'), 'default', array(), 'success');
+					$this->Session->setFlash(__('The account ledger has been created.'), 'success');
 					return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 				} else {
-					$this->Session->setFlash(__('The account ledger could not be saved. Please, try again.'), 'default', array(), 'error');
+					$this->Session->setFlash(__('The account ledger could not be saved. Please, try again.'), 'error');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__('No data. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('No data. Please, try again.'), 'error');
 				return;
 			}
 		}
@@ -135,10 +135,10 @@ class LedgersController extends WebzashAppController {
 				/* Update closing balance after edit */
 				$this->Ledger->updateClosingBalance($id);
 
-				$this->Session->setFlash(__('The account ledger has been updated.'), 'default', array(), 'success');
+				$this->Session->setFlash(__('The account ledger has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 			} else {
-				$this->Session->setFlash(__('The account ledger could not be updated. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('The account ledger could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -176,9 +176,9 @@ class LedgersController extends WebzashAppController {
 
 		/* Delete ledger */
 		if ($this->Ledger->delete($id)) {
-			$this->Session->setFlash(__('The account ledger has been deleted.'), 'default', array(), 'success');
+			$this->Session->setFlash(__('The account ledger has been deleted.'), 'success');
 		} else {
-			$this->Session->setFlash(__('The account ledger could not be deleted. Please, try again.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The account ledger could not be deleted. Please, try again.'), 'error');
 		}
 
 		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));

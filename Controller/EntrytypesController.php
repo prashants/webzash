@@ -74,14 +74,14 @@ class EntrytypesController extends WebzashAppController {
 
 				/* Save entry type */
 				if ($this->Entrytype->save($this->request->data)) {
-					$this->Session->setFlash(__('The entry type has been created.'), 'default', array(), 'success');
+					$this->Session->setFlash(__('The entry type has been created.'), 'success');
 					return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 				} else { return;
-					$this->Session->setFlash(__('The entry type could not be saved. Please, try again.'), 'default', array(), 'error');
+					$this->Session->setFlash(__('The entry type could not be saved. Please, try again.'), 'error');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__('No data. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('No data. Please, try again.'), 'error');
 				return;
 			}
 		}
@@ -124,10 +124,10 @@ class EntrytypesController extends WebzashAppController {
 
 			/* Save entry type */
 			if ($this->Entrytype->save($this->request->data)) {
-				$this->Session->setFlash(__('The entry type has been updated.'), 'default', array(), 'success');
+				$this->Session->setFlash(__('The entry type has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The entry type could not be updated. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('The entry type could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -164,16 +164,16 @@ class EntrytypesController extends WebzashAppController {
 		/*
 		$active = $this->Voucher->find('count', array('conditions' => array('entrytype_id' => $id)));
 		if ($active > 0) {
-			$this->Session->setFlash(__('The entry type cannot be deleted since one or more vouchers are using it.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The entry type cannot be deleted since one or more vouchers are using it.'), 'error');
 			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
 		*/
 
 		/* Delete entry type */
 		if ($this->Entrytype->delete($id)) {
-			$this->Session->setFlash(__('The entry type has been deleted.'), 'default', array(), 'success');
+			$this->Session->setFlash(__('The entry type has been deleted.'), 'success');
 		} else {
-			$this->Session->setFlash(__('The entry type could not be deleted. Please, try again.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The entry type could not be deleted. Please, try again.'), 'error');
 		}
 
 		return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));

@@ -64,14 +64,14 @@ class TagsController extends WebzashAppController {
 
 				/* Save tag */
 				if ($this->Tag->save($this->request->data)) {
-					$this->Session->setFlash(__('The tag has been created.'), 'default', array(), 'success');
+					$this->Session->setFlash(__('The tag has been created.'), 'success');
 					return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 				} else {
-					$this->Session->setFlash(__('The tag could not be saved. Please, try again.'), 'default', array(), 'error');
+					$this->Session->setFlash(__('The tag could not be saved. Please, try again.'), 'error');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__('No data. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('No data. Please, try again.'), 'error');
 				return;
 			}
 		}
@@ -104,10 +104,10 @@ class TagsController extends WebzashAppController {
 
 			/* Save tag */
 			if ($this->Tag->save($this->request->data)) {
-				$this->Session->setFlash(__('The tag has been updated.'), 'default', array(), 'success');
+				$this->Session->setFlash(__('The tag has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The tag could not be updated. Please, try again.'), 'default', array(), 'error');
+				$this->Session->setFlash(__('The tag could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -144,16 +144,16 @@ class TagsController extends WebzashAppController {
 		/*
 		$active = $this->Voucher->find('count', array('conditions' => array('tag_id' => $id)));
 		if ($active > 0) {
-			$this->Session->setFlash(__('The tag cannot be deleted since one or more vouchers are using it.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The tag cannot be deleted since one or more vouchers are using it.'), 'error');
 			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
 		*/
 
 		/* Delete tag */
 		if ($this->Tag->delete($id)) {
-			$this->Session->setFlash(__('The tag has been deleted.'), 'default', array(), 'success');
+			$this->Session->setFlash(__('The tag has been deleted.'), 'success');
 		} else {
-			$this->Session->setFlash(__('The tag could not be deleted. Please, try again.'), 'default', array(), 'error');
+			$this->Session->setFlash(__('The tag could not be deleted. Please, try again.'), 'error');
 		}
 
 		return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
