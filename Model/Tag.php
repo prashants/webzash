@@ -70,6 +70,12 @@ class Tag extends WebzashAppModel {
 				'required'   => true,
 				'allowEmpty' => false,
 			),
+			'rule3' => array(
+				'rule' => 'alphaNumeric',
+				'message' => 'Tag color has to be a valid color',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
 
 		),
 		'background' => array(
@@ -82,6 +88,12 @@ class Tag extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => array('between', 6, 6),
 				'message' => 'Tag background has to be exactly 6 characters',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => 'alphaNumeric',
+				'message' => 'Tag background has to be a valid color',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
