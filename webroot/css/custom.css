@@ -50,3 +50,11 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	display: block;
 }
 
+.settings-container {
+	margin: 0 0 20px 0;
+}
+
+.settings-title {
+	font-size: 18px;
+}
+
