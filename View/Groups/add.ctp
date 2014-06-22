@@ -54,7 +54,6 @@ $(document).ready(function() {
 </script>
 
 <div class="groups add form">
-	<fieldset>
 	<?php
 		echo $this->Form->create('Group');
 		echo $this->Form->input('name', array('label' => __('Group name')));
@@ -63,5 +62,4 @@ $(document).ready(function() {
 		echo $this->Form->end(__('Submit'));
 		echo $this->Html->link(__('Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
-	</fieldset>
 </div>

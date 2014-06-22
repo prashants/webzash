@@ -26,7 +26,6 @@
  */
 ?>
 <div class="ledgers edit form">
-	<fieldset>
 	<?php
 		echo $this->Form->create('Ledger');
 		echo $this->Form->input('name', array('label' => __('Ledger name')));
@@ -38,5 +37,4 @@
 		echo $this->Form->end(__('Submit'));
 		echo $this->Html->link(__('Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
-	</fieldset>
 </div>
