@@ -57,7 +57,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<td class="td-actions"></td><td class="td-actions"></td>';
 		} else {
 			echo '<td class="td-actions">' . $THIS->Html->link('Edit', array('controller' => 'groups', 'action' => 'edit', $account->id)) . '</td>';
-			echo '<td class="td-actions">' . $THIS->Form->postLink('Delete', array('controller' => 'groups', 'action' => 'delete', $account->id)) . '</td>';
+			echo '<td class="td-actions">' . $THIS->Form->postLink('Delete', array('controller' => 'groups', 'action' => 'delete', $account->id), array('confirm' => 'Are you sure?')) . '</td>';
 		}
 		echo '</tr>';
 	}
