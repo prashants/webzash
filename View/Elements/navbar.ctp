@@ -45,6 +45,11 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entries <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="#">All</a></li>
+						<?php
+						foreach ($this->Menu->entrytypes() as $entrytype) {
+							echo '<li>' . $this->Html->link(__($entrytype['Entrytype']['name']), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => $entrytype['Entrytype']['label'])) . '</li>';
+						}
+						?>
 					</ul>
 				</li>
 				<li class="dropdown">

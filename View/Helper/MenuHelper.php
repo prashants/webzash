@@ -25,16 +25,23 @@
  * THE SOFTWARE.
  */
 
-App::uses('AppController', 'Controller');
+/**
+* Webzash Plugin Menu Helper
+*
+* @package Webzash
+* @subpackage Webzash.View
+*/
+class MenuHelper extends AppHelper {
 
 /**
- * Webzash App Controller
- *
- * @package Webzash
- * @subpackage Webzash.controllers
+ * Helper method to return the entry types in database
  */
-class WebzashAppController extends AppController {
-
-	public $helpers = array('Menu');
-
+	function entrytypes() {
+		/* Load the Entrytype model */
+		App::import("Webzash.Model", "Entrytype");
+		$model = new Entrytype();
+		/* Find and return all entry types */
+		$entrytypes = $model->find('all');
+		return $entrytypes;
+	}
 }
