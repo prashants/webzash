@@ -37,7 +37,7 @@ class WebzashSchema extends CakeSchema {
 	public $groups = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
 		'parent_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'affects_gross' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
@@ -48,7 +48,7 @@ class WebzashSchema extends CakeSchema {
 	public $ledgers = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
 		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'op_balance' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
 		'op_balance_dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'cl_balance' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
@@ -61,15 +61,43 @@ class WebzashSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 
+	public $entries = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'tag_id' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
+		'entrytype_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
+		'number' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
+		'date' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'dr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
+		'cr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
+		'narration' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
+	public $entryitems = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'entry_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
+		'ledger_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
+		'amount' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
+		'dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'reconciliation_date' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
 	public $settings = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'address' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'fy_start' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'fy_end' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'currency_symbol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 10, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'date_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 30, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'currency_symbol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'date_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'timezone' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'manage_inventory' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
 		'account_locked' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
@@ -120,4 +148,5 @@ class WebzashSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
+
 }
