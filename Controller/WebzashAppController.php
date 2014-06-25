@@ -35,6 +35,6 @@ App::uses('AppController', 'Controller');
  */
 class WebzashAppController extends AppController {
 
-	public $helpers = array('Menu');
+	public $helpers = array('Webzash.Menu');
 
 }
