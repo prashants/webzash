@@ -44,10 +44,10 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entries <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">All</a></li>
+						<li><?php echo '<li>' . $this->Html->link(__('All'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
 						<?php
 						foreach ($this->Menu->entrytypes() as $entrytype) {
-							echo '<li>' . $this->Html->link(__($entrytype['Entrytype']['name']), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => $entrytype['Entrytype']['label'])) . '</li>';
+							echo '<li>' . $this->Html->link(__($entrytype['Entrytype']['name']), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label'])) . '</li>';
 						}
 						?>
 					</ul>
