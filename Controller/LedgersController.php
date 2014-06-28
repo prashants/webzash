@@ -183,4 +183,34 @@ class LedgersController extends WebzashAppController {
 
 		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 	}
+
+/**
+ * closing balance method
+ *
+ * Return closing balance for the ledger
+ *
+ * @return void
+ */
+	public function cl() {
+		$this->layout = null;
+
+		/* Read ledger id from url get request */
+		$id = (int)$this->request->query('id');
+
+		/* Check if valid id */
+		if (!$id) {
+			$this->set("cl", array("cl" => array('dc' => "", 'balance' => "")));
+			return;
+		}
+
+		/* Check if ledger exists */
+		if (!$this->Ledger->exists($id)) {
+			$this->set("cl", array("cl" => array('dc' => "", 'balance' => "")));
+			return;
+		}
+
+		/* TODO : Calculate closing balance */
+		$this->set("cl", array("cl" => array('dc' => "D", 'balance' => "2000")));
+		return;
+	}
 }

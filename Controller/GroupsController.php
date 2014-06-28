@@ -202,7 +202,7 @@ class GroupsController extends WebzashAppController {
  * @return boolean
  */
 	public function showgross() {
-		$this->layout = null ;
+		$this->layout = null;
 
 		/* Read parent id from url get request */
 		$parentID = (int)$this->request->query('id');
