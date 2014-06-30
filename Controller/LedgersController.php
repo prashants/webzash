@@ -156,6 +156,7 @@ class LedgersController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
+		$this->loadModel('Entryitem');
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
@@ -172,7 +173,12 @@ class LedgersController extends WebzashAppController {
 			throw new NotFoundException(__('Invalid account ledger.'));
 		}
 
-		/* TODO : Check if any voucher exists */
+		/* Check if any entries exists */
+		$entries = $this->Entryitem->find('count', array('conditions' => array('ledger_id' => $id)));
+		if ($entries > 0) {
+			$this->Session->setFlash(__('The account ledger cannot not be deleted since it has one or more entries still present.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
+		}
 
 		/* Delete ledger */
 		if ($this->Ledger->delete($id)) {
