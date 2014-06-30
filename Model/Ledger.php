@@ -41,6 +41,11 @@ class Ledger extends WebzashAppModel {
 			'foreignKey'  => 'group_id',
 		)
 	);
+	public $hasMany = array(
+		'Entryitem' => array(
+			'className' => 'Entryitem',
+		)
+	);
 
 	/* Validation rules for the Ledger table */
 	public $validate = array(
@@ -252,7 +257,7 @@ class Ledger extends WebzashAppModel {
 	 * If it doesnt match then the closing balance has been updated by
 	 * someone else and we have to repeat the entire process again.
 	 */
-	public function updateClosingBalance($ledgerId) {
+	public function updateClosingBalance($id) {
 
 		while (1) {
 			/* Generate random hash */
@@ -261,17 +266,72 @@ class Ledger extends WebzashAppModel {
 			$hash = sha1(uniqid($hash . mt_rand(), true));
 
 			/* Save the lock hash string */
-			$this->read(null, $ledgerId);
+			$this->read(null, $id);
 			$this->saveField('lock_hash', $hash);
 
-			/* TODO : Calculate closing balance */
+			/* Opening balance */
+			$op = $this->find('first', array(
+				'conditions' => array('Ledger.id' => $id)
+			));
+			if (empty($op['Ledger']['op_balance'])) {
+				$op_total = 0;
+			} else {
+				$op_total = $op['Ledger']['op_balance'];
+			}
 
-			/* Update closing balance */
-			$this->saveField('cl_balance', '10000');
-			$this->saveField('cl_balance_dc', 'C');
+			$dr_total = 0;
+			$cr_total = 0;
+
+			$this->Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+
+			/* Debit total */
+			$total = $this->Entryitem->find('first', array(
+				'fields' => array('total'),
+				'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'D')
+			));
+			if (empty($total['Entryitem']['total'])) {
+				$dr_total = 0;
+			} else {
+				$dr_total = $total['Entryitem']['total'];
+			}
+
+			/* Credit total */
+			$total = $this->Entryitem->find('first', array(
+				'fields' => array('total'),
+				'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'C')
+			));
+			if (empty($total['Entryitem']['total'])) {
+				$cr_total = 0;
+			} else {
+				$cr_total = $total['Entryitem']['total'];
+			}
+
+			/* Add opening balance */
+			if ($op['Ledger']['op_balance_dc'] == 'D') {
+				$dr_total = calculate($op_total, $dr_total, '+');
+			} else {
+				$cr_total = calculate($op_total, $cr_total, '+');
+			}
+
+			/* Calculate and update closing balance */
+			$cl = 0;
+			$cl_dc = '';
+			if (calculate($dr_total, $cr_total, '>')) {
+				$cl = calculate($dr_total, $cr_total, '-');
+				$cl_dc = 'D';
+			} else if (calculate($cr_total, $dr_total, '==')) {
+				$cl = 0;
+				$cl_dc = $op['Ledger']['op_balance_dc'];
+			} else {
+				$cl = calculate($cr_total, $dr_total, '-');
+				$cl_dc = 'C';
+			}
+
+			$this->saveField('cl_balance', $cl);
+			$this->saveField('cl_balance_dc', $cl_dc);
 
 			/* Read the lock_hash from database to check if it has not changed */
-			$this->read(null, $ledgerId);
+			$this->read(null, $id);
 			/* If lock_hash is same then we are ok, if not redo all the calculations */
 			if ($this->data['Ledger']['lock_hash'] == $hash) {
 				break;
