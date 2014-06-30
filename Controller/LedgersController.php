@@ -205,18 +205,23 @@ class LedgersController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (!$id) {
-			$this->set("cl", array("cl" => array('dc' => "", 'balance' => "")));
+			$this->set('cl', array('cl' => array('dc' => '', 'balance' => '')));
 			return;
 		}
 
 		/* Check if ledger exists */
-		if (!$this->Ledger->exists($id)) {
-			$this->set("cl", array("cl" => array('dc' => "", 'balance' => "")));
+		$ledger = $this->Ledger->findById($id);
+		if (!$ledger) {
+			$this->set('cl', array('cl' => array('dc' => '', 'balance' => '')));
 			return;
 		}
 
-		/* TODO : Calculate closing balance */
-		$this->set("cl", array("cl" => array('dc' => "D", 'balance' => "2000")));
+		/* Return closing balance */
+		$this->set('cl', array('cl' => array(
+			'dc' => $ledger['Ledger']['cl_balance_dc'],
+			'balance' => $ledger['Ledger']['cl_balance']
+		)));
+
 		return;
 	}
 }
