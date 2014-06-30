@@ -173,8 +173,8 @@ class LedgersController extends WebzashAppController {
 			throw new NotFoundException(__('Invalid account ledger.'));
 		}
 
-		/* Check if any entries exists */
-		$entries = $this->Entryitem->find('count', array('conditions' => array('ledger_id' => $id)));
+		/* Check if any entry item using this ledger still exists */
+		$entries = $this->Entryitem->find('count', array('conditions' => array('Entryitem.ledger_id' => $id)));
 		if ($entries > 0) {
 			$this->Session->setFlash(__('The account ledger cannot not be deleted since it has one or more entries still present.'), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));

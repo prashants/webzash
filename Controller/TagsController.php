@@ -143,7 +143,7 @@ class TagsController extends WebzashAppController {
 		}
 
 		/* Check if any entries using the tag exists */
-		$entries = $this->Entry->find('count', array('conditions' => array('tag_id' => $id)));
+		$entries = $this->Entry->find('count', array('conditions' => array('Entry.tag_id' => $id)));
 		if ($entries > 0) {
 			$this->Session->setFlash(__('The tag cannot be deleted since one or more entries are still using it.'), 'error');
 			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));

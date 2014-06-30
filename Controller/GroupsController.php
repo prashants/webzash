@@ -170,14 +170,14 @@ class GroupsController extends WebzashAppController {
 		}
 
 		/* Check if any child groups exists */
-		$child = $this->Group->find('count', array('conditions' => array('parent_id' => $id)));
+		$child = $this->Group->find('count', array('conditions' => array('Group.parent_id' => $id)));
 		if ($child > 0) {
 			$this->Session->setFlash(__('The account group cannot be deleted since it has one or more child group accounts still present.'), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child ledgers exists */
-		$child = $this->Ledger->find('count', array('conditions' => array('group_id' => $id)));
+		$child = $this->Ledger->find('count', array('conditions' => array('Ledger.group_id' => $id)));
 		if ($child > 0) {
 			$this->Session->setFlash(__('The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'error');
 			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));

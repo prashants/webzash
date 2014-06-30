@@ -145,6 +145,8 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
+		$this->loadModel('Entry');
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -160,14 +162,12 @@ class EntrytypesController extends WebzashAppController {
 			throw new NotFoundException(__('Invalid entry type.'));
 		}
 
-		/* TODO : Check if any vouchers using the entry type exists */
-		/*
-		$active = $this->Voucher->find('count', array('conditions' => array('entrytype_id' => $id)));
-		if ($active > 0) {
-			$this->Session->setFlash(__('The entry type cannot be deleted since one or more vouchers are using it.'), 'error');
+		/* Check if any entry using the entry type exists */
+		$entries = $this->Entry->find('count', array('conditions' => array('Entry.entrytype_id' => $id)));
+		if ($entries > 0) {
+			$this->Session->setFlash(__('The entry type cannot be deleted since one or more entries are still using it.'), 'error');
 			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
-		*/
 
 		/* Delete entry type */
 		if ($this->Entrytype->delete($id)) {
