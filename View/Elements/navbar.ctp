@@ -62,6 +62,7 @@
 						<li><a href="#">Reconciliation</a></li>
 					</ul>
 				</li>
+				<li><?php echo $this->Html->link(__('Search'), array('plugin' => 'webzash', 'controller' => 'search', 'action' => 'index')); ?></li>
 				<li><?php echo $this->Html->link(__('Settings'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index')); ?></li>
 				<li><a href="#">Help</a></li>
 			</ul>
