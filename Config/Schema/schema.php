@@ -55,6 +55,7 @@ class WebzashSchema extends CakeSchema {
 		'cl_balance_dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'type' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 2),
 		'reconciliation' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
+		'lock_hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 40, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
