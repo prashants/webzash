@@ -125,6 +125,8 @@ class TagsController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
+		$this->loadModel('Entry');
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -140,14 +142,12 @@ class TagsController extends WebzashAppController {
 			throw new NotFoundException(__('Invalid tag.'));
 		}
 
-		/* TODO : Check if any vouchers using the tag exists */
-		/*
-		$active = $this->Voucher->find('count', array('conditions' => array('tag_id' => $id)));
-		if ($active > 0) {
-			$this->Session->setFlash(__('The tag cannot be deleted since one or more vouchers are using it.'), 'error');
+		/* Check if any entries using the tag exists */
+		$entries = $this->Entry->find('count', array('conditions' => array('tag_id' => $id)));
+		if ($entries > 0) {
+			$this->Session->setFlash(__('The tag cannot be deleted since one or more entries are still using it.'), 'error');
 			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
-		*/
 
 		/* Delete tag */
 		if ($this->Tag->delete($id)) {
