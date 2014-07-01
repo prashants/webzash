@@ -35,4 +35,249 @@ App::uses('WebzashAppModel', 'Webzash.Model');
  */
 class Entry extends WebzashAppModel {
 
+	/* Validation rules for the Entry table */
+	public $validate = array(
+		'tag_id' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Tag id is not a valid number',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 11),
+				'message' => 'Tag id length cannot be more than 11',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule3' => array(
+				'rule' => 'validTag',
+				'message' => 'Tag id is not valid',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'entrytype_id' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Entry type cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'numeric',
+				'message' => 'Entry type is not a valid number',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('maxLength', 11),
+				'message' => 'Entry type length cannot be more than 11',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule' => 'validEntrytype',
+				'message' => 'Entry type is not valid',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'number' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Entry number is not a valid number',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 11),
+				'message' => 'Entry number length cannot be more than 11',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'date' => array(
+			'rule1' => array(
+				'rule' => 'fullDateTime',
+				'message' => 'Invalid value for entry date',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'afterStart',
+				'message' => 'Entry date should be after financial year start',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => 'beforeEnd',
+				'message' => 'Entry date should be before financial year end',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'dr_total' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Debit total cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'isAmount',
+				'message' => 'Debit total is not a valid amount',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('maxLength', 28),
+				'message' => 'Debit total length cannot be more than 28',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'cr_total' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Credit total cannot be empty',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'isAmount',
+				'message' => 'Credit total is not a valid amount',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('maxLength', 28),
+				'message' => 'Credit total length cannot be more than 28',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'narration' => array(
+		),
+	);
+
+/**
+ * Validation - Check if entry type is valid
+ */
+	public function validEntrytype($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		/* TODO : Access Entrytype model and check if value is valid */
+		return true;
+	}
+
+/**
+ * Validation - Check if tag_id is a valid id
+ */
+	public function validTag($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		/* TODO : Access Tag model and check if value is valid */
+		return true;
+	}
+
+/**
+ * Validation - Check if value is a proper decimal number with 2 decimal places
+ */
+	public function isAmount($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+		if (preg_match('/^[0-9]{0,23}+(\.[0-9]{0,2})?$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+/**
+ * Validation - Check if valid datetime
+ */
+	public function fullDateTime($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		$unixtime = strtotime($value);
+
+		if (FALSE !== $unixtime) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
+ * Validation - Check if entry date is after financial year start
+ */
+	public function afterStart($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		$startdate = strtotime(CakeSession::read('startDate'));
+		$entrydate = strtotime($value);
+
+		if ($startdate < $entrydate) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
+ * Validation - Check if entry date is before financial year end
+ */
+	public function beforeEnd($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		$enddate = strtotime(CakeSession::read('endDate'));
+		$entrydate = strtotime($value);
+
+		if ($enddate >= $entrydate) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
+ * Calculate the next number for a entry based on entry type
+ */
+	public function nextNumber($id)	{
+		$max = $this->find('first', array(
+			'conditions' => array('Entry.entrytype_id' => $id),
+			'fields' => array('MAX(Entry.number) AS max'),
+		));
+		if (empty($max[0]['max'])) {
+			$maxNumber = 0;
+		} else {
+			$maxNumber = $max[0]['max'];
+		}
+		return $maxNumber + 1;
+	}
 }
