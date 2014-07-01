@@ -96,6 +96,12 @@ class Entry extends WebzashAppModel {
 				'required'   => true,
 				'allowEmpty' => true,
 			),
+			'rule3' => array(
+				'rule' => 'isUniqueEntryNumber',
+				'message' => 'Entry number already exists',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
 		),
 		'date' => array(
 			'rule1' => array(
@@ -173,6 +179,31 @@ class Entry extends WebzashAppModel {
 
 		/* TODO : Access Entrytype model and check if value is valid */
 		return true;
+	}
+
+/**
+ * Validation - Check if entry number is unique within the entry type
+ */
+	public function isUniqueEntryNumber($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		/* Check if any entry number exists within the same entry type */
+		$count = $this->find('count', array(
+			'conditions' => array(
+				'Entry.number' => $value,
+				'Entry.entrytype_id' => $this->data['Entry']['entrytype_id'],
+			),
+		));
+
+		if ($count != 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 /**
