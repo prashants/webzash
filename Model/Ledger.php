@@ -35,18 +35,6 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Ledger extends WebzashAppModel {
 
-	public $belongsTo = array(
-		'Group' => array(
-			'className'  => 'Group',
-			'foreignKey'  => 'group_id',
-		)
-	);
-	public $hasMany = array(
-		'Entryitem' => array(
-			'className' => 'Entryitem',
-		)
-	);
-
 	/* Validation rules for the Ledger table */
 	public $validate = array(
 
@@ -203,11 +191,16 @@ class Ledger extends WebzashAppModel {
 
 	/* Validation - Check if group_id is a valid id */
 	public function groupValid($data) {
+
+		/* Load the Group model */
+		App::import("Webzash.Model", "Group");
+		$Group = new Group();
+
 		if (!isset($data['group_id'])) {
 			return false;
 		}
 
-		$groupCount = $this->Group->find('count', array(
+		$groupCount = $Group->find('count', array(
 		    'conditions' => array('id' => $data['group_id']),
 		));
 
@@ -257,7 +250,15 @@ class Ledger extends WebzashAppModel {
 	 * If it doesnt match then the closing balance has been updated by
 	 * someone else and we have to repeat the entire process again.
 	 */
-	public function updateClosingBalance($id) {
+	public function updateClosingBalance($id = null) {
+
+		if (empty($id)) {
+			return false;
+		}
+
+		/* Load the Entryitem model */
+		App::import("Webzash.Model", "Entryitem");
+		$Entryitem = new Entryitem();
 
 		while (1) {
 			/* Generate random hash */
@@ -282,10 +283,10 @@ class Ledger extends WebzashAppModel {
 			$dr_total = 0;
 			$cr_total = 0;
 
-			$this->Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+			$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
 
 			/* Debit total */
-			$total = $this->Entryitem->find('first', array(
+			$total = $Entryitem->find('first', array(
 				'fields' => array('total'),
 				'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'D')
 			));
@@ -296,7 +297,7 @@ class Ledger extends WebzashAppModel {
 			}
 
 			/* Credit total */
-			$total = $this->Entryitem->find('first', array(
+			$total = $Entryitem->find('first', array(
 				'fields' => array('total'),
 				'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'C')
 			));
