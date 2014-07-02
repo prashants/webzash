@@ -177,8 +177,15 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		/* TODO : Access Entrytype model and check if value is valid */
-		return true;
+		/* Load the Tag model */
+		App::import("Webzash.Model", "Entrytype");
+		$Entrytype = new Entrytype();
+
+		if ($Entrytype->exists($value)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 /**
@@ -216,8 +223,15 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		/* TODO : Access Tag model and check if value is valid */
-		return true;
+		/* Load the Tag model */
+		App::import("Webzash.Model", "Tag");
+		$Tag = new Tag();
+
+		if ($Tag->exists($value)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 /**
