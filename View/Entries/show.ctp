@@ -28,13 +28,13 @@
 <table>
 
 <tr>
-<th><?php echo __('Date'); ?></th>
-<th><?php echo __('Number'); ?></th>
+<th><?php echo $this->Paginator->sort('date', __('Date')); ?></th>
+<th><?php echo $this->Paginator->sort('number', __('Number')); ?></th>
 <th><?php echo __('Ledger'); ?></th>
 <th><?php echo __('Type'); ?></th>
-<th><?php echo __('Tag'); ?></th>
-<th><?php echo __('Debit Amount'); ?></th>
-<th><?php echo __('Credit Amount'); ?></th>
+<th><?php echo $this->Paginator->sort('tag_id', __('Tag')); ?></th>
+<th><?php echo $this->Paginator->sort('dr_total', __('Debit Amount')); ?></th>
+<th><?php echo $this->Paginator->sort('cr_total', __('Credit Amount')); ?></th>
 <th><?php echo __('Actions'); ?></th>
 </tr>
 
@@ -57,3 +57,17 @@ foreach ($entries as $entry) {
 }
 ?>
 </table>
+
+<?php
+	echo "<div class='paging'>";
+	echo $this->Paginator->first("First");
+	if ($this->Paginator->hasPrev()) {
+		echo $this->Paginator->prev("Prev");
+	}
+	echo $this->Paginator->numbers();
+	if ($this->Paginator->hasNext()){
+		echo $this->Paginator->next("Next");
+	}
+	echo $this->Paginator->last("Last");
+	echo ' Entries ' . $this->Paginator->counter();
+	echo "</div>";

@@ -38,14 +38,24 @@ class EntriesController extends WebzashAppController {
 
 	public $helpers = array('Webzash.Generic');
 
+	public $components = array('Paginator');
+
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->loadModel('Entrytype');
-		$this->set('entries', $this->Entry->find('all', array('order' => array('Entry.date'))));
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'limit' => 10,
+				'order' => array('Entry.date' => 'desc'),
+			)
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
 		return;
 	}
 
@@ -72,10 +82,16 @@ class EntriesController extends WebzashAppController {
 			array('controller' => 'entries', 'action' => 'add', 'data' => $entrytype['Entrytype']['label'], 'title' => __('Add ') . $entrytype['Entrytype']['name']),
 		));
 
-		$this->set('entries', $this->Entry->find('all', array(
-			'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
-			'order' => array('Entry.date')
-		)));
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'limit' => 5,
+				'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
+				'order' => array('Entry.date' => 'desc'),
+			)
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
 
 		$this->set('entrytype', $entrytype);
 
@@ -87,7 +103,7 @@ class EntriesController extends WebzashAppController {
  *
  * @return void
  */
-	public function add($entrytypeLabel) {
+	public function add($entrytypeLabel = null) {
 
 	}
 
