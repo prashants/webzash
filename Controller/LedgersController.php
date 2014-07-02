@@ -105,12 +105,14 @@ class LedgersController extends WebzashAppController {
 		$this->loadModel('Group');
 
 		/* Check for valid ledger */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid account ledger.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Account ledger not specified.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 		$ledger = $this->Ledger->findById($id);
 		if (!$ledger) {
-			throw new NotFoundException(__('Invalid account ledger.'));
+			$this->Session->setFlash(__('Account ledger not found.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Create list of parent groups */
@@ -164,13 +166,15 @@ class LedgersController extends WebzashAppController {
 		}
 
 		/* Check if valid id */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid account ledger.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Account ledger not specified.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($id)) {
-			throw new NotFoundException(__('Invalid account ledger.'));
+			$this->Session->setFlash(__('Account ledger not found.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any entry item using this ledger still exists */

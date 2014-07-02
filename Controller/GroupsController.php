@@ -93,15 +93,18 @@ class GroupsController extends WebzashAppController {
  */
 	public function edit($id = null) {
 		/* Check for valid group */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid account group.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Account group not specified.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 		$group = $this->Group->findById($id);
 		if (!$group) {
-			throw new NotFoundException(__('Invalid account group.'));
+			$this->Session->setFlash(__('Account group not found.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 		if ($id <= 4) {
-			throw new ForbiddenException(__('Cannot edit basic account groups.'));
+			$this->Session->setFlash(__('Cannot edit basic account groups.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Create list of parent groups */
@@ -155,18 +158,21 @@ class GroupsController extends WebzashAppController {
 		}
 
 		/* Check if valid id */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid account group.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Account group not specified.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if group exists */
 		if (!$this->Group->exists($id)) {
-			throw new NotFoundException(__('Invalid account group.'));
+			$this->Session->setFlash(__('Account group not found.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if group can be deleted */
 		if ($id <= 4) {
-			throw new ForbiddenException(__('Cannot delete basic account groups.'));
+			$this->Session->setFlash(__('Cannot delete basic account groups.'), 'error');
+			return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child groups exists */

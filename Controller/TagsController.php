@@ -88,12 +88,14 @@ class TagsController extends WebzashAppController {
  */
 	public function edit($id = null) {
 		/* Check for valid tag */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid tag.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Tag not specified.'), 'error');
+			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
 		$tag = $this->Tag->findById($id);
 		if (!$tag) {
-			throw new NotFoundException(__('Invalid tag.'));
+			$this->Session->setFlash(__('Tag not found.'), 'error');
+			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -132,14 +134,16 @@ class TagsController extends WebzashAppController {
 			throw new MethodNotAllowedException();
 		}
 
-		/* Check if valid id */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid tag.'));
+		/* Check for valid tag */
+		if (empty($id)) {
+			$this->Session->setFlash(__('Tag not specified.'), 'error');
+			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
 
 		/* Check if tag exists */
 		if (!$this->Tag->exists($id)) {
-			throw new NotFoundException(__('Invalid tag.'));
+			$this->Session->setFlash(__('Tag not found.'), 'error');
+			return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 		}
 
 		/* Check if any entries using the tag exists */

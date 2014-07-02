@@ -98,12 +98,14 @@ class EntrytypesController extends WebzashAppController {
  */
 	public function edit($id = null) {
 		/* Check for valid entry type */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid entry type.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Entry type not specified.'), 'error');
+			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->findById($id);
 		if (!$entrytype) {
-			throw new NotFoundException(__('Invalid entry type.'));
+			$this->Session->setFlash(__('Entry type not found.'), 'error');
+			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -153,13 +155,15 @@ class EntrytypesController extends WebzashAppController {
 		}
 
 		/* Check if valid id */
-		if (!$id) {
-			throw new NotFoundException(__('Invalid entry type.'));
+		if (empty($id)) {
+			$this->Session->setFlash(__('Entry type not specified.'), 'error');
+			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
 
 		/* Check if entry type exists */
 		if (!$this->Entrytype->exists($id)) {
-			throw new NotFoundException(__('Invalid entry type.'));
+			$this->Session->setFlash(__('Entry type not found.'), 'error');
+			return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 		}
 
 		/* Check if any entry using the entry type exists */

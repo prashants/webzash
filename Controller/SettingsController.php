@@ -61,7 +61,8 @@ class SettingsController extends AppController {
 	public function account() {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			throw new NotFoundException(__('Settings not found.'));
+			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -104,7 +105,8 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			throw new NotFoundException(__('Settings not found.'));
+			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -136,7 +138,8 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			throw new NotFoundException(__('Settings not found.'));
+			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -177,7 +180,8 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			throw new NotFoundException(__('Settings not found.'));
+			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
 		$this->set('locked', $setting['Setting']['account_locked']);
