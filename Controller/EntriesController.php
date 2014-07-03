@@ -376,6 +376,8 @@ class EntriesController extends WebzashAppController {
 	public function delete($entrytypeLabel = null, $id = null) {
 		$this->loadModel('Entryitem');
 		$this->loadModel('Entrytype');
+		$this->loadModel('Ledger');
+		$this->Ledger->Behaviors->attach('Webzash.Generic');
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
@@ -405,19 +407,43 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
 		}
 
+		/* Find affect ledgers */
+		$ledgerIds = array();
+		$entryitems = $this->Entryitem->find('all', array('conditions' => array('Entryitem.entry_id' => $id)));
+		foreach ($entryitems as $row => $entryitem) {
+			$ledgerIds[] = $entryitem['Entryitem']['ledger_id'];
+		}
+
+		$ds = $this->Entry->getDataSource();
+		$ds->begin();
+
 		/* Delete entry items */
 		if (!$this->Entryitem->deleteAll(array('Entryitem.entry_id' => $id))) {
-			$this->Session->setFlash(__('The entry ledgers could not be deleted. Please, try again.'), 'error');
+			$ds->rollback();
+			$this->Session->setFlash(__('The entry items could not be deleted. Please, try again.'), 'error');
 			return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
 		/* Delete entry */
-		if ($this->Entry->delete($id)) {
-			$this->Session->setFlash(__('The entry has been deleted.'), 'success');
-		} else {
+		if (!$this->Entry->delete($id)) {
+			$ds->rollback();
 			$this->Session->setFlash(__('The entry could not be deleted. Please, try again.'), 'error');
+			return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
+		/* Update delete entryitems ledger closing balance */
+		foreach ($ledgerIds as $row => $ledgerId) {
+			/* Update closing balance using Behaviour */
+			if (!$this->Ledger->updateClosingBalance($ledgerId)) {
+				$ds->rollback();
+				$this->Session->setFlash(__('Failed to update closing balance'), 'error');
+				return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+			}
+		}
+
+		$ds->commit();
+
+		$this->Session->setFlash(__('The entry has been deleted.'), 'success');
 		return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 	}
 
