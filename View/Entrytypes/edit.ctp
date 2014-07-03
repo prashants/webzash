@@ -28,7 +28,7 @@
 <div class="entrytypes edit form">
 	<?php
 		$numbering_options = array(
-			'1' => __('Unrestricted'),
+			'1' => __('Auto'),
 			'2' => __('Manual (required)'),
 			'3' => __('Manual (optional)'),
 		);
