@@ -73,10 +73,15 @@ class EntrytypesController extends WebzashAppController {
 				}
 
 				/* Save entry type */
+				$ds = $this->Entrytype->getDataSource();
+				$ds->begin();
+
 				if ($this->Entrytype->save($this->request->data)) {
+					$ds->commit();
 					$this->Session->setFlash(__('The entry type has been created.'), 'success');
 					return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
-				} else { return;
+				} else {
+					$ds->rollback();
 					$this->Session->setFlash(__('The entry type could not be saved. Please, try again.'), 'error');
 					return;
 				}
@@ -125,10 +130,15 @@ class EntrytypesController extends WebzashAppController {
 			}
 
 			/* Save entry type */
+			$ds = $this->Entrytype->getDataSource();
+			$ds->begin();
+
 			if ($this->Entrytype->save($this->request->data)) {
+				$ds->commit();
 				$this->Session->setFlash(__('The entry type has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('The entry type could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -174,9 +184,14 @@ class EntrytypesController extends WebzashAppController {
 		}
 
 		/* Delete entry type */
+		$ds = $this->Entrytype->getDataSource();
+		$ds->begin();
+
 		if ($this->Entrytype->delete($id)) {
+			$ds->commit();
 			$this->Session->setFlash(__('The entry type has been deleted.'), 'success');
 		} else {
+			$ds->rollback();
 			$this->Session->setFlash(__('The entry type could not be deleted. Please, try again.'), 'error');
 		}
 

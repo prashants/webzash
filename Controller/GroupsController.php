@@ -68,10 +68,15 @@ class GroupsController extends WebzashAppController {
 				unset($this->request->data['Group']['id']);
 
 				/* Save group */
+				$ds = $this->Group->getDataSource();
+				$ds->begin();
+
 				if ($this->Group->save($this->request->data)) {
+					$ds->commit();
 					$this->Session->setFlash(__('The account group has been created.'), 'success');
 					return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 				} else {
+					$ds->rollback();
 					$this->Session->setFlash(__('The account group could not be saved. Please, try again.'), 'error');
 					return;
 				}
@@ -128,10 +133,15 @@ class GroupsController extends WebzashAppController {
 			}
 
 			/* Save group */
+			$ds = $this->Group->getDataSource();
+			$ds->begin();
+
 			if ($this->Group->save($this->request->data)) {
+				$ds->commit();
 				$this->Session->setFlash(__('The account group has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('The account group could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -190,9 +200,14 @@ class GroupsController extends WebzashAppController {
 		}
 
 		/* Delete group */
+		$ds = $this->Group->getDataSource();
+		$ds->begin();
+
 		if ($this->Group->delete($id)) {
+			$ds->commit();
 			$this->Session->setFlash(__('The account group has been deleted.'), 'success');
 		} else {
+			$ds->rollback();
 			$this->Session->setFlash(__('The account group could not be deleted. Please, try again.'), 'error');
 		}
 

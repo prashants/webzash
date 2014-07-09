@@ -72,10 +72,15 @@ class SettingsController extends AppController {
 			$this->Setting->id = 1;
 
 			/* Save settings */
+			$ds = $this->Setting->getDataSource();
+			$ds->begin();
+
 			if ($this->Setting->save($this->request->data, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
+				$ds->commit();
 				$this->Session->setFlash(__('Account settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('Account settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -116,10 +121,15 @@ class SettingsController extends AppController {
 			$this->Setting->id = 1;
 
 			/* Save settings */
+			$ds = $this->Setting->getDataSource();
+			$ds->begin();
+
 			if ($this->Setting->save($this->request->data, true, array('email_protocol', 'email_host', 'email_port', 'email_username', 'email_password'))) {
+				$ds->commit();
 				$this->Session->setFlash(__('Email settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('Email settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -149,10 +159,15 @@ class SettingsController extends AppController {
 			$this->Setting->id = 1;
 
 			/* Save settings */
+			$ds = $this->Setting->getDataSource();
+			$ds->begin();
+
 			if ($this->Setting->save($this->request->data, true, array('print_paper_height', 'print_paper_width', 'print_margin_top', 'print_margin_bottom', 'print_margin_left', 'print_margin_right', 'print_orientation', 'print_page_format'))) {
+				$ds->commit();
 				$this->Session->setFlash(__('Printer settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('Printer settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -193,7 +208,11 @@ class SettingsController extends AppController {
 			$this->Setting->id = 1;
 
 			/* Save settings */
+			$ds = $this->Setting->getDataSource();
+			$ds->begin();
+
 			if ($this->Setting->save($this->request->data, true, array('account_locked'))) {
+				$ds->commit();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
 					$this->Session->setFlash(__('Account has been locked.'), 'success');
 				} else {
@@ -201,6 +220,7 @@ class SettingsController extends AppController {
 				}
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
 					$this->Session->setFlash(__('Account could not be locked. Please, try again.'), 'error');
 				} else {

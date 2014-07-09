@@ -76,11 +76,16 @@ class LedgersController extends WebzashAppController {
 					$this->request->data['Ledger']['op_balance'] = 0;
 				}
 
-				/* Save group */
+				/* Save ledger */
+				$ds = $this->Ledger->getDataSource();
+				$ds->begin();
+
 				if ($this->Ledger->save($this->request->data)) {
+					$ds->commit();
 					$this->Session->setFlash(__('The account ledger has been created.'), 'success');
 					return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 				} else {
+					$ds->rollback();
 					$this->Session->setFlash(__('The account ledger could not be saved. Please, try again.'), 'error');
 					return;
 				}
@@ -126,10 +131,15 @@ class LedgersController extends WebzashAppController {
 			$this->Ledger->id = $id;
 
 			/* Save ledger */
+			$ds = $this->Ledger->getDataSource();
+			$ds->begin();
+
 			if ($this->Ledger->save($this->request->data)) {
+				$ds->commit();
 				$this->Session->setFlash(__('The account ledger has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('The account ledger could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -175,9 +185,14 @@ class LedgersController extends WebzashAppController {
 		}
 
 		/* Delete ledger */
+		$ds = $this->Ledger->getDataSource();
+		$ds->begin();
+
 		if ($this->Ledger->delete($id)) {
+			$ds->commit();
 			$this->Session->setFlash(__('The account ledger has been deleted.'), 'success');
 		} else {
+			$ds->rollback();
 			$this->Session->setFlash(__('The account ledger could not be deleted. Please, try again.'), 'error');
 		}
 

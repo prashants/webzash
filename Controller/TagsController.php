@@ -63,10 +63,15 @@ class TagsController extends WebzashAppController {
 				unset($this->request->data['Tag']['id']);
 
 				/* Save tag */
+				$ds = $this->Tag->getDataSource();
+				$ds->begin();
+
 				if ($this->Tag->save($this->request->data)) {
+					$ds->commit();
 					$this->Session->setFlash(__('The tag has been created.'), 'success');
 					return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 				} else {
+					$ds->rollback();
 					$this->Session->setFlash(__('The tag could not be saved. Please, try again.'), 'error');
 					return;
 				}
@@ -105,10 +110,15 @@ class TagsController extends WebzashAppController {
 			$this->Tag->id = $id;
 
 			/* Save tag */
+			$ds = $this->Tag->getDataSource();
+			$ds->begin();
+
 			if ($this->Tag->save($this->request->data)) {
+				$ds->commit();
 				$this->Session->setFlash(__('The tag has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 			} else {
+				$ds->rollback();
 				$this->Session->setFlash(__('The tag could not be updated. Please, try again.'), 'error');
 				return;
 			}
@@ -154,9 +164,14 @@ class TagsController extends WebzashAppController {
 		}
 
 		/* Delete tag */
+		$ds = $this->Tag->getDataSource();
+		$ds->begin();
+
 		if ($this->Tag->delete($id)) {
+			$ds->commit();
 			$this->Session->setFlash(__('The tag has been deleted.'), 'success');
 		} else {
+			$ds->rollback();
 			$this->Session->setFlash(__('The tag could not be deleted. Please, try again.'), 'error');
 		}
 
