@@ -143,8 +143,16 @@ class Entryitem extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		/* TODO : Access Entry model and check if value is valid */
-		return true;
+		/* Load the Entry model */
+		App::import("Webzash.Model", "Entry");
+		$Entry = new Entry();
+
+		/* Check if entry exists */
+		if ($Entry->exists($value)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 /**
@@ -157,8 +165,16 @@ class Entryitem extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		/* TODO : Access Ledger model and check if value is valid */
-		return true;
+		/* Load the Group model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+
+		/* Check if ledger exists */
+		if ($Ledger->exists($value)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 /**
