@@ -293,10 +293,31 @@ $(document).ready(function() {
 	/* Intial rows */
 	foreach ($curEntryitems as $row => $entryitem) {
 		echo '<tr>';
-		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
-		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
-		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
-		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
+
+		if (empty($entryitem['dc'])) {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
+		} else {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
+		}
+
+		if (empty($entryitem['ledger_id'])) {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+		} else {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+		}
+
+		if (empty($entryitem['dr_amount'])) {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
+		} else {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('default' => $entryitem['dr_amount'], 'label' => false, 'class' => 'dr-item')) . '</td>';
+		}
+
+		if (empty($entryitem['cr_amount'])) {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
+		} else {
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('default' => $entryitem['cr_amount'], 'label' => false, 'class' => 'cr-item')) . '</td>';
+		}
+
 		echo '<td>' . $this->Html->image('Webzash.add.png', array('alt' => 'Add row', 'class' => 'addrow')) . '</td>';
 		echo '<td>' . $this->Html->image('Webzash.delete.png', array('alt' => 'Delete row', 'class' => 'deleterow')) . '</td>';
 		echo '<td class="ledger-balance"><div></div></td>';

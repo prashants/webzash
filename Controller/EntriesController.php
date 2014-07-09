@@ -126,21 +126,34 @@ class EntriesController extends WebzashAppController {
 		}
 		$this->set('entrytype', $entrytype);
 
-		/* Initial entry items present */
-		$curEntryitems = array();
-		if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
-			/* Special case if atleast one Bank or Cash on credit side (3) then 1st item is Cr */
-			$curEntryitems[0] = array('dc' => 'C');
-			$curEntryitems[1] = array('dc' => 'D');
+		/* Initial data */
+		if ($this->request->is('post')) {
+			$curEntryitems = array();
+			foreach ($this->request->data['Entryitem'] as $row => $entryitem) {
+				$curEntryitems[] = array(
+					'dc' => $entryitem['dc'],
+					'ledger_id' => $entryitem['ledger_id'],
+					'dr_amount' => isset($entryitem['dr_amount']) ? $entryitem['dr_amount'] : '',
+					'cr_amount' => isset($entryitem['cr_amount']) ? $entryitem['cr_amount'] : '',
+				);
+			}
+			$this->set('curEntryitems', $curEntryitems);
 		} else {
-			/* Otherwise 1st item is Dr */
-			$curEntryitems[0] = array('dc' => 'D');
-			$curEntryitems[1] = array('dc' => 'C');
+			$curEntryitems = array();
+			if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+				/* Special case if atleast one Bank or Cash on credit side (3) then 1st item is Cr */
+				$curEntryitems[0] = array('dc' => 'C');
+				$curEntryitems[1] = array('dc' => 'D');
+			} else {
+				/* Otherwise 1st item is Dr */
+				$curEntryitems[0] = array('dc' => 'D');
+				$curEntryitems[1] = array('dc' => 'C');
+			}
+			$curEntryitems[2] = array('dc' => 'D');
+			$curEntryitems[3] = array('dc' => 'D');
+			$curEntryitems[4] = array('dc' => 'D');
+			$this->set('curEntryitems', $curEntryitems);
 		}
-		$curEntryitems[2] = array('dc' => 'D');
-		$curEntryitems[3] = array('dc' => 'D');
-		$curEntryitems[4] = array('dc' => 'D');
-		$this->set('curEntryitems', $curEntryitems);
 
 		/* On POST */
 		if ($this->request->is('post')) {
