@@ -252,7 +252,7 @@ $(document).ready(function() {
 		var add_image_url = $(cur_obj).attr('src');
 		$(cur_obj).attr('src', '<?php echo $this->Html->assetUrl("Webzash.ajax.gif", array("fullBase" => true, "pathPrefix" => IMAGES_URL)); ?>');
 		$.ajax({
-			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $ajaxledgertype)); ?>',
+			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $this->Generic->ajaxAddLedger($entrytype["Entrytype"]["bank_cash_ledger_restriction"]))); ?>',
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
 				$(cur_obj).attr('src', add_image_url);
@@ -294,7 +294,7 @@ $(document).ready(function() {
 	foreach ($curEntryitems as $row => $entryitem) {
 		echo '<tr>';
 		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
-		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledgers, 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
 		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
 		echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
 		echo '<td>' . $this->Html->image('Webzash.add.png', array('alt' => 'Add row', 'class' => 'addrow')) . '</td>';
@@ -310,7 +310,7 @@ $(document).ready(function() {
 	echo '</table>';
 
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __('Narration'), 'rows' => '3'));
-	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $tags, 'label' => __('Tag')));
+	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __('Tag')));
 	echo $this->Form->end(__('Submit'));
 	echo $this->Html->link(__('Back'), array('controller' => 'entries', 'action' => 'index'));
 ?>

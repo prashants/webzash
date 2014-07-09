@@ -75,4 +75,61 @@ class GenericHelper extends AppHelper {
 			return array($entrytype['Entrytype']['name'], $entrytype['Entrytype']['label']);
 		}
 	}
+
+/**
+ * Helper method to return the tags in list form
+ */
+	function tagList() {
+		/* Load the Tag model */
+		App::import("Webzash.Model", "Tag");
+		$model = new Tag();
+
+		$rawtags = $model->find('all', array('fields' => array('id', 'title'), 'order' => 'Tag.title'));
+		$tags = array(0 => '(None)');
+		foreach ($rawtags as $id => $rawtag) {
+			$tags[$rawtag['Tag']['id']] = $rawtag['Tag']['title'];
+		}
+		return $tags;
+	}
+
+/**
+ * Helper method to return the ledgers in list form
+ */
+	function ledgerList($bank_cash_ledger_restriction) {
+		/* Load the Tag model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+
+		/* Fetch all ledgers depending on the entry type */
+		$ledgers[0] = '(Please select..)';
+
+		if ($bank_cash_ledger_restriction == 4) {
+			$rawledgers = $Ledger->find('all', array('conditions' => array('Ledger.type' => '1'), 'order' => 'Ledger.name'));
+		} else if ($bank_cash_ledger_restriction == 5) {
+			$rawledgers = $Ledger->find('all', array('conditions' => array('Ledger.type' => '0'), 'order' => 'Ledger.name'));
+		} else {
+			$rawledgers = $Ledger->find('all', array('order' => 'Ledger.name'));
+		}
+
+		foreach ($rawledgers as $row => $rawledger) {
+			$ledgers[$rawledger['Ledger']['id']] = $rawledger['Ledger']['name'];
+		}
+
+		return $ledgers;
+	}
+
+/**
+ * Helper method to return the ledgers in list form
+ */
+	function ajaxAddLedger($bank_cash_ledger_restriction) {
+		$ajaxurl = '';
+		if ($bank_cash_ledger_restriction == 4) {
+			$ajaxurl = 'bankcash';
+		} else if ($bank_cash_ledger_restriction == 5) {
+			$ajaxurl = 'nonbankcash';
+		} else {
+			$ajaxurl = 'all';
+		}
+		return $ajaxurl;
+	}
 }

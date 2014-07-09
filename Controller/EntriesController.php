@@ -106,7 +106,6 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function add($entrytypeLabel = null) {
-
 		/* TODO : Test code */
 		$this->Session->write('startDate', '2014-04-01 02:00:00');
 		$this->Session->write('endDate', '2015-03-31 00:59:00');
@@ -114,8 +113,6 @@ class EntriesController extends WebzashAppController {
 		$this->loadModel('Entrytype');
 		$this->loadModel('Entryitem');
 		$this->loadModel('Ledger');
-		$this->loadModel('Tag');
-		$this->Ledger->Behaviors->attach('Webzash.Generic');
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
@@ -128,34 +125,6 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('controller' => 'entries', 'action' => 'all'));
 		}
 		$this->set('entrytype', $entrytype);
-
-		/* Fetch all tags and include a 'None' option */
-		$rawtags = $this->Tag->find('all', array('fields' => array('id', 'title'), 'order' => 'Tag.title'));
-		$tags = array(0 => '(None)');
-		foreach ($rawtags as $id => $rawtag) {
-			$tags[$rawtag['Tag']['id']] = $rawtag['Tag']['title'];
-		}
-		$this->set('tags', $tags);
-
-		/* Fetch all ledgers depending on the entry type */
-		$rawledgers = null;
-		$ledgers[0] = '(Please select..)';
-		$ajaxledgertype = '';
-		if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 4) {
-			$rawledgers = $this->Ledger->find('all', array('conditions' => array('Ledger.type' => '1'), 'order' => 'Ledger.name'));
-			$ajaxledgertype = 'bankcash';
-		} else if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 5) {
-			$rawledgers = $this->Ledger->find('all', array('conditions' => array('Ledger.type' => '0'), 'order' => 'Ledger.name'));
-			$ajaxledgertype = 'nonbankcash';
-		} else {
-			$rawledgers = $this->Ledger->find('all', array('order' => 'Ledger.name'));
-			$ajaxledgertype = 'all';
-		}
-		foreach ($rawledgers as $row => $rawledger) {
-			$ledgers[$rawledger['Ledger']['id']] = $rawledger['Ledger']['name'];
-		}
-		$this->set('ledgers', $ledgers);
-		$this->set('ajaxledgertype', $ajaxledgertype);
 
 		/* Initial entry items present */
 		$curEntryitems = array();
@@ -227,12 +196,9 @@ class EntriesController extends WebzashAppController {
 				/***************************** ENTRY ITEMS *********************************/
 				/***************************************************************************/
 
-				$entryitemdata = array();
-				$dr_total = 0;
-				$cr_total = 0;
+				/* Check ledger restriction */
 				$dc_valid = false;
-
-				foreach ($this->request->data['Entryitem'] as $id => $entryitem) {
+				foreach ($this->request->data['Entryitem'] as $row => $entryitem) {
 					if ($entryitem['ledger_id'] <= 0) {
 						continue;
 					}
@@ -242,7 +208,6 @@ class EntriesController extends WebzashAppController {
 						return;
 					}
 
-					/* Check ledger restriction */
 					if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
 							$this->Session->setFlash(__('Only bank or cash ledgers are allowed'), 'error');
@@ -254,47 +219,22 @@ class EntriesController extends WebzashAppController {
 							$this->Session->setFlash(__('Bank or cash ledgers are not allowed'), 'error');
 							return;
 						}
-
 					}
 
 					if ($entryitem['dc'] == 'D') {
-						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__('Invalid amount'), 'error');
-							return;
-						}
-						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
-						/* Check ledger restriction */
 						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
 					} else if ($entryitem['dc'] == 'C') {
-						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__('Invalid amount'), 'error');
-							return;
-						}
-						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
-						/* Check ledger restriction */
 						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
-					} else {
-						$this->Session->setFlash(__('Invalid Dr/Cr'), 'error');
-						return;
-					}
-
-					/* Add item to entryitemdata array */
-					if ($entryitem['dc'] == 'D') {
-						$entryitemdata[] = array('Entryitem' => array('dc' => $entryitem['dc'], 'ledger_id' => $entryitem['ledger_id'], 'amount' => $entryitem['dr_amount']));
-					} else {
-						$entryitemdata[] = array('Entryitem' => array('dc' => $entryitem['dc'], 'ledger_id' => $entryitem['ledger_id'], 'amount' => $entryitem['cr_amount']));
 					}
 				}
-
-				/* Check ledger restriction */
 				if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
 					if (!$dc_valid) {
 						$this->Session->setFlash(__('Atleast one bank or cash ledger has to be on debit side'), 'error');
@@ -308,13 +248,64 @@ class EntriesController extends WebzashAppController {
 					}
 				}
 
-				/* Check if debit and credit total match */
+				$dr_total = 0;
+				$cr_total = 0;
+
+				/* Check equality of debit and credit total */
+				foreach ($this->request->data['Entryitem'] as $row => $entryitem) {
+					if ($entryitem['ledger_id'] <= 0) {
+						continue;
+					}
+
+					if ($entryitem['dc'] == 'D') {
+						if ($entryitem['dr_amount'] <= 0) {
+							$this->Session->setFlash(__('Invalid amount'), 'error');
+							return;
+						}
+						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
+					} else if ($entryitem['dc'] == 'C') {
+						if ($entryitem['cr_amount'] <= 0) {
+							$this->Session->setFlash(__('Invalid amount'), 'error');
+							return;
+						}
+						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
+					} else {
+						$this->Session->setFlash(__('Invalid Dr/Cr'), 'error');
+						return;
+					}
+				}
 				if (calculate($dr_total, $cr_total, '!=')) {
 					$this->Session->setFlash(__('Debit and Credit total do not match'), 'error');
 					return;
 				}
+
 				$entrydata['Entry']['dr_total'] = $dr_total;
 				$entrydata['Entry']['cr_total'] = $cr_total;
+
+				/* Add item to entryitemdata array if everything is ok */
+				$entryitemdata = array();
+				foreach ($this->request->data['Entryitem'] as $row => $entryitem) {
+					if ($entryitem['ledger_id'] <= 0) {
+						continue;
+					}
+					if ($entryitem['dc'] == 'D') {
+						$entryitemdata[] = array(
+							'Entryitem' => array(
+								'dc' => $entryitem['dc'],
+								'ledger_id' => $entryitem['ledger_id'],
+								'amount' => $entryitem['dr_amount'],
+							)
+						);
+					} else {
+						$entryitemdata[] = array(
+							'Entryitem' => array(
+								'dc' => $entryitem['dc'],
+								'ledger_id' => $entryitem['ledger_id'],
+								'amount' => $entryitem['cr_amount'],
+							)
+						);
+					}
+				}
 
 				/* Save entry */
 				$ds = $this->Entry->getDataSource();
@@ -323,18 +314,12 @@ class EntriesController extends WebzashAppController {
 				$this->Entry->create();
 				if ($this->Entry->save($entrydata)) {
 					/* Save entry items */
-					foreach ($entryitemdata as $id => $itemdata) {
+					foreach ($entryitemdata as $row => $itemdata) {
 						$itemdata['Entryitem']['entry_id'] = $this->Entry->id;
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
 							$ds->rollback();
 							$this->Session->setFlash(__('Failed to save entry ledgers'), 'error');
-							return;
-						}
-						/* Update closing balance using Behaviour */
-						if (!$this->Ledger->updateClosingBalance($itemdata['Entryitem']['ledger_id'])) {
-							$ds->rollback();
-							$this->Session->setFlash(__('Failed to update closing balance'), 'error');
 							return;
 						}
 					}
@@ -407,13 +392,6 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
 		}
 
-		/* Find affect ledgers */
-		$ledgerIds = array();
-		$entryitems = $this->Entryitem->find('all', array('conditions' => array('Entryitem.entry_id' => $id)));
-		foreach ($entryitems as $row => $entryitem) {
-			$ledgerIds[] = $entryitem['Entryitem']['ledger_id'];
-		}
-
 		$ds = $this->Entry->getDataSource();
 		$ds->begin();
 
@@ -429,16 +407,6 @@ class EntriesController extends WebzashAppController {
 			$ds->rollback();
 			$this->Session->setFlash(__('The entry could not be deleted. Please, try again.'), 'error');
 			return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
-		}
-
-		/* Update delete entryitems ledger closing balance */
-		foreach ($ledgerIds as $row => $ledgerId) {
-			/* Update closing balance using Behaviour */
-			if (!$this->Ledger->updateClosingBalance($ledgerId)) {
-				$ds->rollback();
-				$this->Session->setFlash(__('Failed to update closing balance'), 'error');
-				return $this->redirect(array('controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
-			}
 		}
 
 		$ds->commit();
