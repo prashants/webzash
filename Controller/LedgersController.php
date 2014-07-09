@@ -67,6 +67,7 @@ class LedgersController extends WebzashAppController {
 			if (!empty($this->request->data)) {
 				/* Unset ID */
 				unset($this->request->data['Ledger']['id']);
+
 				/* If opening balance is not set or empty make it 0 */
 				if (!isset($this->request->data['Ledger']['op_balance'])) {
 					$this->request->data['Ledger']['op_balance'] = 0;
@@ -74,10 +75,6 @@ class LedgersController extends WebzashAppController {
 				if (empty($this->request->data['Ledger']['op_balance'])) {
 					$this->request->data['Ledger']['op_balance'] = 0;
 				}
-
-				/* If add ledger then opening balance = closing balance */
-				$this->request->data['Ledger']['cl_balance'] = $this->request->data['Ledger']['op_balance'];
-				$this->request->data['Ledger']['cl_balance_dc'] = $this->request->data['Ledger']['op_balance_dc'];
 
 				/* Save group */
 				if ($this->Ledger->save($this->request->data)) {
@@ -128,15 +125,8 @@ class LedgersController extends WebzashAppController {
 			unset($this->request->data['Ledger']['id']);
 			$this->Ledger->id = $id;
 
-			/* Reset closing balance */
-			$this->request->data['Ledger']['cl_balance'] = 0;
-			$this->request->data['Ledger']['cl_balance_dc'] = 'D';
-
 			/* Save ledger */
 			if ($this->Ledger->save($this->request->data)) {
-				/* Update closing balance after edit */
-				$this->Ledger->updateClosingBalance($id);
-
 				$this->Session->setFlash(__('The account ledger has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 			} else {
@@ -220,10 +210,12 @@ class LedgersController extends WebzashAppController {
 			return;
 		}
 
+		$cl = closingBalance($id);
+
 		/* Return closing balance */
 		$this->set('cl', array('cl' => array(
-			'dc' => $ledger['Ledger']['cl_balance_dc'],
-			'balance' => $ledger['Ledger']['cl_balance']
+			'dc' => $cl['dc'],
+			'balance' => $cl['balance'],
 		)));
 
 		return;

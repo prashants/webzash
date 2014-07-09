@@ -88,3 +88,86 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 	$result = $result/100;
 	return $result;
 }
+
+/**
+ * Calculate closing balance of specified ledger account
+ *
+ * @param1 int ledger id
+ * @return array D/C, Amount
+*/
+function closingBalance($id) {
+
+	if (empty($id)) {
+		throw new InternalErrorException(__('Ledger not specified. Failed to calculate closing balance.'));
+	}
+
+	App::import("Webzash.Model", "Ledger");
+	$Ledger = new Ledger();
+
+	App::import("Webzash.Model", "Entryitem");
+	$Entryitem = new Entryitem();
+
+	/* Opening balance */
+	$op = $Ledger->find('first', array(
+		'conditions' => array('Ledger.id' => $id)
+	));
+	if (!$op) {
+		throw new InternalErrorException(__('Ledger not found. Failed to calculate closing balance.'));
+	}
+
+	if (empty($op['Ledger']['op_balance'])) {
+		$op_total = 0;
+	} else {
+		$op_total = $op['Ledger']['op_balance'];
+	}
+
+	$dr_total = 0;
+	$cr_total = 0;
+
+	$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+
+	/* Debit total */
+	$total = $Entryitem->find('first', array(
+		'fields' => array('total'),
+		'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'D')
+	));
+	if (empty($total[0]['Entryitem__total'])) {
+		$dr_total = 0;
+	} else {
+		$dr_total = $total[0]['Entryitem__total'];
+	}
+
+	/* Credit total */
+	$total = $Entryitem->find('first', array(
+		'fields' => array('total'),
+		'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'C')
+	));
+	if (empty($total[0]['Entryitem__total'])) {
+		$cr_total = 0;
+	} else {
+		$cr_total = $total[0]['Entryitem__total'];
+	}
+
+	/* Add opening balance */
+	if ($op['Ledger']['op_balance_dc'] == 'D') {
+		$dr_total = calculate($op_total, $dr_total, '+');
+	} else {
+		$cr_total = calculate($op_total, $cr_total, '+');
+	}
+
+	/* Calculate and update closing balance */
+	$cl = 0;
+	$cl_dc = '';
+	if (calculate($dr_total, $cr_total, '>')) {
+		$cl = calculate($dr_total, $cr_total, '-');
+		$cl_dc = 'D';
+	} else if (calculate($cr_total, $dr_total, '==')) {
+		$cl = 0;
+		$cl_dc = $op['Ledger']['op_balance_dc'];
+	} else {
+		$cl = calculate($cr_total, $dr_total, '-');
+		$cl_dc = 'C';
+	}
+
+	return array('dc' => $cl_dc, 'balance' => $cl);
+}

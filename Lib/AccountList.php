@@ -108,12 +108,13 @@ class AccountList
 			$this->children_ledgers[$counter]['name'] = $row['Ledger']['name'];
 			$this->children_ledgers[$counter]['op_balance'] = $row['Ledger']['op_balance'];
 			$this->children_ledgers[$counter]['op_balance_dc'] = $row['Ledger']['op_balance_dc'];
-			$this->children_ledgers[$counter]['cl_balance'] = $row['Ledger']['cl_balance'];
-			$this->children_ledgers[$counter]['cl_balance_dc'] = $row['Ledger']['cl_balance_dc'];
+			$cl = closingBalance($row['Ledger']['id']);
+			$this->children_ledgers[$counter]['cl_balance'] = $cl['balance'];
+			$this->children_ledgers[$counter]['cl_balance_dc'] = $cl['dc'];
 			if ($this->children_ledgers[$counter]['cl_balance_dc'] == 'D') {
-				$this->children_ledgers[$counter]['total'] = $row['Ledger']['cl_balance'];
+				$this->children_ledgers[$counter]['total'] = $this->children_ledgers[$counter]['cl_balance'];
 			} else {
-				$this->children_ledgers[$counter]['total'] = -$row['Ledger']['cl_balance'];
+				$this->children_ledgers[$counter]['total'] = -$this->children_ledgers[$counter]['cl_balance'];
 			}
 			$this->total = calculate($this->total, $this->children_ledgers[$counter]['total'], '+');
 			$counter++;
