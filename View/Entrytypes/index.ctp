@@ -27,12 +27,12 @@
 ?>
 <table>
 	<tr>
-		<th><?php echo __('Label'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Description'); ?></th>
-		<th><?php echo __('Prefix'); ?></th>
-		<th><?php echo __('Suffix'); ?></th>
-		<th><?php echo __('Zero Padding'); ?></th>
+		<th><?php echo __d('webzash', 'Label'); ?></th>
+		<th><?php echo __d('webzash', 'Name'); ?></th>
+		<th><?php echo __d('webzash', 'Description'); ?></th>
+		<th><?php echo __d('webzash', 'Prefix'); ?></th>
+		<th><?php echo __d('webzash', 'Suffix'); ?></th>
+		<th><?php echo __d('webzash', 'Zero Padding'); ?></th>
 		<th></th>
 		<th></th>
 	</tr>
@@ -44,8 +44,8 @@
 			<td><?php echo $entrytype['Entrytype']['prefix']; ?></td>
 			<td><?php echo $entrytype['Entrytype']['suffix']; ?></td>
 			<td><?php echo $entrytype['Entrytype']['zero_padding']; ?></td>
-			<td><?php echo $this->Html->link(__('Edit'), array('controller' => 'entrytypes', 'action' => 'edit', $entrytype['Entrytype']['id'])); ?></td>
-			<td><?php echo $this->Form->postLink(__('Delete'), array('controller' => 'entrytypes', 'action' => 'delete', $entrytype['Entrytype']['id']), array('confirm' => 'Are you sure?')); ?></td>
+			<td><?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entrytypes', 'action' => 'edit', $entrytype['Entrytype']['id'])); ?></td>
+			<td><?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entrytypes', 'action' => 'delete', $entrytype['Entrytype']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?></td>
 		</tr>
 	<?php } ?>
 </table>

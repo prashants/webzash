@@ -40,15 +40,15 @@
 			'5' => __('Only NON Bank or Cash account can be present on both Debit and Credit side'),
 		);
 		echo $this->Form->create('Entrytype');
-		echo $this->Form->input('label', array('label' => __('Label')));
-		echo $this->Form->input('name', array('label' => __('Name')));
-		echo $this->Form->input('description', array('type' => 'textarea', 'label' => __('Description'), 'rows' => '3'));
-		echo $this->Form->input('numbering', array('type' => 'select', 'options' => $numbering_options, 'label' => __('Numbering')));
-		echo $this->Form->input('prefix', array('label' => __('Prefix')));
-		echo $this->Form->input('suffix', array('label' => __('Suffix')));
-		echo $this->Form->input('zero_padding', array('label' => __('Zero Padding')));
-		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __('Restrictions')));
-		echo $this->Form->end(__('Submit'));
-		echo $this->Html->link(__('Back'), array('controller' => 'entrytypes', 'action' => 'index'));
+		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
+		echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
+		echo $this->Form->input('description', array('type' => 'textarea', 'label' => __d('webzash', 'Description'), 'rows' => '3'));
+		echo $this->Form->input('numbering', array('type' => 'select', 'options' => $numbering_options, 'label' => __d('webzash', 'Numbering')));
+		echo $this->Form->input('prefix', array('label' => __d('webzash', 'Prefix')));
+		echo $this->Form->input('suffix', array('label' => __d('webzash', 'Suffix')));
+		echo $this->Form->input('zero_padding', array('label' => __d('webzash', 'Zero Padding')));
+		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __d('webzash', 'Restrictions')));
+		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entrytypes', 'action' => 'index'));
 	?>
 </div>
