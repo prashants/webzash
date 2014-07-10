@@ -28,24 +28,24 @@
 <div>
 	<div class="col-md-4">
 		<div class="panel panel-info">
-			<div class="panel-heading">Account Details</div>
+			<div class="panel-heading"><?php echo __d('webzash', 'Account details'); ?></div>
 			<div class="panel-body">
 			</div>
 		</div>
 		<div class="panel panel-info">
-			<div class="panel-heading">Bank & Cash Summary</div>
+			<div class="panel-heading"><?php echo __d('webzash', 'Bank & cash summary'); ?></div>
 			<div class="panel-body">
 			</div>
 		</div>
 		<div class="panel panel-info">
-			<div class="panel-heading">Account Summary</div>
+			<div class="panel-heading"><?php echo __d('webzash', 'Account summary'); ?></div>
 			<div class="panel-body">
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="panel panel-info">
-			<div class="panel-heading">Recent Activity</div>
+			<div class="panel-heading"><?php echo __d('webzash', 'Recent activity'); ?></div>
 			<div class="panel-body">
 			</div>
 		</div>

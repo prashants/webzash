@@ -56,8 +56,8 @@ function print_account_chart($account, $c = 0, $THIS)
 		if ($account->id <= 4) {
 			echo '<td class="td-actions"></td><td class="td-actions"></td>';
 		} else {
-			echo '<td class="td-actions">' . $THIS->Html->link('Edit', array('controller' => 'groups', 'action' => 'edit', $account->id)) . '</td>';
-			echo '<td class="td-actions">' . $THIS->Form->postLink('Delete', array('controller' => 'groups', 'action' => 'delete', $account->id), array('confirm' => 'Are you sure?')) . '</td>';
+			echo '<td class="td-actions">' . $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'groups', 'action' => 'edit', $account->id)) . '</td>';
+			echo '<td class="td-actions">' . $THIS->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'groups', 'action' => 'delete', $account->id), array('confirm' => __d('webzash', 'Are you sure ?'))) . '</td>';
 		}
 		echo '</tr>';
 	}
@@ -93,8 +93,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo $data['cl_balance'];
 			echo '</td>';
 
-			echo '<td class="td-actions">' . $THIS->Html->link('Edit', array('controller' => 'ledgers', 'action' => 'edit', $data['id'])) . '</td>';
-			echo '<td class="td-actions">' . $THIS->Form->postLink('Delete', array('controller' => 'ledgers', 'action' => 'delete', $data['id']), array('confirm' => 'Are you sure?')) . '</td>';
+			echo '<td class="td-actions">' . $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'ledgers', 'action' => 'edit', $data['id'])) . '</td>';
+			echo '<td class="td-actions">' . $THIS->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'ledgers', 'action' => 'delete', $data['id']), array('confirm' => __d('webzash', 'Are you sure ?'))) . '</td>';
 			echo '</tr>';
 		}
 		$counter--;
@@ -118,6 +118,10 @@ function print_space($count)
 }
 
 echo '<table>';
-echo '<th>Account Name</th><th>Type</th><th>O/P Balance</th><th>C/L Balance</th><th></th><th></th>';
-print_account_chart($accountlist, 0, $this);
+	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
+	echo '<th>' . __d('webzash', 'Type') . '</th>';
+	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
+	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
+	echo '<th></th><th></th>';
+	print_account_chart($accountlist, 0, $this);
 echo '</table>';
