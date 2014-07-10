@@ -28,14 +28,14 @@
 <table>
 
 <tr>
-<th><?php echo $this->Paginator->sort('date', __('Date')); ?></th>
-<th><?php echo $this->Paginator->sort('number', __('Number')); ?></th>
-<th><?php echo __('Ledger'); ?></th>
-<th><?php echo $this->Paginator->sort('entrytype_id', __('Type')); ?></th>
-<th><?php echo $this->Paginator->sort('tag_id', __('Tag')); ?></th>
-<th><?php echo $this->Paginator->sort('dr_total', __('Debit Amount')); ?></th>
-<th><?php echo $this->Paginator->sort('cr_total', __('Credit Amount')); ?></th>
-<th><?php echo __('Actions'); ?></th>
+<th><?php echo $this->Paginator->sort('date', __d('webzash', 'Date')); ?></th>
+<th><?php echo $this->Paginator->sort('number', __d('webzash', 'Number')); ?></th>
+<th><?php echo __d('webzash', 'Ledger'); ?></th>
+<th><?php echo $this->Paginator->sort('entrytype_id', __d('webzash', 'Type')); ?></th>
+<th><?php echo $this->Paginator->sort('tag_id', __d('webzash', 'Tag')); ?></th>
+<th><?php echo $this->Paginator->sort('dr_total', __d('webzash', 'Debit Amount')); ?></th>
+<th><?php echo $this->Paginator->sort('cr_total', __d('webzash', 'Credit Amount')); ?></th>
+<th><?php echo __d('webzash', 'Actions'); ?></th>
 </tr>
 
 <?php
@@ -50,9 +50,9 @@ foreach ($entries as $entry) {
 	echo '<td>' . $entry['Entry']['dr_total']. '</td>';
 	echo '<td>' . $entry['Entry']['cr_total']. '</td>';
 	echo '<td>';
-	echo $this->Html->link(__('Edit'), array('controller' => 'entries', 'action' => 'edit', $entryTypeLabel, $entry['Entry']['id']));
+	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entryTypeLabel, $entry['Entry']['id']));
 	echo ' ';
-	echo $this->Form->postLink(__('Delete'), array('controller' => 'entries', 'action' => 'delete', $entryTypeLabel, $entry['Entry']['id']));
+	echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', $entryTypeLabel, $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
 	echo '</td>';
 	echo '</tr>';
 }
@@ -61,14 +61,14 @@ foreach ($entries as $entry) {
 
 <?php
 	echo "<div class='paging'>";
-	echo $this->Paginator->first("First");
+	echo $this->Paginator->first(__d('webzash', 'First'));
 	if ($this->Paginator->hasPrev()) {
-		echo $this->Paginator->prev("Prev");
+		echo $this->Paginator->prev(__d('webzash', 'Prev'));
 	}
 	echo $this->Paginator->numbers();
 	if ($this->Paginator->hasNext()){
-		echo $this->Paginator->next("Next");
+		echo $this->Paginator->next(__d('webzash', 'Next'));
 	}
-	echo $this->Paginator->last("Last");
-	echo ' Entries ' . $this->Paginator->counter();
+	echo $this->Paginator->last(__d('webzash', 'Last'));
+	echo ' ' . __d('webzash', 'Entries') . ' ' . $this->Paginator->counter();
 	echo "</div>";

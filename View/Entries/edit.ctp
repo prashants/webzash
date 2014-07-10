@@ -274,20 +274,20 @@ $(document).ready(function() {
 <div class="entry edit form">
 <?php
 	echo $this->Form->create('Entry');
-	echo $this->Form->input('number', array('label' => __('Number')));
-	echo $this->Form->input('date', array('label' => __('Date')));
+	echo $this->Form->input('number', array('label' => __d('webzash', 'Number')));
+	echo $this->Form->input('date', array('label' => __d('webzash', 'Date')));
 
 	echo '<table>';
 
 	/* Header */
 	echo '<tr>';
-	echo '<th>Dr/Cr</th>';
-	echo '<th>Ledger</th>';
-	echo '<th>Dr Amount</th>';
-	echo '<th>Cr Amount</th>';
+	echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
+	echo '<th>' . __d('webzash', 'Ledger') . '</th>';
+	echo '<th>' . __d('webzash', 'Dr Amount') . '</th>';
+	echo '<th>' . __d('webzash', 'Cr Amount') . '</th>';
 	echo '<th><div id="addinit"></div></th>';
 	echo '<th></th>';
-	echo '<th>Cur Balance</th>';
+	echo '<th>' . __d('webzash', 'Cur Balance') . '</th>';
 	echo '</tr>';
 
 	/* Intial rows */
@@ -325,14 +325,14 @@ $(document).ready(function() {
 	}
 
 	/* Total and difference */
-	echo '<tr>' . '<td>' . __('Total') . '</td>' . '<td>' . '</td>' . '<td id="dr-total">' . '</td>' . '<td id="cr-total">' . '</td>' . '<td >' . $this->Html->image('Webzash.gear.png', array('alt' => 'Recalculate', 'class' => 'recalculate')) . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
-	echo '<tr>' . '<td>' . __('Difference') . '</td>' . '<td>' . '</td>' . '<td id="dr-diff">' . '</td>' . '<td id="cr-diff">' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
+	echo '<tr>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td>' . '</td>' . '<td id="dr-total">' . '</td>' . '<td id="cr-total">' . '</td>' . '<td >' . $this->Html->image('Webzash.gear.png', array('alt' => 'Recalculate', 'class' => 'recalculate')) . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
+	echo '<tr>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td>' . '</td>' . '<td id="dr-diff">' . '</td>' . '<td id="cr-diff">' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
 
 	echo '</table>';
 
-	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __('Narration'), 'rows' => '3'));
-	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __('Tag')));
-	echo $this->Form->end(__('Submit'));
-	echo $this->Html->link(__('Back'), array('controller' => 'entries', 'action' => 'index'));
+	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
+	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __d('webzash', 'Tag')));
+	echo $this->Form->end(__d('webzash', 'Submit'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entries', 'action' => 'index'));
 ?>
 </div>
