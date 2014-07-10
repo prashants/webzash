@@ -28,16 +28,16 @@
 <div class="entrytypes edit form">
 	<?php
 		$numbering_options = array(
-			'1' => __('Auto'),
-			'2' => __('Manual (required)'),
-			'3' => __('Manual (optional)'),
+			'1' => __d('webzash', 'Auto'),
+			'2' => __d('webzash', 'Manual (required)'),
+			'3' => __d('webzash', 'Manual (optional)'),
 		);
 		$restriction_options = array(
-			'1' => __('Unrestricted'),
-			'2' => __('Atleast one Bank or Cash account must be present on Debit side'),
-			'3' => __('Atleast one Bank or Cash account must be present on Credit side'),
-			'4' => __('Only Bank or Cash account can be present on both Debit and Credit side'),
-			'5' => __('Only NON Bank or Cash account can be present on both Debit and Credit side'),
+			'1' => __d('webzash', 'Unrestricted'),
+			'2' => __d('webzash', 'Atleast one Bank or Cash account must be present on Debit side'),
+			'3' => __d('webzash', 'Atleast one Bank or Cash account must be present on Credit side'),
+			'4' => __d('webzash', 'Only Bank or Cash account can be present on both Debit and Credit side'),
+			'5' => __d('webzash', 'Only NON Bank or Cash account can be present on both Debit and Credit side'),
 		);
 		echo $this->Form->create('Entrytype');
 		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
