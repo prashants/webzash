@@ -199,12 +199,24 @@ class Entry extends WebzashAppModel {
 		$value = $values[0];
 
 		/* Check if any entry number exists within the same entry type */
-		$count = $this->find('count', array(
-			'conditions' => array(
-				'Entry.number' => $value,
-				'Entry.entrytype_id' => $this->data['Entry']['entrytype_id'],
-			),
-		));
+		if (empty($this->data['Entry']['id'])) {
+			/* On create if id is not set */
+			$count = $this->find('count', array(
+				'conditions' => array(
+					'Entry.number' => $value,
+					'Entry.entrytype_id' => $this->data['Entry']['entrytype_id'],
+				),
+			));
+		} else {
+			/* On update if id is set */
+			$count = $this->find('count', array(
+				'conditions' => array(
+					'Entry.id !=' => $this->data['Entry']['id'],
+					'Entry.number' => $value,
+					'Entry.entrytype_id' => $this->data['Entry']['entrytype_id'],
+				),
+			));
+		}
 
 		if ($count != 0) {
 			return false;
