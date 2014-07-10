@@ -28,13 +28,13 @@
 <div class="ledgers edit form">
 	<?php
 		echo $this->Form->create('Ledger');
-		echo $this->Form->input('name', array('label' => __('Ledger name')));
-		echo $this->Form->input('group_id', array('type' => 'select', 'options' => $parents, 'label' => __('Parent group')));
-		echo $this->Form->input('op_balance_dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'label' => __('Opening balance')));
+		echo $this->Form->input('name', array('label' => __d('webzash', 'Ledger name')));
+		echo $this->Form->input('group_id', array('type' => 'select', 'options' => $parents, 'label' => __d('webzash', 'Parent group')));
+		echo $this->Form->input('op_balance_dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'label' => __d('webzash', 'Opening balance')));
 		echo $this->Form->input('op_balance', array('label' => false, 'required' => false));
-		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __('Bank or cash account')));
-		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __('Reconciliation')));
-		echo $this->Form->end(__('Submit'));
-		echo $this->Html->link(__('Back'), array('controller' => 'accounts', 'action' => 'show'));
+		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __d('webzash', 'Bank or cash account')));
+		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __d('webzash', 'Reconciliation')));
+		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
 </div>
