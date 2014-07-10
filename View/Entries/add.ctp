@@ -252,7 +252,7 @@ $(document).ready(function() {
 		var add_image_url = $(cur_obj).attr('src');
 		$(cur_obj).attr('src', '<?php echo $this->Html->assetUrl("Webzash.ajax.gif", array("fullBase" => true, "pathPrefix" => IMAGES_URL)); ?>');
 		$.ajax({
-			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $this->Generic->ajaxAddLedger($entrytype["Entrytype"]["bank_cash_ledger_restriction"]))); ?>',
+			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $this->Generic->ajaxAddLedger($entrytype["Entrytype"]["restriction_bankcash"]))); ?>',
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
 				$(cur_obj).attr('src', add_image_url);
@@ -301,9 +301,9 @@ $(document).ready(function() {
 		}
 
 		if (empty($entryitem['ledger_id'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['bank_cash_ledger_restriction']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
 		}
 
 		if (empty($entryitem['dr_amount'])) {

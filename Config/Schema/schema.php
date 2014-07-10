@@ -140,7 +140,7 @@ class WebzashSchema extends CakeSchema {
 		'prefix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'suffix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'zero_padding' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 2),
-		'bank_cash_ledger_restriction' => array('type' => 'integer', 'null' => false, 'default' => '1', 'length' => 2),
+		'restriction_bankcash' => array('type' => 'integer', 'null' => false, 'default' => '1', 'length' => 2),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),

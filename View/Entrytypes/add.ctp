@@ -47,7 +47,7 @@
 		echo $this->Form->input('prefix', array('label' => __('Prefix')));
 		echo $this->Form->input('suffix', array('label' => __('Suffix')));
 		echo $this->Form->input('zero_padding', array('label' => __('Zero Padding')));
-		echo $this->Form->input('bank_cash_ledger_restriction', array('type' => 'select', 'options' => $restriction_options, 'label' => __('Restrictions')));
+		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __('Restrictions')));
 		echo $this->Form->end(__('Submit'));
 		echo $this->Html->link(__('Back'), array('controller' => 'entrytypes', 'action' => 'index'));
 	?>

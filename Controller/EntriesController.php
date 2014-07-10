@@ -140,7 +140,7 @@ class EntriesController extends WebzashAppController {
 			$this->set('curEntryitems', $curEntryitems);
 		} else {
 			$curEntryitems = array();
-			if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+			if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 				/* Special case if atleast one Bank or Cash on credit side (3) then 1st item is Cr */
 				$curEntryitems[0] = array('dc' => 'C');
 				$curEntryitems[1] = array('dc' => 'D');
@@ -221,13 +221,13 @@ class EntriesController extends WebzashAppController {
 						return;
 					}
 
-					if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 4) {
+					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
 							$this->Session->setFlash(__('Only bank or cash ledgers are allowed'), 'error');
 							return;
 						}
 					}
-					if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 5) {
+					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
 							$this->Session->setFlash(__('Bank or cash ledgers are not allowed'), 'error');
 							return;
@@ -235,26 +235,26 @@ class EntriesController extends WebzashAppController {
 					}
 
 					if ($entryitem['dc'] == 'D') {
-						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
+						if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
 					} else if ($entryitem['dc'] == 'C') {
-						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+						if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
 					}
 				}
-				if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
+				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
 						$this->Session->setFlash(__('Atleast one bank or cash ledger has to be on debit side'), 'error');
 						return;
 					}
 				}
-				if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
 						$this->Session->setFlash(__('Atleast one bank or cash ledger has to be on credit side'), 'error');
 						return;
@@ -478,13 +478,13 @@ class EntriesController extends WebzashAppController {
 						return;
 					}
 
-					if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 4) {
+					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
 							$this->Session->setFlash(__('Only bank or cash ledgers are allowed'), 'error');
 							return;
 						}
 					}
-					if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 5) {
+					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
 							$this->Session->setFlash(__('Bank or cash ledgers are not allowed'), 'error');
 							return;
@@ -492,26 +492,26 @@ class EntriesController extends WebzashAppController {
 					}
 
 					if ($entryitem['dc'] == 'D') {
-						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
+						if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
 					} else if ($entryitem['dc'] == 'C') {
-						if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+						if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 							if ($ledger['Ledger']['type'] == 1) {
 								$dc_valid = true;
 							}
 						}
 					}
 				}
-				if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 2) {
+				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
 						$this->Session->setFlash(__('Atleast one bank or cash ledger has to be on debit side'), 'error');
 						return;
 					}
 				}
-				if ($entrytype['Entrytype']['bank_cash_ledger_restriction'] == 3) {
+				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
 						$this->Session->setFlash(__('Atleast one bank or cash ledger has to be on credit side'), 'error');
 						return;

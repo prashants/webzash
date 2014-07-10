@@ -149,7 +149,7 @@ class Entrytype extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
-		'bank_cash_ledger_restriction' => array(
+		'restriction_bankcash' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('1', '2', '3', '4', '5')),
 				'message' => 'Invalid option',
