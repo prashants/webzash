@@ -29,68 +29,68 @@
 	<div class="col-md-4">
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Account settings'), array('controller' => 'settings', 'action' => 'account')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Account settings'), array('controller' => 'settings', 'action' => 'account')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Setup account details, currency, time, etc.'); ?>
+				<?php echo __d('webzash', 'Setup account details, currency, time, etc.'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Carry forward'), array('controller' => 'settings', 'action' => 'cf')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Carry forward'), array('controller' => 'settings', 'action' => 'cf')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Carry forward account to next financial year'); ?>
+				<?php echo __d('webzash', 'Carry forward account to next financial year'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Email settings'), array('controller' => 'settings', 'action' => 'email')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Email settings'), array('controller' => 'settings', 'action' => 'email')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Setup outgoing email'); ?>
+				<?php echo __d('webzash', 'Setup outgoing email'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Printer settings'), array('controller' => 'settings', 'action' => 'printer')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Printer settings'), array('controller' => 'settings', 'action' => 'printer')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Setup printing options for entries, reports, etc.'); ?>
+				<?php echo __d('webzash', 'Setup printing options for entries, reports, etc.'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Download backup'), array('controller' => 'settings', 'action' => 'backup')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Download backup'), array('controller' => 'settings', 'action' => 'backup')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Download backup of current accounts data'); ?>
+				<?php echo __d('webzash', 'Download backup of current accounts data'); ?>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Tags'), array('controller' => 'tags', 'action' => 'index')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Tags'), array('controller' => 'tags', 'action' => 'index')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Manage tags'); ?>
+				<?php echo __d('webzash', 'Manage tags'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Entry Types'), array('controller' => 'entrytypes', 'action' => 'index')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Entry Types'), array('controller' => 'entrytypes', 'action' => 'index')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Manage entry types'); ?>
+				<?php echo __d('webzash', 'Manage entry types'); ?>
 			</div>
 		</div>
 		<div class="settings-container">
 			<div class="settings-title">
-				<?php echo $this->Html->link(__('Lock account'), array('controller' => 'settings', 'action' => 'lock')); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Lock account'), array('controller' => 'settings', 'action' => 'lock')); ?>
 			</div>
 			<div class="settings-desc">
-				<?php echo __('Lock account to prevent further changes'); ?>
+				<?php echo __d('webzash', 'Lock account to prevent further changes'); ?>
 			</div>
 		</div>
 	</div>

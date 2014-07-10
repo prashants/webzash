@@ -28,27 +28,27 @@
 <div class="printer form">
 	<?php echo $this->Form->create('Setting'); ?>
 	<fieldset>
-		<legend>Paper Size</legend>
-		<?php echo $this->Form->input('print_paper_height', array('label' => __('Height'), 'after' => __('inches'))); ?>
-		<?php echo $this->Form->input('print_paper_width', array('label' => __('Width'), 'after' => __('inches'))); ?>
+		<legend><?php echo __d('webzash', 'Paper Size'); ?></legend>
+		<?php echo $this->Form->input('print_paper_height', array('label' => __d('webzash', 'Height'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_paper_width', array('label' => __d('webzash', 'Width'), 'after' => __d('webzash', 'inches'))); ?>
 	</fieldset>
 	<fieldset>
-		<legend>Paper Margin</legend>
-		<?php echo $this->Form->input('print_margin_top', array('label' => __('Top'), 'after' => __('inches'))); ?>
-		<?php echo $this->Form->input('print_margin_bottom', array('label' => __('Bottom'), 'after' => __('inches'))); ?>
-		<?php echo $this->Form->input('print_margin_left', array('label' => __('Left'), 'after' => __('inches'))); ?>
-		<?php echo $this->Form->input('print_margin_right', array('label' => __('Right'), 'after' => __('inches'))); ?>
+		<legend><?php echo __d('webzash', 'Paper Margin'); ?></legend>
+		<?php echo $this->Form->input('print_margin_top', array('label' => __d('webzash', 'Top'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_margin_bottom', array('label' => __d('webzash', 'Bottom'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_margin_left', array('label' => __d('webzash', 'Left'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_margin_right', array('label' => __d('webzash', 'Right'), 'after' => __d('webzash', 'inches'))); ?>
 	</fieldset>
 	<fieldset>
-		<legend>Orientation</legend>
+		<legend><?php echo __d('webzash', 'Orientation'); ?></legend>
 		<?php echo $this->Form->radio('print_orientation', array('P' => 'Potrait', 'L' => 'Landscape'), array('legend' => false)); ?>
 	</fieldset>
 	<fieldset>
-		<legend>Output Format</legend>
+		<legend><?php echo __d('webzash', 'Output Format'); ?></legend>
 		<?php echo $this->Form->radio('print_page_format', array('H' => 'HTML', 'T' => 'Text'), array('legend' => false)); ?>
 	</fieldset>
 	<?php
-		echo $this->Form->end(__('Submit'));
-		echo $this->Html->link(__('Back'), array('controller' => 'settings', 'action' => 'index'));
+		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
 	?>
 </div>

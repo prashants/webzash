@@ -29,13 +29,13 @@
 <?php
 	echo $this->Form->create('Setting');
 	if ($locked == '1') {
-		echo $this->Form->label('Setting.lock', __('Currently this account is locked'));
+		echo $this->Form->label('Setting.lock', __d('webzash', 'Currently this account is locked'));
 	} else {
-		echo $this->Form->label('Setting.lock', __('Currently this account is unlocked'));
+		echo $this->Form->label('Setting.lock', __d('webzash', 'Currently this account is unlocked'));
 	}
-	echo $this->Form->input('account_locked', array('type' => 'checkbox', 'checked' => $locked, 'label' => __('Lock account (No further modifications will be possible)')));
-	echo $this->Form->end(__('Submit'));
-	echo $this->Html->link(__('Back'), array('controller' => 'settings', 'action' => 'index'));
+	echo $this->Form->input('account_locked', array('type' => 'checkbox', 'checked' => $locked, 'label' => __d('webzash', 'Lock account (No further modifications will be possible)')));
+	echo $this->Form->end(__d('webzash', 'Submit'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
 ?>
 </div
 

@@ -28,15 +28,15 @@
 <div class="account form">
 <?php
 	echo $this->Form->create('Setting');
-	echo $this->Form->input('name', array('label' => __('Name')));
-	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __('Address'), 'rows' => '3'));
-	echo $this->Form->input('email', array('label' => __('Email')));
-	echo $this->Form->input('currency_symbol', array('label' => __('Currency')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => array('dd/mm/yyyy' => 'Day/Month/Year', 'mm/dd/yyyy' => 'Month/Day/Year', 'yyyy/mm/dd' => 'Year/Month/Day'), 'label' => __('Date format')));
-	echo $this->Form->input('fy_start', array('label' => __('Financial year start')));
-	echo $this->Form->input('fy_end', array('label' => __('Financial year end')));
-	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __('Timezone')));
-	echo $this->Form->end(__('Submit'));
-	echo $this->Html->link(__('Back'), array('controller' => 'settings', 'action' => 'index'));
+	echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
+	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
+	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
+	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => array('dd/mm/yyyy' => 'Day/Month/Year', 'mm/dd/yyyy' => 'Month/Day/Year', 'yyyy/mm/dd' => 'Year/Month/Day'), 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('fy_start', array('label' => __d('webzash', 'Financial year start')));
+	echo $this->Form->input('fy_end', array('label' => __d('webzash', 'Financial year end')));
+	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
+	echo $this->Form->end(__d('webzash', 'Submit'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
 ?>
 </div>
