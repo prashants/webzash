@@ -56,10 +56,10 @@ $(document).ready(function() {
 <div class="groups edit form">
 	<?php
 		echo $this->Form->create('Group');
-		echo $this->Form->input('name', array('label' => __('Group name')));
-		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __('Parent group')));
-		echo $this->Form->input('affects_gross', array('type' => 'checkbox', 'label' => __('Affects gross profit/loss calculations')));
-		echo $this->Form->end(__('Submit'));
-		echo $this->Html->link(__('Back'), array('controller' => 'accounts', 'action' => 'show'));
+		echo $this->Form->input('name', array('label' => __d('webzash', 'Group name')));
+		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __d('webzash', 'Parent group')));
+		echo $this->Form->input('affects_gross', array('type' => 'checkbox', 'label' => __d('webzash', 'Affects gross profit/loss calculations')));
+		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
 </div>
