@@ -28,10 +28,10 @@
 <div class="tags edit form">
 	<?php
 		echo $this->Form->create('Tag');
-		echo $this->Form->input('title', array('label' => __('Title')));
-		echo $this->Form->input('color', array('label' => __('Color')));
-		echo $this->Form->input('background', array('label' => __('Background')));
-		echo $this->Form->end(__('Submit'));
-		echo $this->Html->link(__('Back'), array('controller' => 'tags', 'action' => 'index'));
+		echo $this->Form->input('title', array('label' => __d('webzash', 'Title')));
+		echo $this->Form->input('color', array('label' => __d('webzash', 'Color')));
+		echo $this->Form->input('background', array('label' => __d('webzash', 'Background')));
+		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'tags', 'action' => 'index'));
 	?>
 </div>
