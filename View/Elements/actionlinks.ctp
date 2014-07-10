@@ -32,9 +32,9 @@ if (isset($actionlinks)) {
 	echo '<ul>';
 	foreach ($actionlinks as $key => $item) {
 		if (!isset($item['data'])) {
-			echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action']), array('class' => 'btn btn-primary')) . '</li>';
+			echo '<li>' . $this->Html->link($item['title'], array('controller' => $item['controller'], 'action' => $item['action']), array('class' => 'btn btn-primary')) . '</li>';
 		} else {
-			echo '<li>' . $this->Html->link(__($item['title']), array('controller' => $item['controller'], 'action' => $item['action'], $item['data']), array('class' => 'btn btn-primary')) . '</li>';
+			echo '<li>' . $this->Html->link($item['title'], array('controller' => $item['controller'], 'action' => $item['action'], $item['data']), array('class' => 'btn btn-primary')) . '</li>';
 		}
 	}
 	echo '</ul>';

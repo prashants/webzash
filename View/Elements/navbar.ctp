@@ -39,15 +39,15 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><?php echo $this->Html->link(__('Dashboard'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index')); ?></li>
-				<li><?php echo $this->Html->link(__('Accounts'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show')); ?></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index')); ?></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Accounts'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show')); ?></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entries <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><?php echo '<li>' . $this->Html->link(__('All'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
+						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'All'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
 						<?php
 						foreach ($this->Menu->entrytypes() as $entrytype) {
-							echo '<li>' . $this->Html->link(__($entrytype['Entrytype']['name']), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label'])) . '</li>';
+							echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label'])) . '</li>';
 						}
 						?>
 					</ul>
@@ -62,8 +62,8 @@
 						<li><a href="#">Reconciliation</a></li>
 					</ul>
 				</li>
-				<li><?php echo $this->Html->link(__('Search'), array('plugin' => 'webzash', 'controller' => 'search', 'action' => 'index')); ?></li>
-				<li><?php echo $this->Html->link(__('Settings'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index')); ?></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Search'), array('plugin' => 'webzash', 'controller' => 'search', 'action' => 'index')); ?></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Settings'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index')); ?></li>
 				<li><a href="#">Help</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
