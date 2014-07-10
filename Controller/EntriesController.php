@@ -630,7 +630,6 @@ class EntriesController extends WebzashAppController {
 		$this->loadModel('Entryitem');
 		$this->loadModel('Entrytype');
 		$this->loadModel('Ledger');
-		$this->Ledger->Behaviors->attach('Webzash.Generic');
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
