@@ -98,7 +98,7 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 function closingBalance($id) {
 
 	if (empty($id)) {
-		throw new InternalErrorException(__('Ledger not specified. Failed to calculate closing balance.'));
+		throw new InternalErrorException(__d('webzash', 'Ledger not specified. Failed to calculate closing balance.'));
 	}
 
 	App::import("Webzash.Model", "Ledger");
@@ -112,7 +112,7 @@ function closingBalance($id) {
 		'conditions' => array('Ledger.id' => $id)
 	));
 	if (!$op) {
-		throw new InternalErrorException(__('Ledger not found. Failed to calculate closing balance.'));
+		throw new InternalErrorException(__d('webzash', 'Ledger not found. Failed to calculate closing balance.'));
 	}
 
 	if (empty($op['Ledger']['op_balance'])) {

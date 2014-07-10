@@ -61,7 +61,7 @@ class SettingsController extends AppController {
 	public function account() {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
 			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -77,11 +77,11 @@ class SettingsController extends AppController {
 
 			if ($this->Setting->save($this->request->data, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
 				$ds->commit();
-				$this->Session->setFlash(__('Account settings has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Account settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__('Account settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Account settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -110,7 +110,7 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
 			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -126,11 +126,11 @@ class SettingsController extends AppController {
 
 			if ($this->Setting->save($this->request->data, true, array('email_protocol', 'email_host', 'email_port', 'email_username', 'email_password'))) {
 				$ds->commit();
-				$this->Session->setFlash(__('Email settings has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__('Email settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -148,7 +148,7 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
 			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -164,11 +164,11 @@ class SettingsController extends AppController {
 
 			if ($this->Setting->save($this->request->data, true, array('print_paper_height', 'print_paper_width', 'print_margin_top', 'print_margin_bottom', 'print_margin_left', 'print_margin_right', 'print_orientation', 'print_page_format'))) {
 				$ds->commit();
-				$this->Session->setFlash(__('Printer settings has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Printer settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__('Printer settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Printer settings could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
@@ -195,7 +195,7 @@ class SettingsController extends AppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__('Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
 			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -214,17 +214,17 @@ class SettingsController extends AppController {
 			if ($this->Setting->save($this->request->data, true, array('account_locked'))) {
 				$ds->commit();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
-					$this->Session->setFlash(__('Account has been locked.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account has been locked.'), 'success');
 				} else {
-					$this->Session->setFlash(__('Account has been unlocked.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account has been unlocked.'), 'success');
 				}
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
-					$this->Session->setFlash(__('Account could not be locked. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account could not be locked. Please, try again.'), 'error');
 				} else {
-					$this->Session->setFlash(__('Account could not be unlocked. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account could not be unlocked. Please, try again.'), 'error');
 				}
 				return;
 			}
