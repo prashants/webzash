@@ -58,6 +58,14 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	font-size: 18px;
 }
 
+.reports-container {
+	margin: 0 0 20px 0;
+}
+
+.reports-title {
+	font-size: 18px;
+}
+
 /******************* MESSAGES ********************/
 .success-msg {
 	-webkit-border-radius: 4px;
