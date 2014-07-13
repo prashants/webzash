@@ -32,14 +32,20 @@ class AccountList
 {
 	var $id = 0;
 	var $name = '';
-	var $total = 0;	/* Assume Dr is positive and Cr is negative value */
-	var $op_balance = 0;
-	var $op_balance_dc = 0;
-	var $cl_balance = 0;
-	var $cl_balance_dc = 0;
+
+	var $op_total = 0;
+	var $op_total_dc = 'D';
+
+	var $dr_total = 0;
+	var $cr_total = 0;
+
+	var $cl_total = 0;
+	var $cl_total_dc = 'D';
+
 	var $children_groups = array();
 	var $children_ledgers = array();
 	var $counter = 0;
+
 	public static $Group = null;
 	public static $Ledger = null;
 	public static $temp_max = 0;
@@ -67,14 +73,19 @@ class AccountList
 		{
 			$this->id = 0;
 			$this->name = "None";
-			$this->total = 0;
-
 		} else {
 			$group = self::$Group->find('first', array('conditions' => array('id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
-			$this->total = 0;
 		}
+
+		$this->op_total = 0;
+		$this->op_total_dc = 'D';
+		$this->dr_total = 0;
+		$this->cr_total = 0;
+		$this->cl_total = 0;
+		$this->cl_total_dc = 'D';
+
 		$this->add_sub_ledgers();
 		$this->add_sub_groups();
 	}
@@ -90,7 +101,45 @@ class AccountList
 		{
 			$this->children_groups[$counter] = new AccountList();
 			$this->children_groups[$counter]->start($row['Group']['id']);
-			$this->total = calculate($this->total, $this->children_groups[$counter]->total, '+');
+
+			/* Calculating opening balance total for the group */
+			if ($this->op_total_dc == 'D' && $this->children_groups[$counter]->op_total_dc == 'D') {
+				$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '+');
+				$this->op_total_dc = 'D';
+			} else if ($this->op_total_dc == 'C' && $this->children_groups[$counter]->op_total_dc == 'C') {
+				$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '+');
+				$this->op_total_dc = 'C';
+			} else {
+				if (calculate($this->op_total, $this->children_groups[$counter]->op_total, '>')) {
+					$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '-');
+					$this->op_total_dc = $this->op_total_dc;
+				} else {
+					$this->op_total = calculate($this->children_groups[$counter]->op_total, $this->op_total, '-');
+					$this->op_total_dc = $this->children_groups[$counter]->op_total_dc;
+				}
+			}
+
+			/* Calculating group total */
+			if ($this->cl_total_dc == 'D' && $this->children_groups[$counter]->cl_total_dc == 'D') {
+				$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '+');
+				$this->cl_total_dc = 'D';
+			} else if ($this->cl_total_dc == 'C' && $this->children_groups[$counter]->cl_total_dc == 'C') {
+				$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '+');
+				$this->cl_total_dc = 'C';
+			} else {
+				if (calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '>')) {
+					$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '-');
+					$this->cl_total_dc = $this->cl_total_dc;
+				} else {
+					$this->cl_total = calculate($this->children_groups[$counter]->cl_total, $this->cl_total, '-');
+					$this->cl_total_dc = $this->children_groups[$counter]->cl_total_dc;
+				}
+			}
+
+			/* Calculate Dr and Cr total */
+			$this->dr_total = calculate($this->dr_total, $this->children_groups[$counter]->dr_total, '+');
+			$this->cr_total = calculate($this->cr_total, $this->children_groups[$counter]->cr_total, '+');
+
 			$counter++;
 		}
 	}
@@ -106,17 +155,56 @@ class AccountList
 		{
 			$this->children_ledgers[$counter]['id'] = $row['Ledger']['id'];
 			$this->children_ledgers[$counter]['name'] = $row['Ledger']['name'];
-			$this->children_ledgers[$counter]['op_balance'] = $row['Ledger']['op_balance'];
-			$this->children_ledgers[$counter]['op_balance_dc'] = $row['Ledger']['op_balance_dc'];
-			$cl = closingBalance($row['Ledger']['id']);
-			$this->children_ledgers[$counter]['cl_balance'] = $cl['balance'];
-			$this->children_ledgers[$counter]['cl_balance_dc'] = $cl['dc'];
-			if ($this->children_ledgers[$counter]['cl_balance_dc'] == 'D') {
-				$this->children_ledgers[$counter]['total'] = $this->children_ledgers[$counter]['cl_balance'];
+
+			$this->children_ledgers[$counter]['op_total'] = $row['Ledger']['op_balance'];
+			$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
+
+			/* Calculating opening balance total */
+			if ($this->op_total_dc == 'D' && $this->children_ledgers[$counter]['op_total_dc'] == 'D') {
+				$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '+');
+				$this->op_total_dc = 'D';
+			} else if ($this->op_total_dc == 'C' && $this->children_ledgers[$counter]['op_total_dc'] == 'C') {
+				$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '+');
+				$this->op_total_dc = 'C';
 			} else {
-				$this->children_ledgers[$counter]['total'] = -$this->children_ledgers[$counter]['cl_balance'];
+				if (calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '>')) {
+					$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '-');
+					$this->op_total_dc = $this->op_total_dc;
+				} else {
+					$this->op_total = calculate($this->children_ledgers[$counter]['op_total'], $this->op_total, '-');
+					$this->op_total_dc = $this->children_ledgers[$counter]['op_total_dc'];
+				}
 			}
-			$this->total = calculate($this->total, $this->children_ledgers[$counter]['total'], '+');
+
+			$cl = closingBalance($row['Ledger']['id']);
+
+			$this->children_ledgers[$counter]['dr_total'] = $cl['dr_total'];
+			$this->children_ledgers[$counter]['cr_total'] = $cl['cr_total'];
+
+			$this->children_ledgers[$counter]['cl_total'] = $cl['balance'];
+			$this->children_ledgers[$counter]['cl_total_dc'] = $cl['dc'];
+
+			/* Calculating ledger closing balance total */
+			if ($this->cl_total_dc == 'D' && $this->children_ledgers[$counter]['cl_total_dc'] == 'D') {
+				$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '+');
+				$this->cl_total_dc = 'D';
+			} else if ($this->cl_total_dc == 'C' && $this->children_ledgers[$counter]['cl_total_dc'] == 'C') {
+				$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '+');
+				$this->cl_total_dc = 'C';
+			} else {
+				if (calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '>')) {
+					$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '-');
+					$this->cl_total_dc = $this->cl_total_dc;
+				} else {
+					$this->cl_total = calculate($this->children_ledgers[$counter]['cl_total'], $this->cl_total, '-');
+					$this->cl_total_dc = $this->children_ledgers[$counter]['cl_total_dc'];
+				}
+			}
+
+			/* Calculate Dr and Cr total */
+			$this->dr_total = calculate($this->dr_total, $this->children_ledgers[$counter]['dr_total'], '+');
+			$this->cr_total = calculate($this->cr_total, $this->children_ledgers[$counter]['cr_total'], '+');
+
 			$counter++;
 		}
 	}

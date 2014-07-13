@@ -74,23 +74,23 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<td>Ledger</td>';
 			echo '<td>';
 
-			if ($data['op_balance_dc'] == 'D') {
+			if ($data['op_total_dc'] == 'D') {
 				echo 'Dr';
 			} else {
 				echo 'Cr';
 			}
 			echo ' ';
-			echo $data['op_balance'];
+			echo $data['op_total'];
 			echo '</td>';
 
 			echo '<td>';
-			if ($data['cl_balance_dc'] == 'D') {
+			if ($data['cl_total_dc'] == 'D') {
 				echo 'Dr';
 			} else {
 				echo 'Cr';
 			}
 			echo ' ';
-			echo $data['cl_balance'];
+			echo $data['cl_total'];
 			echo '</td>';
 
 			echo '<td class="td-actions">' . $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'ledgers', 'action' => 'edit', $data['id'])) . '</td>';

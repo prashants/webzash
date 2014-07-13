@@ -123,6 +123,8 @@ function closingBalance($id) {
 
 	$dr_total = 0;
 	$cr_total = 0;
+	$dr_total_dc = 0;
+	$cr_total_dc = 0;
 
 	$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
 
@@ -131,10 +133,10 @@ function closingBalance($id) {
 		'fields' => array('total'),
 		'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'D')
 	));
-	if (empty($total[0]['Entryitem__total'])) {
+	if (empty($total['Entryitem']['total'])) {
 		$dr_total = 0;
 	} else {
-		$dr_total = $total[0]['Entryitem__total'];
+		$dr_total = $total['Entryitem']['total'];
 	}
 
 	/* Credit total */
@@ -142,32 +144,34 @@ function closingBalance($id) {
 		'fields' => array('total'),
 		'conditions' => array('Entryitem.ledger_id' => $id, 'Entryitem.dc' => 'C')
 	));
-	if (empty($total[0]['Entryitem__total'])) {
+	if (empty($total['Entryitem']['total'])) {
 		$cr_total = 0;
 	} else {
-		$cr_total = $total[0]['Entryitem__total'];
+		$cr_total = $total['Entryitem']['total'];
 	}
 
 	/* Add opening balance */
 	if ($op['Ledger']['op_balance_dc'] == 'D') {
-		$dr_total = calculate($op_total, $dr_total, '+');
+		$dr_total_dc = calculate($op_total, $dr_total, '+');
+		$cr_total_dc = $cr_total;
 	} else {
-		$cr_total = calculate($op_total, $cr_total, '+');
+		$dr_total_dc = $dr_total;
+		$cr_total_dc = calculate($op_total, $cr_total, '+');
 	}
 
 	/* Calculate and update closing balance */
 	$cl = 0;
 	$cl_dc = '';
-	if (calculate($dr_total, $cr_total, '>')) {
-		$cl = calculate($dr_total, $cr_total, '-');
+	if (calculate($dr_total_dc, $cr_total_dc, '>')) {
+		$cl = calculate($dr_total_dc, $cr_total_dc, '-');
 		$cl_dc = 'D';
-	} else if (calculate($cr_total, $dr_total, '==')) {
+	} else if (calculate($cr_total_dc, $dr_total_dc, '==')) {
 		$cl = 0;
 		$cl_dc = $op['Ledger']['op_balance_dc'];
 	} else {
-		$cl = calculate($cr_total, $dr_total, '-');
+		$cl = calculate($cr_total_dc, $dr_total_dc, '-');
 		$cl_dc = 'C';
 	}
 
-	return array('dc' => $cl_dc, 'balance' => $cl);
+	return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
 }
