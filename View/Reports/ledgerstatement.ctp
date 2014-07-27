@@ -101,8 +101,18 @@ $(document).ready(function() {
 		echo '<td>' . '</td>';
 		echo '<td>' . $entryTypeName . '</td>';
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
-		echo '<td>' . $entry['Entry']['dr_total']. '</td>';
-		echo '<td>' . $entry['Entry']['cr_total']. '</td>';
+
+		if ($entry['Entryitem']['dc'] == 'D') {
+			echo '<td>Dr ' . $entry['Entryitem']['amount'] . '</td>';
+			echo '<td>' . '</td>';
+		} else if ($entry['Entryitem']['dc'] == 'C') {
+			echo '<td>' . '</td>';
+			echo '<td>Cr ' . $entry['Entryitem']['amount'] . '</td>';
+		} else {
+			echo '<td>Error</td>';
+			echo '<td>Error</td>';
+		}
+
 		echo '<td>';
 		echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entryTypeLabel, $entry['Entry']['id']));
 		echo ' ';

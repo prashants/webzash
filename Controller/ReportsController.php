@@ -161,6 +161,7 @@ class ReportsController extends AppController {
 		/* Setup pagination */
 		$this->Paginator->settings = array(
 			'Entry' => array(
+				'fields' => array('Entry.*', 'Entryitem.*'),
 				'limit' => 10,
 				'order' => array('Entry.date' => 'desc'),
 				'conditions' => $conditions,
