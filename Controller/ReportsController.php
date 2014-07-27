@@ -43,6 +43,10 @@ class ReportsController extends AppController {
  */
 	public $uses = array();
 
+	public $components = array('Paginator');
+
+	public $helpers = array('Webzash.Generic');
+
 /**
  * index method
  *
@@ -88,6 +92,93 @@ class ReportsController extends AppController {
  * @return void
  */
 	public function ledgerstatement() {
+		$this->loadModel('Ledger');
+		$this->loadModel('Entry');
+		$this->loadModel('Entryitem');
+
+		/* Create list of ledgers to pass to view */
+		$ledgers = $this->Ledger->find('list', array(
+			'fields' => array('Ledger.id', 'Ledger.name'),
+			'order' => array('Ledger.name')
+		));
+		$this->set('ledgers', $ledgers);
+
+		if ($this->request->is('post')) {
+			/* If valid data then redirect with POST values are URL parameters so that pagination works */
+			if (empty($this->request->data['Report']['ledger_id'])) {
+				$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement'));
+			}
+
+			if ($this->request->data['Report']['custom_period'] == 1) {
+				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement',
+					'ledgerid' => $this->request->data['Report']['ledger_id'],
+					'customperiod' => 1,
+					'startdate' => $this->request->data['Report']['startdate'],
+					'enddate' => $this->request->data['Report']['enddate'],
+				));
+			} else {
+				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement',
+					'ledgerid' => $this->request->data['Report']['ledger_id'],
+				));
+			}
+		}
+
+		$this->set('showEntries', false);
+
+		/* Check if ledger id is set in parameters, if not return and end view here */
+		if (empty($this->passedArgs['ledgerid'])) {
+			return;
+		}
+
+		$ledgerId = $this->passedArgs['ledgerid'];
+
+		/* Check if ledger exists */
+		if (!$this->Ledger->exists($ledgerId)) {
+			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
+			return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement'));
+		}
+
+		$this->request->data['Report']['ledger_id'] = $ledgerId;
+
+		/* Set the approprite search conditions if custom date is selected */
+		$conditions = array();
+		$conditions['Entryitem.ledger_id'] = $ledgerId;
+		if (!empty($this->passedArgs['customperiod'])) {
+			$this->request->data['Report']['custom_period'] = $this->passedArgs['customperiod'];
+		}
+		if (!empty($this->passedArgs['startdate'])) {
+			/* TODO : Validate date */
+			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
+			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate'], '00:00:00');
+		}
+		if (!empty($this->passedArgs['enddate'])) {
+			/* TODO : Validate date */
+			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
+			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate'], '23:59:00');
+		}
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'limit' => 10,
+				'order' => array('Entry.date' => 'desc'),
+				'conditions' => $conditions,
+				'joins' => array(
+					array(
+						'table' => 'entryitems',
+						'alias' => 'Entryitem',
+						'conditions' => array(
+							'Entry.id = Entryitem.entry_id'
+						)
+					),
+				),
+			),
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('showEntries', true);
+
 		return;
 	}
 

@@ -175,3 +175,16 @@ function closingBalance($id) {
 
 	return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
 }
+
+/* TODO : Process from database */
+Configure::write('Account.dateformat', 'dd-M-yy');
+Configure::write('Account.startdate', strtotime('2014-04-01 00:00:00') * 1000);
+Configure::write('Account.enddate', strtotime('2015-03-31 23:59:00') * 1000);
+
+/**
+ * This function converts the date and time string to valid SQL datetime value
+ */
+function dateToSql($indate, $intime = '00:00:00') {
+	$unixTimestamp = strtotime($indate . ' ' . $intime);
+	return date("Y-m-d H:i:s", $unixTimestamp);
+}
