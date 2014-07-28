@@ -48,6 +48,23 @@ class DashboardController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->loadModel('Ledger');
+
+		/* Cash and bank sumary */
+		$ledgers = $this->Ledger->find('all', array(
+			'order' => array('Ledger.name'),
+			'conditions' => array('Ledger.type' => 1),
+		));
+
+		$ledgersCB = array();
+		foreach ($ledgers as $ledger) {
+			$ledgersCB[] = array(
+				'name' => $ledger['Ledger']['name'],
+				'balance' => closingBalance($ledger['Ledger']['id']),
+			);
+		}
+		$this->set('ledgers', $ledgersCB);
+
 		return;
 	}
 

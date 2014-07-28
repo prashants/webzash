@@ -30,11 +30,47 @@
 		<div class="panel panel-info">
 			<div class="panel-heading"><?php echo __d('webzash', 'Account details'); ?></div>
 			<div class="panel-body">
+				<table>
+					<tr>
+						<td><?php echo __d('webzash', 'Name'); ?></td>
+						<td><?php echo Configure::read('Account.name'); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo __d('webzash', 'Email'); ?></td>
+						<td><?php echo Configure::read('Account.email'); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo __d('webzash', 'Currency'); ?></td>
+						<td><?php echo Configure::read('Account.currency_symbol'); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo __d('webzash', 'Financial Year'); ?></td>
+						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . ' - ' . dateFromSql(Configure::read('Account.enddate')); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo __d('webzash', 'Status'); ?></td>
+						<td><?php echo Configure::read('Account.locked') == 0 ? __d('webzash', 'Unlocked') : __d('webzash', 'Locked') ; ?></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div class="panel panel-info">
 			<div class="panel-heading"><?php echo __d('webzash', 'Bank & cash summary'); ?></div>
 			<div class="panel-body">
+				<table>
+				<?php
+					foreach ($ledgers as $ledger) {
+						echo '<tr>';
+						echo '<td>' . $ledger['name'] . '</td>';
+						if ($ledger['balance']['dc'] == 'D') {
+							echo '<td>Dr ' . $ledger['balance']['balance'] . '</td>';
+						} else {
+							echo '<td>Cr ' . $ledger['balance']['balance'] . '</td>';
+						}
+						echo '</tr>';
+					}
+				?>
+				</table>
 			</div>
 		</div>
 		<div class="panel panel-info">

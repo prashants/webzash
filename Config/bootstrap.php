@@ -177,10 +177,14 @@ function closingBalance($id) {
 }
 
 /* TODO : Process from database */
+Configure::write('Account.name', 'Prashant Shah');
+Configure::write('Account.email', 'pshah.mumbai@gmail.com');
+Configure::write('Account.currency_symbol', 'Rs');
 Configure::write('Account.dateformatPHP', 'd-M-Y');
 Configure::write('Account.dateformatJS', 'dd-M-yy');
 Configure::write('Account.startdate', strtotime('2014-04-01 00:00:00') * 1000);
 Configure::write('Account.enddate', strtotime('2015-03-31 23:59:00') * 1000);
+Configure::write('Account.locked', '0');
 
 /**
  * This function converts the date and time string to valid SQL datetime value
