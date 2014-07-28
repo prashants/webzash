@@ -42,7 +42,7 @@ $(document).ready(function() {
 	$('#ReportStartdate').datepicker({
 		minDate: new Date(<?php echo Configure::read('Account.startdate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
 		maxDate: new Date(<?php echo Configure::read('Account.enddate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
-		dateFormat: '<?php echo Configure::read('Account.dateformat'); ?>',
+		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 		onClose: function(selectedDate) {
 			$("#ReportEnddate").datepicker("option", "minDate", selectedDate);
@@ -51,7 +51,7 @@ $(document).ready(function() {
 	$('#ReportEnddate').datepicker({
 		minDate: new Date(<?php echo Configure::read('Account.startdate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
 		maxDate: new Date(<?php echo Configure::read('Account.enddate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
-		dateFormat: '<?php echo Configure::read('Account.dateformat'); ?>',
+		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 		onClose: function(selectedDate) {
 			$("#ReportStartdate").datepicker("option", "maxDate", selectedDate);

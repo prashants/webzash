@@ -177,7 +177,8 @@ function closingBalance($id) {
 }
 
 /* TODO : Process from database */
-Configure::write('Account.dateformat', 'dd-M-yy');
+Configure::write('Account.dateformatPHP', 'd-M-Y');
+Configure::write('Account.dateformatJS', 'dd-M-yy');
 Configure::write('Account.startdate', strtotime('2014-04-01 00:00:00') * 1000);
 Configure::write('Account.enddate', strtotime('2015-03-31 23:59:00') * 1000);
 
@@ -186,5 +187,19 @@ Configure::write('Account.enddate', strtotime('2015-03-31 23:59:00') * 1000);
  */
 function dateToSql($indate, $intime = '00:00:00') {
 	$unixTimestamp = strtotime($indate . ' ' . $intime);
+	if (!$unixTimestamp) {
+		return false;
+	}
 	return date("Y-m-d H:i:s", $unixTimestamp);
+}
+
+/**
+ * This function converts the SQL datetime value to PHP date and time string
+ */
+function dateFromSql($sqldatetime) {
+	$unixTimestamp = strtotime($sqldatetime);
+	if (!$unixTimestamp) {
+		return false;
+	}
+	return date(Configure::read('Account.dateformatPHP'), $unixTimestamp);
 }
