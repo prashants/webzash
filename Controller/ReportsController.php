@@ -189,6 +189,137 @@ class ReportsController extends AppController {
  * @return void
  */
 	public function reconciliation() {
+		$this->loadModel('Ledger');
+		$this->loadModel('Entry');
+		$this->loadModel('Entryitem');
+
+		/* Create list of ledgers to pass to view */
+		$ledgers = $this->Ledger->find('list', array(
+			'fields' => array('Ledger.id', 'Ledger.name'),
+			'order' => array('Ledger.name'),
+			'conditions' => array('Ledger.reconciliation' => '1'),
+		));
+		$this->set('ledgers', $ledgers);
+
+		if ($this->request->is('post')) {
+
+			/* Ledger selection form submitted */
+			if (!empty($this->request->data['Report']['submitledger'])) {
+
+				/* If valid data then redirect with POST values are URL parameters so that pagination works */
+				if (empty($this->request->data['Report']['ledger_id'])) {
+					$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+				}
+
+				if ($this->request->data['Report']['custom_period'] == 1) {
+					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation',
+						'ledgerid' => $this->request->data['Report']['ledger_id'],
+						'showall' => $this->request->data['Report']['showall'],
+						'customperiod' => 1,
+						'startdate' => $this->request->data['Report']['startdate'],
+						'enddate' => $this->request->data['Report']['enddate'],
+					));
+				} else {
+					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation',
+						'ledgerid' => $this->request->data['Report']['ledger_id'],
+						'showall' => $this->request->data['Report']['showall'],
+					));
+				}
+
+			} else if (!empty($this->request->data['ReportRec']['submitrec'])) {
+
+				/* Reconciliation form submitted */
+				foreach ($this->request->data['ReportRec'] as $row => $recitem) {
+					if (empty($recitem['id'])) {
+						continue;
+					}
+					if (!empty($recitem['recdate'])) {
+						$recdate = dateToSql($recitem['recdate']);
+						if (!$recdate) {
+							$this->Session->setFlash(__d('webzash', 'Invalid date'), 'error');
+							continue;
+						}
+					} else {
+						$recdate = '';
+					}
+
+					$this->Entryitem->id = $recitem['id'];
+					if (!$this->Entryitem->read()) {
+						continue;
+					}
+					$this->Entryitem->saveField('reconciliation_date', $recdate);
+				}
+				/* Unset all POST data so that data for reconciliation date is loaded from database */
+				unset($this->request->data['ReportRec']);
+
+			} else {
+				return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+			}
+		}
+
+		$this->set('showEntries', false);
+
+		/* Check if ledger id is set in parameters, if not return and end view here */
+		if (empty($this->passedArgs['ledgerid'])) {
+			return;
+		}
+
+		$ledgerId = $this->passedArgs['ledgerid'];
+
+		/* Check if ledger exists */
+		if (!$this->Ledger->exists($ledgerId)) {
+			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
+			return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+		}
+
+		$this->request->data['Report']['ledger_id'] = $ledgerId;
+		$this->request->data['Report']['showall'] = $this->passedArgs['showall'];
+
+		/* Set the approprite search conditions if custom date is selected */
+		$conditions = array();
+		$conditions['Entryitem.ledger_id'] = $ledgerId;
+		if (!empty($this->passedArgs['customperiod'])) {
+			$this->request->data['Report']['custom_period'] = $this->passedArgs['customperiod'];
+		}
+		if (!empty($this->passedArgs['startdate'])) {
+			/* TODO : Validate date */
+			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
+			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate'], '00:00:00');
+		}
+		if (!empty($this->passedArgs['enddate'])) {
+			/* TODO : Validate date */
+			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
+			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate'], '23:59:00');
+		}
+		if (!empty($this->passedArgs['showall'])) {
+			/* nothing to do */
+		} else {
+			$conditions['Entryitem.reconciliation_date'] = null;
+		}
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'fields' => array('Entry.*', 'Entryitem.*'),
+				'limit' => 10,
+				'order' => array('Entry.date' => 'desc'),
+				'conditions' => $conditions,
+				'joins' => array(
+					array(
+						'table' => 'entryitems',
+						'alias' => 'Entryitem',
+						'conditions' => array(
+							'Entry.id = Entryitem.entry_id'
+						)
+					),
+				),
+			),
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('showEntries', true);
+
 		return;
 	}
 }
