@@ -41,7 +41,7 @@
 <?php
 foreach ($entries as $entry) {
 	echo '<tr>';
-	echo '<td>' . $entry['Entry']['date']. '</td>';
+	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 	echo '<td>' . $entry['Entry']['number']. '</td>';
 	echo '<td>' . '</td>';
 	echo '<td>' . $entrytype['Entrytype']['name'] . '</td>';

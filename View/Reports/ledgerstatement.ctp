@@ -85,7 +85,6 @@ $(document).ready(function() {
 		echo '</fieldset>';
 
 		echo $this->Form->end(__d('webzash', 'Show'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'reports', 'action' => 'index'));
 	?>
 </div>
 
@@ -109,7 +108,7 @@ $(document).ready(function() {
 	foreach ($entries as $entry) {
 		list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
 		echo '<tr>';
-		echo '<td>' . $entry['Entry']['date']. '</td>';
+		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . $entry['Entry']['number']. '</td>';
 		echo '<td>' . '</td>';
 		echo '<td>' . $entryTypeName . '</td>';

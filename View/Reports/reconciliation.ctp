@@ -121,7 +121,7 @@ $(document).ready(function() {
 	foreach ($entries as $row => $entry) {
 		list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
 		echo '<tr>';
-		echo '<td>' . $entry['Entry']['date']. '</td>';
+		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . $entry['Entry']['number']. '</td>';
 		echo '<td>' . '</td>';
 		echo '<td>' . $entryTypeName . '</td>';
