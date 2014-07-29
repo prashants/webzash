@@ -28,6 +28,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+	/* Calculate date range in javascript */
+	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
+	endDate = new Date(<?php echo strtotime(Configure::read('Account.enddate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
+
 	/* On selecting custom period show the start and end date form fields */
 	$('#ReportCustomPeriod').change(function() {
 		if ($(this).prop('checked')) {
@@ -40,27 +45,35 @@ $(document).ready(function() {
 
 	/* Setup jQuery datepicker ui */
 	$('#ReportStartdate').datepicker({
-		minDate: new Date(<?php echo Configure::read('Account.startdate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
-		maxDate: new Date(<?php echo Configure::read('Account.enddate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
+		minDate: startDate,
+		maxDate: endDate,
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 		onClose: function(selectedDate) {
-			$("#ReportEnddate").datepicker("option", "minDate", selectedDate);
+			if (selectedDate) {
+				$("#ReportEnddate").datepicker("option", "minDate", selectedDate);
+			} else {
+				$("#ReportEnddate").datepicker("option", "minDate", startDate);
+			}
 		}
 	});
 	$('#ReportEnddate').datepicker({
-		minDate: new Date(<?php echo Configure::read('Account.startdate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
-		maxDate: new Date(<?php echo Configure::read('Account.enddate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
+		minDate: startDate,
+		maxDate: endDate,
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 		onClose: function(selectedDate) {
-			$("#ReportStartdate").datepicker("option", "maxDate", selectedDate);
+			if (selectedDate) {
+				$("#ReportStartdate").datepicker("option", "maxDate", selectedDate);
+			} else {
+				$("#ReportStartdate").datepicker("option", "maxDate", endDate);
+			}
 		}
 	});
 
 	$('.recdate').datepicker({
-		minDate: new Date(<?php echo Configure::read('Account.startdate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
-		maxDate: new Date(<?php echo Configure::read('Account.enddate'); ?>  + (new Date().getTimezoneOffset() * 60 * 1000)),
+		minDate: startDate,
+		maxDate: endDate,
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 	});
