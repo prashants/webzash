@@ -267,6 +267,18 @@ $(document).ready(function() {
 	$('.ledger-dropdown').trigger('change');
 	$('.dr-item:first').trigger('change');
 	$('.cr-item:first').trigger('change');
+
+	/* Calculate date range in javascript */
+	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
+	endDate = new Date(<?php echo strtotime(Configure::read('Account.enddate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
+
+	/* Setup jQuery datepicker ui */
+	$('#EntryDate').datepicker({
+		minDate: startDate,
+		maxDate: endDate,
+		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
+		numberOfMonths: 1,
+	});
 });
 
 </script>
@@ -275,7 +287,7 @@ $(document).ready(function() {
 <?php
 	echo $this->Form->create('Entry');
 	echo $this->Form->input('number', array('label' => __d('webzash', 'Number')));
-	echo $this->Form->input('date', array('label' => __d('webzash', 'Date')));
+	echo $this->Form->input('date', array('type' => 'text', 'label' => __d('webzash', 'Date')));
 
 	echo '<table>';
 

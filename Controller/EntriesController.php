@@ -202,8 +202,8 @@ class EntriesController extends WebzashAppController {
 				/***** Narration *****/
 				$entrydata['Entry']['narration'] = $this->request->data['Entry']['narration'];
 
-				/***** TODO : Date *****/
-				$entrydata['Entry']['date'] = $this->request->data['Entry']['date'];
+				/***** Date *****/
+				$entrydata['Entry']['date'] = dateToSql($this->request->data['Entry']['date'], '00:00:00');
 
 				/***************************************************************************/
 				/***************************** ENTRY ITEMS *********************************/
@@ -459,8 +459,8 @@ class EntriesController extends WebzashAppController {
 				/***** Narration *****/
 				$entrydata['Entry']['narration'] = $this->request->data['Entry']['narration'];
 
-				/***** TODO : Date *****/
-				$entrydata['Entry']['date'] = $this->request->data['Entry']['date'];
+				/***** Date *****/
+				$entrydata['Entry']['date'] = dateToSql($this->request->data['Entry']['date'], '00:00:00');
 
 				/***************************************************************************/
 				/***************************** ENTRY ITEMS *********************************/
@@ -613,6 +613,7 @@ class EntriesController extends WebzashAppController {
 				return;
 			}
 		} else {
+			$entry['Entry']['date'] = dateFromSql($entry['Entry']['date']);
 			$this->request->data = $entry;
 			return;
 		}
