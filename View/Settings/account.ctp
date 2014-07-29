@@ -25,16 +25,51 @@
  * THE SOFTWARE.
  */
 ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	/* Setup jQuery datepicker ui */
+	$('#SettingFyStart').datepicker({
+		dateFormat: $("#SettingDateFormat").val().split('|')[1],	/* Read the Javascript date format value */
+		numberOfMonths: 1,
+		onClose: function(selectedDate) {
+			$("#SettingFyEnd").datepicker("option", "minDate", selectedDate);
+		}
+	});
+	$('#SettingFyEnd').datepicker({
+		dateFormat: $("#SettingDateFormat").val().split('|')[1],	/* Read the Javascript date format value */
+		numberOfMonths: 1,
+		onClose: function(selectedDate) {
+			$("#SettingFyStart").datepicker("option", "maxDate", selectedDate);
+		}
+	});
+
+	$("#SettingDateFormat").change(function() {
+		/* Read the Javascript date format value */
+		dateFormat = $(this).val().split('|')[1];
+		$("#SettingFyStart").datepicker("option", "dateFormat", dateFormat);
+		$("#SettingFyEnd").datepicker("option", "dateFormat", dateFormat);
+	});
+});
+</script>
+
 <div class="account form">
 <?php
+	/* Date format : PHP Format|Javascript Format */
+	$dateformats = array(
+		'd-M-Y|dd-M-yy' => 'Day-Month-Year',
+		'M-d-Y|M-dd-yy' => 'Month-Day-Year',
+		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
+	);
+
 	echo $this->Form->create('Setting');
 	echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => array('dd/mm/yyyy' => 'Day/Month/Year', 'mm/dd/yyyy' => 'Month/Day/Year', 'yyyy/mm/dd' => 'Year/Month/Day'), 'label' => __d('webzash', 'Date format')));
-	echo $this->Form->input('fy_start', array('label' => __d('webzash', 'Financial year start')));
-	echo $this->Form->input('fy_end', array('label' => __d('webzash', 'Financial year end')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('fy_start', array('type' => 'text', 'label' => __d('webzash', 'Financial year start')));
+	echo $this->Form->input('fy_end', array('type' => 'text', 'label' => __d('webzash', 'Financial year end')));
 	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
 	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));

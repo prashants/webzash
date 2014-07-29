@@ -115,13 +115,13 @@ class Setting extends WebzashAppModel {
 		),
 		'date_format' => array(
 			'rule1' => array(
-				'rule' => array('maxLength', 10),
-				'message' => 'Date format cannot be more than 10 characters',
+				'rule' => array('maxLength', 13),
+				'message' => 'Date format cannot be more than 13 characters',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
-				'rule' => array('inList', array('dd/mm/yyyy', 'mm/dd/yyyy', 'yyyy/mm/dd')),
+				'rule' => array('inList', array('d-M-Y|dd-M-yy', 'M-d-Y|M-dd-yy', 'Y-M-d|yy-M-dd')),
 				'message' => 'Invalid option for date format',
 				'required'   => true,
 				'allowEmpty' => false,

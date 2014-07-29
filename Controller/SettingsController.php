@@ -71,11 +71,15 @@ class SettingsController extends AppController {
 			unset($this->request->data['Setting']['id']);
 			$this->Setting->id = 1;
 
+			$settings = $this->request->data;
+			$settings['Setting']['fy_start'] = dateToSql($this->request->data['Setting']['fy_start'], '00:00:00');
+			$settings['Setting']['fy_end'] = dateToSql($this->request->data['Setting']['fy_end'], '23:59:59');
+
 			/* Save settings */
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();
 
-			if ($this->Setting->save($this->request->data, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
+			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account settings has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
@@ -85,6 +89,8 @@ class SettingsController extends AppController {
 				return;
 			}
 		} else {
+			$setting['Setting']['fy_start'] = dateFromSql($setting['Setting']['fy_start']);
+			$setting['Setting']['fy_end'] = dateFromSql($setting['Setting']['fy_end']);
 			$this->request->data = $setting;
 			return;
 		}
