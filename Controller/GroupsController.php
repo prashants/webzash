@@ -214,43 +214,4 @@ class GroupsController extends WebzashAppController {
 		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 	}
 
-/**
- * showgross method
- *
- * Checks if the top level parent group is either income or expenses, if yes
- * show the "Affects gross profit/loss calculations" checkbox in the view
- *
- * @return boolean
- */
-	public function showgross() {
-		$this->layout = null;
-
-		/* Read parent id from url get request */
-		$parentID = (int)$this->request->query('id');
-
-		/* If parent id is null, return NO */
-		if (!$parentID) {
-			$this->set("status", array("status" => "NO"));
-			return;
-		}
-
-		/* Locate the top most parent id */
-		$curParentID = $parentID;
-		for ( ; $curParentID > 4 ; ) {
-			$parentGroup = $this->Group->find('first', array('conditions' => array('Group.id' => $curParentID)));
-			if ($parentGroup) {
-				$curParentID = $parentGroup['Group']['parent_id'];
-			} else {
-				break;
-			}
-		}
-
-		/* If the top most parent id is income or expense return YES */
-		if ($curParentID == 3 || $curParentID == 4) {
-			$this->set("status", array("status" => "YES"));
-		} else {
-			$this->set("status", array("status" => "NO"));
-		}
-		return;
-	}
 }

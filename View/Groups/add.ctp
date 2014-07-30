@@ -30,24 +30,14 @@
 $(document).ready(function() {
 	/**
 	 * On changing the parent group select box check whether the selected value
-	 * should show the "Affects Gross Profit/Loss Calculations" checkbox by
-	 * sending a ajax request to URL affectsgross.json, if the response is "YES"
-	 * show the checkbox else dont.
+	 * should show the "Affects Gross Profit/Loss Calculations".
 	 */
 	$('#GroupParentId').change(function() {
-		$.ajax({
-			url: '<?php echo $this->Html->url(array("controller" => "groups", "action" => "showgross")); ?>',
-			data: 'id=' + $(this).val(),
-			dataType: 'json',
-			success: function(data)
-			{
-				if (data['status'] == "YES") {
-					$('.checkbox').show();
-				} else {
-					$('.checkbox').hide();
-				}
-			}
-		});
+		if ($(this).val() == '3' || $(this).val() == '4') {
+			$('.checkbox').show();
+		} else {
+			$('.checkbox').hide();
+		}
 	});
 	$('#GroupParentId').trigger('change');
 });
