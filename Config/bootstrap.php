@@ -84,6 +84,19 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 				return FALSE;
 			}
 			break;
+		case '>=':
+			if ($param1 >= $param2) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+			break;
+		case 'n':
+			$result = -$param1;
+			break;
+		default:
+			die();
+			break;
 	}
 	$result = $result/100;
 	return $result;
