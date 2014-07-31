@@ -220,3 +220,27 @@ function dateFromSql($sqldatetime) {
 	}
 	return date(Configure::read('Account.dateformatPHP'), $unixTimestamp);
 }
+
+function toCurrency($dc, $amount) {
+	if (calculate($amount, 0, '==')) {
+		return number_format(0, 2, '.', '');
+	}
+	if ($dc == 'D') {
+		if (calculate($amount, 0, '>')) {
+			return 'Dr ' . number_format($amount, 2, '.', '');
+		} else {
+			return 'Cr ' . number_format(calculate($amount, 0, 'n'), 2, '.', '');
+		}
+	}
+	if ($dc == 'C') {
+		if (calculate($amount, 0, '>')) {
+			return 'Cr ' . number_format($amount, 2, '.', '');
+		} else {
+			return 'Dr ' . number_format(calculate($amount, 0, 'n'), 2, '.', '');
+		}
+	}
+	if ($dc == '') {
+		return number_format($amount, 2, '.', '');
+	}
+	return 'ERROR';
+}
