@@ -62,11 +62,7 @@
 					foreach ($ledgers as $ledger) {
 						echo '<tr>';
 						echo '<td>' . $ledger['name'] . '</td>';
-						if ($ledger['balance']['dc'] == 'D') {
-							echo '<td>Dr ' . $ledger['balance']['balance'] . '</td>';
-						} else {
-							echo '<td>Cr ' . $ledger['balance']['balance'] . '</td>';
-						}
+						echo '<td>' . toCurrency($ledger['balance']['dc'], $ledger['balance']['balance']) . '</td>';
 						echo '</tr>';
 					}
 				?>

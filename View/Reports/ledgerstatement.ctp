@@ -115,11 +115,11 @@ $(document).ready(function() {
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
 
 		if ($entry['Entryitem']['dc'] == 'D') {
-			echo '<td>Dr ' . $entry['Entryitem']['amount'] . '</td>';
+			echo '<td>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
 			echo '<td>' . '</td>';
 		} else if ($entry['Entryitem']['dc'] == 'C') {
 			echo '<td>' . '</td>';
-			echo '<td>Cr ' . $entry['Entryitem']['amount'] . '</td>';
+			echo '<td>' . toCurrency('C', $entry['Entryitem']['amount']) . '</td>';
 		} else {
 			echo '<td>Error</td>';
 			echo '<td>Error</td>';

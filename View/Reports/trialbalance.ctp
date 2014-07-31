@@ -51,25 +51,19 @@ function print_account_chart($account, $c = 0, $THIS)
 		echo '<td>Group</td>';
 
 		echo '<td>';
-		if ($account->op_total_dc == 'D') {
-			echo 'Dr';
-		} else {
-			echo 'Cr';
-		}
-		echo ' ';
-		echo $account->op_total;
+		echo toCurrency($account->op_total_dc, $account->op_total);
 		echo '</td>';
 
-		echo '<td>' . $account->dr_total . '</td>';
+		echo '<td>' . toCurrency('D', $account->dr_total) . '</td>';
 
-		echo '<td>' . $account->cr_total . '</td>';
+		echo '<td>' . toCurrency('C', $account->cr_total) . '</td>';
 
 		if ($account->cl_total_dc == 'D') {
-			echo '<td>' . 'Dr ' . $account->cl_total . '</td>';
+			echo '<td>' . toCurrency('D', $account->cl_total) . '</td>';
 			echo '<td></td>';
 		} else {
 			echo '<td></td>';
-			echo '<td>' . 'Cr ' . $account->cl_total . '</td>';
+			echo '<td>' . toCurrency('C', $account->cl_total) . '</td>';
 		}
 
 		echo '</tr>';
@@ -85,27 +79,21 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo $THIS->Html->link($data['name'], array('controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
-			echo '<td>';
 
-			if ($data['op_total_dc'] == 'D') {
-				echo 'Dr';
-			} else {
-				echo 'Cr';
-			}
-			echo ' ';
-			echo $data['op_total'];
+			echo '<td>';
+			echo toCurrency($data['op_total_dc'], $data['op_total']);
 			echo '</td>';
 
-			echo '<td>' . $data['dr_total'] . '</td>';
+			echo '<td>' . toCurrency('D', $data['dr_total']) . '</td>';
 
-			echo '<td>' . $data['cr_total'] . '</td>';
+			echo '<td>' . toCurrency('C', $data['cr_total']) . '</td>';
 
 			if ($data['cl_total_dc'] == 'D') {
-				echo '<td>' . 'Dr ' . $data['cl_total'] . '</td>';
+				echo '<td>' . toCurrency('D', $data['cl_total']) . '</td>';
 				echo '<td></td>';
 			} else {
 				echo '<td></td>';
-				echo '<td>' . 'Cr ' . $data['cl_total'] . '</td>';
+				echo '<td>' . toCurrency('C', $data['cl_total']) . '</td>';
 			}
 
 			echo '</tr>';
@@ -144,8 +132,8 @@ echo '<table>';
 	echo '<tr>';
 	echo '<td>' . __d('webzash', 'TOTAL') . '</td>';
 	echo '<td></td><td></td>';
-	echo '<td>' . $accountlist->dr_total . '</td>';
-	echo '<td>' . $accountlist->cr_total . '</td>';
+	echo '<td>' . toCurrency('D', $accountlist->dr_total) . '</td>';
+	echo '<td>' . toCurrency('C', $accountlist->cr_total) . '</td>';
 	if (calculate($accountlist->dr_total, $accountlist->cr_total, '==')) {
 		echo '<td>' . $this->Html->image('Webzash.match.png', array('alt' => 'match')) . '</td>';
 	} else {

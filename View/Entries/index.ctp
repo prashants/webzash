@@ -47,8 +47,8 @@ foreach ($entries as $entry) {
 	echo '<td>' . '</td>';
 	echo '<td>' . $entryTypeName . '</td>';
 	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
-	echo '<td>' . $entry['Entry']['dr_total']. '</td>';
-	echo '<td>' . $entry['Entry']['cr_total']. '</td>';
+	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
+	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';
 	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entryTypeLabel, $entry['Entry']['id']));
 	echo ' ';

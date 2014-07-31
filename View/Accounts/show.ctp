@@ -72,25 +72,13 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo $THIS->Html->link($data['name'], array('controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
-			echo '<td>';
 
-			if ($data['op_total_dc'] == 'D') {
-				echo 'Dr';
-			} else {
-				echo 'Cr';
-			}
-			echo ' ';
-			echo $data['op_total'];
+			echo '<td>';
+			echo toCurrency($data['op_total_dc'], $data['op_total']);
 			echo '</td>';
 
 			echo '<td>';
-			if ($data['cl_total_dc'] == 'D') {
-				echo 'Dr';
-			} else {
-				echo 'Cr';
-			}
-			echo ' ';
-			echo $data['cl_total'];
+			echo toCurrency($data['cl_total_dc'], $data['cl_total']);
 			echo '</td>';
 
 			echo '<td class="td-actions">' . $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'ledgers', 'action' => 'edit', $data['id'])) . '</td>';
