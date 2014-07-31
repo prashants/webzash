@@ -34,9 +34,9 @@ $(document).ready(function() {
 	 */
 	$('#GroupParentId').change(function() {
 		if ($(this).val() == '3' || $(this).val() == '4') {
-			$('.checkbox').show();
+			$('#AffectsGross').show();
 		} else {
-			$('.checkbox').hide();
+			$('#AffectsGross').hide();
 		}
 	});
 	$('#GroupParentId').trigger('change');
@@ -45,10 +45,15 @@ $(document).ready(function() {
 
 <div class="groups edit form">
 	<?php
+		$options = array(
+			1 => __d('webzash', 'Affects gross profit/loss calculations'),
+			0 => __d('webzash', 'Affects net profit/loss calculations'),
+		);
+
 		echo $this->Form->create('Group');
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Group name')));
 		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __d('webzash', 'Parent group')));
-		echo $this->Form->input('affects_gross', array('type' => 'checkbox', 'label' => __d('webzash', 'Affects gross profit/loss calculations')));
+		echo $this->Form->input('affects_gross', array('type' => 'select', 'options' => $options, 'label' => false, 'div' => array('id' => 'AffectsGross')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
 		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'accounts', 'action' => 'show'));
 	?>
