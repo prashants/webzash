@@ -71,6 +71,85 @@ class ReportsController extends AppController {
  * @return void
  */
 	public function profitloss() {
+		$this->loadModel('Group');
+
+		/**********************************************************************/
+		/*********************** GROSS CALCULATIONS ***************************/
+		/**********************************************************************/
+
+		/* Gross P/L : Expenses */
+		$pandl['gross_expense_total'] = 0;
+		$gross_expense_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 4, 'Group.affects_gross' => 1)));
+
+		foreach ($gross_expense_groups as $row => $group) {
+			$pandl['gross_expense_list'][$row] = new AccountList();
+			$pandl['gross_expense_list'][$row]->start($group['Group']['id']);
+
+			if ($pandl['gross_expense_list'][$row]->cl_total_dc == 'D') {
+				$pandl['gross_expense_total'] = calculate($pandl['gross_expense_total'], $pandl['gross_expense_list'][$row]->cl_total, '+');
+			} else {
+				$pandl['gross_expense_total'] = calculate($pandl['gross_expense_total'], $pandl['gross_expense_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Gross P/L : Incomes */
+		$pandl['gross_income_total'] = 0;
+		$gross_income_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 3, 'Group.affects_gross' => 1)));
+
+		foreach ($gross_income_groups as $row => $group) {
+			$pandl['gross_income_list'][$row] = new AccountList();
+			$pandl['gross_income_list'][$row]->start($group['Group']['id']);
+
+			if ($pandl['gross_income_list'][$row]->cl_total_dc == 'C') {
+				$pandl['gross_income_total'] = calculate($pandl['gross_income_total'], $pandl['gross_income_list'][$row]->cl_total, '+');
+			} else {
+				$pandl['gross_income_total'] = calculate($pandl['gross_income_total'], $pandl['gross_income_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Calculating Gross P/L */
+		$pandl['gross_pl'] = calculate($pandl['gross_income_total'], $pandl['gross_expense_total'], '-');
+
+		/**********************************************************************/
+		/************************* NET CALCULATIONS ***************************/
+		/**********************************************************************/
+
+		/* Net P/L : Expenses */
+		$pandl['net_expense_total'] = 0;
+		$net_expense_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 4, 'Group.affects_gross' => 0)));
+
+		foreach ($net_expense_groups as $row => $group) {
+			$pandl['net_expense_list'][$row] = new AccountList();
+			$pandl['net_expense_list'][$row]->start($group['Group']['id']);
+
+			if ($pandl['net_expense_list'][$row]->cl_total_dc == 'D') {
+				$pandl['net_expense_total'] = calculate($pandl['net_expense_total'], $pandl['net_expense_list'][$row]->cl_total, '+');
+			} else {
+				$pandl['net_expense_total'] = calculate($pandl['net_expense_total'], $pandl['net_expense_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Net P/L : Incomes */
+		$pandl['net_income_total'] = 0;
+		$net_income_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 3, 'Group.affects_gross' => 0)));
+
+		foreach ($net_income_groups as $row => $group) {
+			$pandl['net_income_list'][$row] = new AccountList();
+			$pandl['net_income_list'][$row]->start($group['Group']['id']);
+
+			if ($pandl['net_income_list'][$row]->cl_total_dc == 'C') {
+				$pandl['net_income_total'] = calculate($pandl['net_income_total'], $pandl['net_income_list'][$row]->cl_total, '+');
+			} else {
+				$pandl['net_income_total'] = calculate($pandl['net_income_total'], $pandl['net_income_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Calculating Net P/L */
+		$pandl['net_pl'] = calculate($pandl['net_income_total'], $pandl['net_expense_total'], '-');
+		$pandl['net_pl'] = calculate($pandl['net_pl'], $pandl['gross_pl'], '+');
+
+		$this->set('pandl', $pandl);
+
 		return;
 	}
 

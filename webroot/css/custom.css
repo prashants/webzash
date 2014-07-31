@@ -142,3 +142,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 .col-md-4 {
 	padding-left:0px;
 }
+
+table tr .dc-error {
+	background: #FFFF66;
+}
+table td .dc-error {
+	background: #FFFF66;
+}
