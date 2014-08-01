@@ -62,6 +62,77 @@ class ReportsController extends AppController {
  * @return void
  */
 	public function balancesheet() {
+		$this->loadModel('Group');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		/**********************************************************************/
+		/*********************** BALANCESHEET CALCULATIONS ********************/
+		/**********************************************************************/
+
+		/* Liabilities */
+		$bsheet['liabilities_total'] = 0;
+		$liabilities_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 2)));
+
+		foreach ($liabilities_groups as $row => $group) {
+			$bsheet['liabilities_list'][$row] = new AccountList();
+			$bsheet['liabilities_list'][$row]->start($group['Group']['id']);
+
+			if ($bsheet['liabilities_list'][$row]->cl_total_dc == 'C') {
+				$bsheet['liabilities_total'] = calculate($bsheet['liabilities_total'], $bsheet['liabilities_list'][$row]->cl_total, '+');
+			} else {
+				$bsheet['liabilities_total'] = calculate($bsheet['liabilities_total'], $bsheet['liabilities_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Assets */
+		$bsheet['assets_total'] = 0;
+		$assets_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 1)));
+
+		foreach ($assets_groups as $row => $group) {
+			$bsheet['assets_list'][$row] = new AccountList();
+			$bsheet['assets_list'][$row]->start($group['Group']['id']);
+
+			if ($bsheet['assets_list'][$row]->cl_total_dc == 'D') {
+				$bsheet['assets_total'] = calculate($bsheet['assets_total'], $bsheet['assets_list'][$row]->cl_total, '+');
+			} else {
+				$bsheet['assets_total'] = calculate($bsheet['assets_total'], $bsheet['assets_list'][$row]->cl_total, '-');
+			}
+		}
+
+		/* Calculating total */
+		$bsheet['total'] = calculate($bsheet['assets_total'], $bsheet['liabilities_total'], '-');
+
+		$income = new AccountList();
+		$income->start(3);
+		$expense = new AccountList();
+		$expense->start(4);
+
+		if ($income->cl_total_dc == 'C') {
+			$income_total = $income->cl_total;
+		} else {
+			$income_total = calculate($income->cl_total, 0, 'n');
+		}
+		if ($expense->cl_total_dc == 'D') {
+			$expense_total = $expense->cl_total;
+		} else {
+			$expense_total = calculate($expense->cl_total, 0, 'n');
+		}
+
+		$bsheet['pandl'] = 0;
+
+		$bsheet['opdiff'] = $this->Ledger->getOpeningDiff();
+		if (calculate($bsheet['opdiff']['opdiff_balance'], 0, '==')) {
+			$bsheet['is_opdiff'] = false;
+		} else {
+			$bsheet['is_opdiff'] = true;
+			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($bsheet['opdiff']['opdiff_balance_dc'], $bsheet['opdiff']['opdiff_balance']), 'error');
+		}
+
+		$this->set('bsheet', $bsheet);
+
 		return;
 	}
 
