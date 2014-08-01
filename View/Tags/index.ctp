@@ -29,15 +29,16 @@
 	<tr>
 		<th><?php echo __d('webzash', 'Title'); ?></th>
 		<th><?php echo __d('webzash', 'Color'); ?></th>
-		<th></th>
-		<th></th>
+		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($tags as $tag) { ?>
 		<tr>
 			<td><?php echo $tag['Tag']['title']; ?></td>
 			<td></td>
-			<td><?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['Tag']['id'])); ?></td>
-			<td><?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'tags', 'action' => 'delete', $tag['Tag']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?></td>
+			<td>
+				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['Tag']['id'])); ?>
+				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'tags', 'action' => 'delete', $tag['Tag']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
+			</td>
 		</tr>
 	<?php } ?>
 </table>
