@@ -149,13 +149,14 @@ $(document).ready(function() {
 					echo '<tr>';
 					echo '<td>' . __d('webzash', 'Total Liability and Owners Equity') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $bsheet['liabilities_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
 					echo '<td>' . __d('webzash', 'Total Liability and Owners Equity') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting positive Cr balance">' . toCurrency('C', $bsheet['liabilities_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
-				</tr>
 				<tr>
 					<?php
 					/* If Net Profit then add to Liability */
@@ -199,13 +200,14 @@ $(document).ready(function() {
 					echo '<tr>';
 					echo '<td>' . __d('webzash', 'Total Assets') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $bsheet['assets_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
 					echo '<td>' . __d('webzash', 'Total Assets') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting positive Dr Balance">' . toCurrency('D', $bsheet['assets_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
-				</tr>
 				<tr>
 					<?php
 					/* If Net Loss the add to Assets */
@@ -219,6 +221,7 @@ $(document).ready(function() {
 						$assets_total = calculate($assets_total, $positive_pandl, '+');
 					}
 					?>
+				</tr>
 				<?php
 				if ($bsheet['is_opdiff']) {
 					echo '<tr>';
@@ -241,4 +244,6 @@ $(document).ready(function() {
 			</table>
 		</td>
 	</tr>
+	<!-- END Liabilities and Assets -->
 
+</table>
