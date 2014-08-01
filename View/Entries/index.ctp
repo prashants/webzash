@@ -25,6 +25,45 @@
  * THE SOFTWARE.
  */
 ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#EntryShow").change(function() {
+	     this.form.submit();
+	});
+});
+</script>
+
+<div class="btn-group col-md-2">
+	<button type="button" class="btn btn-primary"><?php echo  __d('webzash', 'Add Entry'); ?></button>
+	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+	<?php
+		foreach ($this->Menu->entrytypes() as $entrytype) {
+			echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'add', $entrytype['Entrytype']['label'])) . '</li>';
+		}
+	?>
+	</ul>
+</div>
+
+<div class="col-md-2">
+	<?php
+		$options = array();
+		$options['all'] = 'All';
+		foreach ($this->Menu->entrytypes() as $entrytype) {
+			$options[$entrytype['Entrytype']['label']] = $entrytype['Entrytype']['name'];
+		}
+	?>
+	<?php echo $this->Form->create('Entry'); ?>
+	<?php echo $this->Form->input('show', array('type' => 'select', 'options' => $options, 'label' => false, 'before' => __d('webzash', '<div class="pull-left" id="show-label">Show</div>'))); ?>
+	<?php echo $this->Form->end(__d('webzash', '')); ?>
+</div>
+
+<br /><br /><br />
+
 <table>
 
 <tr>

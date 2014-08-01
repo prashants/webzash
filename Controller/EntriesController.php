@@ -46,14 +46,48 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+		$this->loadModel('Entrytype');
 
-		/* Setup pagination */
-		$this->Paginator->settings = array(
-			'Entry' => array(
-				'limit' => 10,
-				'order' => array('Entry.date' => 'desc'),
-			)
-		);
+		if (empty($this->passedArgs['show'])) {
+			$entrytypeLabel = 'all';
+		} else {
+			$entrytypeLabel = $this->passedArgs['show'];
+		}
+
+		if ($entrytypeLabel != 'all') {
+			$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
+			if (!$entrytype) {
+				$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'error');
+				return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
+			}
+
+			/* Setup pagination */
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'limit' => 10,
+					'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
+					'order' => array('Entry.date' => 'desc'),
+				)
+			);
+		} else {
+			/* Setup pagination */
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'limit' => 10,
+					'order' => array('Entry.date' => 'desc'),
+				)
+			);
+		}
+
+		if ($this->request->is('post')) {
+			return $this->redirect(array('controller' => 'entries', 'action' => 'index', 'show' => $this->request->data['Entry']['show']));
+		}
+
+		if (empty($this->passedArgs['show'])) {
+			$this->request->data['Entry']['show'] = 'all';
+		} else {
+			$this->request->data['Entry']['show'] = $this->passedArgs['show'];
+		}
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		return;

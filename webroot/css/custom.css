@@ -149,3 +149,7 @@ table tr .dc-error {
 table td .dc-error {
 	background: #FFFF66;
 }
+
+#show-label {
+	padding-right:8px;
+}
