@@ -58,6 +58,10 @@ class AccountsController extends AppController {
  * @return void
  */
 	public function show() {
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
 		$this->set('actionlinks', array(
 			array('controller' => 'groups', 'action' => 'add', 'title' => 'Add Group'),
 			array('controller' => 'ledgers', 'action' => 'add', 'title' => 'Add Ledger')
@@ -65,6 +69,14 @@ class AccountsController extends AppController {
 		$accountlist = new AccountList();
 		$accountlist->start(0);
 		$this->set('accountlist', $accountlist);
+
+		$opdiff = $this->Ledger->getOpeningDiff();
+		if (calculate($opdiff['opdiff_balance'], 0, '==')) {
+			/* Nothing to do */
+		} else {
+			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($opdiff['opdiff_balance_dc'], $opdiff['opdiff_balance']), 'error');
+		}
+
 		return;
 	}
 
