@@ -48,14 +48,8 @@ class EntriesController extends WebzashAppController {
 	public function index() {
 		$this->loadModel('Entrytype');
 
-		if (empty($this->passedArgs['show'])) {
-			$entrytypeLabel = 'all';
-		} else {
-			$entrytypeLabel = $this->passedArgs['show'];
-		}
-
-		if ($entrytypeLabel != 'all') {
-			$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
+		if (isset($this->passedArgs['show'])) {
+			$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $this->passedArgs['show'])));
 			if (!$entrytype) {
 				$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'error');
 				return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
@@ -80,11 +74,15 @@ class EntriesController extends WebzashAppController {
 		}
 
 		if ($this->request->is('post')) {
-			return $this->redirect(array('controller' => 'entries', 'action' => 'index', 'show' => $this->request->data['Entry']['show']));
+			if (empty($this->request->data['Entry']['show'])) {
+				return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
+			} else {
+				return $this->redirect(array('controller' => 'entries', 'action' => 'index', 'show' => $this->request->data['Entry']['show']));
+			}
 		}
 
 		if (empty($this->passedArgs['show'])) {
-			$this->request->data['Entry']['show'] = 'all';
+			$this->request->data['Entry']['show'] = '0';
 		} else {
 			$this->request->data['Entry']['show'] = $this->passedArgs['show'];
 		}

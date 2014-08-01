@@ -52,7 +52,7 @@ $(document).ready(function() {
 <div class="col-md-2">
 	<?php
 		$options = array();
-		$options['all'] = 'All';
+		$options['0'] = 'All';
 		foreach ($this->Menu->entrytypes() as $entrytype) {
 			$options[$entrytype['Entrytype']['label']] = $entrytype['Entrytype']['name'];
 		}
