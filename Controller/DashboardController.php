@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('AccountList', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Dashboard Controller
@@ -64,6 +65,28 @@ class DashboardController extends AppController {
 			);
 		}
 		$this->set('ledgers', $ledgersCB);
+
+		/* Account summary */
+		$assets = new AccountList();
+		$assets->start(1);
+		$liabilities = new AccountList();
+		$liabilities->start(2);
+		$income = new AccountList();
+		$income->start(3);
+		$expense = new AccountList();
+		$expense->start(4);
+
+		$accsummary = array(
+			'assets_total_dc' => $assets->cl_total_dc,
+			'assets_total' => $assets->cl_total,
+			'liabilities_total_dc' => $liabilities->cl_total_dc,
+			'liabilities_total' => $liabilities->cl_total,
+			'income_total_dc' => $income->cl_total_dc,
+			'income_total' => $income->cl_total,
+			'expense_total_dc' => $expense->cl_total_dc,
+			'expense_total' => $expense->cl_total,
+		);
+		$this->set('accsummary', $accsummary);
 
 		return;
 	}
