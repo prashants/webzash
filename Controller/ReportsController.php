@@ -105,6 +105,7 @@ class ReportsController extends AppController {
 		/* Calculating total */
 		$bsheet['total'] = calculate($bsheet['assets_total'], $bsheet['liabilities_total'], '-');
 
+		/* Profit and loss calculations */
 		$income = new AccountList();
 		$income->start(3);
 		$expense = new AccountList();
@@ -121,8 +122,9 @@ class ReportsController extends AppController {
 			$expense_total = calculate($expense->cl_total, 0, 'n');
 		}
 
-		$bsheet['pandl'] = 0;
+		$bsheet['pandl'] = calculate($income_total, $expense_total, '-');
 
+		/* Difference in opening balance */
 		$bsheet['opdiff'] = $this->Ledger->getOpeningDiff();
 		if (calculate($bsheet['opdiff']['opdiff_balance'], 0, '==')) {
 			$bsheet['is_opdiff'] = false;

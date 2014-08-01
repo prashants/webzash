@@ -114,8 +114,8 @@ $(document).ready(function() {
 		<td>
 			<table>
 				<tr>
-					<th>Gross Expenses</th>
-					<th class="text-right">(Dr) Amount</th>
+					<th><?php echo __d('webzash', 'Gross Expenses'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
 				<?php
 					foreach ($pandl['gross_expense_list'] as $row => $group) {
@@ -128,8 +128,8 @@ $(document).ready(function() {
 		<td>
 			<table>
 				<tr>
-					<th>Gross Incomes</th>
-					<th class="text-right">(Cr) Amount</th>
+					<th><?php echo __d('webzash', 'Gross Incomes'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
 				<?php
 					foreach ($pandl['gross_income_list'] as $row => $group) {
@@ -143,22 +143,26 @@ $(document).ready(function() {
 	<tr>
 		<td>
 			<table>
+				<?php /* Gross Expense Total */ ?>
 				<?php $gross_total = $pandl['gross_expense_total']; ?>
 				<?php if (calculate($pandl['gross_expense_total'], 0, '>=')) {
 					echo '<tr>';
-					echo '<td>' . 'Total Gross Expenses' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Gross Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['gross_expense_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
-					echo '<td>' . 'Total Gross Expenses' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Gross Expenses') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Dr Balance">' . toCurrency('D', $pandl['gross_expense_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
 				</tr>
 				<tr>
 					<?php
+					/* Gross Profit C/O */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
-						echo '<td>' . 'Gross Profit C/O' . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Profit C/O') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $pandl['gross_pl']) . '</td>';
 						$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 					} else {
@@ -168,7 +172,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 				<tr>
-					<td>Total</td>
+					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $gross_total); ?></td>
 				</tr>
 			</table>
@@ -176,25 +180,28 @@ $(document).ready(function() {
 
 		<td>
 			<table>
+				<?php /* Gross Income Total */ ?>
 				<?php $gross_total = $pandl['gross_income_total']; ?>
 				<?php if (calculate($pandl['gross_income_total'], 0, '>=')) {
 					echo '<tr>';
-					echo '<td>' . 'Total Gross Incomes' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Gross Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['gross_income_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
-					echo '<td>' . 'Total Gross Incomes' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Gross Incomes') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Cr Balance">' . toCurrency('C', $pandl['gross_income_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
-				</tr>
 				<tr>
 					<?php
+					/* Gross Loss C/O */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						echo '<td>-</td>';
 						echo '<td>-</td>';
 					} else {
-						echo '<td>' . 'Gross Loss C/O' . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Loss C/O') . '</td>';
 						$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 						echo '<td class="text-right">' . toCurrency('', $positive_gross_pl) . '</td>';
 						$gross_total = calculate($gross_total, $positive_gross_pl, '+');
@@ -202,7 +209,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 				<tr>
-					<td>Total</td>
+					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $gross_total); ?></td>
 				</tr>
 			</table>
@@ -214,8 +221,8 @@ $(document).ready(function() {
 		<td>
 			<table>
 				<tr>
-					<th>Expenses</th>
-					<th class="text-right">(Dr) Amount</th>
+					<th><?php echo __d('webzash', 'Expenses'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
 				<?php
 					foreach ($pandl['net_expense_list'] as $row => $group) {
@@ -228,8 +235,8 @@ $(document).ready(function() {
 		<td>
 			<table>
 				<tr>
-					<th>Incomes</th>
-					<th class="text-right">(Cr) Amount</th>
+					<th><?php echo __d('webzash', 'Incomes'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
 				<?php
 					foreach ($pandl['net_income_list'] as $row => $group) {
@@ -243,34 +250,38 @@ $(document).ready(function() {
 	<tr>
 		<td>
 			<table>
+				<?php /* Net Expense Total */ ?>
 				<?php $net_total = $pandl['net_expense_total']; ?>
 				<?php if (calculate($pandl['net_expense_total'], 0, '>=')) {
 					echo '<tr>';
-					echo '<td>' . 'Total Expenses' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['net_expense_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
-					echo '<td>' . 'Total Expenses' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Expenses') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Dr Balance">' . toCurrency('D', $pandl['net_expense_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
-				</tr>
 				<tr>
 					<?php
+					/* Gross Loss B/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						echo '<td>-</td>';
 						echo '<td>-</td>';
 					} else {
 						$net_total = calculate($net_total, $positive_gross_pl, '+');
-						echo '<td>' . 'Gross Loss B/F' . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Loss B/F') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $positive_gross_pl) . '</td>';
 					}
 					?>
 				</tr>
 				<tr>
 					<?php
+					/* Net Profit */
 					if (calculate($pandl['net_pl'], 0, '>=')) {
-						echo '<td>' . 'Net Profit' . '</td>';
+						echo '<td>' . __d('webzash', 'Net Profit') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $pandl['net_pl']) . '</td>';
 						$net_total = calculate($net_total, $pandl['net_pl'], '+');
 					} else {
@@ -280,7 +291,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 				<tr>
-					<td>Total</td>
+					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $net_total); ?></td>
 				</tr>
 			</table>
@@ -288,23 +299,26 @@ $(document).ready(function() {
 
 		<td>
 			<table>
+				<?php /* Net Income Total */ ?>
 				<?php $net_total = $pandl['net_income_total']; ?>
 				<?php if (calculate($pandl['net_income_total'], 0, '>=')) {
 					echo '<tr>';
-					echo '<td>' . 'Total Incomes' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['net_income_total']) . '</td>';
+					echo '</tr>';
 				} else {
 					echo '<tr class="dc-error">';
-					echo '<td>' . 'Total Incomes' . '</td>';
+					echo '<td>' . __d('webzash', 'Total Incomes') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Cr Balance">' . toCurrency('C', $pandl['net_income_total']) . '</td>';
+					echo '</tr>';
 				}
 				?>
-				</tr>
 				<tr>
 					<?php
+					/* Gross Profit B/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						$net_total = calculate($net_total, $pandl['gross_pl'], '+');
-						echo '<td>' . 'Gross Profit B/F' . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Profit B/F') . '</td>';
 						echo '<td class="text-right">' .  toCurrency('', $pandl['gross_pl']) . '</td>';
 					} else {
 						echo '<td>-</td>';
@@ -314,11 +328,12 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<?php
+					/* Net Loss */
 					if (calculate($pandl['net_pl'], 0, '>=')) {
 						echo '<td>-</td>';
 						echo '<td>-</td>';
 					} else {
-						echo '<td>' . 'Net Loss' . '</td>';
+						echo '<td>' . __d('webzash', 'Net Loss') . '</td>';
 						$positive_net_pl = calculate($pandl['net_pl'], 0, 'n');
 						echo '<td class="text-right">' . toCurrency('', $positive_net_pl) . '</td>';
 						$net_total = calculate($net_total, $positive_net_pl, '+');
@@ -326,7 +341,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 				<tr>
-					<td>Total</td>
+					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $net_total); ?></td>
 				</tr>
 			</table>
