@@ -27,6 +27,12 @@
 
 App::uses('Component', 'Controller');
 
+/**
+ * Webzash Plugin Permission Component
+ *
+ * @package Webzash
+ * @subpackage Webzash.controllers
+ */
 class PermissionComponent extends Component {
 
 	public $components = array('Session');
