@@ -67,7 +67,7 @@
 				<li><a href="#">Help</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Accounts</a></li>
+				<li><span><?php echo $this->Html->link(__d('webzash', 'Administer'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="#">Logout</a></li>
 			</ul>
