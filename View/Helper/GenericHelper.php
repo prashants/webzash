@@ -132,4 +132,76 @@ class GenericHelper extends AppHelper {
 		}
 		return $ajaxurl;
 	}
+
+/**
+ * Wzuser return status string
+ */
+	function wzuser_status($status) {
+		switch ($status) {
+			case '0': return __d('webzash', 'Disabled');
+			case '1': return __d('webzash', 'Verification pending');
+			case '2': return __d('webzash', 'Enabled');
+			default: return __d('webzash', 'Error');
+		}
+	}
+/**
+ * Wzuser return status options
+ */
+	function wzuser_status_options() {
+		return array(
+			'0' => __d('webzash', 'Disabled'),
+			'1' => __d('webzash', 'Verification pending'),
+			'2' => __d('webzash', 'Enabled'),
+		);
+	}
+
+/**
+ * Wzuser return status string
+ */
+	function wzuser_role($role) {
+		switch ($role) {
+			case 'admin': return __d('webzash', 'Administrator');
+			case 'manager': return __d('webzash', 'Manager');
+			case 'accountant': return __d('webzash', 'Accountant');
+			case 'dataentry': return __d('webzash', 'Data entry operator');
+			case 'guest': return __d('webzash', 'Guest');
+			default: return __d('webzash', 'Error');
+		}
+	}
+/**
+ * Wzuser return status options
+ */
+	function wzuser_role_options() {
+		return array(
+			'admin' => __d('webzash', 'Administrator'),
+			'manager' => __d('webzash', 'Manager'),
+			'accountant' => __d('webzash', 'Accountant'),
+			'dataentry' => __d('webzash', 'Data entry operator'),
+			'guest' => __d('webzash', 'Guest'),
+		);
+	}
+
+/**
+ * Wzaccount return database type string
+ */
+	function wzaccount_dbtype($dbtype) {
+		switch ($dbtype) {
+			case 'Database/Mysql': return __d('webzash', 'MySQL');
+			case 'Database/Sqlserver': return __d('webzash', 'MS SQL Server');
+			case 'Database/Postgres': return __d('webzash', 'Postgres SQL');
+			case 'Database/Sqlite': return __d('webzash', 'Sqlite 3');
+			default: return __d('webzash', 'Error');
+		}
+	}
+/**
+ * Wzaccount return database type options
+ */
+	function wzaccount_dbtype_options() {
+		return array(
+			'Database/Mysql' => __d('webzash', 'MySQL'),
+			'Database/Sqlserver' => __d('webzash', 'MS SQL Server'),
+			'Database/Postgres' => __d('webzash', 'Postgres SQL'),
+			'Database/Sqlite' => __d('webzash', 'Sqlite 3'),
+		);
+	}
 }
