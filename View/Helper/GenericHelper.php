@@ -139,8 +139,9 @@ class GenericHelper extends AppHelper {
 	function wzuser_status($status) {
 		switch ($status) {
 			case '0': return __d('webzash', 'Disabled');
-			case '1': return __d('webzash', 'Verification pending');
-			case '2': return __d('webzash', 'Enabled');
+			case '1': return __d('webzash', 'Email verification pending');
+			case '2': return __d('webzash', 'Admin verification pending');
+			case '3': return __d('webzash', 'Enabled');
 			default: return __d('webzash', 'Error');
 		}
 	}
@@ -150,8 +151,9 @@ class GenericHelper extends AppHelper {
 	function wzuser_status_options() {
 		return array(
 			'0' => __d('webzash', 'Disabled'),
-			'1' => __d('webzash', 'Verification pending'),
-			'2' => __d('webzash', 'Enabled'),
+			'1' => __d('webzash', 'Email verification pending'),
+			'2' => __d('webzash', 'Admin verification pending'),
+			'3' => __d('webzash', 'Enabled'),
 		);
 	}
 
