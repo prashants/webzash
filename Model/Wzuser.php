@@ -35,4 +35,91 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Wzuser extends WebzashAppModel {
 
+	/* Validation rules for the Wzuser table */
+	public $validate = array(
+		'user_name' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'User name cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'isUnique',
+				'message' => 'User name is already in use',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'User name cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'full_name' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Full name cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'User name cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'password' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Password cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'email' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Email cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('email', true),
+				'message' => 'Email is not a valid email address',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'role' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Role cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('inList', array('admin', 'manager', 'accountant', 'dataentry', 'guest')),
+				'message' => 'Role is not valid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'status' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Status cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('inList', array('0', '1', '2', '3')),
+				'message' => 'Status is not valid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+	);
 }

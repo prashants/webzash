@@ -35,4 +35,163 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Wzaccount extends WebzashAppModel {
 
+	/* Validation rules for the Wzaccount table */
+	public $validate = array(
+		'name' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Account name cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'isUnique',
+				'message' => 'Account name is already in use',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Account name cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule' => 'alphaNumeric',
+				'message' => 'Account name can onle be alpha-numeric',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'db_datasource' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Database type cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('inList', array('Database/Mysql', 'Database/Sqlserver', 'Database/Postgres', 'Database/Sqlite')),
+				'message' => 'Database type is not valid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'db_name' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Database name cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database name cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'db_hostname' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Database hostname cannot be empty',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database hostname cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_port' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Invalid number',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Port outside valid range',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule3' => array(
+				'rule' => array('comparison', '<=', 65000),
+				'message' => 'Port outside valid range',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule'    => 'naturalNumber',
+				'message' => 'Port address is invalid',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_prefix' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database name cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_username' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database username cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_password' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database password cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_persistent' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Database persistent connection cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for database persistent connection',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'db_schema' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 10),
+				'message' => 'Database schema cannot be more than 255 characters',
+				'required' => false,
+				'allowEmpty' => true,
+			),
+		),
+		'db_unixsocket' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database unixsocket cannot be more than 255 characters',
+				'required' => false,
+				'allowEmpty' => true,
+			),
+		),
+		'db_settings' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database settings cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+	);
 }

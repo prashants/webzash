@@ -35,4 +35,123 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Wzsetting extends WebzashAppModel {
 
+	/* Validation rules for the Wzsetting table */
+	public $validate = array(
+
+		'drcr_toby' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'For entry use cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('inList', array('drcr', 'toby')),
+				'message' => 'For entry use is not valid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'admin_verification' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Admin verification cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for admin verification',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'email_verification' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Email verification cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for email verification',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'user_registration' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'User registration cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for user registration',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'email_protocol' => array(
+			'rule1' => array(
+				'rule' => array('inList', array('mail', 'sendmail', 'smtp')),
+				'message' => 'Invalid option',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'email_host' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Hostname cannot be more than 255 characters',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'email_port' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Invalid number',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Port outside valid range',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule3' => array(
+				'rule' => array('comparison', '<=', 65000),
+				'message' => 'Port outside valid range',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+			'rule4' => array(
+				'rule'    => 'naturalNumber',
+				'message' => 'Port address is invalid',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'email_username' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Username cannot be more than 255 characters',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+		'email_password' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Password cannot be more than 255 characters',
+				'required'   => true,
+				'allowEmpty' => true,
+			),
+		),
+
+	);
 }
