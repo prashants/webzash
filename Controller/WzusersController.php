@@ -108,7 +108,7 @@ class WzusersController extends WebzashAppController {
 				unset($this->request->data['Wzuser']['id']);
 
 				$temp_password = $this->request->data['Wzuser']['password'];
-				$this->request->data['Wzuser']['password'] = Security::hash($this->request->data['Wzuser']['password']);
+				$this->request->data['Wzuser']['password'] = Security::hash($this->request->data['Wzuser']['password'], 'sha1', true);
 
 				$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
@@ -190,7 +190,7 @@ class WzusersController extends WebzashAppController {
 
 			$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
-			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'verification_key'))) {
+			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The user account has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));

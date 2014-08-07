@@ -92,6 +92,12 @@ class Wzuser extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
+			'rule3' => array(
+				'rule' => 'isUnique',
+				'message' => 'Email is already in use',
+				'required' => true,
+				'allowEmpty' => false,
+			),
 		),
 		'role' => array(
 			'rule1' => array(
@@ -115,9 +121,37 @@ class Wzuser extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
-				'rule' => array('inList', array('0', '1', '2', '3')),
-				'message' => 'Status is not valid',
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for status',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'email_verified' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Email verified cannot be empty',
 				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for email verified',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+		),
+		'admin_verified' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Administrator approved cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for administrator approved',
+				'required'   => true,
 				'allowEmpty' => false,
 			),
 		),

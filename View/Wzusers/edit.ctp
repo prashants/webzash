@@ -32,6 +32,8 @@
 		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Full name')));
 		echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
 		echo $this->Form->input('status', array('type' => 'select', 'options' => $this->Generic->wzuser_status_options(), 'label' => __d('webzash', 'Status')));
+		echo $this->Form->input('email_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verified')));
+		echo $this->Form->input('admin_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Administrator approved')));
 		echo $this->Form->input('role', array('type' => 'select', 'options' => $this->Generic->wzuser_role_options(), 'label' => __d('webzash', 'Role')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
 		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'wzusers', 'action' => 'index'));

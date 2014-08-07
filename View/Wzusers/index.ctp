@@ -31,6 +31,7 @@
 		<th><?php echo $this->Paginator->sort('fullname', __d('webzash', 'Fullname')); ?></th>
 		<th><?php echo $this->Paginator->sort('email', __d('webzash', 'Email')); ?></th>
 		<th><?php echo $this->Paginator->sort('status', __d('webzash', 'Status')); ?></th>
+		<th><?php echo $this->Paginator->sort('status', __d('webzash', 'Approved')); ?></th>
 		<th><?php echo $this->Paginator->sort('role', __d('webzash', 'Role')); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
@@ -40,6 +41,14 @@
 			<td><?php echo $wzuser['Wzuser']['fullname']; ?></td>
 			<td><?php echo $wzuser['Wzuser']['email']; ?></td>
 			<td><?php echo $this->Generic->wzuser_status($wzuser['Wzuser']['status']); ?></td>
+			<td>
+				<?php if ($wzuser['Wzuser']['admin_verified'] == 1) {
+					echo __d('webzash', 'Yes');
+				} else {
+					echo __d('webzash', 'No');
+				}
+				?>
+			</td>
 			<td><?php echo $this->Generic->wzuser_role($wzuser['Wzuser']['role']); ?></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'wzusers', 'action' => 'edit', $wzuser['Wzuser']['id'])); ?>
