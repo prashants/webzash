@@ -314,4 +314,68 @@ class WzusersController extends WebzashAppController {
 		return $this->redirect($this->Auth->logout());
 	}
 
+/**
+ * verifiy email method
+ */
+	public function verify() {
+		$this->layout = 'user';
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzsetting");
+		$this->Wzsetting = new Wzsetting();
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		$wzsetting = $this->Wzsetting->findById(1);
+
+		$this->Auth->logout();
+
+		$this->set('success', false);
+
+		/* Check whether key is present in GET requets */
+		if (empty($this->params['url']['u'])) {
+			$this->set('success', false);
+			$this->Session->setFlash(__d('webzash', 'Email verification failed. Please, try again.'), 'error');
+			return;
+		}
+		if (empty($this->params['url']['k'])) {
+			$this->set('success', false);
+			$this->Session->setFlash(__d('webzash', 'Email verification failed. Please, try again.'), 'error');
+			return;
+		}
+
+		/* Get user count */
+		$user = $this->Wzuser->find('first', array('conditions' => array(
+			'username' => $this->params['url']['u'],
+			'verification_key' => $this->params['url']['k']
+		)));
+
+		if (empty($user)) {
+			$this->set('success', false);
+			$this->Session->setFlash(__d('webzash', 'Email verification failed. Please, try again.'), 'error');
+			return;
+		}
+
+		/* Set email as verified */
+		$ds = $this->Wzuser->getDataSource();
+		$ds->begin();
+
+		$this->Wzuser->id = $user['Wzuser']['id'];
+		if ($this->Wzuser->saveField('email_verified', '1')) {
+			$this->set('success', true);
+			$ds->commit();
+			$this->Session->setFlash(__d('webzash', 'User account is now verified'), 'success');
+		} else {
+			$this->set('success', false);
+			$ds->rollback();
+			$this->Session->setFlash(__d('webzash', 'Email verification failed. Please, try again.'), 'error');
+		}
+		return;
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('verify', 'logout');
+	}
 }
