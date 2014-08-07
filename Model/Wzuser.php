@@ -37,7 +37,7 @@ class Wzuser extends WebzashAppModel {
 
 	/* Validation rules for the Wzuser table */
 	public $validate = array(
-		'user_name' => array(
+		'username' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'User name cannot be empty',
@@ -57,7 +57,7 @@ class Wzuser extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
-		'full_name' => array(
+		'fullname' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'Full name cannot be empty',

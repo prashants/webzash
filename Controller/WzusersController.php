@@ -59,7 +59,7 @@ class WzusersController extends WebzashAppController {
 		$this->Paginator->settings = array(
 			'Wzuser' => array(
 				'limit' => 10,
-				'order' => array('Wzuser.user_name' => 'desc'),
+				'order' => array('Wzuser.username' => 'desc'),
 			)
 		);
 
@@ -190,7 +190,7 @@ class WzusersController extends WebzashAppController {
 
 			$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
-			if ($this->Wzuser->save($this->request->data, true, array('user_name', 'full_name', 'email', 'role', 'status', 'verification_key'))) {
+			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'verification_key'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The user account has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
@@ -248,6 +248,19 @@ class WzusersController extends WebzashAppController {
 		}
 
 		return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+	}
+
+/**
+ * login method
+ */
+	public function login() {
+		if ($this->request->is('post')) {
+			if ($this->Auth->login()) {
+				return $this->redirect($this->Auth->redirectUrl());
+			} else {
+				$this->Session->setFlash();
+			}
+		}
 	}
 
 }

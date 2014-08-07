@@ -28,9 +28,9 @@
 <div class="wzuser add form">
 	<?php
 		echo $this->Form->create('Wzuser');
-		echo $this->Form->input('user_name', array('label' => __d('webzash', 'Username')));
+		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
 		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
-		echo $this->Form->input('full_name', array('label' => __d('webzash', 'Full name')));
+		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Full name')));
 		echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
 		echo $this->Form->input('status', array('type' => 'select', 'options' => $this->Generic->wzuser_status_options(), 'label' => __d('webzash', 'Status')));
 		echo $this->Form->input('role', array('type' => 'select', 'options' => $this->Generic->wzuser_role_options(), 'label' => __d('webzash', 'Role')));

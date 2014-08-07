@@ -27,8 +27,8 @@
 ?>
 <table>
 	<tr>
-		<th><?php echo $this->Paginator->sort('user_name', __d('webzash', 'Username')); ?></th>
-		<th><?php echo $this->Paginator->sort('full_name', __d('webzash', 'Fullname')); ?></th>
+		<th><?php echo $this->Paginator->sort('username', __d('webzash', 'Username')); ?></th>
+		<th><?php echo $this->Paginator->sort('fullname', __d('webzash', 'Fullname')); ?></th>
 		<th><?php echo $this->Paginator->sort('email', __d('webzash', 'Email')); ?></th>
 		<th><?php echo $this->Paginator->sort('status', __d('webzash', 'Status')); ?></th>
 		<th><?php echo $this->Paginator->sort('role', __d('webzash', 'Role')); ?></th>
@@ -36,8 +36,8 @@
 	</tr>
 	<?php foreach ($wzusers as $wzuser) { ?>
 		<tr>
-			<td><?php echo $wzuser['Wzuser']['user_name']; ?></td>
-			<td><?php echo $wzuser['Wzuser']['full_name']; ?></td>
+			<td><?php echo $wzuser['Wzuser']['username']; ?></td>
+			<td><?php echo $wzuser['Wzuser']['fullname']; ?></td>
 			<td><?php echo $wzuser['Wzuser']['email']; ?></td>
 			<td><?php echo $this->Generic->wzuser_status($wzuser['Wzuser']['status']); ?></td>
 			<td><?php echo $this->Generic->wzuser_role($wzuser['Wzuser']['role']); ?></td>
