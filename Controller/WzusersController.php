@@ -254,13 +254,49 @@ class WzusersController extends WebzashAppController {
  * login method
  */
 	public function login() {
+		$this->Wzuser->useDbConfig = 'wz';
+		$this->layout = 'user';
+
 		if ($this->request->is('post')) {
+
+			/* Check status of user account */
+			$user = $this->Wzuser->find('first', array('conditions' => array(
+				'username' => $this->request->data['Wzuser']['username'],
+				'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true)
+			)));
+			if (!$user) {
+				$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'error');
+				return;
+			}
+			if ($user['Wzuser']['status'] == 0) {
+				$this->Session->setFlash(__d('webzash', 'User account is diabled. Please contact your administrator.'), 'error');
+				return;
+			} else if ($user['Wzuser']['status'] == 1) {
+				$this->Session->setFlash(__d('webzash', 'Email verification is pending. Please verify your email.'), 'error');
+				return;
+			} else if ($user['Wzuser']['status'] == 2) {
+				$this->Session->setFlash(__d('webzash', 'User verification is pending. Please contact your administrator.'), 'error');
+				return;
+			}
+
+			/* Login */
 			if ($this->Auth->login()) {
-				return $this->redirect($this->Auth->redirectUrl());
+				if ($this->Auth->user('role') == 'admin') {
+					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+				} else {
+					return $this->redirect($this->Auth->redirectUrl());
+				}
 			} else {
-				$this->Session->setFlash();
+				$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'error');
 			}
 		}
+	}
+
+/**
+ * logout method
+ */
+	public function logout() {
+		return $this->redirect($this->Auth->logout());
 	}
 
 }

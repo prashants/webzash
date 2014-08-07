@@ -69,7 +69,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><span><?php echo $this->Html->link(__d('webzash', 'Administer'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
 				<li><a href="#">Profile</a></li>
-				<li><a href="#">Logout</a></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Logout'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'logout')); ?></li>
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->

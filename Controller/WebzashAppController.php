@@ -37,4 +37,29 @@ class WebzashAppController extends AppController {
 
 	public $helpers = array('Webzash.Menu');
 
+	public $components = array(
+		'Auth' => array(
+			'loginRedirect' => array(
+				'plugin' => 'webzash',
+				'controller' => 'dashboard',
+				'action' => 'index'
+			),
+			'logoutRedirect' => array(
+				'plugin' => 'webzash',
+				'controller' => 'wzusers',
+				'action' => 'login'
+			),
+			'loginAction' => array(
+				'plugin' => 'webzash',
+				'controller' => 'wzusers',
+				'action' => 'login'
+			),
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array('username' => 'username', 'password' => 'password'),
+					'userModel' => 'Wzuser',
+				)
+			)
+		)
+	);
 }

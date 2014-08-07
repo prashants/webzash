@@ -25,25 +25,12 @@
  * THE SOFTWARE.
  */
 ?>
-<!-- Static navbar -->
-<div class="navbar navbar-inverse" role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<?php echo $this->Html->link('Webzash', 'http://webzash.org', array('class' => 'navbar-brand', 'target' => '_blank')); ?>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li><span><?php echo $this->Html->link(__d('webzash', 'Back to Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
-				<li><a href="#">Profile</a></li>
-				<li><?php echo $this->Html->link(__d('webzash', 'Logout'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'logout')); ?></li>
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div><!--/.container-fluid -->
+<div class="wzusers login form">
+<?php
+		echo $this->Form->create('Wzuser');
+		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
+		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
+		echo $this->Form->end(__d('webzash', 'Login'));
+?>
 </div>
 
