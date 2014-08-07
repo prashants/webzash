@@ -154,8 +154,8 @@ class WzusersController extends WebzashAppController {
 		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
-		$wxsetting = $this->Wzsetting->findById(1);
-		if (!$wxsetting) {
+		$wzsetting = $this->Wzsetting->findById(1);
+		if (!$wzsetting) {
 			$this->Session->setFlash(__d('webzash', 'Please update your setting below before editing any user'), 'error');
 			return $this->redirect(array('controller' => 'wzsettings', 'action' => 'edit'));
 		}
@@ -254,8 +254,16 @@ class WzusersController extends WebzashAppController {
  * login method
  */
 	public function login() {
-		$this->Wzuser->useDbConfig = 'wz';
 		$this->layout = 'user';
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzsetting");
+		$this->Wzsetting = new Wzsetting();
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		$wzsetting = $this->Wzsetting->findById(1);
 
 		if ($this->request->is('post')) {
 
@@ -268,15 +276,22 @@ class WzusersController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'error');
 				return;
 			}
+
 			if ($user['Wzuser']['status'] == 0) {
 				$this->Session->setFlash(__d('webzash', 'User account is diabled. Please contact your administrator.'), 'error');
 				return;
-			} else if ($user['Wzuser']['status'] == 1) {
-				$this->Session->setFlash(__d('webzash', 'Email verification is pending. Please verify your email.'), 'error');
-				return;
-			} else if ($user['Wzuser']['status'] == 2) {
-				$this->Session->setFlash(__d('webzash', 'User verification is pending. Please contact your administrator.'), 'error');
-				return;
+			}
+			if (!($wzsetting) || $wzsetting['Wzsetting']['admin_verification'] != 0) {
+				 if ($user['Wzuser']['admin_verified'] != 1) {
+					$this->Session->setFlash(__d('webzash', 'Admin approval is pending. Please contact your admin.'), 'error');
+					return;
+				 }
+			}
+			if (!($wzsetting) || $wzsetting['Wzsetting']['email_verification'] != 0) {
+				 if ($user['Wzuser']['email_verified'] != 1) {
+					$this->Session->setFlash(__d('webzash', 'Email verification is pending. Please verify your email.'), 'error');
+					return;
+				 }
 			}
 
 			/* Login */
