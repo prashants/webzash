@@ -38,6 +38,9 @@
 			<?php echo $this->Html->link('Webzash', 'http://webzash.org', array('class' => 'navbar-brand', 'target' => '_blank')); ?>
 		</div>
 		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index')); ?></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><span><?php echo $this->Html->link(__d('webzash', 'Back to Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
 

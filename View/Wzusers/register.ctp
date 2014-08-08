@@ -25,15 +25,18 @@
  * THE SOFTWARE.
  */
 ?>
-<div class="wzusers login form">
-<?php
-		echo $this->Form->create('Wzuser');
-		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
-		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
-		echo $this->Form->end(__d('webzash', 'Login'));
-		echo $this->Html->link(__d('webzash', 'Register'), array('controller' => 'wzusers', 'action' => 'register'));
-		echo ' | ';
-		echo $this->Html->link(__d('webzash', 'Forgot Password'), array('controller' => 'wzusers', 'action' => 'forgot'));
-?>
+<div class="wzuser add form">
+	<?php
+		if ($registration) {
+			echo $this->Form->create('Wzuser');
+			echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
+			echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
+			echo $this->Form->input('fullname', array('label' => __d('webzash', 'Full name')));
+			echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
+			echo $this->Form->end(__d('webzash', 'Submit'));
+			echo $this->Html->link(__d('webzash', 'Login'), array('controller' => 'wzusers', 'action' => 'login'));
+		} else {
+			echo '<h4>' . __d('webzash', 'User registration is disabled.') . '</h4>';
+		}
+	?>
 </div>
-

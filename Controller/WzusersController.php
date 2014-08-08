@@ -624,8 +624,80 @@ class WzusersController extends WebzashAppController {
 		}
 	}
 
+/**
+ * register user method
+ */
+	public function register() {
+		$this->layout = 'user';
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzsetting");
+		$this->Wzsetting = new Wzsetting();
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		$wzsetting = $this->Wzsetting->findById(1);
+
+		if ($wzsetting['Wzsetting']['user_registration'] != 1) {
+			$this->set('registration', false);
+			return;
+		}
+
+		$this->set('registration', true);
+
+		/* On POST */
+		if ($this->request->is('post')) {
+			$this->Wzuser->create();
+			if (!empty($this->request->data)) {
+				/* Unset ID */
+				unset($this->request->data['Wzuser']['id']);
+				unset($this->request->data['Wzuser']['role']);
+				unset($this->request->data['Wzuser']['status']);
+				unset($this->request->data['Wzuser']['verification_key']);
+				unset($this->request->data['Wzuser']['email_verified']);
+				unset($this->request->data['Wzuser']['admin_verified']);
+
+				/* Check length of password */
+				if (strlen($this->request->data['Wzuser']['password']) < 4) {
+					$this->Session->setFlash(__d('webzash', 'Password should be atleast 4 characters'), 'error');
+					return;
+				}
+
+				$user = array('Wzuser' => array(
+					'username' => $this->request->data['Wzuser']['username'],
+					'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true),
+					'fullname' => $this->request->data['Wzuser']['fullname'],
+					'email' => $this->request->data['Wzuser']['email'],
+					'role' => 'guest',
+					'status' => '1',
+					'verification_key' => Security::hash(uniqid() . uniqid()),
+					'email_verified' => '0',
+					'admin_verified' => '0',
+				));
+
+				/* Save user */
+				$ds = $this->Wzuser->getDataSource();
+				$ds->begin();
+
+				if ($this->Wzuser->save($user)) {
+					$ds->commit();
+					$this->Session->setFlash(__d('webzash', 'User account has been created.'), 'success');
+					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+				} else {
+					$ds->rollback();
+					$this->Session->setFlash(__d('webzash', 'User account could not be created. Please, try again.'), 'error');
+					return;
+				}
+			} else {
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				return;
+			}
+		}
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('verify', 'logout', 'resend', 'forgot');
+		$this->Auth->allow('verify', 'logout', 'resend', 'forgot', 'register');
 	}
 }
