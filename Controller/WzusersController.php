@@ -413,10 +413,6 @@ class WzusersController extends WebzashAppController {
 			$this->layout = 'default';
 		}
 
-		$this->set('actionlinks', array(
-			array('controller' => 'wzusers', 'action' => 'changepass', 'title' => __d('webzash', 'Change Password')),
-		));
-
 		$this->Wzuser->useDbConfig = 'wz';
 
 		$wzuser = $this->Wzuser->findById($this->Auth->user('id'));
@@ -458,6 +454,57 @@ class WzusersController extends WebzashAppController {
 			}
 		} else {
 			$this->request->data = $wzuser;
+			return;
+		}
+	}
+
+/**
+ * change password method
+ */
+	public function changepass() {
+		if ($this->Auth->user('role') == 'admin') {
+			$this->layout = 'manage';
+		} else {
+			$this->layout = 'default';
+		}
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		$wzuser = $this->Wzuser->findById($this->Auth->user('id'));
+		if (!$wzuser) {
+			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
+			$this->redirect($this->Auth->logout());
+		}
+
+		$this->Wzuser->id = $this->Auth->user('id');
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			/* Check if existing passwords match */
+			if ($wzuser['Wzuser']['password'] != Security::hash($this->request->data['Wzuser']['existing_password'], 'sha1', true)) {
+				$this->Session->setFlash(__d('webzash', 'Your existing password does not match. Please, try again.'), 'error');
+				return;
+			}
+
+			/* Update user password */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
+			if ($this->Wzuser->saveField('password', Security::hash($this->request->data['Wzuser']['new_password'], 'sha1', true))) {
+				$ds->commit();
+
+				$this->Session->setFlash(__d('webzash', 'Your password has been updated.'), 'success');
+
+				if ($this->Auth->user('role') == 'admin') {
+					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+				} else {
+					return $this->redirect($this->Auth->redirectUrl());
+				}
+			} else {
+				$ds->rollback();
+				$this->Session->setFlash(__d('webzash', 'Your password could not be updated. Please, try again.'), 'error');
+				return;
+			}
+		} else {
 			return;
 		}
 	}
