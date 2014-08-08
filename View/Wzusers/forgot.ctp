@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-<div class="wzusers resend form">
+<div class="wzusers forgot form">
 <?php
 		echo $this->Form->create('Wzuser');
 		echo $this->Form->input('userinfo', array('label' => __d('webzash', 'Registered username or email address')));

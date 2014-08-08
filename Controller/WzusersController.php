@@ -580,8 +580,52 @@ class WzusersController extends WebzashAppController {
 		}
 	}
 
+/**
+ * forgot password method
+ */
+	public function forgot() {
+		$this->layout = 'user';
+
+		$this->Auth->logout();
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+				'username' => $this->request->data['Wzuser']['userinfo']
+			)));
+			if (empty($wzuser)) {
+				$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+					'email' => $this->request->data['Wzuser']['userinfo']
+				)));
+			}
+			if (empty($wzuser)) {
+				$this->Session->setFlash(__d('webzash', 'Invalid username or email. Please, try again.'), 'error');
+				return;
+			}
+
+			$random_password = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+
+			$this->Wzuser->id = $wzuser['Wzuser']['id'];
+
+			/* Update user password */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
+			if ($this->Wzuser->saveField('password', Security::hash($random_password, 'sha1', true))) {
+				$ds->commit();
+
+				/* TODO : Send reset password email */
+				$this->Session->setFlash(__d('webzash', 'Password reset. Please check your email for more details on how to reset password.'), 'success');
+			}
+		} else {
+			return;
+		}
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('verify', 'logout', 'resend');
+		$this->Auth->allow('verify', 'logout', 'resend', 'forgot');
 	}
 }
