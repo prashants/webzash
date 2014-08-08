@@ -40,7 +40,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><span><?php echo $this->Html->link(__d('webzash', 'Back to Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
-				<li><a href="#">Profile</a></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Profile'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'profile')); ?></li>
 				<li><?php echo $this->Html->link(__d('webzash', 'Logout'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'logout')); ?></li>
 			</ul>
 		</div><!--/.nav-collapse -->

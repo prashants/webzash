@@ -374,8 +374,96 @@ class WzusersController extends WebzashAppController {
 		return;
 	}
 
+/**
+ * resend verification email method
+ */
+	public function resend() {
+		$this->layout = 'user';
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		$this->Auth->logout();
+
+		if ($this->request->is('post')) {
+			$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+				'username' => $this->request->data['Wzuser']['userinfo']
+			)));
+			if (empty($wzuser)) {
+				$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+					'email' => $this->request->data['Wzuser']['userinfo']
+				)));
+			}
+			if (empty($wzuser)) {
+				$this->Session->setFlash(__d('webzash', 'Invalid username or email. Please, try again.'), 'error');
+				return;
+			} else {
+				/* TODO : Send verification email */
+				$this->Session->setFlash(__d('webzash', 'Verification email sent. Please check your email.'), 'success');
+			}
+		}
+	}
+
+/**
+ * user profile method
+ */
+	public function profile() {
+		if ($this->Auth->user('role') == 'admin') {
+			$this->layout = 'manage';
+		} else {
+			$this->layout = 'default';
+		}
+
+		$this->set('actionlinks', array(
+			array('controller' => 'wzusers', 'action' => 'changepass', 'title' => __d('webzash', 'Change Password')),
+		));
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		$wzuser = $this->Wzuser->findById($this->Auth->user('id'));
+		if (!$wzuser) {
+			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
+			$this->redirect($this->Auth->logout());
+		}
+
+		$prev_email = $wzuser['Wzuser']['email'];
+
+		$this->Wzuser->id = $this->Auth->user('id');
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			/* Update profile user */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
+			if ($this->Wzuser->save($this->request->data, true, array('fullname', 'email'))) {
+				$ds->commit();
+
+				/* If email changed, reset email verification */
+				if ($this->request->data['Wzuser']['email'] != $prev_email) {
+					$this->Wzuser->saveField('email_verified', '0');
+					$this->Wzuser->saveField('verification_key', Security::hash(uniqid() . uniqid()));
+					$this->Session->setFlash(__d('webzash', 'Your profile has been updated. You need to verify your new email, please check your email for verification details.'), 'success');
+				} else {
+					$this->Session->setFlash(__d('webzash', 'Your profile has been updated.'), 'success');
+				}
+
+				if ($this->Auth->user('role') == 'admin') {
+					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+				} else {
+					return $this->redirect($this->Auth->redirectUrl());
+				}
+			} else {
+				$ds->rollback();
+				$this->Session->setFlash(__d('webzash', 'Your profile could not be updated. Please, try again.'), 'error');
+				return;
+			}
+		} else {
+			$this->request->data = $wzuser;
+			return;
+		}
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('verify', 'logout');
+		$this->Auth->allow('verify', 'logout', 'resend');
 	}
 }
