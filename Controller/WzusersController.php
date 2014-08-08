@@ -107,6 +107,12 @@ class WzusersController extends WebzashAppController {
 				/* Unset ID */
 				unset($this->request->data['Wzuser']['id']);
 
+				/* Check length of password */
+				if (strlen($this->request->data['Wzuser']['password']) < 4) {
+					$this->Session->setFlash(__d('webzash', 'Password should be atleast 4 characters'), 'error');
+					return;
+				}
+
 				$temp_password = $this->request->data['Wzuser']['password'];
 				$this->request->data['Wzuser']['password'] = Security::hash($this->request->data['Wzuser']['password'], 'sha1', true);
 
@@ -182,6 +188,7 @@ class WzusersController extends WebzashAppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			/* Set user id */
 			unset($this->request->data['Wzuser']['id']);
+
 			$this->Wzuser->id = $id;
 
 			/* Save user */
@@ -362,6 +369,7 @@ class WzusersController extends WebzashAppController {
 		$ds->begin();
 
 		$this->Wzuser->id = $user['Wzuser']['id'];
+
 		if ($this->Wzuser->saveField('email_verified', '1')) {
 			$this->set('success', true);
 			$ds->commit();
@@ -423,9 +431,10 @@ class WzusersController extends WebzashAppController {
 
 		$prev_email = $wzuser['Wzuser']['email'];
 
-		$this->Wzuser->id = $this->Auth->user('id');
-
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			$this->Wzuser->id = $this->Auth->user('id');
+
 			/* Update profile user */
 			$ds = $this->Wzuser->getDataSource();
 			$ds->begin();
@@ -476,14 +485,20 @@ class WzusersController extends WebzashAppController {
 			$this->redirect($this->Auth->logout());
 		}
 
-		$this->Wzuser->id = $this->Auth->user('id');
-
 		if ($this->request->is('post') || $this->request->is('put')) {
+			/* Check length of password */
+			if (strlen($this->request->data['Wzuser']['new_password']) < 4) {
+				$this->Session->setFlash(__d('webzash', 'Password should be atleast 4 characters'), 'error');
+				return;
+			}
+
 			/* Check if existing passwords match */
 			if ($wzuser['Wzuser']['password'] != Security::hash($this->request->data['Wzuser']['existing_password'], 'sha1', true)) {
 				$this->Session->setFlash(__d('webzash', 'Your existing password does not match. Please, try again.'), 'error');
 				return;
 			}
+
+			$this->Wzuser->id = $this->Auth->user('id');
 
 			/* Update user password */
 			$ds = $this->Wzuser->getDataSource();
@@ -502,6 +517,62 @@ class WzusersController extends WebzashAppController {
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'Your password could not be updated. Please, try again.'), 'error');
+				return;
+			}
+		} else {
+			return;
+		}
+	}
+
+/**
+ * reset user password by admin method
+ */
+	public function resetpass() {
+		$this->layout = 'manage';
+
+		/* TODO : User correct method for authorizing users */
+		if ($this->Auth->user('role') != 'admin') {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			$this->redirect($this->Auth->logout());
+		}
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		if (empty($this->passedArgs['userid'])) {
+			$this->Session->setFlash(__d('webzash', 'User account not specified.'), 'error');
+			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+		}
+
+		$userid = $this->passedArgs['userid'];
+
+		$wzuser = $this->Wzuser->findById($userid);
+		if (!$wzuser) {
+			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
+			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+		}
+
+		$this->set('username', $wzuser['Wzuser']['username']);
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			/* Check length of password */
+			if (strlen($this->request->data['Wzuser']['new_password']) < 4) {
+				$this->Session->setFlash(__d('webzash', 'Password should be atleast 4 characters'), 'error');
+				return;
+			}
+
+			$this->Wzuser->id = $wzuser['Wzuser']['id'];
+
+			/* Update user password */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
+			if ($this->Wzuser->saveField('password', Security::hash($this->request->data['Wzuser']['new_password'], 'sha1', true))) {
+				$ds->commit();
+				$this->Session->setFlash(__d('webzash', 'User password has been updated.'), 'success');
+				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			} else {
+				$ds->rollback();
+				$this->Session->setFlash(__d('webzash', 'User password could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {

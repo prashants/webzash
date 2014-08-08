@@ -52,6 +52,7 @@
 			<td><?php echo $this->Generic->wzuser_role($wzuser['Wzuser']['role']); ?></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'wzusers', 'action' => 'edit', $wzuser['Wzuser']['id'])); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Password'), array('controller' => 'wzusers', 'action' => 'resetpass', 'userid' => $wzuser['Wzuser']['id'])); ?>
 				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'wzusers', 'action' => 'delete', $wzuser['Wzuser']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
 			</td>
 		</tr>
