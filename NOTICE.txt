@@ -21,5 +21,13 @@ notices and distributed according to the terms of their own licenses.
 	HOMEPAGE: http://getbootstrap.com
 	LICENSE: The MIT License
 
+5. TinyColor - Javascript color manipulation
+	HOMEPAGE: https://github.com/bgrins/TinyColor
+	LICENSE: The MIT License
+
+6. Pick-A-Color - Javascript Color Picker
+	HOMEPAGE: https://github.com/lauren/pick-a-color
+	LICENSE: The MIT License
+
 Whilst every effort has been made to ensure that information is correct, incase
 of any discrepancies please contact the author(s) of this software.
