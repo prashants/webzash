@@ -33,7 +33,7 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  * @package Webzash
  * @subpackage Webzash.controllers
  */
-class SettingsController extends AppController {
+class SettingsController extends WebzashAppController {
 
 /**
  * This controller does not use a model

@@ -33,7 +33,7 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  * @package Webzash
  * @subpackage Webzash.controllers
  */
-class AdminController extends AppController {
+class AdminController extends WebzashAppController {
 
 /**
  * This controller does not use a model
@@ -43,6 +43,7 @@ class AdminController extends AppController {
 	public $uses = array();
 
 	var $layout = 'manage';
+
 /**
  * index method
  *

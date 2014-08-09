@@ -35,11 +35,6 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class EntriesController extends WebzashAppController {
 
-
-	public $helpers = array('Webzash.Generic');
-
-	public $components = array('Paginator');
-
 /**
  * index method
  *

@@ -36,10 +36,6 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzaccountsController extends WebzashAppController {
 
-	public $components = array('Session', 'Paginator', 'Webzash.Permission');
-
-	public $helpers = array('Webzash.Generic');
-
 	var $layout = 'manage';
 
 /**

@@ -34,7 +34,7 @@ App::uses('AccountList', 'Webzash.Lib');
  * @package Webzash
  * @subpackage Webzash.controllers
  */
-class ReportsController extends AppController {
+class ReportsController extends WebzashAppController {
 
 /**
  * This controller does not use a model
@@ -42,10 +42,6 @@ class ReportsController extends AppController {
  * @var array
  */
 	public $uses = array();
-
-	public $components = array('Paginator');
-
-	public $helpers = array('Webzash.Generic');
 
 /**
  * index method

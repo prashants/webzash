@@ -36,8 +36,6 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzsettingsController extends WebzashAppController {
 
-	public $components = array('Session', 'Webzash.Permission');
-
 	var $layout = 'manage';
 
 /**

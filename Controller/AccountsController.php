@@ -34,7 +34,7 @@ App::uses('AccountList', 'Webzash.Lib');
  * @package Webzash
  * @subpackage Webzash.controllers
  */
-class AccountsController extends AppController {
+class AccountsController extends WebzashAppController {
 
 /**
  * This controller does not use a model

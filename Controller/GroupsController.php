@@ -35,8 +35,6 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class GroupsController extends WebzashAppController {
 
-	public $components = array('Session');
-
 /**
  * index method
  *

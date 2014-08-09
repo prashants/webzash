@@ -35,9 +35,10 @@ App::uses('AppController', 'Controller');
  */
 class WebzashAppController extends AppController {
 
-	public $helpers = array('Webzash.Menu');
+	public $helpers = array('Webzash.Menu', 'Webzash.Generic');
 
 	public $components = array(
+		'Session', 'Paginator', 'Security', 'Webzash.Permission',
 		'Auth' => array(
 			'loginRedirect' => array(
 				'plugin' => 'webzash',
