@@ -241,6 +241,10 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* TODO : Cannot delete your own account */
+		if ($id == $this->Auth->user('id')) {
+			$this->Session->setFlash(__d('webzash', 'Cannot delete own account.'), 'error');
+			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+		}
 
 		/* Delete user */
 		$ds = $this->Wzuser->getDataSource();
