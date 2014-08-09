@@ -49,6 +49,8 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+		$this->set('title_for_layout', __d('webzash', 'Reports'));
+
 		return;
 	}
 
@@ -58,6 +60,9 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function balancesheet() {
+
+		$this->set('title_for_layout', __d('webzash', 'Balance Sheet'));
+
 		$this->loadModel('Group');
 
 		/* TODO : Switch to loadModel() */
@@ -140,6 +145,9 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function profitloss() {
+
+		$this->set('title_for_layout', __d('webzash', 'Profit and Loss Statement'));
+
 		$this->loadModel('Group');
 
 		/**********************************************************************/
@@ -228,6 +236,9 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function trialbalance() {
+
+		$this->set('title_for_layout', __d('webzash', 'Trial Balance'));
+
 		$accountlist = new AccountList();
 		$accountlist->start(0);
 		$this->set('accountlist', $accountlist);
@@ -240,6 +251,9 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function ledgerstatement() {
+
+		$this->set('title_for_layout', __d('webzash', 'Ledger Statement'));
+
 		$this->loadModel('Ledger');
 		$this->loadModel('Entry');
 		$this->loadModel('Entryitem');
@@ -337,6 +351,9 @@ class ReportsController extends WebzashAppController {
  * @return void
  */
 	public function reconciliation() {
+
+		$this->set('title_for_layout', __d('webzash', 'Ledger Reconciliation'));
+
 		$this->loadModel('Ledger');
 		$this->loadModel('Entry');
 		$this->loadModel('Entryitem');

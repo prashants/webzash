@@ -45,6 +45,8 @@ class WzaccountsController extends WebzashAppController {
  */
 	public function index() {
 
+		$this->set('title_for_layout', __d('webzash', 'Accounts'));
+
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		$this->set('actionlinks', array(
@@ -82,6 +84,8 @@ class WzaccountsController extends WebzashAppController {
  * @return void
  */
 	public function add() {
+
+		$this->set('title_for_layout', __d('webzash', 'Add Account Config'));
 
 		$this->Wzaccount->useDbConfig = 'wz';
 
@@ -132,6 +136,8 @@ class WzaccountsController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Account Config'));
 
 		$this->Wzaccount->useDbConfig = 'wz';
 

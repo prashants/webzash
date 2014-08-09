@@ -54,6 +54,8 @@ class WzsettingsController extends WebzashAppController {
  */
 	public function edit() {
 
+		$this->set('title_for_layout', __d('webzash', 'Edit General Settings'));
+
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);

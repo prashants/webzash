@@ -41,6 +41,9 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'Entry Types'));
+
 		$this->set('actionlinks', array(
 			array('controller' => 'entrytypes', 'action' => 'add', 'title' => __d('webzash', 'Add Entry Type')),
 		));
@@ -54,6 +57,8 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function add() {
+
+		$this->set('title_for_layout', __d('webzash', 'Add Entry Type'));
 
 		/* On POST */
 		if ($this->request->is('post')) {
@@ -102,6 +107,9 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Entry Type'));
+
 		/* Check for valid entry type */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');

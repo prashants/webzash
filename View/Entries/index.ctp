@@ -54,7 +54,7 @@ $(document).ready(function() {
 		$options = array();
 		$options['0'] = 'All';
 		foreach ($this->Menu->entrytypes() as $entrytype) {
-			$options[$entrytype[h('Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
+			$options[h($entrytype['Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
 		}
 	?>
 	<?php echo $this->Form->create('Entry'); ?>

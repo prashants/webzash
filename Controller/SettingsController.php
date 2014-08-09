@@ -50,6 +50,9 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'Settings'));
+
 		return;
 	}
 
@@ -59,6 +62,9 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function account() {
+
+		$this->set('title_for_layout', __d('webzash', 'Account Settings'));
+
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
@@ -104,6 +110,9 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function cf() {
+
+		$this->set('title_for_layout', __d('webzash', 'Carry Forward'));
+
 		return;
 	}
 
@@ -113,6 +122,8 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function email() {
+
+		$this->set('title_for_layout', __d('webzash', 'Email Settings'));
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
@@ -151,6 +162,8 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function printer() {
+
+		$this->set('title_for_layout', __d('webzash', 'Printer Settings'));
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
@@ -198,6 +211,8 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function lock() {
+
+		$this->set('title_for_layout', __d('webzash', 'Lock Account'));
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {

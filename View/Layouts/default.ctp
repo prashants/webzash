@@ -53,6 +53,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<div id="header">
 			<?php echo $this->element('defaultnavbar'); ?>
 		</div>
+		<div id="page-title">
+			<?php echo $title_for_layout; ?>
+		</div>
 		<div id="content">
 			<?php echo $this->element('actionlinks'); ?>
 

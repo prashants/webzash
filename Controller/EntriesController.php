@@ -41,6 +41,9 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'List Of Entries'));
+
 		$this->loadModel('Entrytype');
 
 		if (isset($this->passedArgs['show'])) {
@@ -93,6 +96,9 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function show($entrytypeLabel = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'List Of Entries'));
+
 		$this->loadModel('Entrytype');
 
 		/* Check for valid entry type */
@@ -133,6 +139,9 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function add($entrytypeLabel = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Add Entry'));
+
 		/* TODO : Test code */
 		$this->Session->write('startDate', '2014-04-01 02:00:00');
 		$this->Session->write('endDate', '2015-03-31 00:59:00');
@@ -387,6 +396,8 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function edit($entrytypeLabel = null, $id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Entry'));
 
 		$this->loadModel('Entrytype');
 		$this->loadModel('Entryitem');

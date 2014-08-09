@@ -153,3 +153,9 @@ table td .dc-error {
 #show-label {
 	padding-right:8px;
 }
+
+#page-title {
+	margin: 0 0 20px 20px;
+	font-size: 19px;
+	color: #333333;
+}

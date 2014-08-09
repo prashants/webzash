@@ -45,6 +45,8 @@ class WzusersController extends WebzashAppController {
  */
 	public function index() {
 
+		$this->set('title_for_layout', __d('webzash', 'Users'));
+
 		$this->Wzuser->useDbConfig = 'wz';
 
 		$this->set('actionlinks', array(
@@ -70,6 +72,8 @@ class WzusersController extends WebzashAppController {
  * @return void
  */
 	public function add() {
+
+		$this->set('title_for_layout', __d('webzash', 'Add User'));
 
 		$this->Wzuser->useDbConfig = 'wz';
 
@@ -143,6 +147,8 @@ class WzusersController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit User'));
 
 		$this->Wzuser->useDbConfig = 'wz';
 
@@ -261,6 +267,9 @@ class WzusersController extends WebzashAppController {
  * login method
  */
 	public function login() {
+
+		$this->set('title_for_layout', __d('webzash', 'User Login'));
+
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
@@ -325,6 +334,9 @@ class WzusersController extends WebzashAppController {
  * verifiy email method
  */
 	public function verify() {
+
+		$this->set('title_for_layout', __d('webzash', 'User Email Verification'));
+
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
@@ -386,6 +398,9 @@ class WzusersController extends WebzashAppController {
  * resend verification email method
  */
 	public function resend() {
+
+		$this->set('title_for_layout', __d('webzash', 'Resend Verification Email'));
+
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
@@ -415,6 +430,9 @@ class WzusersController extends WebzashAppController {
  * user profile method
  */
 	public function profile() {
+
+		$this->set('title_for_layout', __d('webzash', 'Update Profile'));
+
 		if ($this->Auth->user('role') == 'admin') {
 			$this->layout = 'admin';
 		} else {
@@ -471,6 +489,9 @@ class WzusersController extends WebzashAppController {
  * change password method
  */
 	public function changepass() {
+
+		$this->set('title_for_layout', __d('webzash', 'Change Password'));
+
 		if ($this->Auth->user('role') == 'admin') {
 			$this->layout = 'admin';
 		} else {
@@ -528,6 +549,8 @@ class WzusersController extends WebzashAppController {
  * reset user password by admin method
  */
 	public function resetpass() {
+		$this->set('title_for_layout', __d('webzash', 'Reset Password'));
+
 		/* TODO : User correct method for authorizing users */
 		if ($this->Auth->user('role') != 'admin') {
 			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
@@ -582,6 +605,8 @@ class WzusersController extends WebzashAppController {
  * forgot password method
  */
 	public function forgot() {
+		$this->set('title_for_layout', __d('webzash', 'Forgot Password'));
+
 		$this->layout = 'user';
 
 		$this->Auth->logout();
@@ -626,6 +651,9 @@ class WzusersController extends WebzashAppController {
  * register user method
  */
 	public function register() {
+
+		$this->set('title_for_layout', __d('webzash', 'User Registration'));
+
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';

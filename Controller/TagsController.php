@@ -41,6 +41,9 @@ class TagsController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'Tags'));
+
 		$this->set('actionlinks', array(
 			array('controller' => 'tags', 'action' => 'add', 'title' => __d('webzash', 'Add Tag')),
 		));
@@ -54,6 +57,8 @@ class TagsController extends WebzashAppController {
  * @return void
  */
 	public function add() {
+
+		$this->set('title_for_layout', __d('webzash', 'Add Tag'));
 
 		/* On POST */
 		if ($this->request->is('post')) {
@@ -92,6 +97,9 @@ class TagsController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Tag'));
+
 		/* Check for valid tag */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'error');

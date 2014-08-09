@@ -50,6 +50,9 @@ class LedgersController extends WebzashAppController {
  * @return void
  */
 	public function add() {
+
+		$this->set('title_for_layout', __d('webzash', 'Add Account Ledger'));
+
 		$this->loadModel('Group');
 
 		/* Create list of parent groups */
@@ -102,6 +105,9 @@ class LedgersController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Account Ledger'));
+
 		$this->loadModel('Group');
 
 		/* Check for valid ledger */

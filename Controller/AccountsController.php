@@ -58,6 +58,9 @@ class AccountsController extends WebzashAppController {
  * @return void
  */
 	public function show() {
+
+		$this->set('title_for_layout', __d('webzash', 'Chart Of Accounts'));
+
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();

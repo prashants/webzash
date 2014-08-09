@@ -51,6 +51,8 @@ class GroupsController extends WebzashAppController {
  */
 	public function add() {
 
+		$this->set('title_for_layout', __d('webzash', 'Add Account Group'));
+
 		/* Create list of parent groups */
 		$parents = $this->Group->find('list', array(
 			'fields' => array('Group.id', 'Group.name'),
@@ -95,6 +97,9 @@ class GroupsController extends WebzashAppController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->set('title_for_layout', __d('webzash', 'Edit Account Group'));
+
 		/* Check for valid group */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account group not specified.'), 'error');

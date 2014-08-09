@@ -49,6 +49,9 @@ class DashboardController extends WebzashAppController {
  * @return void
  */
 	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'Account Dashboard'));
+
 		$this->loadModel('Ledger');
 
 		/* Cash and bank sumary */
