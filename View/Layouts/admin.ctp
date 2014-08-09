@@ -51,7 +51,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<?php echo $this->element('managenavbar'); ?>
+			<?php echo $this->element('adminnavbar'); ?>
 		</div>
 		<div id="content">
 			<?php echo $this->element('actionlinks'); ?>
