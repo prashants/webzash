@@ -27,7 +27,7 @@
 ?>
 <table>
 	<tr>
-		<th><?php echo __d('webzash', 'Title'); ?></th>
+		<th><?php echo $this->Paginator->sort('title', __d('webzash', 'Title')); ?></th>
 		<th><?php echo __d('webzash', 'Color'); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
@@ -42,3 +42,17 @@
 		</tr>
 	<?php } ?>
 </table>
+
+<?php
+	echo "<div class='paging'>";
+	echo $this->Paginator->first(__d('webzash', 'First'));
+	if ($this->Paginator->hasPrev()) {
+		echo $this->Paginator->prev(__d('webzash', 'Prev'));
+	}
+	echo $this->Paginator->numbers();
+	if ($this->Paginator->hasNext()){
+		echo $this->Paginator->next(__d('webzash', 'Next'));
+	}
+	echo $this->Paginator->last(__d('webzash', 'Last'));
+	echo ' ' . __d('webzash', 'Tags') . ' ' . $this->Paginator->counter();
+	echo "</div>";

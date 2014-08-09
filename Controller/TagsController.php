@@ -47,7 +47,15 @@ class TagsController extends WebzashAppController {
 		$this->set('actionlinks', array(
 			array('controller' => 'tags', 'action' => 'add', 'title' => __d('webzash', 'Add Tag')),
 		));
-		$this->set('tags', $this->Tag->find('all', array('order' => array('Tag.title'))));
+
+		$this->Paginator->settings = array(
+			'Tag' => array(
+				'limit' => 10,
+				'order' => array('Tag.title' => 'desc'),
+			)
+		);
+
+		$this->set('tags', $this->Paginator->paginate('Tag'));
 		return;
 	}
 
