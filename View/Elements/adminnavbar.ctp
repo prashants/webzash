@@ -38,6 +38,7 @@
 			<?php echo $this->Html->link('Webzash', 'http://webzash.org', array('class' => 'navbar-brand', 'target' => '_blank')); ?>
 		</div>
 		<div class="navbar-collapse collapse">
+			<?php if ($this->Session->read('Auth.User') && $this->Session->read('Auth.User.role') == 'admin'): ?>
 			<ul class="nav navbar-nav">
 				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index')); ?></li>
 			</ul>
@@ -54,7 +55,7 @@
 
 				<li><?php echo $this->Html->link(__d('webzash', 'Logout'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'logout')); ?></li>
 			</ul>
+			<?php endif; ?>
 		</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
 </div>
-
