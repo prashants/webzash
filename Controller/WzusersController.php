@@ -36,7 +36,7 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzusersController extends WebzashAppController {
 
-	var $layout = 'manage';
+	var $layout = 'admin';
 
 /**
  * index method
@@ -416,7 +416,7 @@ class WzusersController extends WebzashAppController {
  */
 	public function profile() {
 		if ($this->Auth->user('role') == 'admin') {
-			$this->layout = 'manage';
+			$this->layout = 'admin';
 		} else {
 			$this->layout = 'default';
 		}
@@ -472,7 +472,7 @@ class WzusersController extends WebzashAppController {
  */
 	public function changepass() {
 		if ($this->Auth->user('role') == 'admin') {
-			$this->layout = 'manage';
+			$this->layout = 'admin';
 		} else {
 			$this->layout = 'default';
 		}
@@ -528,8 +528,6 @@ class WzusersController extends WebzashAppController {
  * reset user password by admin method
  */
 	public function resetpass() {
-		$this->layout = 'manage';
-
 		/* TODO : User correct method for authorizing users */
 		if ($this->Auth->user('role') != 'admin') {
 			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');

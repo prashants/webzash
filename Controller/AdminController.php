@@ -42,7 +42,7 @@ class AdminController extends WebzashAppController {
  */
 	public $uses = array();
 
-	var $layout = 'manage';
+	var $layout = 'admin';
 
 /**
  * index method

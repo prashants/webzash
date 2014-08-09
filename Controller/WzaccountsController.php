@@ -36,7 +36,7 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzaccountsController extends WebzashAppController {
 
-	var $layout = 'manage';
+	var $layout = 'admin';
 
 /**
  * index method
