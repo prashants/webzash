@@ -43,9 +43,9 @@ function print_account_chart($account, $c = 0, $THIS)
 		echo print_space($counter);
 		/* If group id less than 4 bold the primary groups */
 		if ($account->id <= 4) {
-			echo '<strong>' .  $account->name. '</strong>';
+			echo '<strong>' .  h($account->name). '</strong>';
 		} else {
-			echo $account->name;
+			echo h($account->name);
 		}
 		echo '</td>';
 		echo '<td>Group</td>';

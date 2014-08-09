@@ -42,10 +42,10 @@
 foreach ($entries as $entry) {
 	echo '<tr>';
 	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
-	echo '<td>' . $entry['Entry']['number']. '</td>';
+	echo '<td>' . h($entry['Entry']['number']). '</td>';
 	echo '<td>' . '</td>';
-	echo '<td>' . $entrytype['Entrytype']['name'] . '</td>';
-	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
+	echo '<td>' . h($entrytype['Entrytype']['name']) . '</td>';
+	echo '<td>' . h($this->Generic->showTag($entry['Entry']['tag_id'])) . '</td>';
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';

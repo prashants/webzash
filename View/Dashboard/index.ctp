@@ -33,15 +33,15 @@
 				<table>
 					<tr>
 						<td><?php echo __d('webzash', 'Name'); ?></td>
-						<td><?php echo Configure::read('Account.name'); ?></td>
+						<td><?php echo h(Configure::read('Account.name')); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Email'); ?></td>
-						<td><?php echo Configure::read('Account.email'); ?></td>
+						<td><?php echo h(Configure::read('Account.email')); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Currency'); ?></td>
-						<td><?php echo Configure::read('Account.currency_symbol'); ?></td>
+						<td><?php echo h(Configure::read('Account.currency_symbol')); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Financial Year'); ?></td>

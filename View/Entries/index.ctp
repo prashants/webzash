@@ -54,7 +54,7 @@ $(document).ready(function() {
 		$options = array();
 		$options['0'] = 'All';
 		foreach ($this->Menu->entrytypes() as $entrytype) {
-			$options[$entrytype['Entrytype']['label']] = $entrytype['Entrytype']['name'];
+			$options[$entrytype[h('Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
 		}
 	?>
 	<?php echo $this->Form->create('Entry'); ?>
@@ -82,16 +82,16 @@ foreach ($entries as $entry) {
 	list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
 	echo '<tr>';
 	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
-	echo '<td>' . $entry['Entry']['number']. '</td>';
+	echo '<td>' . h($entry['Entry']['number']) . '</td>';
 	echo '<td>' . '</td>';
-	echo '<td>' . $entryTypeName . '</td>';
-	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
+	echo '<td>' . h($entryTypeName) . '</td>';
+	echo '<td>' . h($this->Generic->showTag($entry['Entry']['tag_id'])) . '</td>';
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';
-	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entryTypeLabel, $entry['Entry']['id']));
+	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']));
 	echo ' ';
-	echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', $entryTypeLabel, $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
+	echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
 	echo '</td>';
 	echo '</tr>';
 }

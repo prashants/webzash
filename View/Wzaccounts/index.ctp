@@ -36,11 +36,11 @@
 	</tr>
 	<?php foreach ($wzaccounts as $wzaccount) { ?>
 		<tr>
-			<td><?php echo $wzaccount['Wzaccount']['name']; ?></td>
-			<td><?php echo $this->Generic->wzaccount_dbtype($wzaccount['Wzaccount']['db_datasource']); ?></td>
-			<td><?php echo $wzaccount['Wzaccount']['db_name']; ?></td>
-			<td><?php echo $wzaccount['Wzaccount']['db_hostname']; ?></td>
-			<td><?php echo $wzaccount['Wzaccount']['db_port']; ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['name']); ?></td>
+			<td><?php echo h($this->Generic->wzaccount_dbtype($wzaccount['Wzaccount']['db_datasource'])); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_name']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_hostname']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_port']); ?></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id'])); ?>
 				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'wzaccounts', 'action' => 'delete', $wzaccount['Wzaccount']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>

@@ -33,7 +33,7 @@
 	</tr>
 	<?php foreach ($tags as $tag) { ?>
 		<tr>
-			<td><?php echo $tag['Tag']['title']; ?></td>
+			<td><?php echo h($tag['Tag']['title']); ?></td>
 			<td></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['Tag']['id'])); ?>

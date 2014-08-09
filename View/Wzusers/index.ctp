@@ -37,10 +37,10 @@
 	</tr>
 	<?php foreach ($wzusers as $wzuser) { ?>
 		<tr>
-			<td><?php echo $wzuser['Wzuser']['username']; ?></td>
-			<td><?php echo $wzuser['Wzuser']['fullname']; ?></td>
-			<td><?php echo $wzuser['Wzuser']['email']; ?></td>
-			<td><?php echo $this->Generic->wzuser_status($wzuser['Wzuser']['status']); ?></td>
+			<td><?php echo h($wzuser['Wzuser']['username']); ?></td>
+			<td><?php echo h($wzuser['Wzuser']['fullname']); ?></td>
+			<td><?php echo h($wzuser['Wzuser']['email']); ?></td>
+			<td><?php echo h($this->Generic->wzuser_status($wzuser['Wzuser']['status'])); ?></td>
 			<td>
 				<?php if ($wzuser['Wzuser']['admin_verified'] == 1) {
 					echo __d('webzash', 'Yes');
@@ -49,7 +49,7 @@
 				}
 				?>
 			</td>
-			<td><?php echo $this->Generic->wzuser_role($wzuser['Wzuser']['role']); ?></td>
+			<td><?php echo h($this->Generic->wzuser_role($wzuser['Wzuser']['role'])); ?></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'wzusers', 'action' => 'edit', $wzuser['Wzuser']['id'])); ?>
 				<?php echo $this->Html->link(__d('webzash', 'Password'), array('controller' => 'wzusers', 'action' => 'resetpass', 'userid' => $wzuser['Wzuser']['id'])); ?>

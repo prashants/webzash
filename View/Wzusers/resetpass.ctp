@@ -27,7 +27,7 @@
 ?>
 <div class="wzusers resetpass form">
 <?php
-		echo  __d('webzash', 'Reset password for user "') . $username. '"';
+		echo  __d('webzash', 'Reset password for user "') . h($username) . '"';
 		echo $this->Form->create('Wzuser');
 		echo $this->Form->input('new_password', array('type' => 'password', 'label' => __d('webzash', 'New password')));
 		echo $this->Form->end(__d('webzash', 'Submit'));

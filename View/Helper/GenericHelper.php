@@ -87,7 +87,7 @@ class GenericHelper extends AppHelper {
 		$rawtags = $model->find('all', array('fields' => array('id', 'title'), 'order' => 'Tag.title'));
 		$tags = array(0 => '(None)');
 		foreach ($rawtags as $id => $rawtag) {
-			$tags[$rawtag['Tag']['id']] = $rawtag['Tag']['title'];
+			$tags[$rawtag['Tag']['id']] = h($rawtag['Tag']['title']);
 		}
 		return $tags;
 	}
@@ -112,7 +112,7 @@ class GenericHelper extends AppHelper {
 		}
 
 		foreach ($rawledgers as $row => $rawledger) {
-			$ledgers[$rawledger['Ledger']['id']] = $rawledger['Ledger']['name'];
+			$ledgers[$rawledger['Ledger']['id']] = h($rawledger['Ledger']['name']);
 		}
 
 		return $ledgers;
