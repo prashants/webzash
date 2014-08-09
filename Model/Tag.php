@@ -71,7 +71,7 @@ class Tag extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => 'alphaNumeric',
+				'rule' => 'hex',
 				'message' => 'Tag color has to be a valid color',
 				'required'   => true,
 				'allowEmpty' => false,
@@ -92,12 +92,23 @@ class Tag extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => 'alphaNumeric',
+				'rule' => 'hex',
 				'message' => 'Tag background has to be a valid color',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
 		),
 	);
+
+	/* Validate hex value */
+	public function hex($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		return ctype_xdigit($value);
+	}
 }
 

@@ -33,6 +33,8 @@
 */
 class GenericHelper extends AppHelper {
 
+	var $helpers = array('Html');
+
 /**
  * Helper method to return the tag
  */
@@ -50,8 +52,7 @@ class GenericHelper extends AppHelper {
 		if (empty($tag)) {
 			return '';
 		} else {
-			/* TODO Return tag in html format */
-			return $tag['Tag']['title'];
+			return '<span class="tag" style="color:#' . h($tag['Tag']['color']) . '; background-color:#' . h($tag['Tag']['background']) . ';">' . $this->Html->link($tag['Tag']['title'], array('controller' => 'entries', 'action' => 'index', 'tag' => $tag['Tag']['id']), array('style' => 'color:#' . h($tag['Tag']['color']) . ';')) . '</span>';
 		}
 	}
 

@@ -25,12 +25,21 @@
  * THE SOFTWARE.
  */
 ?>
+<?php echo $this->Html->script('Webzash.tinycolor-0.9.15.min'); ?>
+<?php echo $this->Html->script('Webzash.pick-a-color-1.2.3.min'); ?>
+<?php echo $this->Html->css('Webzash.pick-a-color-1.2.3.min'); ?>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".pick-a-color").pickAColor();
+	});
+</script>
+
 <div class="tags edit form">
 	<?php
 		echo $this->Form->create('Tag');
 		echo $this->Form->input('title', array('label' => __d('webzash', 'Title')));
-		echo $this->Form->input('color', array('label' => __d('webzash', 'Color')));
-		echo $this->Form->input('background', array('label' => __d('webzash', 'Background')));
+		echo $this->Form->input('color', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Color')));
+		echo $this->Form->input('background', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Background')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
 		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'tags', 'action' => 'index'));
 	?>

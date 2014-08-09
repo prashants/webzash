@@ -159,3 +159,16 @@ table td .dc-error {
 	font-size: 19px;
 	color: #333333;
 }
+
+.pick-a-color-markup {
+	width: 200px;
+}
+
+.tag {
+	border-radius: 5px 5px 5px 5px;
+	font-size: 10px;
+	font-weight: bold;
+	margin: 0 5px 0 1px;
+	padding: 4px;
+	text-decoration: none;
+}

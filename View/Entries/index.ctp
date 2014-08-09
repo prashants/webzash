@@ -85,7 +85,7 @@ foreach ($entries as $entry) {
 	echo '<td>' . h($entry['Entry']['number']) . '</td>';
 	echo '<td>' . '</td>';
 	echo '<td>' . h($entryTypeName) . '</td>';
-	echo '<td>' . h($this->Generic->showTag($entry['Entry']['tag_id'])) . '</td>';
+	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';

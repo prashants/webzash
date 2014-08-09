@@ -34,7 +34,7 @@
 	<?php foreach ($tags as $tag) { ?>
 		<tr>
 			<td><?php echo h($tag['Tag']['title']); ?></td>
-			<td></td>
+			<td><?php echo $this->Generic->showTag($tag['Tag']['id']); ?></td>
 			<td>
 				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['Tag']['id'])); ?>
 				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'tags', 'action' => 'delete', $tag['Tag']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
