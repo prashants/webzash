@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-
+<div>
 <?php
 	echo __d('webzash', 'Number') . ' : ' . h($entry['Entry']['number']);
 	echo '<br /><br />';
@@ -104,3 +104,4 @@
 	echo '&nbsp;&nbsp;';
 	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entries', 'action' => 'index'));
 ?>
+</div>

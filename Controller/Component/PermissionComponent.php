@@ -54,6 +54,8 @@ class PermissionComponent extends Component {
 			'email entry',
 			'download entry',
 
+			'search',
+
 			'view entrytype',
 			'add entrytype',
 			'edit entrytype',
@@ -94,6 +96,8 @@ class PermissionComponent extends Component {
 			'email entry',
 			'download entry',
 
+			'search',
+
 			'add ledger',
 			'edit ledger',
 			'delete ledger',
@@ -118,6 +122,8 @@ class PermissionComponent extends Component {
 			'print entry',
 			'email entry',
 			'download entry',
+
+			'search',
 
 			'add ledger',
 			'edit ledger',
