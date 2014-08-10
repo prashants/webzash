@@ -217,4 +217,20 @@ class GroupsController extends WebzashAppController {
 		return $this->redirect(array('controller' => 'accounts', 'action' => 'show'));
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('add group', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('edit group', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('delete group', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
 }

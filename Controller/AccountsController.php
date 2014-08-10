@@ -83,4 +83,13 @@ class AccountsController extends WebzashAppController {
 		return;
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'show') {
+			return $this->Permission->is_allowed('view accounts chart', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
+
 }

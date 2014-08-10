@@ -194,4 +194,24 @@ class TagsController extends WebzashAppController {
 		return $this->redirect(array('controller' => 'tags', 'action' => 'index'));
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('view tag', $user['role']);
+		}
+
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('add tag', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('edit tag', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('delete tag', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
 }

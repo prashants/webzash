@@ -752,4 +752,37 @@ class EntriesController extends WebzashAppController {
 		$this->set('ledgers', $ledgers);
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('view entry', $user['role']);
+		}
+
+		if ($this->action === 'show') {
+			return $this->Permission->is_allowed('view entry', $user['role']);
+		}
+
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('add entry', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('edit entry', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('delete entry', $user['role']);
+		}
+
+		if ($this->action === 'addrow') {
+			if ($this->Permission->is_allowed('add entry', $user['role']) ||
+				$this->Permission->is_allowed('edit entry', $user['role'])) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		return parent::isAuthorized($user);
+	}
 }

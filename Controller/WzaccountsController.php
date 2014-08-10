@@ -232,4 +232,28 @@ class WzaccountsController extends WebzashAppController {
 		return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'create') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
 }

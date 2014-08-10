@@ -206,4 +206,24 @@ class EntrytypesController extends WebzashAppController {
 		return $this->redirect(array('controller' => 'entrytypes', 'action' => 'index'));
 	}
 
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('view entrytype', $user['role']);
+		}
+
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('add entrytype', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('edit entrytype', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('delete entrytype', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
 }

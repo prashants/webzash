@@ -36,73 +36,95 @@ App::uses('Component', 'Controller');
 class PermissionComponent extends Component {
 
 	public $components = array('Session');
-
 /**
  * Check if a role stored in session is allow a particular action
  *
  * @return boolean return true is access is allow, false otherwise
  */
-	public function allow($action_name)
+	public function is_allowed($action_name, $role)
 	{
-		$role = $this->Session->read('role');
-
 		$permissions['manager'] = array(
+			'view accounts chart',
+
 			'view entry',
-			'create entry',
+			'add entry',
 			'edit entry',
 			'delete entry',
 			'print entry',
 			'email entry',
 			'download entry',
-			'create ledger',
+
+			'view entrytype',
+			'add entrytype',
+			'edit entrytype',
+			'delete entrytype',
+
+			'add ledger',
 			'edit ledger',
 			'delete ledger',
-			'create group',
+
+			'add group',
 			'edit group',
 			'delete group',
-			'create tag',
+
+			'view tag',
+			'add tag',
 			'edit tag',
 			'delete tag',
-			'view reports',
+
+			'access reports',
+
 			'view log',
 			'clear log',
+
 			'change account settings',
 			'cf account',
 			'backup account',
+
+			'access admin section',
 		);
 		$permissions['accountant'] = array(
+			'view accounts chart',
+
 			'view entry',
-			'create entry',
+			'add entry',
 			'edit entry',
 			'delete entry',
 			'print entry',
 			'email entry',
 			'download entry',
-			'create ledger',
+
+			'add ledger',
 			'edit ledger',
 			'delete ledger',
-			'create group',
+
+			'add group',
 			'edit group',
 			'delete group',
-			'create tag',
+
+			'view tag',
+			'add tag',
 			'edit tag',
 			'delete tag',
-			'view reports',
-			'view log',
-			'clear log',
+
+			'access reports',
 		);
 		$permissions['dataentry'] = array(
+			'view accounts chart',
+
 			'view entry',
-			'create entry',
+			'add entry',
 			'edit entry',
-			'delete entry',
 			'print entry',
 			'email entry',
 			'download entry',
-			'create ledger',
+
+			'add ledger',
 			'edit ledger',
 		);
 		$permissions['guest'] = array(
+			'view accounts chart',
+
 			'view entry',
 			'print entry',
 			'email entry',
@@ -110,24 +132,37 @@ class PermissionComponent extends Component {
 		);
 
 		if (!isset($role)) {
-			return FALSE;
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return false;
 		}
 
 		/* If user is admin then always allow full access */
-		if ($role == "admin") {
-			return TRUE;
+		if ($role == 'admin') {
+			return true;
 		}
 
 		/* If invaid user role then deny access */
 		if (!isset($permissions[$role])) {
-			return FALSE;
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return false;
+		}
+
+		/* If action is registered then only check if user is logged in */
+		if ($action_name == 'registered') {
+			if (empty($role)) {
+				$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+				return false;
+			} else {
+				return true;
+			}
 		}
 
 		/* Check if the user role is allowed access */
 		if (in_array($action_name, $permissions[$role])) {
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return false;
 		}
 	}
 }

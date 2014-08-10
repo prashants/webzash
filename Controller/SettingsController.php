@@ -255,4 +255,36 @@ class SettingsController extends WebzashAppController {
 		}
 		return;
 	}
+
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('change account settings', $user['role']);
+		}
+
+		if ($this->action === 'account') {
+			return $this->Permission->is_allowed('change account settings', $user['role']);
+		}
+
+		if ($this->action === 'cf') {
+			return $this->Permission->is_allowed('cf account', $user['role']);
+		}
+
+		if ($this->action === 'email') {
+			return $this->Permission->is_allowed('change account settings', $user['role']);
+		}
+
+		if ($this->action === 'printer') {
+			return $this->Permission->is_allowed('change account settings', $user['role']);
+		}
+
+		if ($this->action === 'backup') {
+			return $this->Permission->is_allowed('backup account', $user['role']);
+		}
+
+		if ($this->action === 'lock') {
+			return $this->Permission->is_allowed('change account settings', $user['role']);
+		}
+		return parent::isAuthorized($user);
+	}
 }

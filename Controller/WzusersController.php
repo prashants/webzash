@@ -551,12 +551,6 @@ class WzusersController extends WebzashAppController {
 	public function resetpass() {
 		$this->set('title_for_layout', __d('webzash', 'Reset Password'));
 
-		/* TODO : User correct method for authorizing users */
-		if ($this->Auth->user('role') != 'admin') {
-			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
-			$this->redirect($this->Auth->logout());
-		}
-
 		$this->Wzuser->useDbConfig = 'wz';
 
 		if (empty($this->passedArgs['userid'])) {
@@ -724,6 +718,39 @@ class WzusersController extends WebzashAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('verify', 'logout', 'resend', 'forgot', 'register');
+		$this->Auth->allow('login', 'logout', 'verify', 'resend', 'forgot', 'register');
+	}
+
+	/* Authorization check */
+	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'add') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'edit') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'delete') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'profile') {
+			return $this->Permission->is_allowed('registered', $user['role']);
+		}
+
+		if ($this->action === 'changepass') {
+			return $this->Permission->is_allowed('registered', $user['role']);
+		}
+
+		if ($this->action === 'resetpass') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
 	}
 }
