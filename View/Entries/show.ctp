@@ -49,6 +49,8 @@ foreach ($entries as $entry) {
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';
+	echo $this->Html->link(__d('webzash', 'View'), array('controller' => 'entries', 'action' => 'view', $entrytype['Entrytype']['label'], $entry['Entry']['id']));
+	echo ' ';
 	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']));
 	echo ' ';
 	echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
