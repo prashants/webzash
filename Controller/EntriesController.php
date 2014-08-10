@@ -46,6 +46,9 @@ class EntriesController extends WebzashAppController {
 
 		$this->loadModel('Entrytype');
 
+		$conditions = array();
+
+		/* Filter by entry type */
 		if (isset($this->passedArgs['show'])) {
 			$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $this->passedArgs['show'])));
 			if (!$entrytype) {
@@ -53,23 +56,22 @@ class EntriesController extends WebzashAppController {
 				return $this->redirect(array('controller' => 'entries', 'action' => 'index'));
 			}
 
-			/* Setup pagination */
-			$this->Paginator->settings = array(
-				'Entry' => array(
-					'limit' => 10,
-					'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
-					'order' => array('Entry.date' => 'desc'),
-				)
-			);
-		} else {
-			/* Setup pagination */
-			$this->Paginator->settings = array(
-				'Entry' => array(
-					'limit' => 10,
-					'order' => array('Entry.date' => 'desc'),
-				)
-			);
+			$conditions['Entry.entrytype_id'] = $entrytype['Entrytype']['id'];
 		}
+
+		/* Filter by tag */
+		if (isset($this->passedArgs['tag'])) {
+			$conditions['Entry.tag_id'] = $this->passedArgs['tag'];
+		}
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'limit' => 10,
+				'conditions' => $conditions,
+				'order' => array('Entry.date' => 'desc'),
+			)
+		);
 
 		if ($this->request->is('post')) {
 			if (empty($this->request->data['Entry']['show'])) {
