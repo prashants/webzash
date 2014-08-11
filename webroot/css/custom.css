@@ -172,3 +172,8 @@ table td .dc-error {
 	padding: 4px;
 	text-decoration: none;
 }
+
+#page-info {
+	padding-right:20px;
+	padding-bottom:15px;
+}
