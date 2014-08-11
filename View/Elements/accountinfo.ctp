@@ -27,6 +27,6 @@
 
 echo h(Configure::read('Account.name'));
 echo ' ';
-echo $this->Html->link(__d('webzash', '(Change)'), array('plugin' => 'webzash', 'controller' => '', 'action' => ''));
+echo $this->Html->link(__d('webzash', '(change)'), array('plugin' => 'webzash', 'controller' => '', 'action' => ''));
 echo '<br />';
 echo dateFromSql(Configure::read('Account.startdate')) . ' to ' . dateFromSql(Configure::read('Account.enddate'));

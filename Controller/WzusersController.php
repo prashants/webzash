@@ -83,6 +83,11 @@ class WzusersController extends WebzashAppController {
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzuseraccount");
+		$this->Wzuseraccount = new Wzuseraccount();
+		$this->Wzuseraccount->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Wzsetting");
 		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
@@ -94,7 +99,7 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* Create list of wzaccounts */
-		$wzaccounts = $this->Wzaccount->find('list', array(
+		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
 			'fields' => array('Wzaccount.id', 'Wzaccount.name'),
 			'order' => array('Wzaccount.name')
 		));
@@ -118,11 +123,41 @@ class WzusersController extends WebzashAppController {
 
 				$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
+				if (!empty($this->request->data['Wzuser']['account_ids'])) {
+					if (in_array(0, $this->request->data['Wzuser']['account_ids'])) {
+						$this->request->data['Wzuser']['all_accounts'] = 1;
+					} else {
+						$this->request->data['Wzuser']['all_accounts'] = 0;
+					}
+				} else {
+					$this->request->data['Wzuser']['account_ids'] = array();
+					$this->request->data['Wzuser']['all_accounts'] = 0;
+				}
+
 				/* Save user */
 				$ds = $this->Wzuser->getDataSource();
 				$ds->begin();
 
 				if ($this->Wzuser->save($this->request->data)) {
+
+					/* Save user - accounts association */
+					if ($this->request->data['Wzuser']['all_accounts'] != 1) {
+						if (!empty($this->request->data['Wzuser']['account_ids'])) {
+							$data = array();
+							foreach ($this->request->data['Wzuser']['account_ids'] as $row => $account_id) {
+								if (!$this->Wzaccount->exists($account_id)) {
+									continue;
+								}
+								$data[] = array('user_id' => $this->Wzuser->id, 'account_id' => $account_id);
+							}
+							if (!$this->Wzuseraccount->saveMany($data)) {
+								$ds->rollback();
+								$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
+								return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+							}
+						}
+					}
+
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The user account has been created.'), 'success');
 					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
@@ -230,6 +265,11 @@ class WzusersController extends WebzashAppController {
 
 		$this->Wzuser->useDbConfig = 'wz';
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzuseraccount");
+		$this->Wzuseraccount = new Wzuseraccount();
+		$this->Wzuseraccount->useDbConfig = 'wz';
+
 		/* Check if valid id */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'User account not specified.'), 'error');
@@ -242,7 +282,7 @@ class WzusersController extends WebzashAppController {
 			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
 		}
 
-		/* TODO : Cannot delete your own account */
+		/* Cannot delete your own account */
 		if ($id == $this->Auth->user('id')) {
 			$this->Session->setFlash(__d('webzash', 'Cannot delete own account.'), 'error');
 			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
@@ -252,13 +292,23 @@ class WzusersController extends WebzashAppController {
 		$ds = $this->Wzuser->getDataSource();
 		$ds->begin();
 
-		if ($this->Wzuser->delete($id)) {
-			$ds->commit();
-			$this->Session->setFlash(__d('webzash', 'The user account has been deleted.'), 'success');
-		} else {
+		if (!$this->Wzuser->delete($id)) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The user account could not be deleted. Please, try again.'), 'error');
+			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
 		}
+
+
+		/* Delete user - account association */
+		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
+			$ds->rollback();
+			$this->Session->setFlash(__d('webzash', 'The user account could not be deleted. Please, try again.'), 'error');
+			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+		}
+
+		/* Success */
+		$ds->commit();
+		$this->Session->setFlash(__d('webzash', 'The user account has been deleted.'), 'success');
 
 		return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
 	}

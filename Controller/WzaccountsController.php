@@ -204,6 +204,11 @@ class WzaccountsController extends WebzashAppController {
 
 		$this->Wzaccount->useDbConfig = 'wz';
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzuseraccount");
+		$this->Wzuseraccount = new Wzuseraccount();
+		$this->Wzuseraccount->useDbConfig = 'wz';
+
 		/* Check if valid id */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'error');
@@ -221,13 +226,22 @@ class WzaccountsController extends WebzashAppController {
 		$ds->begin();
 
 		/* TODO : Delete database */
-		if ($this->Wzaccount->delete($id)) {
-			$ds->commit();
-			$this->Session->setFlash(__d('webzash', 'The account config has been deleted. Please delete the account data manually.'), 'success');
-		} else {
+		if (!$this->Wzaccount->delete($id)) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
+			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
 		}
+
+		/* Delete user - account association */
+		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.account_id' => $id))) {
+			$ds->rollback();
+			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
+			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+		}
+
+		/* Success */
+		$ds->commit();
+		$this->Session->setFlash(__d('webzash', 'The account config has been deleted. Please delete the account data manually.'), 'success');
 
 		return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
 	}
