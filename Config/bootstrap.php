@@ -189,16 +189,6 @@ function closingBalance($id) {
 	return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
 }
 
-/* TODO : Process from database */
-Configure::write('Account.name', 'Prashant Shah');
-Configure::write('Account.email', 'pshah.mumbai@gmail.com');
-Configure::write('Account.currency_symbol', 'Rs');
-Configure::write('Account.dateformatPHP', 'd-M-Y');
-Configure::write('Account.dateformatJS', 'dd-M-yy');
-Configure::write('Account.startdate', '2014-04-01 00:00:00');
-Configure::write('Account.enddate', '2015-03-31 23:59:00');
-Configure::write('Account.locked', '0');
-
 /**
  * This function converts the date and time string to valid SQL datetime value
  */
@@ -244,3 +234,42 @@ function toCurrency($dc, $amount) {
 	}
 	return 'ERROR';
 }
+
+/* Read all account settings from database */
+function init_account() {
+	App::import("Webzash.Model", "Setting");
+	$Setting = new Setting();
+
+	App::import("Webzash.Model", "Entrytype");
+	$Entrytype = new Entrytype();
+
+	$setting = $Setting->findById(1);
+	if (!$setting) {
+		throw new InternalErrorException(__d('webzash', 'Account settings not found.'));
+	}
+
+	Configure::write('Account.name', $setting['Setting']['name']);
+	Configure::write('Account.email', $setting['Setting']['email']);
+	Configure::write('Account.currency_symbol', $setting['Setting']['currency_symbol']);
+	$dateFormat = explode('|', $setting['Setting']['date_format']);
+	Configure::write('Account.dateformatPHP', $dateFormat[0]);
+	Configure::write('Account.dateformatJS', $dateFormat[1]);
+	Configure::write('Account.startdate', $setting['Setting']['fy_start']);
+	Configure::write('Account.enddate', $setting['Setting']['fy_end']);
+	Configure::write('Account.locked', $setting['Setting']['account_locked']);
+
+	$rawentrytypes = $Entrytype->find('all');
+	$entrytypes = array();
+	foreach ($rawentrytypes as $entrytype) {
+		$entrytypes[$entrytype['Entrytype']['id']] = array(
+			'prefix' => $entrytype['Entrytype']['prefix'],
+			'suffix' => $entrytype['Entrytype']['suffix'],
+			'zero_padding' => $entrytype['Entrytype']['zero_padding'],
+			'label' => $entrytype['Entrytype']['label'],
+			'name' => $entrytype['Entrytype']['name'],
+		);
+	}
+	Configure::write('Account.ET', $entrytypes);
+}
+init_account();
+

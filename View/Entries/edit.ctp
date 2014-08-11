@@ -286,7 +286,12 @@ $(document).ready(function() {
 <div class="entry edit form">
 <?php
 	echo $this->Form->create('Entry');
-	echo $this->Form->input('number', array('label' => __d('webzash', 'Number')));
+	echo $this->Form->input('number', array(
+		'label' => __d('webzash', 'Number'),
+		'between' =>  h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix') .
+			str_pad('0', Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.zero_padding'), '0')),
+		'after' => h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix')),
+	));
 	echo $this->Form->input('date', array('type' => 'text', 'label' => __d('webzash', 'Date')));
 
 	echo '<table>';

@@ -42,7 +42,7 @@
 foreach ($entries as $entry) {
 	echo '<tr>';
 	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
-	echo '<td>' . h($entry['Entry']['number']). '</td>';
+	echo '<td>' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 	echo '<td>' . '</td>';
 	echo '<td>' . h($entrytype['Entrytype']['name']) . '</td>';
 	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';

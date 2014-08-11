@@ -27,7 +27,7 @@
 ?>
 <div>
 <?php
-	echo __d('webzash', 'Number') . ' : ' . h($entry['Entry']['number']);
+	echo __d('webzash', 'Number') . ' : ' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']));
 	echo '<br /><br />';
 	echo __d('webzash', 'Date') . ' : ' . h(dateFromSql($entry['Entry']['date']));
 	echo '<br /><br />';

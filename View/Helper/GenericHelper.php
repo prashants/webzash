@@ -78,6 +78,15 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
+ * Helper method to return the entry number
+ */
+	function showEntryNumber($number, $entrytype_id) {
+		return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+			str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
+			Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+	}
+
+/**
  * Helper method to return the tags in list form
  */
 	function tagList() {
