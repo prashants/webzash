@@ -235,7 +235,9 @@ function toCurrency($dc, $amount) {
 	return 'ERROR';
 }
 
-/* Read all account settings from database */
+/**
+ * Read all account settings from database
+ */
 function init_account() {
 	App::import("Webzash.Model", "Setting");
 	$Setting = new Setting();
