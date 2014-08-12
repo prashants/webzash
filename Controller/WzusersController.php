@@ -123,6 +123,7 @@ class WzusersController extends WebzashAppController {
 
 				$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
+				/* Check if user is allowed access to all accounts */
 				if (!empty($this->request->data['Wzuser']['account_ids'])) {
 					if (in_array(0, $this->request->data['Wzuser']['account_ids'])) {
 						$this->request->data['Wzuser']['all_accounts'] = 1;
@@ -193,6 +194,11 @@ class WzusersController extends WebzashAppController {
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzuseraccount");
+		$this->Wzuseraccount = new Wzuseraccount();
+		$this->Wzuseraccount->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Wzsetting");
 		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
@@ -215,7 +221,7 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* Create list of wzaccounts */
-		$wzaccounts = $this->Wzaccount->find('list', array(
+		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
 			'fields' => array('Wzaccount.id', 'Wzaccount.name'),
 			'order' => array('Wzaccount.name')
 		));
@@ -228,24 +234,75 @@ class WzusersController extends WebzashAppController {
 
 			$this->Wzuser->id = $id;
 
+			/* Check if user is allowed access to all accounts */
+			if (!empty($this->request->data['Wzuser']['account_ids'])) {
+				if (in_array(0, $this->request->data['Wzuser']['account_ids'])) {
+					$this->request->data['Wzuser']['all_accounts'] = 1;
+				} else {
+					$this->request->data['Wzuser']['all_accounts'] = 0;
+				}
+			} else {
+				$this->request->data['Wzuser']['account_ids'] = array();
+				$this->request->data['Wzuser']['all_accounts'] = 0;
+			}
+
 			/* Save user */
 			$ds = $this->Wzuser->getDataSource();
 			$ds->begin();
 
 			$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
 
-			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key'))) {
+			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key', 'all_accounts'))) {
+
+				/* Delete existing user - account associations */
+				if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
+					$ds->rollback();
+					$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
+					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+				}
+
+				/* Save user - accounts association */
+				if ($this->request->data['Wzuser']['all_accounts'] != 1) {
+					if (!empty($this->request->data['Wzuser']['account_ids'])) {
+						$data = array();
+						foreach ($this->request->data['Wzuser']['account_ids'] as $row => $account_id) {
+							if (!$this->Wzaccount->exists($account_id)) {
+								continue;
+							}
+							$data[] = array('user_id' => $this->Wzuser->id, 'account_id' => $account_id);
+						}
+						if (!$this->Wzuseraccount->saveMany($data)) {
+							$ds->rollback();
+							$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
+							return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+						}
+					}
+				}
+
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The user account has been updated.'), 'success');
 				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
 			} else {
-				$this->request->data['Wzuser']['password'] = $temp_password;
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'The user account could not be updated. Please, try again.'), 'error');
 				return;
 			}
 		} else {
 			$this->request->data = $wzuser;
+
+			/* Load existing user - account association */
+			if ($wzuser['Wzuser']['all_accounts'] == 1) {
+				$this->request->data['Wzuser']['account_ids'] = array('0');
+			} else {
+				$rawuseraccounts = $this->Wzuseraccount->find('all',
+					array('conditions' => array('Wzuseraccount.user_id' => $id))
+				);
+				$useraccounts = array();
+				foreach ($rawuseraccounts as $row => $useraccount) {
+					$useraccounts[] = $useraccount['Wzuseraccount']['account_id'];
+				}
+				$this->request->data['Wzuser']['account_ids'] = $useraccounts;
+			}
 			return;
 		}
 	}
