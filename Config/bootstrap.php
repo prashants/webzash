@@ -43,63 +43,117 @@
 /* TODO : Use libraries for larger calculations */
 
 function calculate($param1 = 0, $param2 = 0, $op = '') {
-	$result = 0;
-	$param1 = $param1 * 100;
-	$param2 = $param2 * 100;
-	$param1 = (int)round($param1, 0);
-	$param2 = (int)round($param2, 0);
-	switch ($op)
-	{
-		case '+':
-			$result = $param1 + $param2;
-			break;
-		case '-':
-			$result = $param1 - $param2;
-			break;
-		case '==':
-			if ($param1 == $param2) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-			break;
-		case '!=':
-			if ($param1 != $param2) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-			break;
-		case '<':
-			if ($param1 < $param2) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-			break;
-		case '>':
-			if ($param1 > $param2) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-			break;
-		case '>=':
-			if ($param1 >= $param2) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-			break;
-		case 'n':
-			$result = -$param1;
-			break;
-		default:
-			die();
-			break;
+	if (extension_loaded('bcmath')) {
+		switch ($op)
+		{
+			case '+':
+				return bcadd($param1, $param2, 2);
+				break;
+			case '-':
+				return bcsub($param1, $param2, 2);
+				break;
+			case '==':
+				if (bccomp($param1, $param2, 2) == 0) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '!=':
+				if (bccomp($param1, $param2, 2) == 0) {
+					return FALSE;
+				} else {
+					return TRUE;
+				}
+				break;
+			case '<':
+				if (bccomp($param1, $param2, 2) == -1) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '>':
+				if (bccomp($param1, $param2, 2) == 1) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '>=':
+				$temp = bccomp($param1, $param2, 2);
+				if ($temp == 1 || $temp == 0) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case 'n':
+				return bcmul($param1, -1, 2);
+				break;
+			default:
+				die();
+				break;
+		}
+	} else {
+		$result = 0;
+		$param1 = $param1 * 100;
+		$param2 = $param2 * 100;
+		$param1 = (int)round($param1, 0);
+		$param2 = (int)round($param2, 0);
+		switch ($op)
+		{
+			case '+':
+				$result = $param1 + $param2;
+				break;
+			case '-':
+				$result = $param1 - $param2;
+				break;
+			case '==':
+				if ($param1 == $param2) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '!=':
+				if ($param1 != $param2) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '<':
+				if ($param1 < $param2) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '>':
+				if ($param1 > $param2) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case '>=':
+				if ($param1 >= $param2) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+				break;
+			case 'n':
+				$result = -$param1;
+				break;
+			default:
+				die();
+				break;
+		}
+		$result = $result/100;
+		return $result;
 	}
-	$result = $result/100;
-	return $result;
 }
 
 /**
