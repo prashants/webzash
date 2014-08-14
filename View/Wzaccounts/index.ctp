@@ -27,7 +27,7 @@
 ?>
 <table>
 	<tr>
-		<th><?php echo $this->Paginator->sort('name', __d('webzash', 'Name')); ?></th>
+		<th><?php echo $this->Paginator->sort('label', __d('webzash', 'Label')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_datasource', __d('webzash', 'DB Type')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_name', __d('webzash', 'DB Name')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_hostname', __d('webzash', 'DB Host')); ?></th>
@@ -36,7 +36,7 @@
 	</tr>
 	<?php foreach ($wzaccounts as $wzaccount) { ?>
 		<tr>
-			<td><?php echo h($wzaccount['Wzaccount']['name']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['label']); ?></td>
 			<td><?php echo h($this->Generic->wzaccount_dbtype($wzaccount['Wzaccount']['db_datasource'])); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_name']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_hostname']); ?></td>

@@ -28,7 +28,7 @@
 <div class="wzaccont edit form">
 	<?php
 		echo $this->Form->create('Wzaccount');
-		echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
+		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
 		echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 		echo $this->Form->input('db_name', array('label' => __d('webzash', 'Database name')));
 		echo $this->Form->input('db_hostname', array('label' => __d('webzash', 'Database hostname')));

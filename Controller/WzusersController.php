@@ -100,8 +100,8 @@ class WzusersController extends WebzashAppController {
 
 		/* Create list of wzaccounts */
 		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
-			'fields' => array('Wzaccount.id', 'Wzaccount.name'),
-			'order' => array('Wzaccount.name')
+			'fields' => array('Wzaccount.id', 'Wzaccount.label'),
+			'order' => array('Wzaccount.label')
 		));
 		$this->set('wzaccounts', $wzaccounts);
 
@@ -222,8 +222,8 @@ class WzusersController extends WebzashAppController {
 
 		/* Create list of wzaccounts */
 		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
-			'fields' => array('Wzaccount.id', 'Wzaccount.name'),
-			'order' => array('Wzaccount.name')
+			'fields' => array('Wzaccount.id', 'Wzaccount.label'),
+			'order' => array('Wzaccount.label')
 		));
 		$this->set('wzaccounts', $wzaccounts);
 
@@ -853,7 +853,7 @@ class WzusersController extends WebzashAppController {
 		/* Currently active account */
 		$curActiveAccount = $this->Wzaccount->findById($this->Session->read('ActiveAccount.id'));
 		if ($curActiveAccount) {
-			$this->set('curActiveAccount', $curActiveAccount['Wzaccount']['name']);
+			$this->set('curActiveAccount', $curActiveAccount['Wzaccount']['label']);
 		} else {
 			$this->set('curActiveAccount', '(NONE)');
 		}
@@ -861,8 +861,8 @@ class WzusersController extends WebzashAppController {
 		/* Create list of wzaccounts */
 		if ($wzuser['Wzuser']['all_accounts'] == 1) {
 			$wzaccounts = $this->Wzaccount->find('list', array(
-				'fields' => array('Wzaccount.id', 'Wzaccount.name'),
-				'order' => array('Wzaccount.name')
+				'fields' => array('Wzaccount.id', 'Wzaccount.label'),
+				'order' => array('Wzaccount.label')
 			));
 		} else {
 			$wzaccounts = array();
@@ -872,7 +872,7 @@ class WzusersController extends WebzashAppController {
 			foreach ($rawwzaccounts as $row => $wzaccount) {
 				$account = $this->Wzaccount->findById($wzaccount['Wzuseraccount']['account_id']);
 				if ($account) {
-					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['name'];
+					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['label'];
 				}
 			}
 		}
@@ -904,7 +904,7 @@ class WzusersController extends WebzashAppController {
 					return $this->redirect(array('controller' => 'wzusers', 'action' => 'account'));
 				}
 				$this->Session->write('ActiveAccount.id', $temp['Wzaccount']['id']);
-				$this->Session->setFlash(__d('webzash', 'Account activated : ' . $temp['Wzaccount']['name']), 'success');
+				$this->Session->setFlash(__d('webzash', 'Account activated : ' . $temp['Wzaccount']['label']), 'success');
 				return $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
 			} else {
 				$this->Session->delete('ActiveAccount.id');

@@ -28,7 +28,7 @@
 <div class="wzusers profile form">
 <?php
 		echo $this->Form->create('Wzuser');
-		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Full name')));
+		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 		echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
 		if (AuthComponent::user('role') == 'admin') {

@@ -37,28 +37,28 @@ class Wzaccount extends WebzashAppModel {
 
 	/* Validation rules for the Wzaccount table */
 	public $validate = array(
-		'name' => array(
+		'label' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Account name cannot be empty',
+				'message' => 'Account label cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
-				'message' => 'Account name is already in use',
+				'message' => 'Account label is already in use',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Account name cannot be more than 255 characters',
+				'message' => 'Account label cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => 'alphaNumeric',
-				'message' => 'Account name can onle be alpha-numeric',
+				'message' => 'Account label can only be alpha-numeric',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
