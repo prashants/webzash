@@ -93,7 +93,7 @@ $(document).ready(function() {
 		echo '</fieldset>';
 
 		echo $this->Form->hidden('submitledger', array('value' => '1'));
-		echo $this->Form->end(__d('webzash', 'Show'));
+		echo $this->Form->end(__d('webzash', 'Submit'));
 	?>
 </div>
 

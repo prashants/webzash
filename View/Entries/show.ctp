@@ -49,11 +49,9 @@ foreach ($entries as $entry) {
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
 	echo '<td>';
-	echo $this->Html->link(__d('webzash', 'View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', $entrytype['Entrytype']['label'], $entry['Entry']['id']));
-	echo ' ';
-	echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']));
-	echo ' ';
-	echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
+	echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+	echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+	echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the entry ?')));
 	echo '</td>';
 	echo '</tr>';
 }

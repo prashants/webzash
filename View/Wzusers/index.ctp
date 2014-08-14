@@ -51,9 +51,9 @@
 			</td>
 			<td><?php echo h($this->Generic->wzuser_role($wzuser['Wzuser']['role'])); ?></td>
 			<td>
-				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'edit', $wzuser['Wzuser']['id'])); ?>
-				<?php echo $this->Html->link(__d('webzash', 'Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'resetpass', 'userid' => $wzuser['Wzuser']['id'])); ?>
-				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'delete', $wzuser['Wzuser']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
+				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'edit', $wzuser['Wzuser']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>'; ?>
+				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-off')) . __d('webzash', ' Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'resetpass', 'userid' => $wzuser['Wzuser']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>'; ?>
+				<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'delete', $wzuser['Wzuser']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the user ?'))); ?>
 			</td>
 		</tr>
 	<?php } ?>

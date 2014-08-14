@@ -84,7 +84,7 @@ $(document).ready(function() {
 		echo $this->Form->input('enddate', array('label' => __d('webzash', 'End date')));
 		echo '</fieldset>';
 
-		echo $this->Form->end(__d('webzash', 'Show'));
+		echo $this->Form->end(__d('webzash', 'Submit'));
 	?>
 </div>
 
@@ -126,9 +126,9 @@ $(document).ready(function() {
 		}
 
 		echo '<td>';
-		echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']));
-		echo ' ';
-		echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
+		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+		echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the entry ?')));
 		echo '</td>';
 		echo '</tr>';
 	}

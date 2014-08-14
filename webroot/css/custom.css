@@ -177,3 +177,11 @@ table td .dc-error {
 	padding-right:20px;
 	padding-bottom:15px;
 }
+
+.link-pad {
+	padding-left: 15px;
+}
+
+a.no-hover:hover {
+	text-decoration: none;
+}

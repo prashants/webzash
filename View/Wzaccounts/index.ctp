@@ -42,8 +42,8 @@
 			<td><?php echo h($wzaccount['Wzaccount']['db_hostname']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_port']); ?></td>
 			<td>
-				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id'])); ?>
-				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'delete', $wzaccount['Wzaccount']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
+				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>'; ?>
+				<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'delete', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the account config ?'))); ?>
 			</td>
 		</tr>
 	<?php } ?>
