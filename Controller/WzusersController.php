@@ -823,6 +823,97 @@ class WzusersController extends WebzashAppController {
 		}
 	}
 
+/**
+ * change active account
+ */
+	public function account() {
+
+		$this->set('title_for_layout', __d('webzash', 'Select account to activate'));
+
+		$this->layout = 'default';
+
+		$this->Wzuser->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzaccount");
+		$this->Wzaccount = new Wzaccount();
+		$this->Wzaccount->useDbConfig = 'wz';
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzuseraccount");
+		$this->Wzuseraccount = new Wzuseraccount();
+		$this->Wzuseraccount->useDbConfig = 'wz';
+
+		$wzuser = $this->Wzuser->findById($this->Auth->user('id'));
+		if (!$wzuser) {
+			$this->Session->setFlash(__d('webzash', 'User not found.'), 'error');
+			return;
+		}
+
+		/* Currently active account */
+		$curActiveAccount = $this->Wzaccount->findById($this->Session->read('ActiveAccount.id'));
+		if ($curActiveAccount) {
+			$this->set('curActiveAccount', $curActiveAccount['Wzaccount']['name']);
+		} else {
+			$this->set('curActiveAccount', '(NONE)');
+		}
+
+		/* Create list of wzaccounts */
+		if ($wzuser['Wzuser']['all_accounts'] == 1) {
+			$wzaccounts = $this->Wzaccount->find('list', array(
+				'fields' => array('Wzaccount.id', 'Wzaccount.name'),
+				'order' => array('Wzaccount.name')
+			));
+		} else {
+			$wzaccounts = array();
+			$rawwzaccounts = $this->Wzuseraccount->find('all', array(
+				'conditions' => array('Wzuseraccount.user_id' => $this->Auth->user('id')),
+			));
+			foreach ($rawwzaccounts as $row => $wzaccount) {
+				$account = $this->Wzaccount->findById($wzaccount['Wzuseraccount']['account_id']);
+				if ($account) {
+					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['name'];
+				}
+			}
+		}
+		$this->set('wzaccounts', $wzaccounts);
+
+		/* On POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if user is allowed to access the account */
+			$activateAccount = FALSE;
+			if ($wzuser['Wzuser']['all_accounts'] == 1) {
+				$activateAccount = TRUE;
+			} else {
+				$temp = $this->Wzuseraccount->find('first', array(
+					'conditions' => array(
+						'Wzuseraccount.user_id' => $this->Auth->user('id'),
+						'Wzuseraccount.account_id' => $this->request->data['Wzuser']['account_id'],
+					),
+				));
+				if ($temp) {
+					$activateAccount = TRUE;
+				}
+			}
+			if ($activateAccount) {
+				$temp = $this->Wzaccount->findById($this->request->data['Wzuser']['account_id']);
+				if (!$temp) {
+					$this->Session->delete('ActiveAccount.id');
+					$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
+					return $this->redirect(array('controller' => 'wzusers', 'action' => 'account'));
+				}
+				$this->Session->write('ActiveAccount.id', $temp['Wzaccount']['id']);
+				$this->Session->setFlash(__d('webzash', 'Account activated : ' . $temp['Wzaccount']['name']), 'success');
+				return $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
+			} else {
+				$this->Session->delete('ActiveAccount.id');
+				$this->Session->setFlash(__d('webzash', 'Account could not be activated. Please, try again.'), 'error');
+				return $this->redirect(array('controller' => 'wzusers', 'action' => 'account'));
+			}
+		}
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('login', 'logout', 'verify', 'resend', 'forgot', 'register');
@@ -856,6 +947,10 @@ class WzusersController extends WebzashAppController {
 
 		if ($this->action === 'resetpass') {
 			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'account') {
+			return $this->Permission->is_allowed('registered', $user['role']);
 		}
 
 		return parent::isAuthorized($user);

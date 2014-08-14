@@ -24,9 +24,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-echo h(Configure::read('Account.name'));
-echo ' ';
-echo $this->Html->link(__d('webzash', '(change)'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
-echo '<br />';
-echo dateFromSql(Configure::read('Account.startdate')) . ' to ' . dateFromSql(Configure::read('Account.enddate'));
+?>
+<div class="wzuser account form">
+	<?php
+		echo $this->Form->create('Wzuser');
+		echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . $curActiveAccount);
+		echo $this->Form->input('account_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
+		echo $this->Form->end(__d('webzash', 'Activate'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'dashboard', 'action' => 'index'));
+	?>
+</div>
