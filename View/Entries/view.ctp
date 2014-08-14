@@ -98,10 +98,10 @@
 	echo __d('webzash', 'Tag') . ' : ' . $this->Generic->showTag($entry['Entry']['tag_id']);
 	echo '<br /><br />';
 
-	echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary'));
+	echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary'));
 	echo '&nbsp;&nbsp;';
-	echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary', 'confirm' => __d('webzash', 'Are you sure ?')));
+	echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary', 'confirm' => __d('webzash', 'Are you sure ?')));
 	echo '&nbsp;&nbsp;';
-	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entries', 'action' => 'index'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 ?>
 </div>

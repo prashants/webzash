@@ -35,6 +35,6 @@
 		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __d('webzash', 'Bank or cash account')));
 		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __d('webzash', 'Reconciliation')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'accounts', 'action' => 'show'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 	?>
 </div>

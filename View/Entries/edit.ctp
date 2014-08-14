@@ -350,6 +350,6 @@ $(document).ready(function() {
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
 	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __d('webzash', 'Tag')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entries', 'action' => 'index'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 ?>
 </div>

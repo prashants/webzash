@@ -126,9 +126,9 @@ $(document).ready(function() {
 		}
 
 		echo '<td>';
-		echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']));
+		echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']));
 		echo ' ';
-		echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
+		echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
 		echo '</td>';
 		echo '</tr>';
 	}

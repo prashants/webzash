@@ -39,6 +39,6 @@
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection')));
 		echo $this->Form->input('db_settings', array('label' => __d('webzash', 'Database settings')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'wzaccounts', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 	?>
 </div>

@@ -31,6 +31,6 @@
 		echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . $curActiveAccount);
 		echo $this->Form->input('account_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
 		echo $this->Form->end(__d('webzash', 'Activate'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'dashboard', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 	?>
 </div>

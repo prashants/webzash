@@ -31,9 +31,9 @@
 		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
 		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
 		echo $this->Form->end(__d('webzash', 'Login'));
-		echo $this->Html->link(__d('webzash', 'Register'), array('controller' => 'wzusers', 'action' => 'register'));
+		echo $this->Html->link(__d('webzash', 'Register'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'register'));
 		echo ' | ';
-		echo $this->Html->link(__d('webzash', 'Forgot Password'), array('controller' => 'wzusers', 'action' => 'forgot'));
+		echo $this->Html->link(__d('webzash', 'Forgot Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'forgot'));
 ?>
 </div>
 

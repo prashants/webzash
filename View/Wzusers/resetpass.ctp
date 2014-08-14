@@ -31,6 +31,6 @@
 		echo $this->Form->create('Wzuser');
 		echo $this->Form->input('new_password', array('type' => 'password', 'label' => __d('webzash', 'New password')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'wzusers', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 ?>
 </div>

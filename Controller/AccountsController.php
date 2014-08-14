@@ -49,7 +49,7 @@ class AccountsController extends WebzashAppController {
  * @return void
  */
 	public function index() {
-		return $this->redirect(array('action' => 'show'));
+		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 	}
 
 /**

@@ -57,8 +57,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<td class="td-actions"></td>';
 		} else {
 			echo '<td class="td-actions">';
-			echo $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'groups', 'action' => 'edit', $account->id)) . ' ';
-			echo $THIS->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'groups', 'action' => 'delete', $account->id), array('confirm' => __d('webzash', 'Are you sure ?')));
+			echo $THIS->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'edit', $account->id)) . ' ';
+			echo $THIS->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'delete', $account->id), array('confirm' => __d('webzash', 'Are you sure ?')));
 			echo '</td>';
 		}
 		echo '</tr>';
@@ -71,7 +71,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<tr class="tr-ledger">';
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo $THIS->Html->link($data['name'], array('controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
+			echo $THIS->Html->link($data['name'], array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
 
@@ -84,8 +84,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '</td>';
 
 			echo '<td class="td-actions">';
-			echo $THIS->Html->link(__d('webzash', 'Edit'), array('controller' => 'ledgers', 'action' => 'edit', $data['id'])) . ' ';
-			echo $THIS->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'ledgers', 'action' => 'delete', $data['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
+			echo $THIS->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'ledgers', 'action' => 'edit', $data['id'])) . ' ';
+			echo $THIS->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'ledgers', 'action' => 'delete', $data['id']), array('confirm' => __d('webzash', 'Are you sure ?')));
 			echo '</td>';
 
 			echo '</tr>';

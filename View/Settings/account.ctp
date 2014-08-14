@@ -72,6 +72,6 @@ $(document).ready(function() {
 	echo $this->Form->input('fy_end', array('type' => 'text', 'label' => __d('webzash', 'Financial year end')));
 	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 ?>
 </div>

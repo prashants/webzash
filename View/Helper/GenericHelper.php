@@ -52,7 +52,7 @@ class GenericHelper extends AppHelper {
 		if (empty($tag)) {
 			return '';
 		} else {
-			return '<span class="tag" style="color:#' . h($tag['Tag']['color']) . '; background-color:#' . h($tag['Tag']['background']) . ';">' . $this->Html->link($tag['Tag']['title'], array('controller' => 'entries', 'action' => 'index', 'tag' => $tag['Tag']['id']), array('style' => 'color:#' . h($tag['Tag']['color']) . ';')) . '</span>';
+			return '<span class="tag" style="color:#' . h($tag['Tag']['color']) . '; background-color:#' . h($tag['Tag']['background']) . ';">' . $this->Html->link($tag['Tag']['title'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index', 'tag' => $tag['Tag']['id']), array('style' => 'color:#' . h($tag['Tag']['color']) . ';')) . '</span>';
 		}
 	}
 

@@ -44,8 +44,8 @@
 			<td><?php echo h($entrytype['Entrytype']['suffix']); ?></td>
 			<td><?php echo h($entrytype['Entrytype']['zero_padding']); ?></td>
 			<td>
-				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('controller' => 'entrytypes', 'action' => 'edit', $entrytype['Entrytype']['id'])); ?>
-				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('controller' => 'entrytypes', 'action' => 'delete', $entrytype['Entrytype']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
+				<?php echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'edit', $entrytype['Entrytype']['id'])); ?>
+				<?php echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'delete', $entrytype['Entrytype']['id']), array('confirm' => __d('webzash', 'Are you sure ?'))); ?>
 			</td>
 		</tr>
 	<?php } ?>

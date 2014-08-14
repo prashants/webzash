@@ -95,7 +95,7 @@ class WzusersController extends WebzashAppController {
 		$wxsetting = $this->Wzsetting->findById(1);
 		if (!$wxsetting) {
 			$this->Session->setFlash(__d('webzash', 'Please update your setting below before adding any user'), 'error');
-			return $this->redirect(array('controller' => 'wzsettings', 'action' => 'edit'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsettings', 'action' => 'edit'));
 		}
 
 		/* Create list of wzaccounts */
@@ -154,14 +154,14 @@ class WzusersController extends WebzashAppController {
 							if (!$this->Wzuseraccount->saveMany($data)) {
 								$ds->rollback();
 								$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
-								return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+								return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 							}
 						}
 					}
 
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The user account has been created.'), 'success');
-					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 				} else {
 					$this->request->data['Wzuser']['password'] = $temp_password;
 					$ds->rollback();
@@ -206,18 +206,18 @@ class WzusersController extends WebzashAppController {
 		$wzsetting = $this->Wzsetting->findById(1);
 		if (!$wzsetting) {
 			$this->Session->setFlash(__d('webzash', 'Please update your setting below before editing any user'), 'error');
-			return $this->redirect(array('controller' => 'wzsettings', 'action' => 'edit'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsettings', 'action' => 'edit'));
 		}
 
 		/* Check for valid user */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'User account not specified.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 		$wzuser = $this->Wzuser->findById($id);
 		if (!$wzuser) {
 			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		/* Create list of wzaccounts */
@@ -258,7 +258,7 @@ class WzusersController extends WebzashAppController {
 				if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
-					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 				}
 
 				/* Save user - accounts association */
@@ -274,14 +274,14 @@ class WzusersController extends WebzashAppController {
 						if (!$this->Wzuseraccount->saveMany($data)) {
 							$ds->rollback();
 							$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
-							return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+							return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 						}
 					}
 				}
 
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The user account has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'The user account could not be updated. Please, try again.'), 'error');
@@ -330,19 +330,19 @@ class WzusersController extends WebzashAppController {
 		/* Check if valid id */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'User account not specified.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		/* Check if user exists */
 		if (!$this->Wzuser->exists($id)) {
 			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		/* Cannot delete your own account */
 		if ($id == $this->Auth->user('id')) {
 			$this->Session->setFlash(__d('webzash', 'Cannot delete own account.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		/* Delete user */
@@ -352,7 +352,7 @@ class WzusersController extends WebzashAppController {
 		if (!$this->Wzuser->delete($id)) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The user account could not be deleted. Please, try again.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 
@@ -360,14 +360,14 @@ class WzusersController extends WebzashAppController {
 		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The user account could not be deleted. Please, try again.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		/* Success */
 		$ds->commit();
 		$this->Session->setFlash(__d('webzash', 'The user account has been deleted.'), 'success');
 
-		return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 	}
 
 /**
@@ -420,7 +420,7 @@ class WzusersController extends WebzashAppController {
 			/* Login */
 			if ($this->Auth->login()) {
 				if ($this->Auth->user('role') == 'admin') {
-					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
 					return $this->redirect($this->Auth->redirectUrl());
 				}
@@ -577,7 +577,7 @@ class WzusersController extends WebzashAppController {
 				}
 
 				if ($this->Auth->user('role') == 'admin') {
-					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
 					return $this->redirect($this->Auth->redirectUrl());
 				}
@@ -638,7 +638,7 @@ class WzusersController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Your password has been updated.'), 'success');
 
 				if ($this->Auth->user('role') == 'admin') {
-					return $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
 					return $this->redirect($this->Auth->redirectUrl());
 				}
@@ -662,7 +662,7 @@ class WzusersController extends WebzashAppController {
 
 		if (empty($this->passedArgs['userid'])) {
 			$this->Session->setFlash(__d('webzash', 'User account not specified.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		$userid = $this->passedArgs['userid'];
@@ -670,7 +670,7 @@ class WzusersController extends WebzashAppController {
 		$wzuser = $this->Wzuser->findById($userid);
 		if (!$wzuser) {
 			$this->Session->setFlash(__d('webzash', 'User account not found.'), 'error');
-			return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
 		$this->set('username', $wzuser['Wzuser']['username']);
@@ -691,7 +691,7 @@ class WzusersController extends WebzashAppController {
 			if ($this->Wzuser->saveField('password', Security::hash($this->request->data['Wzuser']['new_password'], 'sha1', true))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'User password has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'User password could not be updated. Please, try again.'), 'error');
@@ -810,7 +810,7 @@ class WzusersController extends WebzashAppController {
 				if ($this->Wzuser->save($user)) {
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'User account has been created.'), 'success');
-					return $this->redirect(array('controller' => 'wzusers', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 				} else {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'User account could not be created. Please, try again.'), 'error');
@@ -901,15 +901,15 @@ class WzusersController extends WebzashAppController {
 				if (!$temp) {
 					$this->Session->delete('ActiveAccount.id');
 					$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
-					return $this->redirect(array('controller' => 'wzusers', 'action' => 'account'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 				}
 				$this->Session->write('ActiveAccount.id', $temp['Wzaccount']['id']);
 				$this->Session->setFlash(__d('webzash', 'Account activated : ' . $temp['Wzaccount']['label']), 'success');
-				return $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 			} else {
 				$this->Session->delete('ActiveAccount.id');
 				$this->Session->setFlash(__d('webzash', 'Account could not be activated. Please, try again.'), 'error');
-				return $this->redirect(array('controller' => 'wzusers', 'action' => 'account'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 			}
 		}
 	}

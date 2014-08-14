@@ -41,6 +41,6 @@
 		echo $this->Form->input('color', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Color')));
 		echo $this->Form->input('background', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Background')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'tags', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 	?>
 </div>

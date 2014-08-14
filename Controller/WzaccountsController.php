@@ -115,7 +115,7 @@ class WzaccountsController extends WebzashAppController {
 				if ($this->Wzaccount->save($this->request->data)) {
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The account config has been created.'), 'success');
-					return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 				} else {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'The account config could not be saved. Please, try again.'), 'error');
@@ -149,12 +149,12 @@ class WzaccountsController extends WebzashAppController {
 		/* Check for valid account */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 		$wzaccount = $this->Wzaccount->findById($id);
 		if (!$wzaccount) {
 			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Create list of wzusers */
@@ -177,7 +177,7 @@ class WzaccountsController extends WebzashAppController {
 			if ($this->Wzaccount->save($this->request->data)) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The account config has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'The account config could not be updated. Please, try again.'), 'error');
@@ -212,13 +212,13 @@ class WzaccountsController extends WebzashAppController {
 		/* Check if valid id */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Check if account exists */
 		if (!$this->Wzaccount->exists($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Delete account */
@@ -229,21 +229,21 @@ class WzaccountsController extends WebzashAppController {
 		if (!$this->Wzaccount->delete($id)) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Delete user - account association */
 		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.account_id' => $id))) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
-			return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Success */
 		$ds->commit();
 		$this->Session->setFlash(__d('webzash', 'The account config has been deleted. Please delete the account data manually.'), 'success');
 
-		return $this->redirect(array('controller' => 'wzaccounts', 'action' => 'index'));
+		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 	}
 
 	/* Authorization check */

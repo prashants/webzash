@@ -33,9 +33,9 @@
 		echo $this->Form->end(__d('webzash', 'Submit'));
 
 		if (AuthComponent::user('role') == 'admin') {
-			echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'admin', 'action' => 'index'));
+			echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 		} else {
-			echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'dashboard', 'action' => 'index'));
+			echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 		}
 ?>
 </div>

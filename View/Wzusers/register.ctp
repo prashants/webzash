@@ -34,7 +34,7 @@
 			echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 			echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
 			echo $this->Form->end(__d('webzash', 'Submit'));
-			echo $this->Html->link(__d('webzash', 'Login'), array('controller' => 'wzusers', 'action' => 'login'));
+			echo $this->Html->link(__d('webzash', 'Login'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
 		} else {
 			echo '<h4>' . __d('webzash', 'User registration is disabled.') . '</h4>';
 		}

@@ -76,7 +76,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<tr class="tr-ledger">';
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo $THIS->Html->link($data['name'], array('controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
+			echo $THIS->Html->link($data['name'], array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
 

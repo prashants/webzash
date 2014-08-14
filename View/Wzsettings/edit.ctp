@@ -45,6 +45,6 @@
 	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Outgoing Email Username')));
 	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Outgoing Email Password')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'admin', 'action' => 'index'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 ?>
 </div>

@@ -55,6 +55,6 @@ $(document).ready(function() {
 		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __d('webzash', 'Parent group')));
 		echo $this->Form->input('affects_gross', array('type' => 'select', 'options' => $options, 'label' => false, 'div' => array('id' => 'AffectsGross')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'accounts', 'action' => 'show'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 	?>
 </div>

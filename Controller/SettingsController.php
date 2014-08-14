@@ -68,7 +68,7 @@ class SettingsController extends WebzashAppController {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
-			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -88,7 +88,7 @@ class SettingsController extends WebzashAppController {
 			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account settings has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'Account settings could not be updated. Please, try again.'), 'error');
@@ -128,7 +128,7 @@ class SettingsController extends WebzashAppController {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
-			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -144,7 +144,7 @@ class SettingsController extends WebzashAppController {
 			if ($this->Setting->save($this->request->data, true, array('email_protocol', 'email_host', 'email_port', 'email_username', 'email_password'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'error');
@@ -168,7 +168,7 @@ class SettingsController extends WebzashAppController {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
-			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
 		/* on POST */
@@ -184,7 +184,7 @@ class SettingsController extends WebzashAppController {
 			if ($this->Setting->save($this->request->data, true, array('print_paper_height', 'print_paper_width', 'print_margin_top', 'print_margin_bottom', 'print_margin_left', 'print_margin_right', 'print_orientation', 'print_page_format'))) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Printer settings has been updated.'), 'success');
-				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				$this->Session->setFlash(__d('webzash', 'Printer settings could not be updated. Please, try again.'), 'error');
@@ -217,7 +217,7 @@ class SettingsController extends WebzashAppController {
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
-			return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
 		$this->set('locked', $setting['Setting']['account_locked']);
@@ -239,7 +239,7 @@ class SettingsController extends WebzashAppController {
 				} else {
 					$this->Session->setFlash(__d('webzash', 'Account has been unlocked.'), 'success');
 				}
-				return $this->redirect(array('controller' => 'settings', 'action' => 'index'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				if ($this->request->data['Setting']['account_locked'] == '1') {

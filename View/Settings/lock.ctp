@@ -35,7 +35,7 @@
 	}
 	echo $this->Form->input('account_locked', array('type' => 'checkbox', 'checked' => $locked, 'label' => __d('webzash', 'Lock account (No further modifications will be possible)')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
+	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 ?>
 </div
 

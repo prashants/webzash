@@ -49,6 +49,6 @@
 		echo $this->Form->input('zero_padding', array('label' => __d('webzash', 'Zero Padding')));
 		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __d('webzash', 'Restrictions')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'entrytypes', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 	?>
 </div>

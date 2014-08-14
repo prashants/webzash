@@ -49,6 +49,6 @@
 	</fieldset>
 	<?php
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'settings', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 	?>
 </div>

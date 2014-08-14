@@ -40,6 +40,6 @@
 		echo $this->Form->input('account_ids', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Account access'), 'multiple' => true));
 
 		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('controller' => 'wzusers', 'action' => 'index'));
+		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 	?>
 </div>

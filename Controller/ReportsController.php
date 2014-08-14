@@ -269,18 +269,18 @@ class ReportsController extends WebzashAppController {
 			/* If valid data then redirect with POST values are URL parameters so that pagination works */
 			if (empty($this->request->data['Report']['ledger_id'])) {
 				$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
-				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 			}
 
 			if ($this->request->data['Report']['custom_period'] == 1) {
-				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement',
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement',
 					'ledgerid' => $this->request->data['Report']['ledger_id'],
 					'customperiod' => 1,
 					'startdate' => $this->request->data['Report']['startdate'],
 					'enddate' => $this->request->data['Report']['enddate'],
 				));
 			} else {
-				return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement',
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement',
 					'ledgerid' => $this->request->data['Report']['ledger_id'],
 				));
 			}
@@ -298,7 +298,7 @@ class ReportsController extends WebzashAppController {
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
-			return $this->redirect(array('controller' => 'reports', 'action' => 'ledgerstatement'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
@@ -374,11 +374,11 @@ class ReportsController extends WebzashAppController {
 				/* If valid data then redirect with POST values are URL parameters so that pagination works */
 				if (empty($this->request->data['Report']['ledger_id'])) {
 					$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
-					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 				}
 
 				if ($this->request->data['Report']['custom_period'] == 1) {
-					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation',
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation',
 						'ledgerid' => $this->request->data['Report']['ledger_id'],
 						'showall' => $this->request->data['Report']['showall'],
 						'customperiod' => 1,
@@ -386,7 +386,7 @@ class ReportsController extends WebzashAppController {
 						'enddate' => $this->request->data['Report']['enddate'],
 					));
 				} else {
-					return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation',
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation',
 						'ledgerid' => $this->request->data['Report']['ledger_id'],
 						'showall' => $this->request->data['Report']['showall'],
 					));
@@ -419,7 +419,7 @@ class ReportsController extends WebzashAppController {
 				unset($this->request->data['ReportRec']);
 
 			} else {
-				return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 			}
 		}
 
@@ -435,7 +435,7 @@ class ReportsController extends WebzashAppController {
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
-			return $this->redirect(array('controller' => 'reports', 'action' => 'reconciliation'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 		}
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
