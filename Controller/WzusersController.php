@@ -57,7 +57,7 @@ class WzusersController extends WebzashAppController {
 		$this->Paginator->settings = array(
 			'Wzuser' => array(
 				'limit' => 10,
-				'order' => array('Wzuser.username' => 'desc'),
+				'order' => array('Wzuser.username' => 'asc'),
 			)
 		);
 

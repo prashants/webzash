@@ -51,7 +51,7 @@ class TagsController extends WebzashAppController {
 		$this->Paginator->settings = array(
 			'Tag' => array(
 				'limit' => 10,
-				'order' => array('Tag.title' => 'desc'),
+				'order' => array('Tag.title' => 'asc'),
 			)
 		);
 
