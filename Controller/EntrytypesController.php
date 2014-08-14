@@ -47,7 +47,15 @@ class EntrytypesController extends WebzashAppController {
 		$this->set('actionlinks', array(
 			array('controller' => 'entrytypes', 'action' => 'add', 'title' => __d('webzash', 'Add Entry Type')),
 		));
-		$this->set('entrytypes', $this->Entrytype->find('all', array('order' => array('Entrytype.id'))));
+
+		$this->Paginator->settings = array(
+			'Entrytype' => array(
+				'limit' => 10,
+				'order' => array('Entrytype.id' => 'asc'),
+			)
+		);
+
+		$this->set('entrytypes', $this->Paginator->paginate('Entrytype'));
 		return;
 	}
 

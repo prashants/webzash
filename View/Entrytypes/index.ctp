@@ -27,12 +27,12 @@
 ?>
 <table>
 	<tr>
-		<th><?php echo __d('webzash', 'Label'); ?></th>
-		<th><?php echo __d('webzash', 'Name'); ?></th>
-		<th><?php echo __d('webzash', 'Description'); ?></th>
-		<th><?php echo __d('webzash', 'Prefix'); ?></th>
-		<th><?php echo __d('webzash', 'Suffix'); ?></th>
-		<th><?php echo __d('webzash', 'Zero Padding'); ?></th>
+		<th><?php echo $this->Paginator->sort('label', __d('webzash', 'Label')); ?></th>
+		<th><?php echo $this->Paginator->sort('name', __d('webzash', 'Name')); ?></th>
+		<th><?php echo $this->Paginator->sort('description', __d('webzash', 'Description')); ?></th>
+		<th><?php echo $this->Paginator->sort('prefix', __d('webzash', 'Prefix')); ?></th>
+		<th><?php echo $this->Paginator->sort('suffix', __d('webzash', 'Suffix')); ?></th>
+		<th><?php echo $this->Paginator->sort('zero_padding', __d('webzash', 'Zero Padding')); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($entrytypes as $entrytype) { ?>
@@ -50,3 +50,17 @@
 		</tr>
 	<?php } ?>
 </table>
+
+<?php
+	echo "<div class='paging'>";
+	echo $this->Paginator->first(__d('webzash', 'First'));
+	if ($this->Paginator->hasPrev()) {
+		echo $this->Paginator->prev(__d('webzash', 'Prev'));
+	}
+	echo $this->Paginator->numbers();
+	if ($this->Paginator->hasNext()){
+		echo $this->Paginator->next(__d('webzash', 'Next'));
+	}
+	echo $this->Paginator->last(__d('webzash', 'Last'));
+	echo ' ' . __d('webzash', 'Entrytypes') . ' ' . $this->Paginator->counter();
+	echo "</div>";
