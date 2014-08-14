@@ -62,6 +62,7 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function account() {
+		$this->loadModel('Entry');
 
 		$this->set('title_for_layout', __d('webzash', 'Account Settings'));
 
@@ -80,6 +81,20 @@ class SettingsController extends WebzashAppController {
 			$settings = $this->request->data;
 			$settings['Setting']['fy_start'] = dateToSql($this->request->data['Setting']['fy_start'], '00:00:00');
 			$settings['Setting']['fy_end'] = dateToSql($this->request->data['Setting']['fy_end'], '23:59:59');
+
+			/* Check if any entries are beyond start and end data */
+			$temp = $this->Entry->find('count', array(
+				'conditions' => array(
+					'OR' => array(
+						'Entry.date <' => dateToSql($this->request->data['Setting']['fy_start'], '00:00:00'),
+						'Entry.date >' => dateToSql($this->request->data['Setting']['fy_end'], '23:59:59'),
+					),
+				),
+			));
+			if ($temp != 0) {
+				$this->Session->setFlash(__d('webzash', 'Account setting could not be changed since there are %d entries beyond the selected financial year start and end dates.', $temp), 'error');
+				return;
+			}
 
 			/* Save settings */
 			$ds = $this->Setting->getDataSource();
