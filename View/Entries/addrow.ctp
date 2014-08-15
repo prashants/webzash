@@ -33,8 +33,12 @@
 	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.ledger_id', array('type' => 'select', 'options' => $ledgers, 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
 	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
 	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
-	echo '<td>' . $this->Html->image('Webzash.add.png', array('alt' => 'Add row', 'class' => 'addrow')) . '</td>';
-	echo '<td>' . $this->Html->image('Webzash.delete.png', array('alt' => 'Delete row', 'class' => 'deleterow')) . '</td>';
+
+	echo '<td>';
+	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false)) . '<span class="link-pad"></span>';
+	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
+	echo '</td>';
+
 	echo '<td class="ledger-balance"><div></div></td>';
 	echo '</tr>';
 ?>

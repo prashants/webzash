@@ -218,16 +218,16 @@ $(document).ready(function() {
 				{
 					var ledger_bal = parseFloat(data['cl']['balance']);
 					if (data['cl']['dc'] == 'D') {
-						rowid.parent().parent().next().next().next().next().next().children().text("Dr " + ledger_bal);
+						rowid.parent().parent().next().next().next().next().children().text("Dr " + ledger_bal);
 					} else if (data['cl']['dc'] == 'C') {
-						rowid.parent().parent().next().next().next().next().next().children().text("Cr " + ledger_bal);
+						rowid.parent().parent().next().next().next().next().children().text("Cr " + ledger_bal);
 					} else {
-						rowid.parent().parent().next().next().next().next().next().children().text("");
+						rowid.parent().parent().next().next().next().next().children().text("");
 					}
 				}
 			});
 		} else {
-			rowid.parent().parent().next().next().next().next().next().children().text("");
+			rowid.parent().parent().next().next().next().next().children().text("");
 		}
 	});
 
@@ -249,13 +249,10 @@ $(document).ready(function() {
 	/* Add ledger row */
 	$(document).on('click', '.addrow', function() {
 		var cur_obj = this;
-		var add_image_url = $(cur_obj).attr('src');
-		$(cur_obj).attr('src', '<?php echo $this->Html->assetUrl("Webzash.ajax.gif", array("fullBase" => true, "pathPrefix" => IMAGES_URL)); ?>');
 		$.ajax({
 			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $this->Generic->ajaxAddLedger($entrytype["Entrytype"]["restriction_bankcash"]))); ?>',
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
-				$(cur_obj).attr('src', add_image_url);
 				/* Trigger ledger item change */
 				$(cur_obj).parent().parent().next().children().first().next().children().children().trigger('change');
 			}
@@ -302,8 +299,7 @@ $(document).ready(function() {
 	echo '<th>' . __d('webzash', 'Ledger') . '</th>';
 	echo '<th>' . __d('webzash', 'Dr Amount') . '</th>';
 	echo '<th>' . __d('webzash', 'Cr Amount') . '</th>';
-	echo '<th><div id="addinit"></div></th>';
-	echo '<th></th>';
+	echo '<th>' . __d('webzash', 'Actions') . '</th>';
 	echo '<th>' . __d('webzash', 'Cur Balance') . '</th>';
 	echo '</tr>';
 
@@ -335,15 +331,18 @@ $(document).ready(function() {
 			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('default' => $entryitem['cr_amount'], 'label' => false, 'class' => 'cr-item')) . '</td>';
 		}
 
-		echo '<td>' . $this->Html->image('Webzash.add.png', array('alt' => 'Add row', 'class' => 'addrow')) . '</td>';
-		echo '<td>' . $this->Html->image('Webzash.delete.png', array('alt' => 'Delete row', 'class' => 'deleterow')) . '</td>';
+		echo '<td>';
+		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false)) . '<span class="link-pad"></span>';
+		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
+		echo '</td>';
+
 		echo '<td class="ledger-balance"><div></div></td>';
 		echo '</tr>';
 	}
 
 	/* Total and difference */
-	echo '<tr>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td>' . '</td>' . '<td id="dr-total">' . '</td>' . '<td id="cr-total">' . '</td>' . '<td >' . $this->Html->image('Webzash.gear.png', array('alt' => 'Recalculate', 'class' => 'recalculate')) . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
-	echo '<tr>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td>' . '</td>' . '<td id="dr-diff">' . '</td>' . '<td id="cr-diff">' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
+	echo '<tr>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td>' . '</td>' . '<td id="dr-total">' . '</td>' . '<td id="cr-total">' . '</td>' . '<td >' . $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-refresh')), array('class' => 'recalculate', 'escape' => false)) . '</td>' . '<td>' . '</td>' . '</tr>';
+	echo '<tr>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td>' . '</td>' . '<td id="dr-diff">' . '</td>' . '<td id="cr-diff">' . '</td>' . '<td>' . '</td>' . '<td>' . '</td>' . '</tr>';
 
 	echo '</table>';
 

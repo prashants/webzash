@@ -186,6 +186,15 @@ a.no-hover:hover {
 	text-decoration: none;
 }
 
+.addrow, .deleterow, .recalculate {
+	color: #428BCA;
+	cursor: pointer;
+}
+
+.addrow:hover, .deleterow:hover, .recalculate:hover {
+	color: #2A6496;
+}
+
 ul#qa-list {
 	margin: 0 0 0 15px;
 	padding: 0;
