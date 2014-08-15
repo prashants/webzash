@@ -36,7 +36,8 @@
 			<td><?php echo h($tag['Tag']['title']); ?></td>
 			<td><?php echo $this->Generic->showTag($tag['Tag']['id']); ?></td>
 			<td>
-				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'edit', $tag['Tag']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>'; ?>
+				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'edit', $tag['Tag']['id']), array('class' => 'no-hover', 'escape' => false)); ?>
+				<?php echo $this->Html->tag('span', '', array('class' => 'link-pad')); ?>
 				<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'delete', $tag['Tag']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the tag ?'))); ?>
 			</td>
 		</tr>

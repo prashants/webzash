@@ -35,7 +35,8 @@
 	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
 
 	echo '<td>';
-	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false)) . '<span class="link-pad"></span>';
+	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
 	echo '</td>';
 

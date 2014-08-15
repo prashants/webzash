@@ -57,7 +57,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<td class="td-actions"></td>';
 		} else {
 			echo '<td class="td-actions">';
-			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'edit', $account->id), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'edit', $account->id), array('class' => 'no-hover', 'escape' => false));
+			echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 			echo $THIS->Form->postLink($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'delete', $account->id), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the group ?')));
 			echo '</td>';
 		}
@@ -84,7 +85,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '</td>';
 
 			echo '<td class="td-actions">';
-			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'ledgers', 'action' => 'edit', $data['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'ledgers', 'action' => 'edit', $data['id']), array('class' => 'no-hover', 'escape' => false));
+			echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 			echo $THIS->Form->postLink($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'ledgers', 'action' => 'delete', $data['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the ledger ?')));
 			echo '</td>';
 

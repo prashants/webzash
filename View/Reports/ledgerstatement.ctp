@@ -112,7 +112,7 @@ $(document).ready(function() {
 		echo '<td>' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 		echo '<td>' . '</td>';
 		echo '<td>' . h($entryTypeName) . '</td>';
-		echo '<td>' . h($this->Generic->showTag($entry['Entry']['tag_id'])) . '</td>';
+		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';
 
 		if ($entry['Entryitem']['dc'] == 'D') {
 			echo '<td>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
@@ -126,8 +126,10 @@ $(document).ready(function() {
 		}
 
 		echo '<td>';
-		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
-		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false)) . '<span class="link-pad"></span>';
+		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 		echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the entry ?')));
 		echo '</td>';
 		echo '</tr>';
