@@ -123,7 +123,7 @@ class Wzuser extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for status',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -137,7 +137,7 @@ class Wzuser extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for email verified',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -151,7 +151,7 @@ class Wzuser extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for administrator approved',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),

@@ -1,6 +1,6 @@
 * {
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 }
 
 p {
@@ -140,7 +140,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 .col-md-4 {
-	padding-left:0px;
+	padding-left: 0px;
 }
 
 table tr .dc-error {
@@ -151,7 +151,7 @@ table td .dc-error {
 }
 
 #show-label {
-	padding-right:8px;
+	padding-right: 8px;
 }
 
 #page-title {
@@ -174,8 +174,8 @@ table td .dc-error {
 }
 
 #page-info {
-	padding-right:20px;
-	padding-bottom:15px;
+	padding-right: 20px;
+	padding-bottom: 15px;
 }
 
 .link-pad {

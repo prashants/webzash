@@ -62,7 +62,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for admin verification',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -76,7 +76,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for email verification',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -90,7 +90,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for user registration',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -98,7 +98,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => array('inList', array('mail', 'sendmail', 'smtp')),
 				'message' => 'Invalid option',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
@@ -106,7 +106,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'Hostname cannot be more than 255 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
@@ -114,13 +114,13 @@ class Wzsetting extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'numeric',
 				'message' => 'Invalid number',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
 				'message' => 'Port outside valid range',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule3' => array(
@@ -130,9 +130,9 @@ class Wzsetting extends WebzashAppModel {
 				'allowEmpty' => true,
 			),
 			'rule4' => array(
-				'rule'    => 'naturalNumber',
+				'rule' => 'naturalNumber',
 				'message' => 'Port address is invalid',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
@@ -140,7 +140,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'Username cannot be more than 255 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
@@ -148,7 +148,7 @@ class Wzsetting extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'Password cannot be more than 255 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),

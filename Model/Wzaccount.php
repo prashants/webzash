@@ -59,7 +59,7 @@ class Wzaccount extends WebzashAppModel {
 			'rule4' => array(
 				'rule' => 'alphaNumeric',
 				'message' => 'Account label can only be alpha-numeric',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -109,25 +109,25 @@ class Wzaccount extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'numeric',
 				'message' => 'Invalid number',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
 				'message' => 'Port outside valid range',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
 				'message' => 'Port outside valid range',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
-				'rule'    => 'naturalNumber',
+				'rule' => 'naturalNumber',
 				'message' => 'Port address is invalid',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
@@ -165,7 +165,7 @@ class Wzaccount extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for database persistent connection',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),

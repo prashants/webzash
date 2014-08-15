@@ -41,19 +41,19 @@ class Tag extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'Tag title cannot be empty',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
 				'message' => 'Tag title is already in use',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 100),
 				'message' => 'Tag title cannot be more than 100 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
@@ -61,19 +61,19 @@ class Tag extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'Tag color cannot be empty',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('between', 6, 6),
 				'message' => 'Tag color has to be exactly 6 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => 'hex',
 				'message' => 'Tag color has to be a valid color',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 
@@ -82,19 +82,19 @@ class Tag extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'Tag background cannot be empty',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('between', 6, 6),
 				'message' => 'Tag background has to be exactly 6 characters',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => 'hex',
 				'message' => 'Tag background has to be a valid color',
-				'required'   => true,
+				'required' => true,
 				'allowEmpty' => false,
 			),
 		),
