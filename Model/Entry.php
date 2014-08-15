@@ -292,7 +292,7 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$startdate = strtotime(CakeSession::read('startDate'));
+		$startdate = strtotime(Configure::read('Account.startdate'));
 		$entrydate = strtotime($value);
 
 		if ($startdate < $entrydate) {
@@ -312,7 +312,7 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$enddate = strtotime(CakeSession::read('endDate'));
+		$enddate = strtotime(Configure::read('Account.enddate'));
 		$entrydate = strtotime($value);
 
 		if ($enddate >= $entrydate) {

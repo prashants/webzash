@@ -212,10 +212,6 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Entry'));
 
-		/* TODO : Test code */
-		$this->Session->write('startDate', '2014-04-01 02:00:00');
-		$this->Session->write('endDate', '2015-03-31 00:59:00');
-
 		$this->loadModel('Entrytype');
 		$this->loadModel('Entryitem');
 		$this->loadModel('Ledger');
