@@ -185,3 +185,30 @@ table td .dc-error {
 a.no-hover:hover {
 	text-decoration: none;
 }
+
+ul#qa-list {
+	margin: 0 0 0 15px;
+	padding: 0;
+}
+ul#qa-list li {
+	list-style: none outside none;
+	padding: 3px 0;
+}
+ul#qa-list li .qa-heading {
+	font-weight: bold;
+}
+ul#qa-list li ul li {
+	list-style: square outside none;
+	padding: 3px 0;
+}
+.qa-section {
+	margin: 0 0 30px;
+}
+.qa-question {
+	border-bottom: 1px solid #AAAAAA;
+	font-weight: bold;
+	margin: 0 0 5px;
+}
+.qa-answer {
+	margin: 0 0 0 20px;
+}

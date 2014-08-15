@@ -24,13 +24,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-?>
-<div class="wzuser account form">
-	<?php
-		echo $this->Form->create('Wzuser');
-		echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . h($curActiveAccount));
-		echo $this->Form->input('account_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
-		echo $this->Form->end(__d('webzash', 'Activate'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
-	?>
-</div>
+
+App::uses('WebzashAppController', 'Webzash.Controller');
+
+/**
+ * Webzash Plugin Help Controller
+ *
+ * @package Webzash
+ * @subpackage Webzash.controllers
+ */
+class HelpController extends WebzashAppController {
+
+/**
+ * This controller does not use a model
+ *
+ * @var array
+ */
+	public $uses = array();
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+
+		$this->set('title_for_layout', __d('webzash', 'Help'));
+
+		return;
+	}
+
+	/* Authorization check */
+	public function isAuthorized($user) {
+
+		if ($this->action === 'index') {
+			return $this->Permission->is_allowed('registered', $user['role']);
+		}
+
+		return parent::isAuthorized($user);
+	}
+}
