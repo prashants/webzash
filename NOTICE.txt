@@ -29,5 +29,9 @@ notices and distributed according to the terms of their own licenses.
 	HOMEPAGE: https://github.com/lauren/pick-a-color
 	LICENSE: The MIT License
 
+7. CakePHP Tools Plugin
+	HOMEPAGE: https://github.com/dereuromark/cakephp-tools
+	LICENSE: The MIT License
+
 Whilst every effort has been made to ensure that information is correct, incase
 of any discrepancies please contact the author(s) of this software.
