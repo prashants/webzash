@@ -816,6 +816,13 @@ class EntriesController extends WebzashAppController {
 		$this->set('ledgers', $ledgers);
 	}
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
+		$this->Security->unlockedFields = array('Entryitem');
+	}
+
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {

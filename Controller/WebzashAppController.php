@@ -38,7 +38,7 @@ class WebzashAppController extends AppController {
 	public $helpers = array('Webzash.Menu', 'Webzash.Generic');
 
 	public $components = array(
-		'Session', 'Paginator', 'Security', 'Webzash.Permission',
+		'Security', 'Session', 'Paginator', 'Webzash.Permission',
 		'Auth' => array(
 			'loginRedirect' => array(
 				'plugin' => 'webzash',
