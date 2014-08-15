@@ -125,7 +125,7 @@ $(document).ready(function() {
 		echo '<td>' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 		echo '<td>' . '</td>';
 		echo '<td>' . h($entryTypeName) . '</td>';
-		echo '<td>' . h($this->Generic->showTag($entry['Entry']['tag_id'])) . '</td>';
+		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
 
 		if ($entry['Entryitem']['dc'] == 'D') {
 			echo '<td>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
