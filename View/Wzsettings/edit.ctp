@@ -33,17 +33,27 @@
 		'toby' => __d('webzash', 'To / By'),
 	);
 
+	$protocol_options = array(
+		'Smtp' => __d('webzash', 'smtp'),
+		'Mail' => __d('webzash', 'mail'),
+	);
+
 	echo $this->Form->create('Wzsetting');
+	echo $this->Form->input('sitename', array('label' => __d('webzash', 'Sitename')));
 	echo $this->Form->input('drcr_toby', array('type' => 'select', 'options' => $drcr_toby_options, 'label' => __d('webzash', 'In entries use')));
 	echo $this->Form->input('user_registration', array('type' => 'checkbox', 'label' => __d('webzash', 'User can create accounts')));
 	echo $this->Form->input('admin_verification', array('type' => 'checkbox', 'label' => __d('webzash', 'Administrator approval is required for activating user accounts')));
 	echo $this->Form->input('email_verification', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verification required for activating user accounts')));
 
-	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => array('mail' => 'mail', 'sendmail' => 'sendmail', 'smtp' => 'smtp'), 'label' => __d('webzash', 'Outgoing Email Protocol')));
-	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Outgoing Email Hostname')));
-	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Outgoing Email Port')));
-	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Outgoing Email Username')));
-	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Outgoing Email Password')));
+	echo "<fieldset><legend>Outgoing Email</legend>";
+	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
+	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
+	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
+	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Username')));
+	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Password')));
+	echo $this->Form->input('email_from', array('label' => __d('webzash', 'From')));
+	echo "</fieldset>";
+
 	echo $this->Form->end(__d('webzash', 'Submit'));
 	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 ?>
