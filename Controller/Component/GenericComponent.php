@@ -100,7 +100,7 @@ class GenericComponent extends Component {
 	public function beforeRender(Controller $Controller) {
 		if ($messages = $this->Session->read('Message')) {
 			foreach ($messages as $message) {
-				$this->flashMessage($message['message'], 'error');
+				$this->flashMessage($message['message'], $message['element']);
 			}
 			$this->Session->delete('Message');
 		}
