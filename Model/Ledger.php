@@ -225,5 +225,15 @@ class Ledger extends WebzashAppModel {
 			return array('opdiff_balance_dc' => 'C', 'opdiff_balance' => calculate($total_op, 0, 'n'));
 		}
 	}
+
+	/* Return ledger name from id */
+	public function getName($id) {
+		$ledger = $this->findById($id);
+		if ($ledger) {
+			return $ledger['Ledger']['name'];
+		} else {
+			return 'ERROR';
+		}
+	}
 }
 

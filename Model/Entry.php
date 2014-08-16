@@ -177,7 +177,7 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		/* Load the Tag model */
+		/* Load the Entrytype model */
 		App::import("Webzash.Model", "Entrytype");
 		$Entrytype = new Entrytype();
 
@@ -336,5 +336,60 @@ class Entry extends WebzashAppModel {
 			$maxNumber = $max[0]['max'];
 		}
 		return $maxNumber + 1;
+	}
+
+/**
+ * Show the entry ledger details
+ */
+	public function entryLedgers($id) {
+		/* Load the Entryitem model */
+		App::import("Webzash.Model", "Entryitem");
+		$Entryitem = new Entryitem();
+
+		/* Load the Entryitem model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+
+		$rawentryitems = $Entryitem->find('all', array(
+			'conditions' => array('Entryitem.entry_id' => $id),
+			'order' => array('Entryitem.id desc'),
+		));
+
+		/* Get dr and cr ledger id and count */
+		$dr_count = 0;
+		$cr_count = 0;
+		$dr_ledger_id = '';
+		$cr_ledger_id = '';
+		foreach ($rawentryitems as $row => $entryitem) {
+			if ($entryitem['Entryitem']['dc'] == 'D') {
+				$dr_ledger_id = $entryitem['Entryitem']['ledger_id'];
+				$dr_count++;
+			} else {
+				$cr_ledger_id = $entryitem['Entryitem']['ledger_id'];
+				$cr_count++;
+			}
+		}
+
+		/* Get ledger name */
+		$dr_name = $Ledger->getName($dr_ledger_id);
+		$cr_name = $Ledger->getName($cr_ledger_id);
+
+		if (strlen($dr_name) > 15) {
+			$dr_name = substr($dr_name, 0, 15) . '...';
+		}
+		if (strlen($cr_name) > 15) {
+			$cr_name = substr($cr_name, 0, 15) . '...';
+		}
+
+		/* if more than one ledger on dr / cr then add [+] sign */
+		if ($dr_count > 1) {
+			$dr_name = $dr_name . ' [+]';
+		}
+		if ($cr_count > 1) {
+			$cr_name = $cr_name . ' [+]';
+		}
+
+		$ledgerstr = 'Dr ' . $dr_name . ' / ' . 'Cr ' . $cr_name;
+		return $ledgerstr;
 	}
 }

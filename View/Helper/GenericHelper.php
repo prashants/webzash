@@ -106,7 +106,7 @@ class GenericHelper extends AppHelper {
  * Helper method to return the ledgers in list form
  */
 	function ledgerList($restriction_bankcash) {
-		/* Load the Tag model */
+		/* Load the Ledger model */
 		App::import("Webzash.Model", "Ledger");
 		$Ledger = new Ledger();
 
@@ -126,6 +126,26 @@ class GenericHelper extends AppHelper {
 		}
 
 		return $ledgers;
+	}
+
+/**
+ * Show the entry ledger details
+ */
+	public function entryLedgers($id) {
+		/* Load the Entry model */
+		App::import("Webzash.Model", "Entry");
+		$Entry = new Entry();
+		return $Entry->entryLedgers($id);
+	}
+
+/**
+ * Return Ledger name from id
+ */
+	public function getLedgerName($id) {
+		/* Load the Ledger model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+		return $Ledger->getName($id);
 	}
 
 /**
