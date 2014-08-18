@@ -169,7 +169,7 @@ class Setting extends WebzashAppModel {
 		),
 		'email_protocol' => array(
 			'rule1' => array(
-				'rule' => array('inList', array('mail', 'sendmail', 'smtp')),
+				'rule' => array('inList', array('Smtp', 'Mail')),
 				'message' => 'Invalid option',
 				'required' => true,
 				'allowEmpty' => false,
