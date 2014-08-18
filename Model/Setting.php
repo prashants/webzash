@@ -217,6 +217,14 @@ class Setting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'email_from' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'From cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 
 		'print_paper_height' => array(
 			'rule1' => array(
