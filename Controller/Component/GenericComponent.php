@@ -26,6 +26,7 @@
  */
 
 App::uses('Component', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Webzash Plugin Generic Component
@@ -86,6 +87,42 @@ class GenericComponent extends Component {
 		Configure::write('messages', $old);
 	}
 
+/**
+ * Send email
+ */
+	public function sendEmail($to = '', $subject = '', $view = '', $viewVars = array()) {
+		App::import("Webzash.Model", "Wzsetting");
+		$this->Wzsetting = new Wzsetting();
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		$wzsetting = $this->Wzsetting->findById(1);
+
+		if (!$wzsetting) {
+			return;
+		}
+
+		$viewVars['sitename'] = $wzsetting['Wzsetting']['sitename'];
+
+		$master = array(
+			'host' => $wzsetting['Wzsetting']['email_host'],
+			'port' => $wzsetting['Wzsetting']['email_port'],
+			'username' => $wzsetting['Wzsetting']['email_username'],
+			'password' => $wzsetting['Wzsetting']['email_password'],
+			'transport' => $wzsetting['Wzsetting']['email_protocol'],
+		);
+
+		$Email = new CakeEmail();
+		$Email->config($master);
+		$Email->from(array($wzsetting['Wzsetting']['email_username'] => $wzsetting['Wzsetting']['email_from']))
+			->template('Webzash.' . $view, 'Webzash.email')
+			->viewVars($viewVars)
+			->emailFormat('both')
+			->to($to)
+			->subject($subject)
+			->send();
+
+		return;
+	}
 
 /**
  * Called after the Controller::beforeRender(), after the view class is loaded, and before the
