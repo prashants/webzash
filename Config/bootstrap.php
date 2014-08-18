@@ -313,6 +313,7 @@ function init_account() {
 	Configure::write('Account.startdate', $setting['Setting']['fy_start']);
 	Configure::write('Account.enddate', $setting['Setting']['fy_end']);
 	Configure::write('Account.locked', $setting['Setting']['account_locked']);
+	Configure::write('Account.email_use_default', $setting['Setting']['email_use_default']);
 
 	$rawentrytypes = $Entrytype->find('all');
 	$entrytypes = array();
