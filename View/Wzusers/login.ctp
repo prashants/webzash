@@ -34,6 +34,8 @@
 		echo $this->Html->link(__d('webzash', 'Register'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'register'));
 		echo ' | ';
 		echo $this->Html->link(__d('webzash', 'Forgot Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'forgot'));
+		echo ' | ';
+		echo $this->Html->link(__d('webzash', 'Resend Verification Email'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'resend'));
 ?>
 </div>
 

@@ -791,6 +791,8 @@ class WzusersController extends WebzashAppController {
 					return;
 				}
 
+				$verification_key = Security::hash(uniqid() . uniqid());
+
 				$user = array('Wzuser' => array(
 					'username' => $this->request->data['Wzuser']['username'],
 					'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true),
@@ -798,7 +800,7 @@ class WzusersController extends WebzashAppController {
 					'email' => $this->request->data['Wzuser']['email'],
 					'role' => 'guest',
 					'status' => '1',
-					'verification_key' => Security::hash(uniqid() . uniqid()),
+					'verification_key' => $verification_key,
 					'email_verified' => '0',
 					'admin_verified' => '0',
 				));
@@ -810,6 +812,21 @@ class WzusersController extends WebzashAppController {
 				if ($this->Wzuser->save($user)) {
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'User account has been created.'), 'success');
+
+					/* Sending email */
+					$viewVars = array(
+						'username' => $this->request->data['Wzuser']['username'],
+						'fullname' => $this->request->data['Wzuser']['fullname'],
+						'verification_key' => $verification_key,
+						'email_verification' => $wzsetting['Wzsetting']['email_verification'],
+						'admin_verification' => $wzsetting['Wzsetting']['admin_verification'],
+					);
+					$this->Generic->sendEmail(
+						$this->request->data['Wzuser']['email'],
+						'Your registraion details',
+						'user_register', $viewVars
+					);
+
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 				} else {
 					$ds->rollback();
