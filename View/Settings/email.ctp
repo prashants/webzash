@@ -38,7 +38,7 @@
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
 	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Username')));
-	echo $this->Form->input('email_password', array('label' => __d('webzash', 'Password')));
+	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Password')));
 	echo $this->Form->input('email_from', array('label' => __d('webzash', 'From')));
 	echo $this->Form->end(__d('webzash', 'Submit'));
 	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));

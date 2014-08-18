@@ -171,7 +171,7 @@ class WzusersController extends WebzashAppController {
 					$this->Generic->sendEmail(
 						$this->request->data['Wzuser']['email'],
 						'Your registraion details',
-						'user_add', $viewVars
+						'user_add', $viewVars, true
 					);
 
 					$ds->commit();
@@ -515,7 +515,7 @@ class WzusersController extends WebzashAppController {
 			$this->Generic->sendEmail(
 				$wzuser['Wzuser']['email'],
 				'Account verified',
-				'user_verify', $viewVars
+				'user_verify', $viewVars, true
 			);
 
 			$this->Session->setFlash(__d('webzash', 'User account is now verified'), 'success');
@@ -562,7 +562,7 @@ class WzusersController extends WebzashAppController {
 				$this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Account verification required',
-					'user_resend', $viewVars
+					'user_resend', $viewVars, true
 				);
 
 				$this->Session->setFlash(__d('webzash', 'Verification email sent. Please check your email.'), 'success');
@@ -682,7 +682,7 @@ class WzusersController extends WebzashAppController {
 				$this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Password changed',
-					'user_changepass', $viewVars
+					'user_changepass', $viewVars, true
 				);
 
 				if ($this->Auth->user('role') == 'admin') {
@@ -748,7 +748,7 @@ class WzusersController extends WebzashAppController {
 				$this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Password changed by admin',
-					'user_resetpass', $viewVars
+					'user_resetpass', $viewVars, true
 				);
 
 				$this->Session->setFlash(__d('webzash', 'User password has been updated. Email sent to user with the new password.'), 'success');
@@ -810,7 +810,7 @@ class WzusersController extends WebzashAppController {
 				$this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Your login details',
-					'user_forgot', $viewVars
+					'user_forgot', $viewVars, true
 				);
 
 				$this->Session->setFlash(__d('webzash', 'Password reset. Please check your email for more details on how to reset password.'), 'success');
@@ -896,7 +896,7 @@ class WzusersController extends WebzashAppController {
 					$this->Generic->sendEmail(
 						$this->request->data['Wzuser']['email'],
 						'Your registraion details',
-						'user_register', $viewVars
+						'user_register', $viewVars, true
 					);
 
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));

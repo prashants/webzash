@@ -90,26 +90,29 @@ class GenericComponent extends Component {
 /**
  * Send email
  */
-	public function sendEmail($to = '', $subject = '', $view = '', $viewVars = array()) {
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
-		$this->Wzsetting->useDbConfig = 'wz';
+	public function sendEmail($to = '', $subject = '', $view = '', $viewVars = array(), $useDefault = true) {
+		if ($useDefault == true) {
+			App::import("Webzash.Model", "Wzsetting");
+			$this->Wzsetting = new Wzsetting();
+			$this->Wzsetting->useDbConfig = 'wz';
 
-		$wzsetting = $this->Wzsetting->findById(1);
+			$wzsetting = $this->Wzsetting->findById(1);
 
-		if (!$wzsetting) {
-			return;
+			if (!$wzsetting) {
+				return;
+			}
+
+			$viewVars['sitename'] = $wzsetting['Wzsetting']['sitename'];
+
+			$master = array(
+				'host' => $wzsetting['Wzsetting']['email_host'],
+				'port' => $wzsetting['Wzsetting']['email_port'],
+				'username' => $wzsetting['Wzsetting']['email_username'],
+				'password' => $wzsetting['Wzsetting']['email_password'],
+				'transport' => $wzsetting['Wzsetting']['email_protocol'],
+			);
+		} else {
 		}
-
-		$viewVars['sitename'] = $wzsetting['Wzsetting']['sitename'];
-
-		$master = array(
-			'host' => $wzsetting['Wzsetting']['email_host'],
-			'port' => $wzsetting['Wzsetting']['email_port'],
-			'username' => $wzsetting['Wzsetting']['email_username'],
-			'password' => $wzsetting['Wzsetting']['email_password'],
-			'transport' => $wzsetting['Wzsetting']['email_protocol'],
-		);
 
 		$Email = new CakeEmail();
 		$Email->config($master);
