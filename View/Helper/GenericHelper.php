@@ -217,7 +217,6 @@ class GenericHelper extends AppHelper {
 			case 'Database/Mysql': return __d('webzash', 'MySQL');
 			case 'Database/Sqlserver': return __d('webzash', 'MS SQL Server');
 			case 'Database/Postgres': return __d('webzash', 'Postgres SQL');
-			case 'Database/Sqlite': return __d('webzash', 'Sqlite 3');
 			default: return __d('webzash', 'Error');
 		}
 	}
@@ -229,7 +228,6 @@ class GenericHelper extends AppHelper {
 			'Database/Mysql' => __d('webzash', 'MySQL'),
 			'Database/Sqlserver' => __d('webzash', 'MS SQL Server'),
 			'Database/Postgres' => __d('webzash', 'Postgres SQL'),
-			'Database/Sqlite' => __d('webzash', 'Sqlite 3'),
 		);
 	}
 

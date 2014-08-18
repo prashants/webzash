@@ -71,7 +71,7 @@ class Wzaccount extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
-				'rule' => array('inList', array('Database/Mysql', 'Database/Sqlserver', 'Database/Postgres', 'Database/Sqlite')),
+				'rule' => array('inList', array('Database/Mysql', 'Database/Sqlserver', 'Database/Postgres')),
 				'message' => 'Database type is not valid',
 				'required' => true,
 				'allowEmpty' => false,
