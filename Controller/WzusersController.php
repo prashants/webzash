@@ -92,8 +92,8 @@ class WzusersController extends WebzashAppController {
 		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
-		$wxsetting = $this->Wzsetting->findById(1);
-		if (!$wxsetting) {
+		$wzsetting = $this->Wzsetting->findById(1);
+		if (!$wzsetting) {
 			$this->Session->setFlash(__d('webzash', 'Please update your setting below before adding any user'), 'error');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsettings', 'action' => 'edit'));
 		}
@@ -121,7 +121,8 @@ class WzusersController extends WebzashAppController {
 				$temp_password = $this->request->data['Wzuser']['password'];
 				$this->request->data['Wzuser']['password'] = Security::hash($this->request->data['Wzuser']['password'], 'sha1', true);
 
-				$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
+				$verification_key = Security::hash(uniqid() . uniqid());
+				$this->request->data['Wzuser']['verification_key'] = $verification_key;
 
 				/* Check if user is allowed access to all accounts */
 				if (!empty($this->request->data['Wzuser']['account_ids'])) {
@@ -158,6 +159,20 @@ class WzusersController extends WebzashAppController {
 							}
 						}
 					}
+
+					/* Sending email */
+					$viewVars = array(
+						'username' => $this->request->data['Wzuser']['username'],
+						'fullname' => $this->request->data['Wzuser']['fullname'],
+						'verification_key' => $verification_key,
+						'email_verification' => $wzsetting['Wzsetting']['email_verification'],
+						'admin_verification' => $wzsetting['Wzsetting']['admin_verification'],
+					);
+					$this->Generic->sendEmail(
+						$this->request->data['Wzuser']['email'],
+						'Your registraion details',
+						'user_add', $viewVars
+					);
 
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The user account has been created.'), 'success');
@@ -472,12 +487,12 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* Get user count */
-		$user = $this->Wzuser->find('first', array('conditions' => array(
+		$wzuser = $this->Wzuser->find('first', array('conditions' => array(
 			'username' => $this->params['url']['u'],
 			'verification_key' => $this->params['url']['k']
 		)));
 
-		if (empty($user)) {
+		if (empty($wzuser)) {
 			$this->set('success', false);
 			$this->Session->setFlash(__d('webzash', 'Email verification failed. Please, try again.'), 'error');
 			return;
@@ -487,11 +502,22 @@ class WzusersController extends WebzashAppController {
 		$ds = $this->Wzuser->getDataSource();
 		$ds->begin();
 
-		$this->Wzuser->id = $user['Wzuser']['id'];
+		$this->Wzuser->id = $wzuser['Wzuser']['id'];
 
 		if ($this->Wzuser->saveField('email_verified', '1')) {
 			$this->set('success', true);
 			$ds->commit();
+
+			/* Sending email */
+			$viewVars = array(
+				'fullname' => $wzuser['Wzuser']['fullname'],
+			);
+			$this->Generic->sendEmail(
+				$wzuser['Wzuser']['email'],
+				'Account verified',
+				'user_verify', $viewVars
+			);
+
 			$this->Session->setFlash(__d('webzash', 'User account is now verified'), 'success');
 		} else {
 			$this->set('success', false);
@@ -527,7 +553,18 @@ class WzusersController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Invalid username or email. Please, try again.'), 'error');
 				return;
 			} else {
-				/* TODO : Send verification email */
+				/* Sending email */
+				$viewVars = array(
+					'username' => $wzuser['Wzuser']['username'],
+					'fullname' => $wzuser['Wzuser']['fullname'],
+					'verification_key' => $wzuser['Wzuser']['verification_key'],
+				);
+				$this->Generic->sendEmail(
+					$wzuser['Wzuser']['email'],
+					'Account verification required',
+					'user_resend', $viewVars
+				);
+
 				$this->Session->setFlash(__d('webzash', 'Verification email sent. Please check your email.'), 'success');
 			}
 		}
@@ -637,6 +674,17 @@ class WzusersController extends WebzashAppController {
 
 				$this->Session->setFlash(__d('webzash', 'Your password has been updated.'), 'success');
 
+				/* Sending email */
+				$viewVars = array(
+					'username' => $wzuser['Wzuser']['username'],
+					'fullname' => $wzuser['Wzuser']['fullname'],
+				);
+				$this->Generic->sendEmail(
+					$wzuser['Wzuser']['email'],
+					'Password changed',
+					'user_changepass', $viewVars
+				);
+
 				if ($this->Auth->user('role') == 'admin') {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
@@ -690,7 +738,20 @@ class WzusersController extends WebzashAppController {
 
 			if ($this->Wzuser->saveField('password', Security::hash($this->request->data['Wzuser']['new_password'], 'sha1', true))) {
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'User password has been updated.'), 'success');
+
+				/* Sending email */
+				$viewVars = array(
+					'username' => $wzuser['Wzuser']['username'],
+					'fullname' => $wzuser['Wzuser']['fullname'],
+					'password' => $this->request->data['Wzuser']['new_password'],
+				);
+				$this->Generic->sendEmail(
+					$wzuser['Wzuser']['email'],
+					'Password changed by admin',
+					'user_resetpass', $viewVars
+				);
+
+				$this->Session->setFlash(__d('webzash', 'User password has been updated. Email sent to user with the new password.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 			} else {
 				$ds->rollback();
@@ -740,7 +801,18 @@ class WzusersController extends WebzashAppController {
 			if ($this->Wzuser->saveField('password', Security::hash($random_password, 'sha1', true))) {
 				$ds->commit();
 
-				/* TODO : Send reset password email */
+				/* Sending email */
+				$viewVars = array(
+					'username' => $wzuser['Wzuser']['username'],
+					'fullname' => $wzuser['Wzuser']['fullname'],
+					'password' => $random_password,
+				);
+				$this->Generic->sendEmail(
+					$wzuser['Wzuser']['email'],
+					'Your login details',
+					'user_forgot', $viewVars
+				);
+
 				$this->Session->setFlash(__d('webzash', 'Password reset. Please check your email for more details on how to reset password.'), 'success');
 			}
 		} else {
