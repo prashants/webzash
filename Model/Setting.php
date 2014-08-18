@@ -159,6 +159,14 @@ class Setting extends WebzashAppModel {
 			),
 		),
 
+		'email_use_default' => array(
+			'rule1' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for use default email settings',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 		'email_protocol' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('mail', 'sendmail', 'smtp')),
