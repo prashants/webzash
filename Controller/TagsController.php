@@ -50,7 +50,7 @@ class TagsController extends WebzashAppController {
 
 		$this->Paginator->settings = array(
 			'Tag' => array(
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Tag.title' => 'asc'),
 			)
 		);

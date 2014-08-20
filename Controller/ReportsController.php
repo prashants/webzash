@@ -324,7 +324,7 @@ class ReportsController extends WebzashAppController {
 		$this->Paginator->settings = array(
 			'Entry' => array(
 				'fields' => array('Entry.*', 'Entryitem.*'),
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Entry.date' => 'desc'),
 				'conditions' => $conditions,
 				'joins' => array(
@@ -467,7 +467,7 @@ class ReportsController extends WebzashAppController {
 		$this->Paginator->settings = array(
 			'Entry' => array(
 				'fields' => array('Entry.*', 'Entryitem.*'),
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Entry.date' => 'desc'),
 				'conditions' => $conditions,
 				'joins' => array(

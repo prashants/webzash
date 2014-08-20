@@ -50,7 +50,7 @@ class EntrytypesController extends WebzashAppController {
 
 		$this->Paginator->settings = array(
 			'Entrytype' => array(
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Entrytype.id' => 'asc'),
 			)
 		);

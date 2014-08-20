@@ -64,6 +64,7 @@ class WebzashSchema extends CakeSchema {
 		'email_username' => array('type' => 'string', 'null' => true),
 		'email_password' => array('type' => 'string', 'null' => true),
 		'drcr_toby' => array('type' => 'string', 'null' => true),
+		'row_count' => array('type' => 'string', 'null' => true),
 		'admin_verification' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
 		'email_verification' => array('type' => 'integer', 'null' => true),
 		'user_registration' => array('type' => 'integer', 'null' => true, 'default' => 'null'),

@@ -56,7 +56,7 @@ class WzusersController extends WebzashAppController {
 
 		$this->Paginator->settings = array(
 			'Wzuser' => array(
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Wzuser.username' => 'asc'),
 			)
 		);
@@ -434,6 +434,17 @@ class WzusersController extends WebzashAppController {
 
 			/* Login */
 			if ($this->Auth->login()) {
+				if (empty($wzsetting['Wzsetting']['row_count']) {
+					$this->Session->write('Wzsetting.row_count', 10);
+				} else {
+					$this->Session->write('Wzsetting.row_count', $wzsetting['Wzsetting']['row_count']);
+				}
+				if (empty($wzsetting['Wzsetting']['drcr_toby'])) {
+					$this->Session->write('Wzsetting.drcr_toby', 'drcr');
+				} else {
+					$this->Session->write('Wzsetting.drcr_toby', $wzsetting['Wzsetting']['drcr_toby']);
+				}
+
 				if ($this->Auth->user('role') == 'admin') {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {

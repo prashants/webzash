@@ -60,6 +60,32 @@ class Wzsetting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'row_count' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Invalid number',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Row count outside valid range',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule3' => array(
+				'rule' => array('comparison', '<=', 1000),
+				'message' => 'Row count outside valid range',
+				'required'   => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Row count is invalid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 		'admin_verification' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
