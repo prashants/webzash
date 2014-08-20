@@ -67,7 +67,7 @@ class EntriesController extends WebzashAppController {
 		/* Setup pagination */
 		$this->Paginator->settings = array(
 			'Entry' => array(
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'conditions' => $conditions,
 				'order' => array('Entry.date' => 'desc'),
 			)
@@ -121,7 +121,7 @@ class EntriesController extends WebzashAppController {
 		/* Setup pagination */
 		$this->Paginator->settings = array(
 			'Entry' => array(
-				'limit' => 10,
+				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
 				'order' => array('Entry.date' => 'desc'),
 			)
@@ -788,6 +788,95 @@ class EntriesController extends WebzashAppController {
 	}
 
 /**
+ * download method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function download($id = null) {
+		$this->loadModel('Entryitem');
+		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		$this->layout = false;
+
+		/* Check if valid id */
+		if (empty($id)) {
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Check if entry exists */
+		$entry = $this->Entry->findById($id);
+		if (!$entry) {
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Get entry type */
+		$entrytype = $this->Entrytype->findById($entry['Entry']['entrytype_id']);
+		if (!$entrytype) {
+			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Get entry items */
+		$entryitems = array();
+		$rawentryitems = $this->Entryitem->find('all', array(
+			'conditions' => array('Entryitem.entry_id' => $id),
+		));
+		foreach ($rawentryitems as $row => $entryitem) {
+			if ($entryitem['Entryitem']['dc'] == 'D') {
+				$entryitems[$row] = array(
+					'dc' => 'D',
+					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'dr_amount' => toCurrency('D', $entryitem['Entryitem']['amount']),
+					'cr_amount' => '',
+				);
+			} else {
+				$entryitems[$row] = array(
+					'dc' => 'C',
+					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'dr_amount' => '',
+					'cr_amount' => toCurrency('C', $entryitem['Entryitem']['amount']),
+				);
+			}
+		}
+
+		$entryNumber = $this->getEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']);
+
+		$this->set('entry', $entry);
+		$this->set('entrytype', $entrytype);
+		$this->set('entryitems', $entryitems);
+
+		/* Download */
+		$this->layout = false;
+		$view = new View($this, false);
+		$response =  $view->render('download');
+		$this->response->body($response);
+		$this->response->type('text/html');
+		$this->response->download($entrytype['Entrytype']['name'] . '_' . $entryNumber . '.html');
+
+		return $this->response;
+	}
+
+/**
+ * Return full entry number with padding, prefix and suffix
+ *
+ * @param string $number Entry number
+ * @param string $entrytype_id Entry type id
+ * @return string Full entry number with padding, prefix and suffix
+ */
+	public function getEntryNumber($number, $entrytype_id) {
+		return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+			str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
+			Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+	}
+
+/**
  * Add a row in the entry via ajax
  *
  * @param string $addType
@@ -821,6 +910,8 @@ class EntriesController extends WebzashAppController {
 
 		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
 		$this->Security->unlockedFields = array('Entryitem');
+
+		$this->Security->unlockedActions = array('email');
 	}
 
 	/* Authorization check */
