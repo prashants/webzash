@@ -63,7 +63,7 @@ $(document).ready(function() {
 	);
 
 	echo $this->Form->create('Setting');
-	echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
+	echo $this->Form->input('name', array('label' => __d('webzash', 'Company / Personal Name')));
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
