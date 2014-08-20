@@ -88,16 +88,16 @@
 	}
 
 	/* Total */
-	echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td id="dr-total">' . h(toCurrency('D', $entry['Entry']['dr_total'])) . '</td>' . '<td id="cr-total">' . h(toCurrency('C', $entry['Entry']['cr_total'])) . '</td>' . '</tr>';
+	echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td id="dr-total">' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>' . '<td id="cr-total">' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>' . '</tr>';
 
 	/* Difference */
 	if (calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '==')) {
 		/* Do nothing */
 	} else {
 		if (calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '>')) {
-			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td id="dr-diff">' . h(toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-'))) . '</td>' . '<td></td>' . '</tr>';
+			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td id="dr-diff">' . toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-')) . '</td>' . '<td></td>' . '</tr>';
 		} else {
-			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td></td>' . '<td id="cr-diff">' . h(toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-'))) . '</td>' . '</tr>';
+			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td></td>' . '<td id="cr-diff">' . toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-')) . '</td>' . '</tr>';
 
 		}
 	}

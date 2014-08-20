@@ -38,7 +38,7 @@
 
 <?php
 	/* Total */
-	echo __d('webzash', 'Total') . ' : ' . h(toCurrency('D', $entry['Entry']['dr_total'])) . ' & ' . h(toCurrency('C', $entry['Entry']['cr_total']));
+	echo __d('webzash', 'Total') . ' : ' . toCurrency('D', $entry['Entry']['dr_total']) . ' & ' . toCurrency('C', $entry['Entry']['cr_total']);
 ?>
 
 <?php
@@ -47,9 +47,9 @@
 		/* Do nothing */
 	} else {
 		if (calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '>')) {
-			echo __d('webzash', 'Difference') . h(toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-')));
+			echo __d('webzash', 'Difference') . toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-'));
 		} else {
-			echo __d('webzash', 'Difference') . h(toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-')));
+			echo __d('webzash', 'Difference') . toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-'));
 		}
 	}
 ?>
