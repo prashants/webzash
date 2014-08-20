@@ -788,6 +788,131 @@ class EntriesController extends WebzashAppController {
 	}
 
 /**
+ * email method
+ *
+ * @param string $entrytypeLabel
+ * @param string $id
+ * @return void
+ */
+	public function email($id = null) {
+		$this->loadModel('Entryitem');
+		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		App::uses('Validation', 'Utility');
+
+		$this->layout = false;
+
+		/* GET access not allowed */
+		if ($this->request->is('get')) {
+			$data = array(
+				'status' => 'error',
+				'msg' => __d('webzash', 'Method not allowed'),
+			);
+			$this->set('data', $data);
+			return;
+		}
+
+		/* Check if valid id */
+		if (empty($id)) {
+			$data = array(
+				'status' => 'error',
+				'msg' => __d('webzash', 'Entry not specified'),
+			);
+			$this->set('data', $data);
+			return;
+		}
+
+		/* Check if entry exists */
+		$entry = $this->Entry->findById($id);
+		if (!$entry) {
+			$data = array(
+				'status' => 'error',
+				'msg' => __d('webzash', 'Entry not found'),
+			);
+			$this->set('data', $data);
+			return;
+		}
+
+		/* On POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if (!empty($this->request->data)) {
+				if (!Validation::email($this->request->data['email'])) {
+					$data = array(
+						'status' => 'error',
+						'msg' => __d('webzash', 'Invalid email'),
+					);
+					$this->set('data', $data);
+					return;
+				}
+
+				/* Get entry type */
+				$entrytype = $this->Entrytype->findById($entry['Entry']['entrytype_id']);
+				if (!$entrytype) {
+					$data = array(
+						'status' => 'error',
+						'msg' => __d('webzash', 'Invalid entry type'),
+					);
+					$this->set('data', $data);
+					return;
+				}
+
+				/* Get entry items */
+				$entryitems = array();
+				$rawentryitems = $this->Entryitem->find('all', array(
+					'conditions' => array('Entryitem.entry_id' => $id),
+				));
+				foreach ($rawentryitems as $row => $data) {
+					if ($data['Entryitem']['dc'] == 'D') {
+						$entryitems[$row] = array(
+							'dc' => 'D',
+							'ledger_id' => $data['Entryitem']['ledger_id'],
+							'dr_amount' => toCurrency('D', $data['Entryitem']['amount']),
+							'cr_amount' => '',
+						);
+					} else {
+						$entryitems[$row] = array(
+							'dc' => 'C',
+							'ledger_id' => $data['Entryitem']['ledger_id'],
+							'dr_amount' => '',
+							'cr_amount' => toCurrency('C', $data['Entryitem']['amount']),
+						);
+					}
+				}
+
+				/* Sending email */
+				$viewVars = array(
+					'entry' => $entry,
+					'entryitems' => $entryitems,
+					'entrytype' => $entrytype,
+				);
+				$this->Generic->sendEmail(
+					$this->request->data['email'],
+					h($entrytype['Entrytype']['name']) . ' Number ' . $this->getEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']),
+					'entry_email', $viewVars, Configure::read('Account.email_use_default')
+				);
+				$data = array(
+					'status' => 'success',
+					'msg' => __d('webzash', 'Email sent'),
+				);
+				$this->set('data', $data);
+				return;
+			} else {
+				$data = array(
+					'status' => 'error',
+					'msg' => __d('webzash', 'No data'),
+				);
+				$this->set('data', $data);
+				return;
+			}
+		}
+		return;
+	}
+
+/**
  * download method
  *
  * @param string $id

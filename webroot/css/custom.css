@@ -221,3 +221,14 @@ ul#qa-list li ul li {
 .qa-answer {
 	margin: 0 0 0 20px;
 }
+
+.modal-ajax {
+	padding-left: 25px;
+	font-size: 18px;
+}
+
+.modal-error-msg {
+	padding-left: 25px;
+	color: #FF0000;
+	font-size: 18px;
+}
