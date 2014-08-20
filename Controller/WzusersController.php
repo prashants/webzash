@@ -396,6 +396,9 @@ class WzusersController extends WebzashAppController {
 
 		$this->Wzuser->useDbConfig = 'wz';
 
+		$view = new View($this);
+		$this->Html = $view->loadHelper('Html');
+
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Wzsetting");
 		$this->Wzsetting = new Wzsetting();
@@ -427,14 +430,15 @@ class WzusersController extends WebzashAppController {
 			}
 			if (!($wzsetting) || $wzsetting['Wzsetting']['email_verification'] != 0) {
 				 if ($user['Wzuser']['email_verified'] != 1) {
-					$this->Session->setFlash(__d('webzash', 'Email verification is pending. Please verify your email.'), 'error');
+					 $resendURL = $this->Html->link(__d('webzash', 'here'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'resend'));
+					$this->Session->setFlash(__d('webzash', 'Email verification is pending. Please verify your email. To resend verification email click ') . $resendURL . '.', 'error');
 					return;
 				 }
 			}
 
 			/* Login */
 			if ($this->Auth->login()) {
-				if (empty($wzsetting['Wzsetting']['row_count']) {
+				if (empty($wzsetting['Wzsetting']['row_count'])) {
 					$this->Session->write('Wzsetting.row_count', 10);
 				} else {
 					$this->Session->write('Wzsetting.row_count', $wzsetting['Wzsetting']['row_count']);
