@@ -864,6 +864,74 @@ class EntriesController extends WebzashAppController {
 	}
 
 /**
+ * print preview method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function printpreview($id = null) {
+		$this->loadModel('Entryitem');
+		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		$this->layout = false;
+
+		/* Check if valid id */
+		if (empty($id)) {
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Check if entry exists */
+		$entry = $this->Entry->findById($id);
+		if (!$entry) {
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Get entry type */
+		$entrytype = $this->Entrytype->findById($entry['Entry']['entrytype_id']);
+		if (!$entrytype) {
+			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		/* Get entry items */
+		$entryitems = array();
+		$rawentryitems = $this->Entryitem->find('all', array(
+			'conditions' => array('Entryitem.entry_id' => $id),
+		));
+		foreach ($rawentryitems as $row => $entryitem) {
+			if ($entryitem['Entryitem']['dc'] == 'D') {
+				$entryitems[$row] = array(
+					'dc' => 'D',
+					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'dr_amount' => toCurrency('D', $entryitem['Entryitem']['amount']),
+					'cr_amount' => '',
+				);
+			} else {
+				$entryitems[$row] = array(
+					'dc' => 'C',
+					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'dr_amount' => '',
+					'cr_amount' => toCurrency('C', $entryitem['Entryitem']['amount']),
+				);
+			}
+		}
+
+		$entryNumber = $this->getEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']);
+
+		$this->set('entry', $entry);
+		$this->set('entrytype', $entrytype);
+		$this->set('entryitems', $entryitems);
+
+		return;
+	}
+
+/**
  * Return full entry number with padding, prefix and suffix
  *
  * @param string $number Entry number
