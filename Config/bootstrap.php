@@ -305,6 +305,7 @@ function init_account() {
 	}
 
 	Configure::write('Account.name', $setting['Setting']['name']);
+	Configure::write('Account.address', $setting['Setting']['address']);
 	Configure::write('Account.email', $setting['Setting']['email']);
 	Configure::write('Account.currency_symbol', $setting['Setting']['currency_symbol']);
 	$dateFormat = explode('|', $setting['Setting']['date_format']);
