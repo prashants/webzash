@@ -173,7 +173,10 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->loadModel('Entry');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entry");
+		$this->Entry = new Entry();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {

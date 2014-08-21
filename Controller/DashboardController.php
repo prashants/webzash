@@ -52,7 +52,9 @@ class DashboardController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Account Dashboard'));
 
-		$this->loadModel('Ledger');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* Check if BC Math Library is present */
 		if (!extension_loaded('bcmath')) {

@@ -163,7 +163,10 @@ class GroupsController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->loadModel('Ledger');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {

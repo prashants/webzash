@@ -62,7 +62,10 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function account() {
-		$this->loadModel('Entry');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entry");
+		$this->Entry = new Entry();
 
 		$this->set('title_for_layout', __d('webzash', 'Account Settings'));
 

@@ -53,7 +53,9 @@ class LedgersController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Account Ledger'));
 
-		$this->loadModel('Group');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Group");
+		$this->Group = new Group();
 
 		/* Create list of parent groups */
 		$parents = $this->Group->find('list', array(
@@ -108,7 +110,9 @@ class LedgersController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Account Ledger'));
 
-		$this->loadModel('Group');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Group");
+		$this->Group = new Group();
 
 		/* Check for valid ledger */
 		if (empty($id)) {
@@ -162,7 +166,10 @@ class LedgersController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->loadModel('Entryitem');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {

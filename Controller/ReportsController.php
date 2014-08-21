@@ -63,7 +63,9 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Balance Sheet'));
 
-		$this->loadModel('Group');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Group");
+		$this->Group = new Group();
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
@@ -148,7 +150,9 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Profit and Loss Statement'));
 
-		$this->loadModel('Group');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Group");
+		$this->Group = new Group();
 
 		/**********************************************************************/
 		/*********************** GROSS CALCULATIONS ***************************/
@@ -254,9 +258,17 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Ledger Statement'));
 
-		$this->loadModel('Ledger');
-		$this->loadModel('Entry');
-		$this->loadModel('Entryitem');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entry");
+		$this->Entry = new Entry();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* Create list of ledgers to pass to view */
 		$ledgers = $this->Ledger->find('list', array(
@@ -354,9 +366,17 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Ledger Reconciliation'));
 
-		$this->loadModel('Ledger');
-		$this->loadModel('Entry');
-		$this->loadModel('Entryitem');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entry");
+		$this->Entry = new Entry();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* Create list of ledgers to pass to view */
 		$ledgers = $this->Ledger->find('list', array(

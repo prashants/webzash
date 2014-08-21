@@ -44,7 +44,9 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'List Of Entries'));
 
-		$this->loadModel('Entrytype');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
 
 		$conditions = array();
 
@@ -101,7 +103,9 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'List Of Entries'));
 
-		$this->loadModel('Entrytype');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
@@ -146,9 +150,17 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'View Entry'));
 
-		$this->loadModel('Entrytype');
-		$this->loadModel('Entryitem');
-		$this->loadModel('Ledger');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
@@ -212,9 +224,17 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Entry'));
 
-		$this->loadModel('Entrytype');
-		$this->loadModel('Entryitem');
-		$this->loadModel('Ledger');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
@@ -465,9 +485,17 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Entry'));
 
-		$this->loadModel('Entrytype');
-		$this->loadModel('Entryitem');
-		$this->loadModel('Ledger');
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
@@ -732,9 +760,18 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function delete($entrytypeLabel = null, $id = null) {
-		$this->loadModel('Entryitem');
-		$this->loadModel('Entrytype');
-		$this->loadModel('Ledger');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
@@ -795,8 +832,14 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function email($id = null) {
-		$this->loadModel('Entryitem');
-		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
@@ -919,8 +962,14 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function download($id = null) {
-		$this->loadModel('Entryitem');
-		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
@@ -995,8 +1044,14 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function printpreview($id = null) {
-		$this->loadModel('Entryitem');
-		$this->loadModel('Entrytype');
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entrytype");
+		$this->Entrytype = new Entrytype();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Entryitem");
+		$this->Entryitem = new Entryitem();
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
@@ -1075,9 +1130,12 @@ class EntriesController extends WebzashAppController {
  * @param string $addType
  * @return void
  */
-	function addrow($addType = 'all')
-	{
-		$this->loadModel('Ledger');
+	function addrow($addType = 'all') {
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Ledger");
+		$this->Ledger = new Ledger();
+
 		$this->layout = null;
 
 		$ledgers[0] = '(Please select..)';
