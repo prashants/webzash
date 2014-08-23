@@ -30,6 +30,7 @@
 		echo $this->Form->create('Wzuser');
 		echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . h($curActiveAccount));
 		echo $this->Form->input('wzaccount_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
+		echo __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.');
 		echo $this->Form->end(__d('webzash', 'Activate'));
 		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 	?>

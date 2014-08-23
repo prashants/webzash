@@ -1020,6 +1020,10 @@ class WzusersController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Account could not be activated. Please, try again.'), 'error');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 			}
+		} else {
+			if ($curActiveAccount) {
+				$this->request->data['Wzuser']['wzaccount_id'] = $this->Session->read('ActiveAccount.id');
+			}
 		}
 	}
 
