@@ -1035,6 +1035,9 @@ class WzusersController extends WebzashAppController {
 			$this->set('curActiveAccount', '(NONE)');
 		}
 
+		$wzaccounts_count = $this->Wzaccount->find('count');
+		$this->set('wzaccounts_count', $wzaccounts_count);
+
 		/* Create list of wzaccounts */
 		if ($wzuser['Wzuser']['all_accounts'] == 1) {
 			$wzaccounts = $this->Wzaccount->find('list', array(

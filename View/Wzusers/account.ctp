@@ -27,11 +27,21 @@
 ?>
 <div class="wzuser account form">
 	<?php
-		echo $this->Form->create('Wzuser');
-		echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . h($curActiveAccount));
-		echo $this->Form->input('wzaccount_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
-		echo __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.');
-		echo $this->Form->end(__d('webzash', 'Activate'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
+		if ($wzaccounts_count < 1) {
+			if ($this->Session->read('Auth.User.role') == 'admin') {
+				echo $this->Form->label('create', __d('webzash', 'Sorry, no accounts are available. Please create a new account ') . $this->Html->link(__d('webzash', 'here'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'create')) . '.');
+			} else {
+				echo $this->Form->label('create', __d('webzash', 'Sorry, no accounts are available. Please contact your administrator.'));
+			}
+		} else if (!$wzaccounts) {
+			echo $this->Form->label('create', __d('webzash', 'Sorry, no accounts are available. Please contact your administrator.'));
+		} else {
+			echo $this->Form->create('Wzuser');
+			echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . h($curActiveAccount));
+			echo $this->Form->input('wzaccount_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
+			echo __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.');
+			echo $this->Form->end(__d('webzash', 'Activate'));
+			echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
+		}
 	?>
 </div>
