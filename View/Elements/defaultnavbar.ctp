@@ -43,17 +43,7 @@
 
 				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index')); ?></li>
 				<li><?php echo $this->Html->link(__d('webzash', 'Accounts'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show')); ?></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entries <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'All'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
-						<?php
-						foreach ($this->Menu->entrytypes() as $entrytype) {
-							echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label'])) . '</li>';
-						}
-						?>
-					</ul>
-				</li>
+				<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Entries'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
 					<ul class="dropdown-menu">
