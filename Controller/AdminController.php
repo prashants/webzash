@@ -53,6 +53,17 @@ class AdminController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Administrator Dashboard'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Wzsetting");
+		$this->Wzsetting = new Wzsetting();
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		$wzsetting = $this->Wzsetting->findById(1);
+		if (!$wzsetting) {
+			$this->Session->setFlash(__d('webzash', 'Please update your setting first.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsettings', 'action' => 'edit'));
+		}
+
 		return;
 	}
 
