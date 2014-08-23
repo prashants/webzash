@@ -448,6 +448,24 @@ class WzusersController extends WebzashAppController {
 					$this->Session->write('Wzsetting.drcr_toby', $wzsetting['Wzsetting']['drcr_toby']);
 				}
 
+				$this->Session->delete('FirstLogin');
+
+				/* Some basic checks for admin role */
+				if ($this->Auth->user('role') == 'admin') {
+					if ($this->request->data['Wzuser']['username'] == 'admin' &&
+						$this->request->data['Wzuser']['password'] == 'admin' &&
+						$this->Auth->user('id') == '1' &&
+						$this->Auth->user('email') == '') {
+						$this->Session->write('FirstLogin', 1);
+						$this->Session->setFlash(__d('webzash', 'Please update your password, fullname and email address to continue.'), 'error');
+						return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'first'));
+					}
+					if ($this->request->data['Wzuser']['password'] == 'admin') {
+						$this->Session->setFlash(__d('webzash', 'Warning ! You are using the default password. Please change your password.'), 'error');
+						return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'changepass'));
+					}
+				}
+
 				if ($this->Auth->user('role') == 'admin') {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
@@ -927,6 +945,62 @@ class WzusersController extends WebzashAppController {
 	}
 
 /**
+ * first time login for admin user
+ */
+	public function first() {
+
+		$this->set('title_for_layout', __d('webzash', 'First time login'));
+
+		$this->layout = 'admin';
+
+		/* Validate access to this method */
+		if ($this->Auth->user('role') != 'admin') {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return $this->redirect($this->Auth->logout());
+		}
+		if ($this->Session->read('FirstLogin') != 1) {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return $this->redirect($this->Auth->logout());
+		}
+		if ($this->Auth->user('id') != '1') {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return $this->redirect($this->Auth->logout());
+		}
+		if ($this->Auth->user('username') != 'admin') {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'error');
+			return $this->redirect($this->Auth->logout());
+		}
+
+		/* On POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			$this->Wzuser->id = $this->Auth->user('id');
+
+			$user = array('Wzuser' => array(
+				'id' => $this->Auth->user('id'),
+				'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true),
+				'fullname' => $this->request->data['Wzuser']['fullname'],
+				'email' => $this->request->data['Wzuser']['email'],
+			));
+
+			/* Save user */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
+			if ($this->Wzuser->save($user, true, array('password', 'fullname', 'email'))) {
+				$ds->commit();
+				$this->Session->setFlash(__d('webzash', 'Your profile has been updated.'), 'success');
+				$this->Session->delete('FirstLogin');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
+			} else {
+				$ds->rollback();
+				$this->Session->setFlash(__d('webzash', 'Your details could not be updated. Please, try again.'), 'error');
+				return;
+			}
+		}
+	}
+
+/**
  * change active account
  */
 	public function account() {
@@ -1059,6 +1133,10 @@ class WzusersController extends WebzashAppController {
 		}
 
 		if ($this->action === 'resetpass') {
+			return $this->Permission->is_allowed('access admin section', $user['role']);
+		}
+
+		if ($this->action === 'first') {
 			return $this->Permission->is_allowed('access admin section', $user['role']);
 		}
 
