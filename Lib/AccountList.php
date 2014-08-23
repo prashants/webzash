@@ -61,6 +61,8 @@ class AccountList
 		/* Setup the Group and Ledger model to use later */
 		self::$Group = ClassRegistry::init('Group');
 		self::$Ledger = ClassRegistry::init('Ledger');
+		self::$Group->useDbConfig = 'wz_accconfig';
+		self::$Ledger->useDbConfig = 'wz_accconfig';
 		return;
 	}
 

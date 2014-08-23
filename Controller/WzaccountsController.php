@@ -233,7 +233,7 @@ class WzaccountsController extends WebzashAppController {
 		}
 
 		/* Delete user - account association */
-		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.account_id' => $id))) {
+		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzaccount_id' => $id))) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));

@@ -125,14 +125,14 @@ class WzusersController extends WebzashAppController {
 				$this->request->data['Wzuser']['verification_key'] = $verification_key;
 
 				/* Check if user is allowed access to all accounts */
-				if (!empty($this->request->data['Wzuser']['account_ids'])) {
-					if (in_array(0, $this->request->data['Wzuser']['account_ids'])) {
+				if (!empty($this->request->data['Wzuser']['wzaccount_ids'])) {
+					if (in_array(0, $this->request->data['Wzuser']['wzaccount_ids'])) {
 						$this->request->data['Wzuser']['all_accounts'] = 1;
 					} else {
 						$this->request->data['Wzuser']['all_accounts'] = 0;
 					}
 				} else {
-					$this->request->data['Wzuser']['account_ids'] = array();
+					$this->request->data['Wzuser']['wzaccount_ids'] = array();
 					$this->request->data['Wzuser']['all_accounts'] = 0;
 				}
 
@@ -144,13 +144,13 @@ class WzusersController extends WebzashAppController {
 
 					/* Save user - accounts association */
 					if ($this->request->data['Wzuser']['all_accounts'] != 1) {
-						if (!empty($this->request->data['Wzuser']['account_ids'])) {
+						if (!empty($this->request->data['Wzuser']['wzaccount_ids'])) {
 							$data = array();
-							foreach ($this->request->data['Wzuser']['account_ids'] as $row => $account_id) {
-								if (!$this->Wzaccount->exists($account_id)) {
+							foreach ($this->request->data['Wzuser']['wzaccount_ids'] as $row => $wzaccount_id) {
+								if (!$this->Wzaccount->exists($wzaccount_id)) {
 									continue;
 								}
-								$data[] = array('user_id' => $this->Wzuser->id, 'account_id' => $account_id);
+								$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id);
 							}
 							if (!$this->Wzuseraccount->saveMany($data)) {
 								$ds->rollback();
@@ -250,14 +250,14 @@ class WzusersController extends WebzashAppController {
 			$this->Wzuser->id = $id;
 
 			/* Check if user is allowed access to all accounts */
-			if (!empty($this->request->data['Wzuser']['account_ids'])) {
-				if (in_array(0, $this->request->data['Wzuser']['account_ids'])) {
+			if (!empty($this->request->data['Wzuser']['wzaccount_ids'])) {
+				if (in_array(0, $this->request->data['Wzuser']['wzaccount_ids'])) {
 					$this->request->data['Wzuser']['all_accounts'] = 1;
 				} else {
 					$this->request->data['Wzuser']['all_accounts'] = 0;
 				}
 			} else {
-				$this->request->data['Wzuser']['account_ids'] = array();
+				$this->request->data['Wzuser']['wzaccount_ids'] = array();
 				$this->request->data['Wzuser']['all_accounts'] = 0;
 			}
 
@@ -270,7 +270,7 @@ class WzusersController extends WebzashAppController {
 			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key', 'all_accounts'))) {
 
 				/* Delete existing user - account associations */
-				if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
+				if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzuser_id' => $id))) {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'The user account could not be saved. Please, try again.'), 'error');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
@@ -278,13 +278,13 @@ class WzusersController extends WebzashAppController {
 
 				/* Save user - accounts association */
 				if ($this->request->data['Wzuser']['all_accounts'] != 1) {
-					if (!empty($this->request->data['Wzuser']['account_ids'])) {
+					if (!empty($this->request->data['Wzuser']['wzaccount_ids'])) {
 						$data = array();
-						foreach ($this->request->data['Wzuser']['account_ids'] as $row => $account_id) {
-							if (!$this->Wzaccount->exists($account_id)) {
+						foreach ($this->request->data['Wzuser']['wzaccount_ids'] as $row => $wzaccount_id) {
+							if (!$this->Wzaccount->exists($wzaccount_id)) {
 								continue;
 							}
-							$data[] = array('user_id' => $this->Wzuser->id, 'account_id' => $account_id);
+							$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id);
 						}
 						if (!$this->Wzuseraccount->saveMany($data)) {
 							$ds->rollback();
@@ -307,16 +307,16 @@ class WzusersController extends WebzashAppController {
 
 			/* Load existing user - account association */
 			if ($wzuser['Wzuser']['all_accounts'] == 1) {
-				$this->request->data['Wzuser']['account_ids'] = array('0');
+				$this->request->data['Wzuser']['wzaccount_ids'] = array('0');
 			} else {
 				$rawuseraccounts = $this->Wzuseraccount->find('all',
-					array('conditions' => array('Wzuseraccount.user_id' => $id))
+					array('conditions' => array('Wzuseraccount.wzuser_id' => $id))
 				);
 				$useraccounts = array();
 				foreach ($rawuseraccounts as $row => $useraccount) {
-					$useraccounts[] = $useraccount['Wzuseraccount']['account_id'];
+					$useraccounts[] = $useraccount['Wzuseraccount']['wzaccount_id'];
 				}
-				$this->request->data['Wzuser']['account_ids'] = $useraccounts;
+				$this->request->data['Wzuser']['wzaccount_ids'] = $useraccounts;
 			}
 			return;
 		}
@@ -370,9 +370,8 @@ class WzusersController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 		}
 
-
 		/* Delete user - account association */
-		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.user_id' => $id))) {
+		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzuser_id' => $id))) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'The user account could not be deleted. Please, try again.'), 'error');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
@@ -971,10 +970,10 @@ class WzusersController extends WebzashAppController {
 		} else {
 			$wzaccounts = array();
 			$rawwzaccounts = $this->Wzuseraccount->find('all', array(
-				'conditions' => array('Wzuseraccount.user_id' => $this->Auth->user('id')),
+				'conditions' => array('Wzuseraccount.wzuser_id' => $this->Auth->user('id')),
 			));
 			foreach ($rawwzaccounts as $row => $wzaccount) {
-				$account = $this->Wzaccount->findById($wzaccount['Wzuseraccount']['account_id']);
+				$account = $this->Wzaccount->findById($wzaccount['Wzuseraccount']['wzaccount_id']);
 				if ($account) {
 					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['label'];
 				}
@@ -992,8 +991,8 @@ class WzusersController extends WebzashAppController {
 			} else {
 				$temp = $this->Wzuseraccount->find('first', array(
 					'conditions' => array(
-						'Wzuseraccount.user_id' => $this->Auth->user('id'),
-						'Wzuseraccount.account_id' => $this->request->data['Wzuser']['account_id'],
+						'Wzuseraccount.wzuser_id' => $this->Auth->user('id'),
+						'Wzuseraccount.wzaccount_id' => $this->request->data['Wzuser']['wzaccount_id'],
 					),
 				));
 				if ($temp) {
@@ -1001,7 +1000,7 @@ class WzusersController extends WebzashAppController {
 				}
 			}
 			if ($activateAccount) {
-				$temp = $this->Wzaccount->findById($this->request->data['Wzuser']['account_id']);
+				$temp = $this->Wzaccount->findById($this->request->data['Wzuser']['wzaccount_id']);
 				if (!$temp) {
 					$this->Session->delete('ActiveAccount.id');
 					$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
