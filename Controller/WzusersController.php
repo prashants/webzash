@@ -405,6 +405,22 @@ class WzusersController extends WebzashAppController {
 
 		$wzsetting = $this->Wzsetting->findById(1);
 
+		/* Check if this is the first time user is using this application */
+		$first_login = false;
+		$user_count = $this->Wzuser->find('count');
+		if ($user_count == 1) {
+			$user_check = $user = $this->Wzuser->find('first', array('conditions' => array(
+				'id' => '1',
+				'username' => 'admin',
+				'password' => Security::hash('admin', 'sha1', true),
+				'email' => '',
+			)));
+			if ($user_check) {
+				$first_login = true;
+			}
+		}
+		$this->set('first_login', $first_login);
+
 		if ($this->request->is('post')) {
 
 			/* Check status of user account */

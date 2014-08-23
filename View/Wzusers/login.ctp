@@ -27,6 +27,13 @@
 ?>
 <div class="wzusers login form">
 <?php
+		if ($first_login) {
+			echo '<div class="alert alert-success alert-dismissible" role="alert">';
+			echo '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+			echo 'Since this is your first time, you can login with username as "admin" and password as "admin". Please change your password after login.';
+			echo '</div>';
+		}
+
 		echo $this->Form->create('Wzuser');
 		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
 		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
