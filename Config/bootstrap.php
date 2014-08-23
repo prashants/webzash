@@ -293,41 +293,75 @@ function toCurrency($dc, $amount) {
  * Read all account settings from database
  */
 function init_account() {
-	App::import("Webzash.Model", "Setting");
-	$Setting = new Setting();
 
-	App::import("Webzash.Model", "Entrytype");
-	$Entrytype = new Entrytype();
-
-	$setting = $Setting->findById(1);
-	if (!$setting) {
-		throw new InternalErrorException(__d('webzash', 'Account settings not found.'));
+	/* Setup master database path inside the Plugin 'Database' folder */
+	$root_path = App::path('Model', 'Webzash')[0];
+	if (empty($root_path)) {
+		debug("Could not set database path. Please check your setup.");
+		CakeSession::delete('ActiveAccount.id');
+		return;
 	}
 
-	Configure::write('Account.name', $setting['Setting']['name']);
-	Configure::write('Account.address', $setting['Setting']['address']);
-	Configure::write('Account.email', $setting['Setting']['email']);
-	Configure::write('Account.currency_symbol', $setting['Setting']['currency_symbol']);
-	$dateFormat = explode('|', $setting['Setting']['date_format']);
-	Configure::write('Account.dateformatPHP', $dateFormat[0]);
-	Configure::write('Account.dateformatJS', $dateFormat[1]);
-	Configure::write('Account.startdate', $setting['Setting']['fy_start']);
-	Configure::write('Account.enddate', $setting['Setting']['fy_end']);
-	Configure::write('Account.locked', $setting['Setting']['account_locked']);
-	Configure::write('Account.email_use_default', $setting['Setting']['email_use_default']);
+	/* Setup master database configuration */
+	$wz['datasource'] = 'Database/Sqlite';
+	$wz['database'] = $root_path . '../Database/' . 'webzash.sqlite';
+	$wz['prefix'] = '';
+	$wz['encoding'] = 'utf8';
+	$wz['persistent'] = false;
 
-	$rawentrytypes = $Entrytype->find('all');
-	$entrytypes = array();
-	foreach ($rawentrytypes as $entrytype) {
-		$entrytypes[$entrytype['Entrytype']['id']] = array(
-			'prefix' => $entrytype['Entrytype']['prefix'],
-			'suffix' => $entrytype['Entrytype']['suffix'],
-			'zero_padding' => $entrytype['Entrytype']['zero_padding'],
-			'label' => $entrytype['Entrytype']['label'],
-			'name' => $entrytype['Entrytype']['name'],
-		);
+	/* Create master database config and try to connect to it */
+	App::uses('ConnectionManager', 'Model');
+	try {
+		ConnectionManager::create('wz', $wz);
+	} catch (Exception $e) {
+		debug("Missing master sqlite database file. Please check your setup.");
+		CakeSession::delete('ActiveAccount.id');
+		return;
 	}
-	Configure::write('Account.ET', $entrytypes);
+
+	/* Check if account is active */
+	App::uses('CakeSession', 'Model/Datasource');
+
+	$account_id = CakeSession::read('ActiveAccount.id');
+	if (empty($account_id)) {
+		return;
+	}
+
+	/* If account is active load the database details from master database */
+	App::import("Webzash.Model", "Wzaccount");
+	$Wzaccount = new Wzaccount();
+	$Wzaccount->useDbConfig = 'wz';
+
+	/* Read the details, if not found delete the active account from session */
+	try {
+		$account = $Wzaccount->findById($account_id);
+	} catch (Exception $e) {
+		debug("Missing master sqlite database file. Please check your setup.");
+		CakeSession::delete('ActiveAccount.id');
+		return;
+	}
+	if (!$account) {
+		debug("Account not found. Please check your accounts in the 'Administer' section.");
+		CakeSession::delete('ActiveAccount.id');
+		return;
+	}
+
+	/* Create account database configuration */
+	$wz_accconfig['datasource'] = $account['Wzaccount']['db_datasource'];
+	$wz_accconfig['database'] = $account['Wzaccount']['db_name'];
+	$wz_accconfig['host'] = $account['Wzaccount']['db_hostname'];
+	$wz_accconfig['port'] = $account['Wzaccount']['db_port'];
+	$wz_accconfig['login'] = $account['Wzaccount']['db_username'];
+	$wz_accconfig['password'] = $account['Wzaccount']['db_password'];
+
+	/* Create account database config and try to connect to it */
+	try {
+		ConnectionManager::create('wz_accconfig', $wz_accconfig);
+	} catch (Exception $e) {
+		CakeSession::delete('ActiveAccount.id');
+		CakeSession::write('ActiveAccount.failed', true);
+		return;
+	}
 }
 init_account();
 

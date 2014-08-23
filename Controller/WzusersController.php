@@ -981,6 +981,12 @@ class WzusersController extends WebzashAppController {
 		}
 		$this->set('wzaccounts', $wzaccounts);
 
+		if ($this->Session->read('ActiveAccount.failed')) {
+			$this->Session->setFlash(__d('webzash', 'Failed to connect to account database. Please check you connection settings.'), 'error');
+			$this->Session->delete('ActiveAccount.failed');
+			return;
+		}
+
 		/* On POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 

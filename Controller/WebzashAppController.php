@@ -65,6 +65,85 @@ class WebzashAppController extends AppController {
 		)
 	);
 
+	function beforeFilter() {
+
+		/* Read URL to get the controller name */
+		$url_params = Router::getParams();
+
+		/* Load account setting only if the controller is NOT in admin sections */
+		if ($url_params['controller'] == 'admin' || $url_params['controller'] == 'wzusers' ||
+			$url_params['controller'] == 'wzaccounts' || $url_params['controller'] == 'wzsettings') {
+			return;
+		}
+
+		if (!$this->Auth->user('id')) {
+			return;
+		}
+
+		/* Load account related settings and entry types */
+		$account_id = CakeSession::read('ActiveAccount.id');
+		if (empty($account_id)) {
+			$this->Session->setFlash(__d('webzash', 'Please choose a account.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
+		/* Write settings */
+		App::import("Webzash.Model", "Setting");
+		$Setting = new Setting();
+
+		$setting = '';
+		try {
+			$setting = $Setting->findById(1);
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			$this->Session->setFlash(__d('webzash', 'Setting table missing. Please check whether this is a valid account database.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+		if (!$setting) {
+			CakeSession::delete('ActiveAccount.id');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found. Please check if the database settings are correct.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
+		Configure::write('Account.name', $setting['Setting']['name']);
+		Configure::write('Account.address', $setting['Setting']['address']);
+		Configure::write('Account.email', $setting['Setting']['email']);
+		Configure::write('Account.currency_symbol', $setting['Setting']['currency_symbol']);
+		$dateFormat = explode('|', $setting['Setting']['date_format']);
+		Configure::write('Account.dateformatPHP', $dateFormat[0]);
+		Configure::write('Account.dateformatJS', $dateFormat[1]);
+		Configure::write('Account.startdate', $setting['Setting']['fy_start']);
+		Configure::write('Account.enddate', $setting['Setting']['fy_end']);
+		Configure::write('Account.locked', $setting['Setting']['account_locked']);
+		Configure::write('Account.email_use_default', $setting['Setting']['email_use_default']);
+
+		/* Write entry types */
+		App::import("Webzash.Model", "Entrytype");
+		$Entrytype = new Entrytype();
+
+		$rawentrytypes = '';
+		try {
+			$rawentrytypes = $Entrytype->find('all');
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			$this->Session->setFlash(__d('webzash', 'Entry types table missing. Please check whether this is a valid account database.'), 'error');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
+		$entrytypes = array();
+		foreach ($rawentrytypes as $entrytype) {
+			$entrytypes[$entrytype['Entrytype']['id']] = array(
+				'prefix' => $entrytype['Entrytype']['prefix'],
+				'suffix' => $entrytype['Entrytype']['suffix'],
+				'zero_padding' => $entrytype['Entrytype']['zero_padding'],
+				'label' => $entrytype['Entrytype']['label'],
+				'name' => $entrytype['Entrytype']['name'],
+			);
+		}
+
+		Configure::write('Account.ET', $entrytypes);
+	}
+
 	public function isAuthorized($user) {
 		/* Admin can access every action */
 		if (isset($user['role']) && $user['role'] === 'admin') {
