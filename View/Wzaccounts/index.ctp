@@ -29,18 +29,20 @@
 	<tr>
 		<th><?php echo $this->Paginator->sort('label', __d('webzash', 'Label')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_datasource', __d('webzash', 'DB Type')); ?></th>
-		<th><?php echo $this->Paginator->sort('db_name', __d('webzash', 'DB Name')); ?></th>
-		<th><?php echo $this->Paginator->sort('db_hostname', __d('webzash', 'DB Host')); ?></th>
+		<th><?php echo $this->Paginator->sort('db_database', __d('webzash', 'DB Name')); ?></th>
+		<th><?php echo $this->Paginator->sort('db_host', __d('webzash', 'DB Host')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_port', __d('webzash', 'DB Port')); ?></th>
+		<th><?php echo $this->Paginator->sort('db_prefix', __d('webzash', 'DB Prefix')); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($wzaccounts as $wzaccount) { ?>
 		<tr>
 			<td><?php echo h($wzaccount['Wzaccount']['label']); ?></td>
 			<td><?php echo h($this->Generic->wzaccount_dbtype($wzaccount['Wzaccount']['db_datasource'])); ?></td>
-			<td><?php echo h($wzaccount['Wzaccount']['db_name']); ?></td>
-			<td><?php echo h($wzaccount['Wzaccount']['db_hostname']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_database']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_host']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_port']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_prefix']); ?></td>
 			<td>
 				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false)); ?>
 				<?php echo $this->Html->tag('span', '', array('class' => 'link-pad')); ?>

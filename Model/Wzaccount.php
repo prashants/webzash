@@ -77,7 +77,7 @@ class Wzaccount extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
-		'db_name' => array(
+		'db_database' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
 				'message' => 'Database name cannot be empty',
@@ -91,16 +91,16 @@ class Wzaccount extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
-		'db_hostname' => array(
+		'db_host' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Database hostname cannot be empty',
+				'message' => 'Database host cannot be empty',
 				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Database hostname cannot be more than 255 characters',
+				'message' => 'Database host cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -131,18 +131,10 @@ class Wzaccount extends WebzashAppModel {
 				'allowEmpty' => true,
 			),
 		),
-		'db_prefix' => array(
+		'db_login' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Database name cannot be more than 255 characters',
-				'required' => true,
-				'allowEmpty' => true,
-			),
-		),
-		'db_username' => array(
-			'rule1' => array(
-				'rule' => array('maxLength', 255),
-				'message' => 'Database username cannot be more than 255 characters',
+				'message' => 'Database login cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -151,6 +143,14 @@ class Wzaccount extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'Database password cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'db_prefix' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Database name cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),

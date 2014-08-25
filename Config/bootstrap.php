@@ -348,11 +348,20 @@ function init_account() {
 
 	/* Create account database configuration */
 	$wz_accconfig['datasource'] = $account['Wzaccount']['db_datasource'];
-	$wz_accconfig['database'] = $account['Wzaccount']['db_name'];
-	$wz_accconfig['host'] = $account['Wzaccount']['db_hostname'];
+	$wz_accconfig['database'] = $account['Wzaccount']['db_database'];
+	$wz_accconfig['host'] = $account['Wzaccount']['db_host'];
 	$wz_accconfig['port'] = $account['Wzaccount']['db_port'];
-	$wz_accconfig['login'] = $account['Wzaccount']['db_username'];
+	$wz_accconfig['login'] = $account['Wzaccount']['db_login'];
 	$wz_accconfig['password'] = $account['Wzaccount']['db_password'];
+	$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
+	if ($account['Wzaccount']['db_persistent'] == 1) {
+		$wz_accconfig['persistent'] = TRUE;
+	} else {
+		$wz_accconfig['persistent'] = FALSE;
+	}
+	$wz_accconfig['schema'] = $account['Wzaccount']['db_schema'];
+	$wz_accconfig['unixsocket'] = $account['Wzaccount']['db_unixsocket'];
+	$wz_accconfig['settings'] = $account['Wzaccount']['db_settings'];
 
 	/* Create account database config and try to connect to it */
 	try {

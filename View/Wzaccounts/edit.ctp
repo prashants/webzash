@@ -30,12 +30,12 @@
 		echo $this->Form->create('Wzaccount');
 		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
 		echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
-		echo $this->Form->input('db_name', array('label' => __d('webzash', 'Database name')));
-		echo $this->Form->input('db_hostname', array('label' => __d('webzash', 'Database hostname')));
+		echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
+		echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host')));
 		echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port')));
-		echo $this->Form->input('db_prefix', array('label' => __d('webzash', 'Database prefix')));
-		echo $this->Form->input('db_username', array('label' => __d('webzash', 'Database username')));
+		echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 		echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
+		echo $this->Form->input('db_prefix', array('label' => __d('webzash', 'Database prefix')));
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection')));
 		echo $this->Form->input('db_settings', array('label' => __d('webzash', 'Database settings')));
 		echo $this->Form->end(__d('webzash', 'Submit'));
