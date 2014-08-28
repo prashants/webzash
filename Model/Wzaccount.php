@@ -96,13 +96,13 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => 'notEmpty',
 				'message' => 'Database host cannot be empty',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'Database host cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 		),
 		'db_port' => array(
@@ -110,13 +110,13 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => 'numeric',
 				'message' => 'Invalid number',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
 				'message' => 'Port outside valid range',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
@@ -128,7 +128,7 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => 'naturalNumber',
 				'message' => 'Port address is invalid',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 		),
 		'db_login' => array(
@@ -136,7 +136,7 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Database login cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 		),
 		'db_password' => array(
@@ -144,7 +144,7 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Database password cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 			),
 		),
 		'db_prefix' => array(
