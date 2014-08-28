@@ -56,13 +56,13 @@ class Setting extends WebzashAppModel {
 		'name' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Account name cannot be empty',
+				'message' => 'Company / Personal Name name cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Account name cannot be more than 255 characters',
+				'message' => 'Company / Personal Name name cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -180,7 +180,7 @@ class Setting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Hostname cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_port' => array(
@@ -203,7 +203,7 @@ class Setting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
-				'rule'    => 'naturalNumber',
+				'rule' => array('naturalNumber', true),
 				'message' => 'Port address is invalid',
 				'required' => true,
 				'allowEmpty' => false,
@@ -214,7 +214,7 @@ class Setting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Username cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_password' => array(
@@ -222,7 +222,7 @@ class Setting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Password cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_from' => array(
@@ -230,7 +230,7 @@ class Setting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'From cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 
@@ -419,4 +419,3 @@ class Setting extends WebzashAppModel {
 		}
 	}
 }
-
