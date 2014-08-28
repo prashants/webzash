@@ -33,43 +33,19 @@
 */
 class TimezoneHelper extends AppHelper {
 
-	public $helpers = array('Form');
-
 	function show() {
-		$timezones = array(
-			'Pacific/Apia' => 'Apia, Upolu, Samoa', // UTC-11:00
-			'US/Hawaii' => 'Honolulu, Oahu, Hawaii, United States', // UTC-10:00
-			'US/Alaska' => 'Anchorage, Alaska, United States', // UTC-09:00
-			'US/Pacific' => 'Los Angeles, California, United States', // UTC-08:00
-			'US/Mountain' => 'Phoenix, Arizona, United States', // UTC-07:00
-			'US/Central' => 'Chicago, Illinois, United States', // UTC-06:00
-			'US/Eastern' => 'New York City, United States', // UTC-05:00
-			'America/Santiago' => 'Santiago, Chile', // UTC-04:00
-			'America/Sao_Paulo' => 'São Paulo, Brazil', // UTC-03:00
-			'Atlantic/South_Georgia' => 'South Georgia, S. Sandwich Islands', // UTC-02:00
-			'Atlantic/Cape_Verde' => 'Praia, Cape Verde', // UTC-01:00
-			'Europe/London' => 'London, United Kingdom', // UTC+00:00
-			'UTC' => 'Universal Coordinated Time (UTC)', // UTC+00:00
-			'Europe/Paris' => 'Paris, France', // UTC+01:00
-			'Africa/Cairo' => 'Cairo, Egypt', // UTC+02:00
-			'Europe/Moscow' => 'Moscow, Russia', // UTC+03:00
-			'Asia/Dubai' => 'Dubai, United Arab Emirates', // UTC+04:00
-			'Asia/Karachi' => 'Karachi, Pakistan', // UTC+05:00
-			'Asia/Dhaka' => 'Dhaka, Bangladesh', // UTC+06:00
-			'Asia/Jakarta' => 'Jakarta, Indonesia', // UTC+07:00
-			'Asia/Hong_Kong' => 'Hong Kong, China', // UTC+08:00
-			'Asia/Tokyo' => 'Tokyo, Japan', // UTC+09:00
-			'Australia/Sydney' => 'Sydney, Australia', // UTC+10:00
-			'Pacific/Noumea' => 'Nouméa, New Caledonia, France', // UTC+11:00e)'
-		);
+		$cur_timezone = date_default_timezone_get();
 
-		$dateTime = new DateTime('now');
-		foreach($timezones as $zone => $name) {
-			$zoneObject = new DateTimeZone($zone);
-			$dateTime->setTimezone($zoneObject);
-			$timezones[$zone] = $name . ' ' . $dateTime->format('[g:i A]');
+		$zones_array = array();
+		$timestamp = time();
+		foreach(timezone_identifiers_list() as $key => $zone) {
+			date_default_timezone_set($zone);
+			$zones_array[$zone] = 'UTC/GMT ' . date('P', $timestamp) . ' - ' . $zone;
 		}
 
-		return $timezones;
+		/* Restore timezone */
+		date_default_timezone_set($cur_timezone);
+
+		return $zones_array;
 	}
 }
