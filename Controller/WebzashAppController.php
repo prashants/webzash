@@ -83,7 +83,7 @@ class WebzashAppController extends AppController {
 		/* Load account related settings and entry types */
 		$account_id = CakeSession::read('ActiveAccount.id');
 		if (empty($account_id)) {
-			$this->Session->setFlash(__d('webzash', 'Please choose a account.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Please choose a account.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 
@@ -96,12 +96,12 @@ class WebzashAppController extends AppController {
 			$setting = $Setting->findById(1);
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Settings table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Settings table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		if (!$setting) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Account settings not found. Please check if the database settings are correct.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found. Please check if the database settings are correct.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 
@@ -126,7 +126,7 @@ class WebzashAppController extends AppController {
 			$rawentrytypes = $Entrytype->find('all');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Entrytypes table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entrytypes table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 

@@ -95,11 +95,11 @@ class EntrytypesController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The entry type could not be saved. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The entry type could not be saved. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		}
@@ -120,12 +120,12 @@ class EntrytypesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->findById($id);
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
 
@@ -155,7 +155,7 @@ class EntrytypesController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The entry type could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'The entry type could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -185,20 +185,20 @@ class EntrytypesController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
 
 		/* Check if entry type exists */
 		if (!$this->Entrytype->exists($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
 
 		/* Check if any entry using the entry type exists */
 		$entries = $this->Entry->find('count', array('conditions' => array('Entry.entrytype_id' => $id)));
 		if ($entries > 0) {
-			$this->Session->setFlash(__d('webzash', 'The entry type cannot be deleted since one or more entries are still using it.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The entry type cannot be deleted since one or more entries are still using it.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
 
@@ -211,7 +211,7 @@ class EntrytypesController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'The entry type has been deleted.'), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The entry type could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The entry type could not be deleted. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));

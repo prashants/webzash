@@ -54,7 +54,7 @@ class EntriesController extends WebzashAppController {
 		if (isset($this->passedArgs['show'])) {
 			$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $this->passedArgs['show'])));
 			if (!$entrytype) {
-				$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'danger');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 			}
 
@@ -109,12 +109,12 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -164,24 +164,24 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
 
 		/* Check for valid entry id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entry = $this->Entry->findById($id);
 		if (!$entry) {
-			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -238,12 +238,12 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
@@ -301,7 +301,7 @@ class EntriesController extends WebzashAppController {
 				} else if ($entrytype['Entrytype']['numbering'] == 2) {
 					/* Manual + Required */
 					if (empty($this->request->data['Entry']['number'])) {
-						$this->Session->setFlash(__d('webzash', 'Entry number cannot be empty'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Entry number cannot be empty'), 'danger');
 						return;
 					} else {
 						$entrydata['Entry']['number'] = $this->request->data['Entry']['number'];
@@ -339,19 +339,19 @@ class EntriesController extends WebzashAppController {
 					}
 					$ledger = $this->Ledger->findById($entryitem['ledger_id']);
 					if (!$ledger) {
-						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
 						return;
 					}
 
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
-							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'danger');
 							return;
 						}
 					}
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
-							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'danger');
 							return;
 						}
 					}
@@ -372,13 +372,13 @@ class EntriesController extends WebzashAppController {
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'danger');
 						return;
 					}
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'danger');
 						return;
 					}
 				}
@@ -394,23 +394,23 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
 					} else {
-						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'danger');
 						return;
 					}
 				}
 				if (calculate($dr_total, $cr_total, '!=')) {
-					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'danger');
 					return;
 				}
 
@@ -454,7 +454,7 @@ class EntriesController extends WebzashAppController {
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'danger');
 							return;
 						}
 					}
@@ -463,11 +463,11 @@ class EntriesController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The entry could not be saved. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The entry could not be saved. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		}
@@ -499,24 +499,24 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
 
 		/* Check for valid entry id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entry = $this->Entry->findById($id);
 		if (!$entry) {
-			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -606,19 +606,19 @@ class EntriesController extends WebzashAppController {
 					}
 					$ledger = $this->Ledger->findById($entryitem['ledger_id']);
 					if (!$ledger) {
-						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
 						return;
 					}
 
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
-							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'danger');
 							return;
 						}
 					}
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
-							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'danger');
 							return;
 						}
 					}
@@ -639,13 +639,13 @@ class EntriesController extends WebzashAppController {
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'danger');
 						return;
 					}
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'danger');
 						return;
 					}
 				}
@@ -661,23 +661,23 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
 					} else {
-						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'danger');
 						return;
 					}
 				}
 				if (calculate($dr_total, $cr_total, '!=')) {
-					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'danger');
 					return;
 				}
 
@@ -718,7 +718,7 @@ class EntriesController extends WebzashAppController {
 					/* Delete all original entryitems */
 					if (!$this->Entryitem->deleteAll(array('Entryitem.entry_id' => $id))) {
 						$ds->rollback();
-						$this->Session->setFlash(__d('webzash', 'Previous entry items could not be deleted. Please, try again.'), 'error');
+						$this->Session->setFlash(__d('webzash', 'Previous entry items could not be deleted. Please, try again.'), 'danger');
 						return;
 					}
 
@@ -728,7 +728,7 @@ class EntriesController extends WebzashAppController {
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'danger');
 							return;
 						}
 					}
@@ -737,11 +737,11 @@ class EntriesController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The entry could not be updated. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The entry could not be updated. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -775,12 +775,12 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -791,13 +791,13 @@ class EntriesController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
 		/* Check if entry exists */
 		if (!$this->Entry->exists($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -807,14 +807,14 @@ class EntriesController extends WebzashAppController {
 		/* Delete entry items */
 		if (!$this->Entryitem->deleteAll(array('Entryitem.entry_id' => $id))) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The entry items could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The entry items could not be deleted. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
 		/* Delete entry */
 		if (!$this->Entry->delete($id)) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The entry could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The entry could not be deleted. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
@@ -979,21 +979,21 @@ class EntriesController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
 		/* Check if entry exists */
 		$entry = $this->Entry->findById($id);
 		if (!$entry) {
-			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
 		/* Get entry type */
 		$entrytype = $this->Entrytype->findById($entry['Entry']['entrytype_id']);
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -1061,21 +1061,21 @@ class EntriesController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
 		/* Check if entry exists */
 		$entry = $this->Entry->findById($id);
 		if (!$entry) {
-			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
 		/* Get entry type */
 		$entrytype = $this->Entrytype->findById($entry['Entry']['entrytype_id']);
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Invalid entry type.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 

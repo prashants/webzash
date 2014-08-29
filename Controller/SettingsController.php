@@ -71,7 +71,7 @@ class SettingsController extends WebzashAppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -95,7 +95,7 @@ class SettingsController extends WebzashAppController {
 				),
 			));
 			if ($temp != 0) {
-				$this->Session->setFlash(__d('webzash', 'Account setting could not be changed since there are %d entries beyond the selected financial year start and end dates.', $temp), 'error');
+				$this->Session->setFlash(__d('webzash', 'Account setting could not be changed since there are %d entries beyond the selected financial year start and end dates.', $temp), 'danger');
 				return;
 			}
 
@@ -109,7 +109,7 @@ class SettingsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Account settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Account settings could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -145,7 +145,7 @@ class SettingsController extends WebzashAppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -165,7 +165,7 @@ class SettingsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -185,7 +185,7 @@ class SettingsController extends WebzashAppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -205,7 +205,7 @@ class SettingsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Printer settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Printer settings could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -234,7 +234,7 @@ class SettingsController extends WebzashAppController {
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
-			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 		}
 
@@ -261,9 +261,9 @@ class SettingsController extends WebzashAppController {
 			} else {
 				$ds->rollback();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
-					$this->Session->setFlash(__d('webzash', 'Account could not be locked. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account could not be locked. Please, try again.'), 'danger');
 				} else {
-					$this->Session->setFlash(__d('webzash', 'Account could not be unlocked. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account could not be unlocked. Please, try again.'), 'danger');
 				}
 				return;
 			}

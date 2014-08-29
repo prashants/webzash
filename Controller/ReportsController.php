@@ -133,7 +133,7 @@ class ReportsController extends WebzashAppController {
 			$bsheet['is_opdiff'] = false;
 		} else {
 			$bsheet['is_opdiff'] = true;
-			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($bsheet['opdiff']['opdiff_balance_dc'], $bsheet['opdiff']['opdiff_balance']), 'error');
+			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($bsheet['opdiff']['opdiff_balance_dc'], $bsheet['opdiff']['opdiff_balance']), 'danger');
 		}
 
 		$this->set('bsheet', $bsheet);
@@ -280,7 +280,7 @@ class ReportsController extends WebzashAppController {
 		if ($this->request->is('post')) {
 			/* If valid data then redirect with POST values are URL parameters so that pagination works */
 			if (empty($this->request->data['Report']['ledger_id'])) {
-				$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 			}
 
@@ -309,7 +309,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
-			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
 
@@ -393,7 +393,7 @@ class ReportsController extends WebzashAppController {
 
 				/* If valid data then redirect with POST values are URL parameters so that pagination works */
 				if (empty($this->request->data['Report']['ledger_id'])) {
-					$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 				}
 
@@ -422,7 +422,7 @@ class ReportsController extends WebzashAppController {
 					if (!empty($recitem['recdate'])) {
 						$recdate = dateToSql($recitem['recdate']);
 						if (!$recdate) {
-							$this->Session->setFlash(__d('webzash', 'Invalid date'), 'error');
+							$this->Session->setFlash(__d('webzash', 'Invalid date'), 'danger');
 							continue;
 						}
 					} else {
@@ -454,7 +454,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
-			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 		}
 

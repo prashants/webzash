@@ -77,7 +77,7 @@ class AccountsController extends WebzashAppController {
 		if (calculate($opdiff['opdiff_balance'], 0, '==')) {
 			/* Nothing to do */
 		} else {
-			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($opdiff['opdiff_balance_dc'], $opdiff['opdiff_balance']), 'error');
+			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($opdiff['opdiff_balance_dc'], $opdiff['opdiff_balance']), 'danger');
 		}
 
 		return;

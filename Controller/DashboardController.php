@@ -61,7 +61,7 @@ class DashboardController extends WebzashAppController {
 			$this->Group->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Groups table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Groups table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* TODO : Switch to loadModel() */
@@ -71,7 +71,7 @@ class DashboardController extends WebzashAppController {
 			$this->Ledger->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Ledgers table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Ledgers table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* TODO : Switch to loadModel() */
@@ -81,7 +81,7 @@ class DashboardController extends WebzashAppController {
 			$this->Entry->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Entries table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entries table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* TODO : Switch to loadModel() */
@@ -91,7 +91,7 @@ class DashboardController extends WebzashAppController {
 			$this->Entryitem->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Entryitems table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Entryitems table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* TODO : Switch to loadModel() */
@@ -101,7 +101,7 @@ class DashboardController extends WebzashAppController {
 			$this->Tag->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Tags table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Tags table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* TODO : Switch to loadModel() */
@@ -111,14 +111,14 @@ class DashboardController extends WebzashAppController {
 			$this->Log->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Logs table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Logs table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		/* End intial check */
 
 		/* Check if BC Math Library is present */
 		if (!extension_loaded('bcmath')) {
-			$this->Session->setFlash(__d('webzash', 'PHP BC Math library is missing. Please check the "Help" section on how to fix it.', 'error'));
+			$this->Session->setFlash(__d('webzash', 'PHP BC Math library is missing. Please check the "Help" section on how to fix it.', 'danger'));
 		}
 
 		/* Cash and bank sumary */
@@ -130,7 +130,7 @@ class DashboardController extends WebzashAppController {
 			));
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Ledgers table missing. Please check whether this is a valid account database.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Ledgers table missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 

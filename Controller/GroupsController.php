@@ -77,11 +77,11 @@ class GroupsController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The account group could not be saved. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The account group could not be saved. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		}
@@ -102,16 +102,16 @@ class GroupsController extends WebzashAppController {
 
 		/* Check for valid group */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account group not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account group not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 		$group = $this->Group->findById($id);
 		if (!$group) {
-			$this->Session->setFlash(__d('webzash', 'Account group not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account group not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 		if ($id <= 4) {
-			$this->Session->setFlash(__d('webzash', 'Cannot edit basic account groups.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Cannot edit basic account groups.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
@@ -131,7 +131,7 @@ class GroupsController extends WebzashAppController {
 
 			/* Check if group and parent group are not same */
 			if ($id == $this->request->data['Group']['parent_id']) {
-				$this->Session->setFlash(__d('webzash', 'The account group and parent group cannot be same.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'The account group and parent group cannot be same.'), 'danger');
 				return;
 			}
 
@@ -145,7 +145,7 @@ class GroupsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The account group could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'The account group could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -175,33 +175,33 @@ class GroupsController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account group not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account group not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if group exists */
 		if (!$this->Group->exists($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account group not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account group not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if group can be deleted */
 		if ($id <= 4) {
-			$this->Session->setFlash(__d('webzash', 'Cannot delete basic account groups.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Cannot delete basic account groups.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child groups exists */
 		$child = $this->Group->find('count', array('conditions' => array('Group.parent_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__d('webzash', 'The account group cannot be deleted since it has one or more child group accounts still present.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The account group cannot be deleted since it has one or more child group accounts still present.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child ledgers exists */
 		$child = $this->Ledger->find('count', array('conditions' => array('Ledger.group_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__d('webzash', 'The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
@@ -214,7 +214,7 @@ class GroupsController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'The account group has been deleted.'), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account group could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The account group could not be deleted. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));

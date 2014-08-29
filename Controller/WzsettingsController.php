@@ -82,7 +82,7 @@ class WzsettingsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Settings could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Settings could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {

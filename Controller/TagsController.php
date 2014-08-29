@@ -85,11 +85,11 @@ class TagsController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The tag could not be saved. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The tag could not be saved. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		}
@@ -110,12 +110,12 @@ class TagsController extends WebzashAppController {
 
 		/* Check for valid tag */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 		$tag = $this->Tag->findById($id);
 		if (!$tag) {
-			$this->Session->setFlash(__d('webzash', 'Tag not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Tag not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 
@@ -135,7 +135,7 @@ class TagsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The tag could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'The tag could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -165,20 +165,20 @@ class TagsController extends WebzashAppController {
 
 		/* Check for valid tag */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 
 		/* Check if tag exists */
 		if (!$this->Tag->exists($id)) {
-			$this->Session->setFlash(__d('webzash', 'Tag not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Tag not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 
 		/* Check if any entries using the tag exists */
 		$entries = $this->Entry->find('count', array('conditions' => array('Entry.tag_id' => $id)));
 		if ($entries > 0) {
-			$this->Session->setFlash(__d('webzash', 'The tag cannot be deleted since one or more entries are still using it.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The tag cannot be deleted since one or more entries are still using it.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 
@@ -191,7 +191,7 @@ class TagsController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'The tag has been deleted.'), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The tag could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The tag could not be deleted. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));

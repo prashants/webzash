@@ -60,7 +60,7 @@ class AdminController extends WebzashAppController {
 
 		$wzsetting = $this->Wzsetting->findById(1);
 		if (!$wzsetting) {
-			$this->Session->setFlash(__d('webzash', 'Please update your setting first.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Please update your setting first.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsettings', 'action' => 'edit'));
 		}
 

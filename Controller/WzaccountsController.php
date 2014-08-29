@@ -86,11 +86,11 @@ class WzaccountsController extends WebzashAppController {
 
 			/* Check is database if anything else other than MySQL */
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Sqlserver') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
 
@@ -99,49 +99,49 @@ class WzaccountsController extends WebzashAppController {
 				'Wzaccount.label' => $this->request->data['Wzaccount']['label'],
 			)));
 			if ($count != 0) {
-				$this->Session->setFlash(__d('webzash', 'Label is already in use. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Label is already in use. Please, try again.'), 'danger');
 				return;
 			}
 
 			/* Check if all values required are present */
 			if (empty($this->request->data['Wzaccount']['label'])) {
-				$this->Session->setFlash(__d('webzash', 'Label is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Label is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['name'])) {
-				$this->Session->setFlash(__d('webzash', 'Company / Personal Name is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Company / Personal Name is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['date_format'])) {
-				$this->Session->setFlash(__d('webzash', 'Date format is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Date format is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['fy_start'])) {
-				$this->Session->setFlash(__d('webzash', 'Financial year start is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Financial year start is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['fy_end'])) {
-				$this->Session->setFlash(__d('webzash', 'Financial year end is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Financial year end is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['db_database'])) {
-				$this->Session->setFlash(__d('webzash', 'Database name is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Database name is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['db_host'])) {
-				$this->Session->setFlash(__d('webzash', 'Database host is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Database host is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['db_port'])) {
-				$this->Session->setFlash(__d('webzash', 'Database port is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Database port is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['db_login'])) {
-				$this->Session->setFlash(__d('webzash', 'Database login is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Database login is required.'), 'danger');
 				return;
 			}
 			if (empty($this->request->data['Wzaccount']['db_password'])) {
-				$this->Session->setFlash(__d('webzash', 'Database password is required.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Database password is required.'), 'danger');
 				return;
 			}
 
@@ -149,7 +149,7 @@ class WzaccountsController extends WebzashAppController {
 			$fy_start = strtotime($this->request->data['Wzaccount']['fy_start'] . ' 00:00:00');
 			$fy_end = strtotime($this->request->data['Wzaccount']['fy_end'] . ' 23:59:59');
 			if ($fy_start > $fy_end) {
-				$this->Session->setFlash(__d('webzash', 'Financial year start date cannot be after end date.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Financial year start date cannot be after end date.'), 'danger');
 				return;
 			}
 
@@ -177,7 +177,7 @@ class WzaccountsController extends WebzashAppController {
 			try {
 				ConnectionManager::create('wz_newconfig', $wz_newconfig);
 			} catch (Exception $e) {
-				$this->Session->setFlash(__d('webzash', 'Cound not connect to database. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'Cound not connect to database. Please, try again.'), 'danger');
 				return;
 			}
 
@@ -219,7 +219,7 @@ class WzaccountsController extends WebzashAppController {
 						foreach ($table_2 as $row => $table) {
 							if (in_array(strtolower($table), $new_tables)) {
 								$table_exisits = TRUE;
-								$this->Session->setFlash(__d('webzash', 'Table with the same name as "%s" already existsin the "%s" database. Please, use another database or use a different prefix.', $table, $wz_newconfig['database']), 'error');
+								$this->Session->setFlash(__d('webzash', 'Table with the same name as "%s" already existsin the "%s" database. Please, use another database or use a different prefix.', $table, $wz_newconfig['database']), 'danger');
 							}
 						}
 					}
@@ -246,7 +246,7 @@ class WzaccountsController extends WebzashAppController {
 				try {
 					$db->query($final_schema);
 				} catch (Exception $e) {
-					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
 					return;
 				}
 
@@ -291,7 +291,7 @@ class WzaccountsController extends WebzashAppController {
 						break;
 					}
 
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
 					return;
 				}
 
@@ -325,7 +325,7 @@ class WzaccountsController extends WebzashAppController {
 						$errmsg = $msg[0];
 						break;
 					}
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'error');
+					$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
 					return;
 				}
 
@@ -373,11 +373,11 @@ class WzaccountsController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The account config could not be saved. Please, try again.'), 'error');
+					$this->Session->setFlash(__d('webzash', 'The account config could not be saved. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
-				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'No data. Please, try again.'), 'danger');
 				return;
 			}
 		}
@@ -403,12 +403,12 @@ class WzaccountsController extends WebzashAppController {
 
 		/* Check for valid account */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 		$wzaccount = $this->Wzaccount->findById($id);
 		if (!$wzaccount) {
-			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
@@ -435,7 +435,7 @@ class WzaccountsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The account config could not be updated. Please, try again.'), 'error');
+				$this->Session->setFlash(__d('webzash', 'The account config could not be updated. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -466,13 +466,13 @@ class WzaccountsController extends WebzashAppController {
 
 		/* Check if valid id */
 		if (empty($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Check if account exists */
 		if (!$this->Wzaccount->exists($id)) {
-			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'Account not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
@@ -483,14 +483,14 @@ class WzaccountsController extends WebzashAppController {
 		/* TODO : Delete database */
 		if (!$this->Wzaccount->delete($id)) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Delete user - account association */
 		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzaccount_id' => $id))) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'error');
+			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
