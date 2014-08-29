@@ -81,36 +81,36 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="btn-group col-md-3">
-	<button type="button" class="btn btn-primary"><?php echo  __d('webzash', 'Add Entry'); ?></button>
-	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-		<span class="caret"></span>
-		<span class="sr-only">Toggle Dropdown</span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	<?php
-		foreach ($this->Menu->entrytypes() as $entrytype) {
-			echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'add', $entrytype['Entrytype']['label'])) . '</li>';
-		}
-	?>
-	</ul>
+<div class="row">
+	<div class="btn-group col-md-3">
+		<button type="button" class="btn btn-primary"><?php echo  __d('webzash', 'Add Entry'); ?></button>
+		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+		<?php
+			foreach ($this->Menu->entrytypes() as $entrytype) {
+				echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'add', $entrytype['Entrytype']['label'])) . '</li>';
+			}
+		?>
+		</ul>
+	</div>
+
+	<div class="col-md-3">
+		<?php
+			$options = array();
+			$options['0'] = 'All';
+			foreach ($this->Menu->entrytypes() as $entrytype) {
+				$options[h($entrytype['Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
+			}
+		?>
+		<?php echo $this->Form->create('Entry'); ?>
+		<?php echo $this->Form->input('show', array('type' => 'select', 'options' => $options, 'label' => false, 'before' => '<div class="pull-left" id="show-label">' . __d('webzash', 'Show') . '</div>', 'div' => false)); ?>
+		<?php echo $this->Form->end(__d('webzash', '')); ?>
+	</div>
 </div>
-
-<div class="col-md-3">
-	<?php
-		$options = array();
-		$options['0'] = 'All';
-		foreach ($this->Menu->entrytypes() as $entrytype) {
-			$options[h($entrytype['Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
-		}
-	?>
-	<?php echo $this->Form->create('Entry'); ?>
-	<?php echo $this->Form->input('show', array('type' => 'select', 'options' => $options, 'label' => false, 'before' => __d('webzash', '<div class="pull-left" id="show-label">Show</div>'))); ?>
-	<?php echo $this->Form->end(__d('webzash', '')); ?>
-</div>
-
-<br /><br /><br />
-
+<br />
 <table class="stripped">
 
 <tr>

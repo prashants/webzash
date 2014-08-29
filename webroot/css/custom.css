@@ -264,12 +264,13 @@ form {
 fieldset {
 	border: none;
 	margin-bottom: 1em;
-	padding: 16px 10px;
+	margin-left: 30px;
 }
 fieldset legend {
-	color: #e32;
-	font-size: 160%;
 	font-weight: bold;
+	border: none;
+	font-size: 17px;
+	margin-left: -30px;
 }
 fieldset fieldset {
 	margin-top: 0;
@@ -331,7 +332,7 @@ option {
 input[type=checkbox] {
 	clear: left;
 	float: left;
-	margin: 0px 6px 7px 2px;
+	margin: 0px 4px 0 0;
 	width: auto;
 }
 div.checkbox label {
@@ -340,7 +341,7 @@ div.checkbox label {
 input[type=radio] {
 	float:left;
 	width:auto;
-	margin: 6px 0;
+	margin: 3px 4px 0 0;
 	padding: 0;
 	line-height: 26px;
 }
@@ -428,4 +429,8 @@ form .error-message {
 
 .ok-text {
 	color: #006400;
+}
+
+.alert {
+	font-size: 17px;
 }
