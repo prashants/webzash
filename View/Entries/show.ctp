@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 </script>
 
-<table>
+<table class="stripped">
 
 <tr>
 <th><?php echo $this->Paginator->sort('date', __d('webzash', 'Date')); ?></th>
@@ -130,20 +130,17 @@ foreach ($entries as $entry) {
 ?>
 </table>
 
-<?php
-	echo "<div class='paging'>";
-	echo $this->Paginator->first(__d('webzash', 'First'));
-	if ($this->Paginator->hasPrev()) {
-		echo $this->Paginator->prev(__d('webzash', 'Prev'));
-	}
-	echo $this->Paginator->numbers();
-	if ($this->Paginator->hasNext()){
-		echo $this->Paginator->next(__d('webzash', 'Next'));
-	}
-	echo $this->Paginator->last(__d('webzash', 'Last'));
-	echo ' ' . __d('webzash', 'Entries') . ' ' . $this->Paginator->counter();
-	echo "</div>";
-?>
+<div class="text-center paginate">
+	<ul class="pagination">
+		<?php
+			echo $this->Paginator->first(__d('webzash', 'first'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+			echo $this->Paginator->prev(__d('webzash', 'prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+			echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1));
+			echo $this->Paginator->next(__d('webzash', 'next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+			echo $this->Paginator->last(__d('webzash', 'last'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+		?>
+	</ul>
+</div>
 
 <!-- email modal -->
 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

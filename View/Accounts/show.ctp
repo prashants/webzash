@@ -112,7 +112,7 @@ function print_space($count)
 	return $html;
 }
 
-echo '<table>';
+echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
 	echo '<th>' . __d('webzash', 'Type') . '</th>';
 	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';

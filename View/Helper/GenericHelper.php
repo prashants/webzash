@@ -246,7 +246,7 @@ class GenericHelper extends AppHelper {
 		}
 		$html = '';
 		if (!empty($messages)) {
-			$html = '<div class="flash-messages flashMessages">';
+			$html = '<div>';
 
 			if ($types) {
 				foreach ($types as $type) {
@@ -294,7 +294,7 @@ class GenericHelper extends AppHelper {
  * @return string HTML
  */
 	public function flashMessage($msg, $type = 'info', $escape = true) {
-		$html = '<div class="flash-messages flashMessages">';
+		$html = '<div class="alert alert-' . $type . '" role="alert">';
 		if ($escape) {
 			$msg = h($msg);
 		}
@@ -315,7 +315,7 @@ class GenericHelper extends AppHelper {
  */
 	protected function _message($msg, $type) {
 		if (!empty($msg)) {
-			return '<div class="message' . (!empty($type) ? ' ' . $type : '') . '">' . $msg . '</div>';
+			return '<div class="alert alert-' . (!empty($type) ? $type : '') . '" role="alert">' . $msg . '</div>';
 		}
 		return '';
 	}

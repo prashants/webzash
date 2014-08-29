@@ -25,6 +25,6 @@
  * THE SOFTWARE.
  */
 ?>
-<div class="error-msg">
+<div class="alert alert-danger" role="alert">
 	<?php echo $message; ?>
 </div>
