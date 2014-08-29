@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-<div>
+<div class="row">
 	<div class="col-md-4">
 		<div class="panel panel-info">
 			<div class="panel-heading"><?php echo __d('webzash', 'Account details'); ?></div>

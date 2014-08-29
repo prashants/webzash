@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-<div>
+<div class="row">
 	<div class="col-md-4">
 		<div class="reports-container">
 			<div class="reports-title">
@@ -64,4 +64,3 @@
 		</div>
 	</div>
 </div>
-
