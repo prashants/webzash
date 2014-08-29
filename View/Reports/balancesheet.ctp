@@ -111,8 +111,8 @@ $(document).ready(function() {
 
 	<!-- Liabilities and Assets -->
 	<tr>
-		<td>
-			<table>
+		<td class="table-top width-50">
+			<table class="stripped">
 				<tr>
 					<th><?php echo __d('webzash', 'Liabilities and Owners Equity'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
@@ -125,8 +125,8 @@ $(document).ready(function() {
 			</table>
 		</td>
 
-		<td>
-			<table>
+		<td class="table-top width-50">
+			<table class="stripped">
 				<tr>
 					<th><?php echo __d('webzash', 'Assets'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount)'); ?></th>
@@ -141,8 +141,9 @@ $(document).ready(function() {
 	</tr>
 
 	<tr>
-		<td>
-			<table>
+		<td class="table-top width-50">
+			<div class="report-tb-pad"></div>
+			<table class="stripped">
 				<?php /* Liabilities Total */ ?>
 				<?php $liabilities_total = $bsheet['liabilities_total']; ?>
 				<?php if (calculate($bsheet['liabilities_total'], 0, '>=')) {
@@ -165,35 +166,36 @@ $(document).ready(function() {
 						echo '<td class="text-right">' . toCurrency('', $bsheet['pandl']) . '</td>';
 						$liabilities_total = calculate($liabilities_total, $bsheet['pandl'], '+');
 					} else {
-						echo '<td>-</td>';
-						echo '<td>-</td>';
+						echo '<td>&nbsp</td>';
+						echo '<td>&nbsp</td>';
 					}
 					?>
 				</tr>
 				<?php
 				if ($bsheet['is_opdiff']) {
-					echo '<tr>';
+					echo '<tr class="error-text">';
 					/* If Op balance Dr then Liability side */
 					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
 						echo '<td>' . __d('webzash', 'Diff in O/P Balance') . '</td>';
 						echo '<td class="text-right">' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '</td>';
 						$liabilities_total = calculate($liabilities_total, $bsheet['opdiff']['opdiff_balance'], '+');
 					} else {
-						echo '<td>-</td>';
-						echo '<td>-</td>';
+						echo '<td>&nbsp</td>';
+						echo '<td>&nbsp</td>';
 					}
 					echo '</tr>';
 				}
 				?>
-				<tr>
+				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $liabilities_total); ?></td>
 				</tr>
 			</table>
 		</td>
 
-		<td>
-			<table>
+		<td class="table-top width-50">
+			<div class="report-tb-pad"></div>
+			<table class="stripped">
 				<?php /* Assets Total */ ?>
 				<?php $assets_total = $bsheet['assets_total']; ?>
 				<?php if (calculate($bsheet['assets_total'], 0, '>=')) {
@@ -212,8 +214,8 @@ $(document).ready(function() {
 					<?php
 					/* If Net Loss the add to Assets */
 					if (calculate($bsheet['pandl'], 0, '>=')) {
-						echo '<td>-</td>';
-						echo '<td>-</td>';
+						echo '<td>&nbsp</td>';
+						echo '<td>&nbsp</td>';
 					} else {
 						echo '<td>' . __d('webzash', 'Profit & Loss Account (Net Loss)') . '</td>';
 						$positive_pandl = calculate($bsheet['pandl'], 0, 'n');
@@ -224,20 +226,20 @@ $(document).ready(function() {
 				</tr>
 				<?php
 				if ($bsheet['is_opdiff']) {
-					echo '<tr>';
+					echo '<tr class="error-text">';
 					/* If Op balance Cr then Asset side */
 					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'C') {
 						echo '<td>' . __d('webzash', 'Diff in O/P Balance') . '</td>';
 						echo '<td class="text-right">' . toCurrency('C', $bsheet['opdiff']['opdiff_balance']) . '</td>';
 						$assets_total = calculate($assets_total, $bsheet['opdiff']['opdiff_balance'], '+');
 					} else {
-						echo '<td>-</td>';
-						echo '<td>-</td>';
+						echo '<td>&nbsp</td>';
+						echo '<td>&nbsp</td>';
 					}
 					echo '</tr>';
 				}
 				?>
-				<tr>
+				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('', $assets_total); ?></td>
 				</tr>

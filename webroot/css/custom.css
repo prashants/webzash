@@ -3,6 +3,11 @@
 	padding: 0;
 }
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 p {
 	margin: 0 0 1em 0;
 }
@@ -139,10 +144,6 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	background-image: linear-gradient(top, #ee5f5b, #c43c35);
 }
 
-.col-md-4 {
-	padding-left: 0px;
-}
-
 table tr .dc-error {
 	background: #FFFF66;
 }
@@ -195,33 +196,6 @@ a.no-hover:hover {
 	color: #2A6496;
 }
 
-ul#qa-list {
-	margin: 0 0 0 15px;
-	padding: 0;
-}
-ul#qa-list li {
-	list-style: none outside none;
-	padding: 3px 0;
-}
-ul#qa-list li .qa-heading {
-	font-weight: bold;
-}
-ul#qa-list li ul li {
-	list-style: square outside none;
-	padding: 3px 0;
-}
-.qa-section {
-	margin: 0 0 30px;
-}
-.qa-question {
-	border-bottom: 1px solid #AAAAAA;
-	font-weight: bold;
-	margin: 0 0 5px;
-}
-.qa-answer {
-	margin: 0 0 0 20px;
-}
-
 .modal-ajax {
 	padding-left: 25px;
 	font-size: 18px;
@@ -231,4 +205,227 @@ ul#qa-list li ul li {
 	padding-left: 25px;
 	color: #FF0000;
 	font-size: 18px;
+}
+
+/************** TABLES ***************/
+table {
+	width: 100%;
+}
+
+th {
+	border-bottom: 2px solid #555;
+	text-align: left;
+	font-size: 16px;
+}
+
+th a {
+	display: block;
+	padding: 2px 4px;
+	text-decoration: none;
+}
+
+th a.asc:after {
+	content: ' ⇣';
+}
+
+th a.desc:after {
+	content: ' ⇡';
+}
+
+table tr td {
+	padding: 4px;
+	text-align: left;
+}
+
+table.stripped tr td {
+	border-bottom:1px solid #DDDDDD;
+	border-top:1px solid #DDDDDD;
+}
+
+table.stripped tr:hover {
+	  background-color: #FFFF99;
+}
+
+table.stripped .tr-ledger {
+
+}
+
+table.stripped .tr-group {
+	background-color: #F3F3F3;
+}
+
+/** Forms **/
+form {
+	clear: both;
+	margin-right: 20px;
+	padding: 0;
+	width: 95%;
+}
+fieldset {
+	border: none;
+	margin-bottom: 1em;
+	padding: 16px 10px;
+}
+fieldset legend {
+	color: #e32;
+	font-size: 160%;
+	font-weight: bold;
+}
+fieldset fieldset {
+	margin-top: 0;
+	padding: 10px 0 0;
+}
+fieldset fieldset legend {
+	font-size: 120%;
+	font-weight: normal;
+}
+fieldset fieldset div {
+	clear: left;
+	margin: 0 20px;
+}
+form div {
+	clear: both;
+	margin-bottom: 1em;
+	padding: .5em;
+	vertical-align: text-top;
+}
+form .input {
+	color: #444;
+}
+form .required {
+	font-weight: bold;
+}
+form .required label:after {
+	color: #e32;
+	content: '*';
+	display:inline;
+}
+form div.submit {
+	border: 0;
+	clear: both;
+	margin-top: 10px;
+}
+label {
+	display: block;
+	font-size: 110%;
+	margin-bottom:3px;
+}
+input, textarea {
+	clear: both;
+	font-size: 140%;
+	padding: 1%;
+	width:98%;
+}
+select {
+	clear: both;
+	font-size: 120%;
+	vertical-align: text-bottom;
+}
+select[multiple=multiple] {
+	width: 100%;
+}
+option {
+	font-size: 120%;
+	padding: 0 3px;
+}
+input[type=checkbox] {
+	clear: left;
+	float: left;
+	margin: 0px 6px 7px 2px;
+	width: auto;
+}
+div.checkbox label {
+	display: inline;
+}
+input[type=radio] {
+	float:left;
+	width:auto;
+	margin: 6px 0;
+	padding: 0;
+	line-height: 26px;
+}
+.radio label {
+	margin: 0 0 6px 20px;
+	line-height: 26px;
+}
+input[type=submit] {
+	display: inline;
+	font-size: 110%;
+	width: auto;
+}
+form .submit input[type=submit] {
+	background:#428BCA;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#428BCA), to(#428BCA));
+	background-image: -webkit-linear-gradient(top, #428BCA, #428BCA);
+	background-image: -moz-linear-gradient(top, #428BCA, #428BCA);
+	border-color: #357EBD;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
+	padding: 8px 10px;
+}
+form .submit input[type=submit]:hover {
+	background: #3276B1;
+	border-color: #285E8E;
+}
+/* Form errors */
+form .error {
+	background: #FFDACC;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	font-weight: normal;
+}
+form .error-message {
+	-moz-border-radius: none;
+	-webkit-border-radius: none;
+	border-radius: none;
+	border: none;
+	background: none;
+	margin: 0;
+	padding-left: 4px;
+	padding-right: 0;
+}
+form .error,
+form .error-message {
+	color: #9E2424;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.paginate {
+	margin-top:20px;
+}
+
+#footer {
+	margin-top: 60px;
+	border-top: 1px solid #BBBBBB;
+}
+
+.table-top {
+	vertical-align: top;
+}
+
+.width-50 {
+	width: 40%;
+}
+
+.report-tb-pad {
+	padding-top: 30px;
+}
+
+.bold-text {
+	font-weight: bold;
+}
+
+.error-text {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.ok-text {
+	color: #006400;
 }

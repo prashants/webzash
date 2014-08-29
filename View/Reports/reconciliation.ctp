@@ -103,7 +103,7 @@ $(document).ready(function() {
 
 	<?php echo $this->Form->create('ReportRec'); ?>
 
-	<table>
+	<table class="stripped">
 
 	<tr>
 	<th><?php echo $this->Paginator->sort('date', __d('webzash', 'Date')); ?></th>
@@ -142,6 +142,7 @@ $(document).ready(function() {
 		echo $this->Form->hidden('ReportRec.' . $row . '.id', array('value' => $entry['Entryitem']['id']));
 		echo $this->Form->input('ReportRec.' . $row . '.recdate', array('label' => false, 'class' => 'recdate',
 			'default' => dateFromSql($entry['Entryitem']['reconciliation_date']),
+			'div' => false,
 		));
 		echo '</td>';
 		echo '</tr>';

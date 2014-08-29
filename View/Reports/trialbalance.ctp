@@ -118,7 +118,7 @@ function print_space($count)
 	return $html;
 }
 
-echo '<table>';
+echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
 	echo '<th>' . __d('webzash', 'Type') . '</th>';
 	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
@@ -129,15 +129,19 @@ echo '<table>';
 
 	print_account_chart($accountlist, 0, $this);
 
-	echo '<tr>';
+	if (calculate($accountlist->dr_total, $accountlist->cr_total, '==')) {
+		echo '<tr class="bold-text ok-text">';
+	} else {
+		echo '<tr class="bold-text error-text">';
+	}
 	echo '<td>' . __d('webzash', 'TOTAL') . '</td>';
 	echo '<td></td><td></td>';
 	echo '<td>' . toCurrency('D', $accountlist->dr_total) . '</td>';
 	echo '<td>' . toCurrency('C', $accountlist->cr_total) . '</td>';
 	if (calculate($accountlist->dr_total, $accountlist->cr_total, '==')) {
-		echo '<td>' . $this->Html->image('Webzash.match.png', array('alt' => 'match')) . '</td>';
+		echo '<td><span class="glyphicon glyphicon-ok-sign"></span></td>';
 	} else {
-		echo '<td>' . $this->Html->image('Webzash.nomatch.png', array('alt' => 'mismatch')) . '</td>';
+		echo '<td><span class="glyphicon glyphicon-remove-sign"></span></td>';
 	}
 	echo '<td></td>';
 	echo '</tr>';

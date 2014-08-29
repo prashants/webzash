@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-<table>
+<table class="stripped">
 	<tr>
 		<th><?php echo $this->Paginator->sort('title', __d('webzash', 'Title')); ?></th>
 		<th><?php echo __d('webzash', 'Color'); ?></th>

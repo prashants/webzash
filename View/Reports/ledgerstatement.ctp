@@ -90,7 +90,7 @@ $(document).ready(function() {
 
 <?php if ($showEntries) { ?>
 
-	<table>
+	<table class="stripped">
 
 	<tr>
 	<th><?php echo $this->Paginator->sort('date', __d('webzash', 'Date')); ?></th>
