@@ -38,7 +38,6 @@
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Ledger name')));
 		echo $this->Form->input('group_id', array('type' => 'select', 'options' => $parents, 'label' => __d('webzash', 'Parent group')));
 
-
 		echo $this->Form->label(__d('webzash', 'Opening balance'));
 		echo '<table>';
 		echo '<tr class="table-top">';

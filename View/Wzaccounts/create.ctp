@@ -63,19 +63,25 @@ $(document).ready(function() {
 		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
 	);
 
-	echo $this->Form->create('Wzaccount');
+	echo $this->Form->create('Wzaccount', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
 	echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
-	echo $this->Form->input('name', array('required' => 'required', 'div' => 'required', 'label' => __d('webzash', 'Company / Personal Name')));
+	echo $this->Form->input('name', array('required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Company / Personal Name')));
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'required' => 'required', 'div' => 'required', 'label' => __d('webzash', 'Date format')));
-	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'required', 'label' => __d('webzash', 'Financial year start')));
-	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'required', 'label' => __d('webzash', 'Financial year end')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
+	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));
 	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
 
 	echo "<fieldset><legend>Database Settings</legend>";
-
 	// TODO echo $this->Form->input('create_db', array('type' => 'checkbox', 'label' => __d('webzash', 'Create database if it does not exists')));
 	echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 	echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
@@ -84,12 +90,20 @@ $(document).ready(function() {
 	echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 	echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
 	echo $this->Form->input('db_prefix', array('label' => __d('webzash', 'Database prefix')));
-	echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection')));
+	echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
 	echo $this->Form->input('db_settings', array('label' => __d('webzash', 'Database settings')));
 
 	echo "</fieldset>";
 
-	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Submit'), array(
+		'div' => false,
+		'class' => 'btn btn-primary'
+	));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'), array('class' => 'btn btn-default'));
+	echo '</div>';
+
+	echo $this->Form->end();
 	?>
 </div>

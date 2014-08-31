@@ -27,7 +27,14 @@
 ?>
 <div class="wzaccont add form">
 	<?php
-		echo $this->Form->create('Wzaccount');
+		echo $this->Form->create('Wzaccount', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
 		echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 		echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
@@ -36,9 +43,18 @@
 		echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 		echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
 		echo $this->Form->input('db_prefix', array('label' => __d('webzash', 'Database prefix')));
-		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection')));
+		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
 		echo $this->Form->input('db_settings', array('label' => __d('webzash', 'Database settings')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>
