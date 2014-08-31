@@ -43,23 +43,30 @@ class WebzashAppController extends AppController {
 			'loginRedirect' => array(
 				'plugin' => 'webzash',
 				'controller' => 'dashboard',
-				'action' => 'index'
+				'action' => 'index',
 			),
 			'logoutRedirect' => array(
 				'plugin' => 'webzash',
 				'controller' => 'wzusers',
-				'action' => 'login'
+				'action' => 'login',
 			),
 			'loginAction' => array(
 				'plugin' => 'webzash',
 				'controller' => 'wzusers',
-				'action' => 'login'
+				'action' => 'login',
 			),
 			'authenticate' => array(
 				'Form' => array(
 					'fields' => array('username' => 'username', 'password' => 'password'),
 					'userModel' => 'Wzuser',
-				)
+				),
+			),
+			'flash' => array(
+				'element' => 'danger',
+				'key' => 'auth',
+				'params' => array(
+					'class' => 'alert-danger',
+				),
 			),
 			'authorize' => array('Controller'),
 		)
