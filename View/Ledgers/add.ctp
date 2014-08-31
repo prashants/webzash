@@ -27,14 +27,38 @@
 ?>
 <div class="ledgers add form">
 	<?php
-		echo $this->Form->create('Ledger');
+		echo $this->Form->create('Ledger', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Ledger name')));
 		echo $this->Form->input('group_id', array('type' => 'select', 'options' => $parents, 'label' => __d('webzash', 'Parent group')));
-		echo $this->Form->input('op_balance_dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'label' => __d('webzash', 'Opening balance')));
-		echo $this->Form->input('op_balance', array('label' => false, 'required' => false));
-		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __d('webzash', 'Bank or cash account')));
-		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __d('webzash', 'Reconciliation')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
+
+
+		echo $this->Form->label(__d('webzash', 'Opening balance'));
+		echo '<table>';
+		echo '<tr class="table-top">';
+		echo '<td class="width-drcr">' . $this->Form->input('op_balance_dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'label' => false)) . '</td>';
+		echo '<td>' . $this->Form->input('op_balance', array('label' => false, 'required' => false)) . '</td>';
+		echo '</tr>';
+		echo '</table>';
+
+		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __d('webzash', 'Bank or cash account'),  'class' => 'checkbox'));
+		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __d('webzash', 'Reconciliation'), 'class' => 'checkbox'));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>
