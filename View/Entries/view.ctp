@@ -32,7 +32,7 @@
 	echo __d('webzash', 'Date') . ' : ' . h(dateFromSql($entry['Entry']['date']));
 	echo '<br /><br />';
 
-	echo '<table>';
+	echo '<table class="stripped">';
 
 	/* Header */
 	echo '<tr>';
@@ -77,31 +77,34 @@
 	}
 
 	/* Total */
-	echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td id="dr-total">' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>' . '<td id="cr-total">' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>' . '</tr>';
+	echo '<tr class="bold-text">' . '<td></td>' . '<td>' . __d('webzash', 'Total') . '</td>' . '<td id="dr-total">' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>' . '<td id="cr-total">' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>' . '</tr>';
 
 	/* Difference */
 	if (calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '==')) {
 		/* Do nothing */
 	} else {
 		if (calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '>')) {
-			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td id="dr-diff">' . toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-')) . '</td>' . '<td></td>' . '</tr>';
+			echo '<tr class="error-text">' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td id="dr-diff">' . toCurrency('D', calculate($entry['Entry']['dr_total'], $entry['Entry']['cr_total'], '-')) . '</td>' . '<td></td>' . '</tr>';
 		} else {
-			echo '<tr>' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td></td>' . '<td id="cr-diff">' . toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-')) . '</td>' . '</tr>';
+			echo '<tr class="error-text">' . '<td></td>' . '<td>' . __d('webzash', 'Difference') . '</td>' . '<td></td>' . '<td id="cr-diff">' . toCurrency('C', calculate($entry['Entry']['cr_total'], $entry['Entry']['dr_total'], '-')) . '</td>' . '</tr>';
 
 		}
 	}
 
 	echo '</table>';
 
+	echo '<br />';
+
 	echo __d('webzash', 'Narration') . ' : ' . h($entry['Entry']['narration']);
 	echo '<br /><br />';
 	echo __d('webzash', 'Tag') . ' : ' . $this->Generic->showTag($entry['Entry']['tag_id']);
+
 	echo '<br /><br />';
 
 	echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary'));
-	echo '&nbsp;&nbsp;';
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 	echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary', 'confirm' => __d('webzash', 'Are you sure ?')));
-	echo '&nbsp;&nbsp;';
-	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'), array('class' => 'btn btn-default'));
 ?>
 </div>

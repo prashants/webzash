@@ -28,11 +28,20 @@
 <?php
 	// Generate a random id to use in below form array
 	$i = time() + rand  (0, time()) + rand  (0, time()) + rand  (0, time());
-	echo '<tr>';
-	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
-	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.ledger_id', array('type' => 'select', 'options' => $ledgers, 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
-	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
-	echo '<td>' . $this->Form->input('Entryitem.' . $i . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
+
+	echo '<tr class="ajax-add">';
+
+	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">Dr</option><option value="C">Cr</option></select></div>' . '</td>';
+
+	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown" name="data[Entryitem][' . $i . '][ledger_id]">';
+	foreach ($ledgers as $row => $data) {
+		echo '<option value="' . $row . '">' . $data . '</option>';
+	}
+	echo '</select></div>' . '</td>';
+
+	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'DrAmount" class="dr-item" name="data[Entryitem][' . $i . '][dr_amount]" disabled=""></div>' . '</td>';
+
+	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'CrAmount" class="cr-item" name="data[Entryitem][' . $i . '][cr_amount]" disabled=""></div>' . '</td>';
 
 	echo '<td>';
 	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false));

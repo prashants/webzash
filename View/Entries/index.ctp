@@ -82,7 +82,7 @@ $(document).ready(function() {
 </script>
 
 <div class="row">
-	<div class="btn-group col-md-3">
+	<div class="btn-group col-md-4">
 		<button type="button" class="btn btn-primary"><?php echo  __d('webzash', 'Add Entry'); ?></button>
 		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
@@ -186,7 +186,7 @@ foreach ($entries as $entry) {
 			</div>
 			<div class="modal-error-msg"></div>
 			<div class="modal-body">
-				<?php echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email to'))); ?>
+				<?php echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email to'), 'class' => 'form-control')); ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" id="send">Send</button>

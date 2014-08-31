@@ -130,6 +130,7 @@ a.no-hover:hover {
 
 .modal-error-msg {
 	padding-left: 25px;
+	padding-top: 15px;
 	color: #FF0000;
 	font-size: 18px;
 }
@@ -178,6 +179,14 @@ table.stripped .tr-ledger {
 }
 
 table.stripped .tr-group {
+	background-color: #F3F3F3;
+}
+
+table.extra tr td {
+	padding: 6px;
+}
+
+.ajax-add {
 	background-color: #F3F3F3;
 }
 

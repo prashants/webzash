@@ -254,7 +254,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
 				/* Trigger ledger item change */
-				$(cur_obj).parent().parent().next().children().first().next().children().children().trigger('change');
+				$(cur_obj).parent().parent().next().children().first().next().children().children().children().trigger('change');
 			}
 		});
 	});
@@ -282,7 +282,14 @@ $(document).ready(function() {
 
 <div class="entry edit form">
 <?php
-	echo $this->Form->create('Entry');
+	echo $this->Form->create('Entry', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
 	echo $this->Form->input('number', array(
 		'label' => __d('webzash', 'Number'),
 		'between' =>  h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix') .
@@ -291,7 +298,7 @@ $(document).ready(function() {
 	));
 	echo $this->Form->input('date', array('type' => 'text', 'label' => __d('webzash', 'Date')));
 
-	echo '<table>';
+	echo '<table class="stripped extra">';
 
 	/* Header */
 	echo '<tr>';
@@ -308,27 +315,27 @@ $(document).ready(function() {
 		echo '<tr>';
 
 		if (empty($entryitem['dc'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		if (empty($entryitem['ledger_id'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false)) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		if (empty($entryitem['dr_amount'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('label' => false, 'class' => 'dr-item')) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('label' => false, 'class' => 'dr-item', 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('default' => $entryitem['dr_amount'], 'label' => false, 'class' => 'dr-item')) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dr_amount', array('default' => $entryitem['dr_amount'], 'label' => false, 'class' => 'dr-item', 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		if (empty($entryitem['cr_amount'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('label' => false, 'class' => 'cr-item')) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('label' => false, 'class' => 'cr-item', 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('default' => $entryitem['cr_amount'], 'label' => false, 'class' => 'cr-item')) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.cr_amount', array('default' => $entryitem['cr_amount'], 'label' => false, 'class' => 'cr-item', 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		echo '<td>';
@@ -347,9 +354,20 @@ $(document).ready(function() {
 
 	echo '</table>';
 
+	echo '<br />';
+
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
 	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __d('webzash', 'Tag')));
-	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Submit'), array(
+		'div' => false,
+		'class' => 'btn btn-primary'
+	));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'), array('class' => 'btn btn-default'));
+	echo '</div>';
+
+	echo $this->Form->end();
 ?>
 </div>
