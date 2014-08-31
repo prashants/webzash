@@ -72,6 +72,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 /******************* MESSAGES ********************/
+/*
 .success-msg {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -143,7 +144,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: linear-gradient(top, #ee5f5b, #c43c35);
 }
-
+*/
 table tr .dc-error {
 	background: #FFFF66;
 }
@@ -255,6 +256,7 @@ table.stripped .tr-group {
 }
 
 /** Forms **/
+/*
 form {
 	clear: both;
 	margin-right: 20px;
@@ -368,9 +370,10 @@ form .submit input[type=submit]:hover {
 	background: #3276B1;
 	border-color: #285E8E;
 }
+*/
 /* Form errors */
+
 form .error {
-	background: #FFDACC;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;

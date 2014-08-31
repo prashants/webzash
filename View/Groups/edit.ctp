@@ -46,15 +46,32 @@ $(document).ready(function() {
 <div class="groups edit form">
 	<?php
 		$options = array(
-			1 => __d('webzash', 'Affects gross profit/loss calculations'),
-			0 => __d('webzash', 'Affects net profit/loss calculations'),
+			1 => __d('webzash', 'Gross Profit & Loss'),
+			0 => __d('webzash', 'Net Profit & Loss'),
 		);
 
-		echo $this->Form->create('Group');
+		echo $this->Form->create('Group', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Group name')));
 		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __d('webzash', 'Parent group')));
-		echo $this->Form->input('affects_gross', array('type' => 'select', 'options' => $options, 'label' => false, 'div' => array('id' => 'AffectsGross')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
+
+		echo $this->Form->input('affects_gross', array('type' => 'radio', 'options' => $options, 'default' => 1, 'before' => '<label class="control-label">' . __d('webzash', 'Affects') . '</label>', 'legend' => false, 'class' => 'radio', 'div' => array('class' => 'form-group required', 'id' => 'AffectsGross')));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>
