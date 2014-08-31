@@ -32,15 +32,31 @@
 		'Mail' => __d('webzash', 'mail'),
 	);
 
-	echo $this->Form->create('Setting');
-	echo $this->Form->input('email_use_default', array('type' => 'checkbox', 'label' => __d('webzash', 'Use default email settings')));
+	echo $this->Form->create('Setting', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
+	echo $this->Form->input('email_use_default', array('type' => 'checkbox', 'label' => __d('webzash', 'Use default email settings'), 'class' => 'checkbox'));
 	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
 	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Username')));
 	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Password')));
 	echo $this->Form->input('email_from', array('label' => __d('webzash', 'From')));
-	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Submit'), array(
+		'div' => false,
+		'class' => 'btn btn-primary'
+	));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'), array('class' => 'btn btn-default'));
+	echo '</div>';
+
+	echo $this->Form->end();
 ?>
 </div>

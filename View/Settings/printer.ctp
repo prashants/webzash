@@ -26,7 +26,24 @@
  */
 ?>
 <div class="printer form">
-	<?php echo $this->Form->create('Setting'); ?>
+	<?php
+		$orientation_options = array(
+			'P' => __d('webzash', 'Potrait'),
+			'L' => __d('webzash', 'Landscape'),
+		);
+		$page_format_options = array(
+			'H' => __d('webzash', 'HTML'),
+			'T' => __d('webzash', 'Text'),
+		);
+
+		echo $this->Form->create('Setting', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+	?>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Paper Size'); ?></legend>
 		<?php echo $this->Form->input('print_paper_height', array('label' => __d('webzash', 'Height'), 'after' => __d('webzash', 'inches'))); ?>
@@ -41,14 +58,23 @@
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Orientation'); ?></legend>
-		<?php echo $this->Form->radio('print_orientation', array('P' => 'Potrait', 'L' => 'Landscape'), array('legend' => false)); ?>
+		<?php echo $this->Form->input('print_orientation', array('type' => 'radio', 'options' => $orientation_options, 'legend' => false, 'class' => 'radio')); ?>
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Output Format'); ?></legend>
-		<?php echo $this->Form->radio('print_page_format', array('H' => 'HTML', 'T' => 'Text'), array('legend' => false)); ?>
+		<?php echo $this->Form->input('print_page_format', array('type' => 'radio', 'options' => $page_format_options, 'legend' => false, 'class' => 'radio')); ?>
 	</fieldset>
+	<br />
 	<?php
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>

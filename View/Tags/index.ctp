@@ -28,7 +28,7 @@
 <table class="stripped">
 	<tr>
 		<th><?php echo $this->Paginator->sort('title', __d('webzash', 'Title')); ?></th>
-		<th><?php echo __d('webzash', 'Color'); ?></th>
+		<th><?php echo __d('webzash', 'Tag'); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($tags as $tag) { ?>

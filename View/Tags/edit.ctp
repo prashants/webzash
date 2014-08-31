@@ -36,11 +36,27 @@
 
 <div class="tags edit form">
 	<?php
-		echo $this->Form->create('Tag');
+		echo $this->Form->create('Tag', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('title', array('label' => __d('webzash', 'Title')));
 		echo $this->Form->input('color', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Color')));
 		echo $this->Form->input('background', array('class' => 'pick-a-color', 'label' => __d('webzash', 'Background')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>

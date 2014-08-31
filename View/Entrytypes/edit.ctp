@@ -39,7 +39,15 @@
 			'4' => __d('webzash', 'Only Bank or Cash account can be present on both Debit and Credit side'),
 			'5' => __d('webzash', 'Only NON Bank or Cash account can be present on both Debit and Credit side'),
 		);
-		echo $this->Form->create('Entrytype');
+
+		echo $this->Form->create('Entrytype', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
 		echo $this->Form->input('description', array('type' => 'textarea', 'label' => __d('webzash', 'Description'), 'rows' => '3'));
@@ -48,7 +56,16 @@
 		echo $this->Form->input('suffix', array('label' => __d('webzash', 'Suffix')));
 		echo $this->Form->input('zero_padding', array('label' => __d('webzash', 'Zero Padding')));
 		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __d('webzash', 'Restrictions')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>

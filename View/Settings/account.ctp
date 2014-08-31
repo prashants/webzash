@@ -62,7 +62,14 @@ $(document).ready(function() {
 		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
 	);
 
-	echo $this->Form->create('Setting');
+	echo $this->Form->create('Setting', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
 	echo $this->Form->input('name', array('label' => __d('webzash', 'Company / Personal Name')));
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
@@ -71,7 +78,16 @@ $(document).ready(function() {
 	echo $this->Form->input('fy_start', array('type' => 'text', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'label' => __d('webzash', 'Financial year end')));
 	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
-	echo $this->Form->end(__d('webzash', 'Submit'));
-	echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Submit'), array(
+		'div' => false,
+		'class' => 'btn btn-primary'
+	));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'), array('class' => 'btn btn-default'));
+	echo '</div>';
+
+	echo $this->Form->end();
 ?>
 </div>
