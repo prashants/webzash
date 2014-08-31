@@ -27,10 +27,27 @@
 ?>
 <div class="wzusers resetpass form">
 <?php
-		echo  __d('webzash', 'Reset password for user "') . h($username) . '"';
-		echo $this->Form->create('Wzuser');
-		echo $this->Form->input('new_password', array('type' => 'password', 'label' => __d('webzash', 'New password')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
+	echo $this->Form->create('Wzuser', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
+	echo $this->Form->label('name', __d('webzash', 'Reset password for user "%s"', h($username)));
+
+	echo $this->Form->input('new_password', array('type' => 'password', 'label' => __d('webzash', 'New password')));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Submit'), array(
+		'div' => false,
+		'class' => 'btn btn-primary'
+	));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'), array('class' => 'btn btn-default'));
+	echo '</div>';
+
+	echo $this->Form->end();
 ?>
 </div>

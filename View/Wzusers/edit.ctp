@@ -27,19 +27,34 @@
 ?>
 <div class="user edit form">
 	<?php
-		echo $this->Form->create('Wzuser');
+		echo $this->Form->create('Wzuser', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
 		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 		echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
 		echo $this->Form->input('status', array('type' => 'select', 'options' => $this->Generic->wzuser_status_options(), 'label' => __d('webzash', 'Status')));
-		echo $this->Form->input('email_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verified')));
-		echo $this->Form->input('admin_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Administrator approved')));
+		echo $this->Form->input('email_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verified'), 'class' => 'checkbox'));
+		echo $this->Form->input('admin_verified', array('type' => 'checkbox', 'label' => __d('webzash', 'Administrator approved'), 'class' => 'checkbox'));
 		echo $this->Form->input('role', array('type' => 'select', 'options' => $this->Generic->wzuser_role_options(), 'label' => __d('webzash', 'Role')));
 
 		/* Accounts selection */
 		echo $this->Form->input('wzaccount_ids', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Account access'), 'multiple' => true));
 
-		echo $this->Form->end(__d('webzash', 'Submit'));
-		echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>

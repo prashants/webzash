@@ -27,8 +27,23 @@
 ?>
 <div class="wzusers forgot form">
 <?php
-		echo $this->Form->create('Wzuser');
+		echo $this->Form->create('Wzuser', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('userinfo', array('label' => __d('webzash', 'Registered username or email address')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo '</div>';
+
+		echo $this->Form->end();
 ?>
 </div>

@@ -36,12 +36,31 @@
 		} else if (!$wzaccounts) {
 			echo $this->Form->label('create', __d('webzash', 'Sorry, no accounts are available. Please contact your administrator.'));
 		} else {
-			echo $this->Form->create('Wzuser');
-			echo $this->Form->label('active', __d('webzash', 'Currently active account : ') . h($curActiveAccount));
+			echo $this->Form->create('Wzuser', array(
+				'inputDefaults' => array(
+					'div' => 'form-group',
+					'wrapInput' => false,
+					'class' => 'form-control',
+				),
+			));
+
+			echo $this->Form->label('active', __d('webzash', 'Currently active account : "%s"', h($curActiveAccount)));
 			echo $this->Form->input('wzaccount_id', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Select account'), 'multiple' => false));
-			echo __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.');
-			echo $this->Form->end(__d('webzash', 'Activate'));
-			echo $this->Html->link(__d('webzash', 'Back'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
+
+			echo $this->Form->label('active', __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.'));
+
+			echo '<br /><br />';
+
+			echo '<div class="form-group">';
+			echo $this->Form->submit(__d('webzash', 'Activate'), array(
+				'div' => false,
+				'class' => 'btn btn-primary'
+			));
+			echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+			echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-default'));
+			echo '</div>';
+
+			echo $this->Form->end();
 		}
 	?>
 </div>

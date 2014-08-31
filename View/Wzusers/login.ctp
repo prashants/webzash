@@ -27,20 +27,35 @@
 ?>
 <div class="wzusers login form">
 <?php
-		if ($first_login) {
-			echo '<div class="alert alert-success alert-dismissible" role="alert">';
-			echo '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-			echo 'Since this is your first time, you can login with username as "admin" and password as "admin". Please change your password after login.';
-			echo '</div>';
-		}
+	if ($first_login) {
+		echo '<div class="alert alert-success alert-dismissible" role="alert">';
+		echo '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+		echo 'Since this is your first time, you can login with username as "admin" and password as "admin". Please change your password after login.';
+		echo '</div>';
+	}
 
-		echo $this->Form->create('Wzuser');
-		echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
-		echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
-		echo $this->Form->end(__d('webzash', 'Login'));
-		echo $this->Html->link(__d('webzash', 'Register'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'register'));
-		echo ' | ';
-		echo $this->Html->link(__d('webzash', 'Forgot Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'forgot'));
+	echo $this->Form->create('Wzuser', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
+
+	echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
+	echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Login'), array(
+	'div' => false,
+	'class' => 'btn btn-primary'
+	));
+	echo '</div>';
+
+	echo $this->Form->end();
+
+	echo $this->Html->link(__d('webzash', 'Register'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'register'));
+	echo ' | ';
+	echo $this->Html->link(__d('webzash', 'Forgot Password'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'forgot'));
 ?>
 </div>
-

@@ -26,11 +26,26 @@
  */
 ?>
 <div class="wzusers first form">
-<?php
-		echo $this->Form->create('Wzuser');
+	<?php
+		echo $this->Form->create('Wzuser', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+
 		echo $this->Form->input('password', array('label' => __d('webzash', 'New Password')));
 		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 		echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
-		echo $this->Form->end(__d('webzash', 'Submit'));
-?>
+
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo '</div>';
+
+		echo $this->Form->end();
+	?>
 </div>

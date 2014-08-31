@@ -28,15 +28,35 @@
 <div class="wzuser add form">
 	<?php
 		if ($registration) {
-			echo $this->Form->create('Wzuser');
+			echo $this->Form->create('Wzuser', array(
+				'inputDefaults' => array(
+					'div' => 'form-group',
+					'wrapInput' => false,
+					'class' => 'form-control',
+				),
+			));
+
 			echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
 			echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
 			echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 			echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email')));
-			echo $this->Form->end(__d('webzash', 'Submit'));
-			echo $this->Html->link(__d('webzash', 'Login'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
+
+			echo '<div class="form-group">';
+			echo $this->Form->submit(__d('webzash', 'Register'), array(
+				'div' => false,
+				'class' => 'btn btn-primary'
+			));
+			echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+			echo $this->Html->link(__d('webzash', 'Login'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'), array('class' => 'btn btn-default'));
+			echo '</div>';
+
+			echo $this->Form->end();
 		} else {
-			echo '<h4>' . __d('webzash', 'User registration is disabled.') . '</h4>';
+			echo '<h4>' . __d('webzash', 'Sorry, user registration is disabled.') . '</h4><br />';
+
+			echo '<div class="form-group">';
+			echo $this->Html->link(__d('webzash', 'Login'), array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'), array('class' => 'btn btn-primary'));
+			echo '</div>';
 		}
 	?>
 </div>

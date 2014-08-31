@@ -43,7 +43,7 @@
 				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index')); ?></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><span><?php echo $this->Html->link(__d('webzash', 'Back to Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
+				<li><span><?php echo $this->Html->link(__d('webzash', 'Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
