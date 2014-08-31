@@ -39,7 +39,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('Webzash.bootstrap.min.css?'.time());
 		echo $this->Html->script('Webzash.bootstrap.min.js?'.time());
 
-		echo $this->Html->css('Webzash.style.css?'.time());
+		// echo $this->Html->css('Webzash.style.css?'.time());
 		echo $this->Html->css('Webzash.custom.css?'.time());
 
 		echo $this->fetch('meta');
@@ -73,6 +73,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			?>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php // echo $this->element('sql_dump'); ?>
 </body>
 </html>

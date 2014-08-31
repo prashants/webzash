@@ -263,6 +263,9 @@ class GenericHelper extends AppHelper {
 			} else {
 				foreach ($messages as $messageType => $msgs) {
 					foreach ((array)$msgs as $msg) {
+						if ($messageType == 'default') {
+							$messageType = 'danger';
+						}
 						$html .= $this->_message($msg, $messageType);
 					}
 				}
