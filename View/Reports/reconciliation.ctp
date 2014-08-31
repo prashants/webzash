@@ -82,18 +82,34 @@ $(document).ready(function() {
 
 <div class="reconciliation form">
 	<?php
-		echo $this->Form->create('Report');
-		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'label' => __d('webzash', 'Ledger account')));
-		echo $this->Form->input('showall', array('type' => 'checkbox', 'label' => __d('webzash', 'Show all entries')));
+		echo $this->Form->create('Report', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
 
-		echo $this->Form->input('custom_period', array('type' => 'checkbox', 'label' => __d('webzash', 'Change default period')));
+		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'label' => __d('webzash', 'Ledger account')));
+		echo $this->Form->input('showall', array('type' => 'checkbox', 'label' => __d('webzash', 'Show all entries'), 'class' => 'checkbox'));
+
+		echo $this->Form->input('custom_period', array('type' => 'checkbox', 'label' => __d('webzash', 'Change default period'), 'class' => 'checkbox'));
 		echo '<fieldset id="ledgerst-period">';
 		echo $this->Form->input('startdate', array('label' => __d('webzash', 'Start date')));
 		echo $this->Form->input('enddate', array('label' => __d('webzash', 'End date')));
 		echo '</fieldset>';
 
 		echo $this->Form->hidden('submitledger', array('value' => '1'));
-		echo $this->Form->end(__d('webzash', 'Submit'));
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Submit'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->link(__d('webzash', 'Clear'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'), array('class' => 'btn btn-default'));
+		echo '</div>';
+
+		echo $this->Form->end();
 	?>
 </div>
 
@@ -101,7 +117,15 @@ $(document).ready(function() {
 
 <div class="reconciliation form">
 
-	<?php echo $this->Form->create('ReportRec'); ?>
+	<?php
+		echo $this->Form->create('ReportRec', array(
+			'inputDefaults' => array(
+				'div' => 'form-group',
+				'wrapInput' => false,
+				'class' => 'form-control',
+			),
+		));
+	?>
 
 	<table class="stripped">
 
@@ -149,9 +173,19 @@ $(document).ready(function() {
 	}
 	?>
 	</table>
+	<br />
 
-	<?php echo $this->Form->hidden('submitrec', array('value' => '1')); ?>
-	<?php echo $this->Form->end(__d('webzash', 'Update')); ?>
+	<?php
+		echo $this->Form->hidden('submitrec', array('value' => '1'));
+		echo '<div class="form-group">';
+		echo $this->Form->submit(__d('webzash', 'Reconile'), array(
+			'div' => false,
+			'class' => 'btn btn-primary'
+		));
+		echo '</div>';
+
+		echo $this->Form->end();
+	?>
 
 	<div class="text-center paginate">
 		<ul class="pagination">
