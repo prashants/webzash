@@ -290,12 +290,34 @@ $(document).ready(function() {
 		),
 	));
 
+	$prefixNumber = '';
+	$suffixNumber = '';
+	if ((Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix') != '') &&
+		(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix') != '')) {
+		$prefixNumber = '<div class="input-group"><span class="input-group-addon">' .
+			h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix')) .
+			'</span>';
+		$suffixNumber = '<span class="input-group-addon">' .
+			h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix')) .
+			'</span></div>';
+	} else if (Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix') != '') {
+		$prefixNumber = '<div class="input-group"><span class="input-group-addon">' .
+			h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix')) .
+			'</span>';
+		$suffixNumber = '</div>';
+	} else if (Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix') != '') {
+			$prefixNumber = '<div class="input-group">';
+			$suffixNumber = '<span class="input-group-addon">' .
+				h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix')) .
+				'</span></div>';
+	}
+
 	echo $this->Form->input('number', array(
-		'label' => __d('webzash', 'Number'),
-		'between' =>  h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.prefix') .
-			str_pad('0', Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.zero_padding'), '0')),
-		'after' => h(Configure::read('Account.ET.' . $entrytype['Entrytype']['id'] . '.suffix')),
+		'label' => array('text' => __d('webzash', 'Number')),
+		'beforeInput' =>  $prefixNumber,
+		'afterInput' => $suffixNumber,
 	));
+
 	echo $this->Form->input('date', array('type' => 'text', 'label' => __d('webzash', 'Date')));
 
 	echo '<table class="stripped extra">';
