@@ -103,7 +103,6 @@ table td .dc-error {
 
 #page-info {
 	padding-right: 20px;
-	padding-bottom: 15px;
 }
 
 .link-pad {
@@ -190,122 +189,7 @@ table.extra tr td {
 	background-color: #F3F3F3;
 }
 
-/** Forms **/
-/*
-form {
-	clear: both;
-	margin-right: 20px;
-	padding: 0;
-	width: 95%;
-}
-fieldset {
-	border: none;
-	margin-bottom: 1em;
-	margin-left: 30px;
-}
-fieldset legend {
-	font-weight: bold;
-	border: none;
-	font-size: 17px;
-	margin-left: -30px;
-}
-fieldset fieldset {
-	margin-top: 0;
-	padding: 10px 0 0;
-}
-fieldset fieldset legend {
-	font-size: 120%;
-	font-weight: normal;
-}
-fieldset fieldset div {
-	clear: left;
-	margin: 0 20px;
-}
-form div {
-	clear: both;
-	margin-bottom: 1em;
-	padding: .5em;
-	vertical-align: text-top;
-}
-form .input {
-	color: #444;
-}
-form .required {
-	font-weight: bold;
-}
-form .required label:after {
-	color: #e32;
-	content: '*';
-	display:inline;
-}
-form div.submit {
-	border: 0;
-	clear: both;
-	margin-top: 10px;
-}
-label {
-	display: block;
-	font-size: 110%;
-	margin-bottom:3px;
-}
-input, textarea {
-	clear: both;
-	font-size: 140%;
-	padding: 1%;
-	width:98%;
-}
-select {
-	clear: both;
-	font-size: 120%;
-	vertical-align: text-bottom;
-}
-select[multiple=multiple] {
-	width: 100%;
-}
-option {
-	font-size: 120%;
-	padding: 0 3px;
-}
-input[type=checkbox] {
-	clear: left;
-	float: left;
-	margin: 0px 4px 0 0;
-	width: auto;
-}
-div.checkbox label {
-	display: inline;
-}
-input[type=radio] {
-	float:left;
-	width:auto;
-	margin: 3px 4px 0 0;
-	padding: 0;
-	line-height: 26px;
-}
-.radio label {
-	margin: 0 0 6px 20px;
-	line-height: 26px;
-}
-input[type=submit] {
-	display: inline;
-	font-size: 110%;
-	width: auto;
-}
-form .submit input[type=submit] {
-	background:#428BCA;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#428BCA), to(#428BCA));
-	background-image: -webkit-linear-gradient(top, #428BCA, #428BCA);
-	background-image: -moz-linear-gradient(top, #428BCA, #428BCA);
-	border-color: #357EBD;
-	color: #fff;
-	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
-	padding: 8px 10px;
-}
-form .submit input[type=submit]:hover {
-	background: #3276B1;
-	border-color: #285E8E;
-}
-*/
+/* Forms */
 
 fieldset {
 	border: none;
