@@ -25,6 +25,59 @@
  * THE SOFTWARE.
  */
 ?>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var entryId = 0;
+	$("button#send").click(function() {
+		$(".modal-body").hide();
+		$(".modal-footer").hide();
+		$(".modal-ajax").show();
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "email")); ?>/' + entryId,
+			data: $('form#emailSubmit').serialize(),
+				success: function(response) {
+					msg = JSON.parse(response); console.log(msg);
+					if (msg['status'] == 'success') {
+						$(".modal-error-msg").html("");
+						$(".modal-error-msg").hide();
+						$(".modal-body").show();
+						$(".modal-footer").show();
+						$(".modal-ajax").hide();
+						$("#emailModal").modal('hide');
+					} else {
+						$(".modal-error-msg").html(msg['msg']);
+						$(".modal-error-msg").show();
+						$(".modal-body").show();
+						$(".modal-footer").show();
+						$(".modal-ajax").hide();
+					}
+				},
+				error: function() {
+					$(".modal-error-msg").html("Error sending email.");
+					$(".error-msg").show();
+					$(".modal-body").show();
+					$(".modal-footer").show();
+					$(".modal-ajax").hide();
+				}
+		});
+	});
+
+	$('#emailModal').on('show.bs.modal', function(e) {
+		$(".modal-error-msg").html("");
+		$(".modal-ajax").hide();
+		$(".modal-error-msg").hide();
+		entryId = $(e.relatedTarget).data('id');
+		var entryType = $(e.relatedTarget).data('type');
+		var entryNumber = $(e.relatedTarget).data('number');
+		$("#emailModelType").html(entryType);
+		$("#emailModelNumber").html(entryNumber);
+	});
+});
+
+</script>
+
 <div>
 <?php
 	echo __d('webzash', 'Number') . ' : ' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']));
@@ -101,10 +154,55 @@
 
 	echo '<br /><br />';
 
+	/* Edit */
 	echo $this->Html->link(__d('webzash', 'Edit'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'edit', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary'));
+
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+
+	/* Delete */
 	echo $this->Form->postLink(__d('webzash', 'Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', $entrytype['Entrytype']['label'], $entry['Entry']['id']), array('class' => 'btn btn-primary', 'confirm' => __d('webzash', 'Are you sure ?')));
+
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+
+	/* Email */
+	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entrytype['Entrytype']['name']) . '" data-number="' . $this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']) . '" data-target="#emailModal" class="btn btn-primary">' . __d('webzash', 'Email') . '</a>';
+
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+
+	/* Download */
+	echo $this->Html->link(__d('webzash', 'Download'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'download', $entry['Entry']['id']), array('class' => 'btn btn-primary'));
+
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+
+	/* Print */
+	echo $this->Html->link(__d('webzash', 'Print'), '', array('class' => 'btn btn-primary', 'onClick' => "window.open('" . $this->Html->url(array('controller' => 'entries', 'action' => 'printpreview', $entry['Entry']['id'])) . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=600'); return false;"));
+
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+
+	/* Cancel */
 	echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'), array('class' => 'btn btn-default'));
 ?>
+</div>
+
+<!-- email modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="emailSubmit" name="emailSubmit">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+				<h4 class="modal-title" id="myModalLabel">Email <span id="emailModelType"></span> Entry Number "<span id="emailModelNumber"></span>"</h4>
+			</div>
+			<div class="modal-error-msg"></div>
+			<div class="modal-body">
+				<?php echo $this->Form->input('email', array('type' => 'email', 'label' => __d('webzash', 'Email to'), 'class' => 'form-control')); ?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="send">Send</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			<div class="modal-ajax">Please wait, sending email...</div>
+			</form>
+		</div>
+	</div>
 </div>
