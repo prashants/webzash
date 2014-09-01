@@ -45,6 +45,7 @@ class Log extends WebzashAppModel {
                                 'allowEmpty' => false,
                         ),
                         'rule2' => array(
+                                /* 1 = success, 2 = notice & 3 = failure */
                                 'rule' => array('inList', array(1, 2, 3)),
                                 'message' => 'Invalid level',
                                 'required' => true,

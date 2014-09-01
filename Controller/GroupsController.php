@@ -51,6 +51,10 @@ class GroupsController extends WebzashAppController {
  */
 	public function add() {
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		$this->set('title_for_layout', __d('webzash', 'Add Account Group'));
 
 		/* Create list of parent groups */
@@ -72,6 +76,7 @@ class GroupsController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Group->save($this->request->data)) {
+					$this->Log->add('Added group : ' . $this->request->data['Group']['name'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The account group has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -99,6 +104,10 @@ class GroupsController extends WebzashAppController {
 	public function edit($id = null) {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Account Group'));
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
 
 		/* Check for valid group */
 		if (empty($id)) {
@@ -140,6 +149,7 @@ class GroupsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Group->save($this->request->data)) {
+				$this->Log->add('Edited group : ' . $this->request->data['Group']['name'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The account group has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -168,6 +178,10 @@ class GroupsController extends WebzashAppController {
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -180,7 +194,8 @@ class GroupsController extends WebzashAppController {
 		}
 
 		/* Check if group exists */
-		if (!$this->Group->exists($id)) {
+		$group = $this->Group->findById($id);
+		if (!$group) {
 			$this->Session->setFlash(__d('webzash', 'Account group not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
@@ -210,6 +225,7 @@ class GroupsController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Group->delete($id)) {
+			$this->Log->add('Deleted group : ' . $group['Group']['name'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The account group has been deleted.'), 'success');
 		} else {

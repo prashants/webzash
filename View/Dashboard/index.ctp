@@ -97,6 +97,21 @@
 		<div class="panel panel-info">
 			<div class="panel-heading"><?php echo __d('webzash', 'Recent activity'); ?></div>
 			<div class="panel-body">
+				<?php
+					if (count($logs) <= 0) {
+						echo 'Nothing here.';
+					} else {
+						echo '<table>';
+						foreach ($logs as $row => $data) {
+							echo '<tr>';
+							echo '<td>' . dateFromSql($data['Log']['date']) . '</td>';
+							echo '<td>' . h($data['Log']['message']) . '</td>';
+							echo '</tr>';
+						}
+						echo '</table>';
+						echo '<span class="pull-right">' . $this->Html->link(__d('webzash', 'more'), array('plugin' => 'webzash', 'controller' => 'logs', 'action' => 'index')) . '</span>';
+					}
+				?>
 			</div>
 		</div>
 	</div>
