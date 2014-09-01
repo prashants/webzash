@@ -36,6 +36,9 @@
 			'T' => __d('webzash', 'Text'),
 		);
 
+		$prefixInches = '<div class="input-group">';
+		$suffixInches = '<span class="input-group-addon">' . __d('webzash', 'inches') .'</span></div>';
+
 		echo $this->Form->create('Setting', array(
 			'inputDefaults' => array(
 				'div' => 'form-group',
@@ -46,15 +49,15 @@
 	?>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Paper Size'); ?></legend>
-		<?php echo $this->Form->input('print_paper_height', array('label' => __d('webzash', 'Height'), 'after' => __d('webzash', 'inches'))); ?>
-		<?php echo $this->Form->input('print_paper_width', array('label' => __d('webzash', 'Width'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_paper_height', array('label' => __d('webzash', 'Height'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
+		<?php echo $this->Form->input('print_paper_width', array('label' => __d('webzash', 'Width'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Paper Margin'); ?></legend>
-		<?php echo $this->Form->input('print_margin_top', array('label' => __d('webzash', 'Top'), 'after' => __d('webzash', 'inches'))); ?>
-		<?php echo $this->Form->input('print_margin_bottom', array('label' => __d('webzash', 'Bottom'), 'after' => __d('webzash', 'inches'))); ?>
-		<?php echo $this->Form->input('print_margin_left', array('label' => __d('webzash', 'Left'), 'after' => __d('webzash', 'inches'))); ?>
-		<?php echo $this->Form->input('print_margin_right', array('label' => __d('webzash', 'Right'), 'after' => __d('webzash', 'inches'))); ?>
+		<?php echo $this->Form->input('print_margin_top', array('label' => __d('webzash', 'Top'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
+		<?php echo $this->Form->input('print_margin_bottom', array('label' => __d('webzash', 'Bottom'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
+		<?php echo $this->Form->input('print_margin_left', array('label' => __d('webzash', 'Left'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
+		<?php echo $this->Form->input('print_margin_right', array('label' => __d('webzash', 'Right'), 'beforeInput' => $prefixInches, 'afterInput' => $suffixInches)); ?>
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Orientation'); ?></legend>
