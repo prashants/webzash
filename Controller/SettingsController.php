@@ -67,6 +67,10 @@ class SettingsController extends WebzashAppController {
 		App::import("Webzash.Model", "Entry");
 		$this->Entry = new Entry();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		$this->set('title_for_layout', __d('webzash', 'Account Settings'));
 
 		$setting = $this->Setting->findById(1);
@@ -104,6 +108,7 @@ class SettingsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
+				$this->Log->add('Updated account settings', 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account settings has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
@@ -143,6 +148,10 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Email Settings'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
@@ -162,6 +171,7 @@ class SettingsController extends WebzashAppController {
 			/* If use default email is checked then only update that field */
 			if ($this->request->data['Setting']['email_use_default'] == 1) {
 				if ($this->Setting->save($this->request->data, true, array('email_use_default'))) {
+					$this->Log->add('Updated email settings', 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
@@ -172,6 +182,7 @@ class SettingsController extends WebzashAppController {
 				}
 			} else {
 				if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_username', 'email_password', 'email_from'))) {
+					$this->Log->add('Updated email settings', 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
@@ -196,6 +207,10 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Printer Settings'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
@@ -213,6 +228,7 @@ class SettingsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Setting->save($this->request->data, true, array('print_paper_height', 'print_paper_width', 'print_margin_top', 'print_margin_bottom', 'print_margin_left', 'print_margin_right', 'print_orientation', 'print_page_format'))) {
+				$this->Log->add('Updated printer settings', 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Printer settings has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
@@ -245,6 +261,10 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Lock Account'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
@@ -264,6 +284,11 @@ class SettingsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Setting->save($this->request->data, true, array('account_locked'))) {
+				if ($this->request->data['Setting']['account_locked'] == '1') {
+					$this->Log->add('Account locked', 1);
+				} else {
+					$this->Log->add('Account unlocked', 1);
+				}
 				$ds->commit();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
 					$this->Session->setFlash(__d('webzash', 'Account has been locked.'), 'success');

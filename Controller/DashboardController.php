@@ -165,7 +165,7 @@ class DashboardController extends WebzashAppController {
 		);
 		$this->set('accsummary', $accsummary);
 
-		$logs = $this->Log->find('all', array('limit' => 20, 'order' => array('Log.date DESC')));
+		$logs = $this->Log->find('all', array('limit' => 17, 'order' => array('Log.date DESC')));
 		$this->set('logs', $logs);
 
 		return;
