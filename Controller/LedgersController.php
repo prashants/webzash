@@ -57,6 +57,10 @@ class LedgersController extends WebzashAppController {
 		App::import("Webzash.Model", "Group");
 		$this->Group = new Group();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* Create list of parent groups */
 		$parents = $this->Group->find('list', array(
 			'fields' => array('Group.id', 'Group.name'),
@@ -84,6 +88,7 @@ class LedgersController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Ledger->save($this->request->data)) {
+					$this->Log->add('Added ledger : ' . $this->request->data['Ledger']['name'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The account ledger has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -114,6 +119,10 @@ class LedgersController extends WebzashAppController {
 		App::import("Webzash.Model", "Group");
 		$this->Group = new Group();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* Check for valid ledger */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Account ledger not specified.'), 'danger');
@@ -143,6 +152,7 @@ class LedgersController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Ledger->save($this->request->data)) {
+				$this->Log->add('Edited ledger : ' . $this->request->data['Ledger']['name'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The account ledger has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -171,6 +181,10 @@ class LedgersController extends WebzashAppController {
 		App::import("Webzash.Model", "Entryitem");
 		$this->Entryitem = new Entryitem();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -183,7 +197,8 @@ class LedgersController extends WebzashAppController {
 		}
 
 		/* Check if ledger exists */
-		if (!$this->Ledger->exists($id)) {
+		$ledger = $this->Ledger->findById($id);
+		if (!$ledger) {
 			$this->Session->setFlash(__d('webzash', 'Account ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
@@ -200,6 +215,7 @@ class LedgersController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Ledger->delete($id)) {
+			$this->Log->add('Deleted ledger : ' . $ledger['Ledger']['name'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The account ledger has been deleted.'), 'success');
 		} else {
