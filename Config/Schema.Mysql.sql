@@ -106,8 +106,7 @@ CREATE TABLE `%_PREFIX_%logs` (
 	`user` varchar(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`user_agent` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`message_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`message_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`message` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
         UNIQUE KEY `id`(`id`), PRIMARY KEY (`id`)) DEFAULT CHARSET=utf8,
 	COLLATE=utf8_general_ci,
 	ENGINE=InnoDB;
