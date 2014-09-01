@@ -35,4 +35,88 @@ App::uses('WebzashAppModel', 'Webzash.Model');
  */
 class Log extends WebzashAppModel {
 
+        /* Validation rules for the Log table */
+        public $validate = array(
+                'level' => array(
+                        'rule1' => array(
+                                'rule' => 'notEmpty',
+                                'message' => 'Level cannot be empty',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                        'rule2' => array(
+                                'rule' => array('inList', array(1, 2, 3)),
+                                'message' => 'Invalid level',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'date' => array(
+                        'rule1' => array(
+                                'rule' => 'notEmpty',
+                                'message' => 'Date cannot be empty',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'host_ip' => array(
+                        'rule1' => array(
+                                'rule' => array('ip', 'both'),
+                                'message' => 'Invalid IP address',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'user' => array(
+                        'rule1' => array(
+                                'rule' => array('maxLength', 100),
+                                'message' => 'Username cannot be more than 100 characters',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'url' => array(
+                        'rule1' => array(
+                                'rule' => 'url',
+                                'message' => 'URL is not valid',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'user_agent' => array(
+                        'rule1' => array(
+                                'rule' => array('maxLength', 255),
+                                'message' => 'User agent cannot be more than 100 characters',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+                'message' => array(
+                        'rule1' => array(
+                                'rule' => array('maxLength', 255),
+                                'message' => 'Message cannot be more than 255 characters',
+                                'required' => true,
+                                'allowEmpty' => false,
+                        ),
+                ),
+        );
+
+        /* Add a Log entry */
+        public function add($message, $level) {
+                $now = new DateTime();
+                $logentry = array('Log' => array(
+                        'level' => $level,
+                        'date' => $now->format('Y-m-d H:i:s'),
+                        'host_ip' => $_SERVER['REMOTE_ADDR'],
+                        'user' => CakeSession::read('Auth.User.username'),
+                        'url' => Router::url(null, TRUE),
+                        'user_agent' => env('HTTP_USER_AGENT'),
+                        'message' => $message,
+                ));
+                $this->create();
+                if (!$this->save($logentry)) {
+                        return false;
+                }
+                return true;
+        }
 }
