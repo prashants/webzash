@@ -159,14 +159,27 @@ class SettingsController extends WebzashAppController {
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();
 
-			if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_username', 'email_password', 'email_from'))) {
-				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
-				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+			/* If use default email is checked then only update that field */
+			if ($this->request->data['Setting']['email_use_default'] == 1) {
+				if ($this->Setting->save($this->request->data, true, array('email_use_default'))) {
+					$ds->commit();
+					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+				} else {
+					$ds->rollback();
+					$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
+					return;
+				}
 			} else {
-				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
-				return;
+				if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_username', 'email_password', 'email_from'))) {
+					$ds->commit();
+					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+				} else {
+					$ds->rollback();
+					$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
+					return;
+				}
 			}
 		} else {
 			$this->request->data = $setting;
@@ -272,6 +285,13 @@ class SettingsController extends WebzashAppController {
 			return;
 		}
 		return;
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
+		$this->Security->unlockedActions = array('email');
 	}
 
 	/* Authorization check */

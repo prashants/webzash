@@ -25,6 +25,32 @@
  * THE SOFTWARE.
  */
 ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	/* If use default email is checked then disable rest of the fields */
+	$('#SettingEmailUseDefault').change(function() {
+		if ($(this).is(':checked')) {
+			$('#SettingEmailProtocol').prop('disabled', true);
+			$('#SettingEmailHost').prop('disabled', true);
+			$('#SettingEmailPort').prop('disabled', true);
+			$('#SettingEmailUsername').prop('disabled', true);
+			$('#SettingEmailPassword').prop('disabled', true);
+			$('#SettingEmailFrom').prop('disabled', true);
+		} else {
+			$('#SettingEmailProtocol').prop('disabled', false);
+			$('#SettingEmailHost').prop('disabled', false);
+			$('#SettingEmailPort').prop('disabled', false);
+			$('#SettingEmailUsername').prop('disabled', false);
+			$('#SettingEmailPassword').prop('disabled', false);
+			$('#SettingEmailFrom').prop('disabled', false);
+		}
+	});
+	$('#SettingEmailUseDefault').trigger('change');
+});
+</script>
+
 <div class="email form">
 <?php
 	$protocol_options = array(
