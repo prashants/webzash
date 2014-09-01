@@ -76,7 +76,7 @@ class GroupsController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Group->save($this->request->data)) {
-					$this->Log->add('Added group : ' . $this->request->data['Group']['name'], 1);
+					$this->Log->add('Added Group : ' . $this->request->data['Group']['name'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The account group has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -149,7 +149,7 @@ class GroupsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Group->save($this->request->data)) {
-				$this->Log->add('Edited group : ' . $this->request->data['Group']['name'], 1);
+				$this->Log->add('Edited Group : ' . $this->request->data['Group']['name'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The account group has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -225,7 +225,7 @@ class GroupsController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Group->delete($id)) {
-			$this->Log->add('Deleted group : ' . $group['Group']['name'], 1);
+			$this->Log->add('Deleted Group : ' . $group['Group']['name'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The account group has been deleted.'), 'success');
 		} else {

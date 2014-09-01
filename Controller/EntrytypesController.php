@@ -68,6 +68,10 @@ class EntrytypesController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Entry Type'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* On POST */
 		if ($this->request->is('post')) {
 			$this->Entrytype->create();
@@ -90,6 +94,7 @@ class EntrytypesController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Entrytype->save($this->request->data)) {
+					$this->Log->add('Added Entrytype : ' . $this->request->data['Entrytype']['name'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The entry type has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
@@ -117,6 +122,10 @@ class EntrytypesController extends WebzashAppController {
 	public function edit($id = null) {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Entry Type'));
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
 
 		/* Check for valid entry type */
 		if (empty($id)) {
@@ -150,6 +159,7 @@ class EntrytypesController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Entrytype->save($this->request->data)) {
+				$this->Log->add('Edited Entrytype : ' . $this->request->data['Entrytype']['name'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The entry type has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
@@ -178,6 +188,10 @@ class EntrytypesController extends WebzashAppController {
 		App::import("Webzash.Model", "Entry");
 		$this->Entry = new Entry();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -190,7 +204,8 @@ class EntrytypesController extends WebzashAppController {
 		}
 
 		/* Check if entry type exists */
-		if (!$this->Entrytype->exists($id)) {
+		$entrytype = $this->Entrytype->findById($id);
+		if (!$entrytype) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entrytypes', 'action' => 'index'));
 		}
@@ -207,6 +222,7 @@ class EntrytypesController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Entrytype->delete($id)) {
+			$this->Log->add('Deleted Entrytype : ' . $entrytype['Entrytype']['name'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The entry type has been deleted.'), 'success');
 		} else {

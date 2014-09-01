@@ -88,7 +88,7 @@ class LedgersController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Ledger->save($this->request->data)) {
-					$this->Log->add('Added ledger : ' . $this->request->data['Ledger']['name'], 1);
+					$this->Log->add('Added Ledger : ' . $this->request->data['Ledger']['name'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The account ledger has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -152,7 +152,7 @@ class LedgersController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Ledger->save($this->request->data)) {
-				$this->Log->add('Edited ledger : ' . $this->request->data['Ledger']['name'], 1);
+				$this->Log->add('Edited Ledger : ' . $this->request->data['Ledger']['name'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The account ledger has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
@@ -215,7 +215,7 @@ class LedgersController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Ledger->delete($id)) {
-			$this->Log->add('Deleted ledger : ' . $ledger['Ledger']['name'], 1);
+			$this->Log->add('Deleted Ledger : ' . $ledger['Ledger']['name'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The account ledger has been deleted.'), 'success');
 		} else {

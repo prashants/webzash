@@ -68,6 +68,10 @@ class TagsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Tag'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* On POST */
 		if ($this->request->is('post')) {
 			$this->Tag->create();
@@ -80,6 +84,7 @@ class TagsController extends WebzashAppController {
 				$ds->begin();
 
 				if ($this->Tag->save($this->request->data)) {
+					$this->Log->add('Added Tag : ' . $this->request->data['Tag']['title'], 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The tag has been created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
@@ -108,6 +113,10 @@ class TagsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Tag'));
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* Check for valid tag */
 		if (empty($id)) {
 			$this->Session->setFlash(__d('webzash', 'Tag not specified.'), 'danger');
@@ -130,6 +139,7 @@ class TagsController extends WebzashAppController {
 			$ds->begin();
 
 			if ($this->Tag->save($this->request->data)) {
+				$this->Log->add('Edited Tag : ' . $this->request->data['Tag']['title'], 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'The tag has been updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
@@ -158,6 +168,10 @@ class TagsController extends WebzashAppController {
 		App::import("Webzash.Model", "Entry");
 		$this->Entry = new Entry();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -170,7 +184,8 @@ class TagsController extends WebzashAppController {
 		}
 
 		/* Check if tag exists */
-		if (!$this->Tag->exists($id)) {
+		$tag = $this->Tag->findById($id);
+		if (!$tag) {
 			$this->Session->setFlash(__d('webzash', 'Tag not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
@@ -187,6 +202,7 @@ class TagsController extends WebzashAppController {
 		$ds->begin();
 
 		if ($this->Tag->delete($id)) {
+			$this->Log->add('Deleted Tag : ' . $tag['Tag']['title'], 1);
 			$ds->commit();
 			$this->Session->setFlash(__d('webzash', 'The tag has been deleted.'), 'success');
 		} else {
