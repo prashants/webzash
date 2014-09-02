@@ -127,8 +127,8 @@ class Entryitem extends WebzashAppModel {
 			'rule1' => array(
 				'rule' => 'fullDateTime',
 				'message' => 'Invalid value for reconciliation date',
-				'required' => true,
-				'allowEmpty' => true,
+				'required' => false,
+				'allowEmpty' => false,
 			),
 		),
 	);

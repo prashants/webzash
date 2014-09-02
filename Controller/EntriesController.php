@@ -236,6 +236,10 @@ class EntriesController extends WebzashAppController {
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();
 
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
+
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -458,9 +462,10 @@ class EntriesController extends WebzashAppController {
 							return;
 						}
 					}
+					$this->Log->add('Added ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The entry has been created.'), 'success');
-					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'The entry could not be saved. Please, try again.'), 'danger');
@@ -496,6 +501,10 @@ class EntriesController extends WebzashAppController {
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
 
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
@@ -732,9 +741,10 @@ class EntriesController extends WebzashAppController {
 							return;
 						}
 					}
+					$this->Log->add('Edited ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'The entry has been updated.'), 'success');
-					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
 					$this->Session->setFlash(__d('webzash', 'The entry could not be updated. Please, try again.'), 'danger');
@@ -772,6 +782,10 @@ class EntriesController extends WebzashAppController {
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();
+
+		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Log");
+		$this->Log = new Log();
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
@@ -818,10 +832,11 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
+		$this->Log->add('Deleted ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 		$ds->commit();
 
 		$this->Session->setFlash(__d('webzash', 'The entry has been deleted.'), 'success');
-		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 	}
 
 /**
