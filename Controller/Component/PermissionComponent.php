@@ -35,7 +35,6 @@ App::uses('Component', 'Controller');
  */
 class PermissionComponent extends Component {
 
-	public $components = array('Session');
 /**
  * Check if a role stored in session is allow a particular action
  *
@@ -138,7 +137,6 @@ class PermissionComponent extends Component {
 		);
 
 		if (!isset($role)) {
-			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
@@ -149,14 +147,12 @@ class PermissionComponent extends Component {
 
 		/* If invaid user role then deny access */
 		if (!isset($permissions[$role])) {
-			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
 		/* If action is registered then only check if user is logged in */
 		if ($action_name == 'registered') {
 			if (empty($role)) {
-				$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 				return false;
 			} else {
 				return true;
@@ -167,7 +163,6 @@ class PermissionComponent extends Component {
 		if (in_array($action_name, $permissions[$role])) {
 			return true;
 		} else {
-			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 	}
