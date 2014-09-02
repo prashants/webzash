@@ -104,6 +104,9 @@ class Log extends WebzashAppModel {
 
         /* Add a Log entry */
         public function add($message, $level) {
+                if (CakeSession::read('Wzsetting.enable_logging') != 1) {
+                        return true;
+                }
                 $now = new DateTime();
                 $logentry = array('Log' => array(
                         'level' => $level,

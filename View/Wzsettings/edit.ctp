@@ -56,7 +56,9 @@
 
 	echo $this->Form->input('sitename', array('label' => __d('webzash', 'Sitename')));
 	echo $this->Form->input('drcr_toby', array('type' => 'select', 'options' => $drcr_toby_options, 'label' => __d('webzash', 'In entries use')));
+	echo $this->Form->input('enable_logging', array('type' => 'checkbox', 'label' => __d('webzash', 'Enable logging'), 'class' => 'checkbox'));
 	echo $this->Form->input('row_count', array('type' => 'select', 'options' => $row_count_options, 'label' => __d('webzash', 'Row count')));
+
 	echo $this->Form->input('user_registration', array('type' => 'checkbox', 'label' => __d('webzash', 'User can create accounts'), 'class' => 'checkbox'));
 	echo $this->Form->input('admin_verification', array('type' => 'checkbox', 'label' => __d('webzash', 'Administrator approval is required for activating user accounts'), 'class' => 'checkbox'));
 	echo $this->Form->input('email_verification', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verification required for activating user accounts'), 'class' => 'checkbox'));

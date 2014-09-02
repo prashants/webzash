@@ -453,6 +453,11 @@ class WzusersController extends WebzashAppController {
 
 			/* Login */
 			if ($this->Auth->login()) {
+				if (empty($wzsetting['Wzsetting']['enable_logging'])) {
+					$this->Session->write('Wzsetting.enable_logging', 0);
+				} else {
+					$this->Session->write('Wzsetting.enable_logging', 1);
+				}
 				if (empty($wzsetting['Wzsetting']['row_count'])) {
 					$this->Session->write('Wzsetting.row_count', 10);
 				} else {

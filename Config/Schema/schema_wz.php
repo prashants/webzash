@@ -61,18 +61,19 @@ class WebzashSchema extends CakeSchema {
 
 	public $wzsettings = array(
 		'id' => array('type' => 'integer', 'null' => true, 'key' => 'primary'),
+		'sitename' => array('type' => 'string', 'null' => true),
+		'drcr_toby' => array('type' => 'string', 'null' => true),
+		'enable_logging' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
+		'row_count' => array('type' => 'string', 'null' => true),
+		'user_registration' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
+		'admin_verification' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
+		'email_verification' => array('type' => 'integer', 'null' => true),
 		'email_protocol' => array('type' => 'string', 'null' => true),
 		'email_host' => array('type' => 'string', 'null' => true),
 		'email_port' => array('type' => 'integer', 'null' => true),
 		'email_username' => array('type' => 'string', 'null' => true),
 		'email_password' => array('type' => 'string', 'null' => true),
-		'drcr_toby' => array('type' => 'string', 'null' => true),
-		'row_count' => array('type' => 'string', 'null' => true),
-		'admin_verification' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
-		'email_verification' => array('type' => 'integer', 'null' => true),
-		'user_registration' => array('type' => 'integer', 'null' => true, 'default' => 'null'),
 		'email_from' => array('type' => 'string', 'null' => true),
-		'sitename' => array('type' => 'string', 'null' => true),
 		'indexes' => array(
 
 		),

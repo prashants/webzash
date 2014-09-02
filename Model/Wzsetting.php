@@ -60,6 +60,20 @@ class Wzsetting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'enable_logging' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Enable logging cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for enable logging',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 		'row_count' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
@@ -82,6 +96,20 @@ class Wzsetting extends WebzashAppModel {
 			'rule4' => array(
 				'rule' => 'naturalNumber',
 				'message' => 'Row count is invalid',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'user_registration' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'User registration cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Incorrect value for user registration',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -110,20 +138,6 @@ class Wzsetting extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Incorrect value for email verification',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-		),
-		'user_registration' => array(
-			'rule1' => array(
-				'rule' => 'notEmpty',
-				'message' => 'User registration cannot be empty',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-			'rule2' => array(
-				'rule' => 'boolean',
-				'message' => 'Incorrect value for user registration',
 				'required' => true,
 				'allowEmpty' => false,
 			),
