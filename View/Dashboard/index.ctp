@@ -49,7 +49,13 @@
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Status'); ?></td>
-						<td><?php echo Configure::read('Account.locked') == 0 ? __d('webzash', 'Unlocked') : __d('webzash', 'Locked') ; ?></td>
+						<?php
+							if (Configure::read('Account.locked') == 0) {
+								echo '<td>' . __d('webzash', 'Unlocked') . '</td>';
+							} else {
+								echo '<td class="error-text">' . __d('webzash', 'Locked') . '</td>';
+							}
+						?>
 					</tr>
 				</table>
 			</div>
