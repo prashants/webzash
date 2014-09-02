@@ -573,6 +573,12 @@ class EntriesController extends WebzashAppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if (!empty($this->request->data)) {
 
+				/* Check if acccount is locked */
+				if (Configure::read('Account.locked') == 1) {
+					$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+				}
+
 				/***************************************************************************/
 				/*********************************** ENTRY *********************************/
 				/***************************************************************************/
@@ -1178,6 +1184,14 @@ class EntriesController extends WebzashAppController {
 		$this->Security->unlockedFields = array('Entryitem');
 
 		$this->Security->unlockedActions = array('email');
+
+		/* Check if acccount is locked */
+		if (Configure::read('Account.locked') == 1) {
+			if ($this->action == 'add' || $this->action == 'delete') {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+			}
+		}
 	}
 
 	/* Authorization check */

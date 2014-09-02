@@ -134,6 +134,13 @@ class GroupsController extends WebzashAppController {
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if acccount is locked */
+			if (Configure::read('Account.locked') == 1) {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
+			}
+
 			/* Set group id */
 			unset($this->request->data['Group']['id']);
 			$this->Group->id = $id;
@@ -235,6 +242,18 @@ class GroupsController extends WebzashAppController {
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 	}
+
+        function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Check if acccount is locked */
+		if (Configure::read('Account.locked') == 1) {
+			if ($this->action == 'add' || $this->action == 'delete') {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
+			}
+		}
+        }
 
 	/* Authorization check */
 	public function isAuthorized($user) {

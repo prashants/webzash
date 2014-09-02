@@ -71,6 +71,18 @@ class LogsController extends WebzashAppController {
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 	}
 
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Check if acccount is locked */
+		if (Configure::read('Account.locked') == 1) {
+			if ($this->action == 'clear') {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'logs', 'action' => 'index'));
+			}
+		}
+	}
+
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {

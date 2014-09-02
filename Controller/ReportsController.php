@@ -414,6 +414,12 @@ class ReportsController extends WebzashAppController {
 
 			} else if (!empty($this->request->data['ReportRec']['submitrec'])) {
 
+				/* Check if acccount is locked */
+				if (Configure::read('Account.locked') == 1) {
+					$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
+				}
+
 				/* Reconciliation form submitted */
 				foreach ($this->request->data['ReportRec'] as $row => $recitem) {
 					if (empty($recitem['id'])) {

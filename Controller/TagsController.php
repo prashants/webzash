@@ -130,6 +130,13 @@ class TagsController extends WebzashAppController {
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if acccount is locked */
+			if (Configure::read('Account.locked') == 1) {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
+			}
+
 			/* Set tag id */
 			unset($this->request->data['Tag']['id']);
 			$this->Tag->id = $id;
@@ -211,6 +218,18 @@ class TagsController extends WebzashAppController {
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
+	}
+
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Check if acccount is locked */
+		if (Configure::read('Account.locked') == 1) {
+			if ($this->action == 'add' || $this->action == 'delete') {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
+			}
+		}
 	}
 
 	/* Authorization check */

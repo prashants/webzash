@@ -81,6 +81,13 @@ class SettingsController extends WebzashAppController {
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if acccount is locked */
+			if (Configure::read('Account.locked') == 1) {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+			}
+
 			/* Set setting id */
 			unset($this->request->data['Setting']['id']);
 			$this->Setting->id = 1;
@@ -160,6 +167,13 @@ class SettingsController extends WebzashAppController {
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if acccount is locked */
+			if (Configure::read('Account.locked') == 1) {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+			}
+
 			/* Set setting id */
 			unset($this->request->data['Setting']['id']);
 			$this->Setting->id = 1;
@@ -219,6 +233,13 @@ class SettingsController extends WebzashAppController {
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if acccount is locked */
+			if (Configure::read('Account.locked') == 1) {
+				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
+			}
+
 			/* Set setting id */
 			unset($this->request->data['Setting']['id']);
 			$this->Setting->id = 1;
