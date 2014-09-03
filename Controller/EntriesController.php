@@ -874,7 +874,7 @@ class EntriesController extends WebzashAppController {
 		if ($this->request->is('get')) {
 			$data = array(
 				'status' => 'error',
-				'msg' => __d('webzash', 'Method not allowed'),
+				'msg' => __d('webzash', 'Method not allowed.'),
 			);
 			$this->set('data', $data);
 			return;
@@ -884,7 +884,7 @@ class EntriesController extends WebzashAppController {
 		if (empty($id)) {
 			$data = array(
 				'status' => 'error',
-				'msg' => __d('webzash', 'Entry not specified'),
+				'msg' => __d('webzash', 'Entry not specified.'),
 			);
 			$this->set('data', $data);
 			return;
@@ -895,7 +895,7 @@ class EntriesController extends WebzashAppController {
 		if (!$entry) {
 			$data = array(
 				'status' => 'error',
-				'msg' => __d('webzash', 'Entry not found'),
+				'msg' => __d('webzash', 'Entry not found.'),
 			);
 			$this->set('data', $data);
 			return;
@@ -907,7 +907,7 @@ class EntriesController extends WebzashAppController {
 				if (!Validation::email($this->request->data['email'])) {
 					$data = array(
 						'status' => 'error',
-						'msg' => __d('webzash', 'Invalid email'),
+						'msg' => __d('webzash', 'Invalid email specified.'),
 					);
 					$this->set('data', $data);
 					return;
@@ -918,7 +918,7 @@ class EntriesController extends WebzashAppController {
 				if (!$entrytype) {
 					$data = array(
 						'status' => 'error',
-						'msg' => __d('webzash', 'Invalid entry type'),
+						'msg' => __d('webzash', 'Invalid entry type.'),
 					);
 					$this->set('data', $data);
 					return;
@@ -953,15 +953,24 @@ class EntriesController extends WebzashAppController {
 					'entryitems' => $entryitems,
 					'entrytype' => $entrytype,
 				);
-				$this->Generic->sendEmail(
+				$email_status = $this->Generic->sendEmail(
 					$this->request->data['email'],
-					h($entrytype['Entrytype']['name']) . ' Number ' . $this->getEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']),
-					'entry_email', $viewVars, Configure::read('Account.email_use_default')
+					h($entrytype['Entrytype']['name']) . ' Number ' .
+					$this->getEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']),
+					'entry_email', $viewVars,
+					Configure::read('Account.email_use_default'), false
 				);
-				$data = array(
-					'status' => 'success',
-					'msg' => __d('webzash', 'Email sent'),
-				);
+				if ($email_status) {
+					$data = array(
+						'status' => 'success',
+						'msg' => __d('webzash', 'Email sent.'),
+					);
+				} else {
+					$data = array(
+						'status' => 'error',
+						'msg' => __d('webzash', 'Could not send email. Please check your email settings.'),
+					);
+				}
 				$this->set('data', $data);
 				return;
 			} else {

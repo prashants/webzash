@@ -125,6 +125,8 @@ a.no-hover:hover {
 .modal-ajax {
 	padding-left: 25px;
 	font-size: 18px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .modal-error-msg {

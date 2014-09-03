@@ -36,10 +36,13 @@ App::uses('CakeEmail', 'Network/Email');
  */
 class GenericComponent extends Component {
 
+	public $components = array('Session');
+
 /**
  * Send email
  */
-	public function sendEmail($to = '', $subject = '', $view = '', $viewVars = array(), $useDefault = true) {
+	public function sendEmail($to = '', $subject = '', $view = '', $viewVars = array(),
+		$useDefault = true, $errorInSesson = false) {
 		if ($useDefault == true) {
 			App::import("Webzash.Model", "Wzsetting");
 			$this->Wzsetting = new Wzsetting();
@@ -48,7 +51,10 @@ class GenericComponent extends Component {
 			$wzsetting = $this->Wzsetting->findById(1);
 
 			if (!$wzsetting) {
-				return;
+				if ($errorInSesson) {
+					$this->Session->write('emailError', true);
+				}
+				return false;
 			}
 
 			$viewVars['sitename'] = $wzsetting['Wzsetting']['sitename'];
@@ -64,13 +70,21 @@ class GenericComponent extends Component {
 
 			$Email = new CakeEmail();
 			$Email->config($config);
-			$Email->from(array($wzsetting['Wzsetting']['email_username'] => $wzsetting['Wzsetting']['email_from']))
-				->template('Webzash.' . $view, 'Webzash.email')
-				->viewVars($viewVars)
-				->emailFormat('both')
-				->to($to)
-				->subject($subject)
-				->send();
+			try {
+				$Email->from(array($wzsetting['Wzsetting']['email_username'] =>
+						$wzsetting['Wzsetting']['email_from']))
+					->template('Webzash.' . $view, 'Webzash.email')
+					->viewVars($viewVars)
+					->emailFormat('both')
+					->to($to)
+					->subject($subject)
+					->send();
+			} catch (Exception $e) {
+				if ($errorInSesson) {
+					$this->Session->write('emailError', true);
+				}
+				return false;
+			}
 
 		} else {
 			App::import("Webzash.Model", "Setting");
@@ -79,7 +93,10 @@ class GenericComponent extends Component {
 			$setting = $this->Setting->findById(1);
 
 			if (!$setting) {
-				return;
+				if ($errorInSesson) {
+					$this->Session->write('emailError', true);
+				}
+				return false;
 			}
 
 			/* TODO : $viewVars['sitename'] = $wzsetting['Wzsetting']['sitename']; */
@@ -99,13 +116,21 @@ class GenericComponent extends Component {
 
 			$Email = new CakeEmail();
 			$Email->config($config);
-			$Email->from(array($setting['Setting']['email_username'] => $setting['Setting']['email_from']))
-				->template('Webzash.' . $view, 'Webzash.email')
-				->viewVars($viewVars)
-				->emailFormat('both')
-				->to($to)
-				->subject($subject)
-				->send();
+			try {
+				$Email->from(array($setting['Setting']['email_username'] =>
+						$setting['Setting']['email_from']))
+					->template('Webzash.' . $view, 'Webzash.email')
+					->viewVars($viewVars)
+					->emailFormat('both')
+					->to($to)
+					->subject($subject)
+					->send();
+			} catch (Exception $e) {
+				if ($errorInSesson) {
+					$this->Session->write('emailError', true);
+				}
+				return false;
+			}
 		}
 
 		return;
