@@ -133,6 +133,6 @@ class GenericComponent extends Component {
 			}
 		}
 
-		return;
+		return true;
 	}
 }

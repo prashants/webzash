@@ -171,7 +171,7 @@ class WzusersController extends WebzashAppController {
 					$this->Generic->sendEmail(
 						$this->request->data['Wzuser']['email'],
 						'Your registraion details',
-						'user_add', $viewVars, true
+						'user_add', $viewVars, true, true
 					);
 
 					$ds->commit();
@@ -502,6 +502,7 @@ class WzusersController extends WebzashAppController {
  * logout method
  */
 	public function logout() {
+		$this->Session->destroy();
 		return $this->redirect($this->Auth->logout());
 	}
 
@@ -568,7 +569,7 @@ class WzusersController extends WebzashAppController {
 			$this->Generic->sendEmail(
 				$wzuser['Wzuser']['email'],
 				'Account verified',
-				'user_verify', $viewVars, true
+				'user_verify', $viewVars, true, true
 			);
 
 			$this->Session->setFlash(__d('webzash', 'User account is now verified'), 'success');
@@ -612,13 +613,15 @@ class WzusersController extends WebzashAppController {
 					'fullname' => $wzuser['Wzuser']['fullname'],
 					'verification_key' => $wzuser['Wzuser']['verification_key'],
 				);
-				$this->Generic->sendEmail(
+				$email_status = $this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Account verification required',
-					'user_resend', $viewVars, true
+					'user_resend', $viewVars, true, true
 				);
 
-				$this->Session->setFlash(__d('webzash', 'Verification email sent. Please check your email.'), 'success');
+				if ($email_status) {
+					$this->Session->setFlash(__d('webzash', 'Verification email sent. Please check your email.'), 'success');
+				}
 			}
 		}
 	}
@@ -735,7 +738,7 @@ class WzusersController extends WebzashAppController {
 				$this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Password changed',
-					'user_changepass', $viewVars, true
+					'user_changepass', $viewVars, true, true
 				);
 
 				if ($this->Auth->user('role') == 'admin') {
@@ -798,13 +801,17 @@ class WzusersController extends WebzashAppController {
 					'fullname' => $wzuser['Wzuser']['fullname'],
 					'password' => $this->request->data['Wzuser']['new_password'],
 				);
-				$this->Generic->sendEmail(
+				$email_status = $this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Password changed by admin',
-					'user_resetpass', $viewVars, true
+					'user_resetpass', $viewVars, true, true
 				);
 
-				$this->Session->setFlash(__d('webzash', 'User password has been updated. Email sent to user with the new password.'), 'success');
+				if ($email_status) {
+					$this->Session->setFlash(__d('webzash', 'User password has been updated. Email sent to user with the new password.'), 'success');
+				} else {
+					$this->Session->setFlash(__d('webzash', 'User password has been updated.'), 'success');
+				}
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
 			} else {
 				$ds->rollback();
@@ -860,13 +867,16 @@ class WzusersController extends WebzashAppController {
 					'fullname' => $wzuser['Wzuser']['fullname'],
 					'password' => $random_password,
 				);
-				$this->Generic->sendEmail(
+				$email_status = $this->Generic->sendEmail(
 					$wzuser['Wzuser']['email'],
 					'Your login details',
-					'user_forgot', $viewVars, true
+					'user_forgot', $viewVars, true, true
 				);
 
-				$this->Session->setFlash(__d('webzash', 'Password reset. Please check your email for more details on how to reset password.'), 'success');
+				if ($email_status) {
+					$this->Session->setFlash(__d('webzash', 'Password reset. Please check your email for more details on how to reset password.'), 'success');
+				}
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
 			}
 		} else {
 			return;
@@ -949,7 +959,7 @@ class WzusersController extends WebzashAppController {
 					$this->Generic->sendEmail(
 						$this->request->data['Wzuser']['email'],
 						'Your registraion details',
-						'user_register', $viewVars, true
+						'user_register', $viewVars, true, true
 					);
 
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'index'));
