@@ -59,6 +59,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			<?php echo $this->element('actionlinks'); ?>
 
 			<?php echo $this->Session->flash(); ?>
+			<?php if ($this->Session->read('emailError') == true) { echo $this->element('emailerror'); } ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
