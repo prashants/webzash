@@ -25,6 +25,16 @@
  * THE SOFTWARE.
  */
 ?>
+
+<?php
+/* Check if BC Math Library is present */
+if (!extension_loaded('bcmath')) {
+	echo '<div><div role="alert" class="alert alert-danger">' .
+		__d('webzash', 'PHP BC Math library is missing. Please check the "Wiki" in Help section on how to fix it.') .
+		'</div></div>';
+}
+?>
+
 <div class="row">
 	<div class="col-md-4">
 		<div class="panel panel-info">

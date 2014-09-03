@@ -133,7 +133,6 @@ class ReportsController extends WebzashAppController {
 			$bsheet['is_opdiff'] = false;
 		} else {
 			$bsheet['is_opdiff'] = true;
-			$this->Session->setFlash(__d('webzash', 'There is a difference in opening balance of ') . toCurrency($bsheet['opdiff']['opdiff_balance_dc'], $bsheet['opdiff']['opdiff_balance']), 'danger');
 		}
 
 		$this->set('bsheet', $bsheet);

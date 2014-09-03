@@ -116,11 +116,6 @@ class DashboardController extends WebzashAppController {
 		}
 		/* End intial check */
 
-		/* Check if BC Math Library is present */
-		if (!extension_loaded('bcmath')) {
-			$this->Session->setFlash(__d('webzash', 'PHP BC Math library is missing. Please check the "Help" section on how to fix it.', 'danger'));
-		}
-
 		/* Cash and bank sumary */
 		$ledgers = '';
 		try {

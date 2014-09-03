@@ -107,6 +107,16 @@ $(document).ready(function() {
 });
 </script>
 
+<?php
+/* Show difference in opening balance */
+if (calculate($bsheet['opdiff']['opdiff_balance'], 0, '!=')) {
+	echo '<div><div role="alert" class="alert alert-danger">' .
+		__d('webzash', 'There is a difference in opening balance of ') .
+		toCurrency($bsheet['opdiff']['opdiff_balance_dc'], $bsheet['opdiff']['opdiff_balance']) .
+		'</div></div>';
+}
+?>
+
 <table>
 
 	<!-- Liabilities and Assets -->
