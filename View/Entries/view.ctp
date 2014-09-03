@@ -165,17 +165,17 @@ $(document).ready(function() {
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 
 	/* Email */
-	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entrytype['Entrytype']['name']) . '" data-number="' . $this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']) . '" data-target="#emailModal" class="btn btn-primary">' . __d('webzash', 'Email') . '</a>';
+	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entrytype['Entrytype']['name']) . '" data-number="' . $this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']) . '" data-target="#emailModal">' . $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-envelope')) . '</a>';
 
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 
 	/* Download */
-	echo $this->Html->link(__d('webzash', 'Download'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'download', $entry['Entry']['id']), array('class' => 'btn btn-primary'));
+	echo $this->Html->link($this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-download-alt')), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'download', $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
 
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 
 	/* Print */
-	echo $this->Html->link(__d('webzash', 'Print'), '', array('class' => 'btn btn-primary', 'onClick' => "window.open('" . $this->Html->url(array('controller' => 'entries', 'action' => 'printpreview', $entry['Entry']['id'])) . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=600'); return false;"));
+	echo $this->Html->link($this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-print')), '', array('escape' => false, 'onClick' => "window.open('" . $this->Html->url(array('controller' => 'entries', 'action' => 'printpreview', $entry['Entry']['id'])) . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=600'); return false;"));
 
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 
