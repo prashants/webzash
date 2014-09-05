@@ -72,7 +72,7 @@ class Wzaccount extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => array('inList', array('Database/Mysql', 'Database/Sqlserver', 'Database/Postgres')),
-				'message' => 'Database type is not valid',
+				'message' => 'Invalid value for database type',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -108,25 +108,25 @@ class Wzaccount extends WebzashAppModel {
 		'db_port' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Port is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be less than 65000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => 'naturalNumber',
-				'message' => 'Port address is invalid',
+				'message' => 'Port cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -164,7 +164,7 @@ class Wzaccount extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for database persistent connection',
+				'message' => 'Invalid value for database persistent connection',
 				'required' => true,
 				'allowEmpty' => false,
 			),

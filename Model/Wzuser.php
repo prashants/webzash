@@ -40,19 +40,19 @@ class Wzuser extends WebzashAppModel {
 		'username' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'User name cannot be empty',
+				'message' => 'Username cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
-				'message' => 'User name is already in use',
+				'message' => 'Username is already in use',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'User name cannot be more than 255 characters',
+				'message' => 'Username cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -60,13 +60,13 @@ class Wzuser extends WebzashAppModel {
 		'fullname' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Full name cannot be empty',
+				'message' => 'Fullname cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'User name cannot be more than 255 characters',
+				'message' => 'Fullname cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -108,7 +108,7 @@ class Wzuser extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => array('inList', array('admin', 'manager', 'accountant', 'dataentry', 'guest')),
-				'message' => 'Role is not valid',
+				'message' => 'Invalid value for role',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -122,7 +122,7 @@ class Wzuser extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for status',
+				'message' => 'Invalid value for status',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -136,7 +136,7 @@ class Wzuser extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for email verified',
+				'message' => 'Invalid value for email verified',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -150,7 +150,21 @@ class Wzuser extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for administrator approved',
+				'message' => 'Invalid value for administrator approved',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'all_accounts' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'All accounts access cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => 'boolean',
+				'message' => 'Invalid value for all accounts access',
 				'required' => true,
 				'allowEmpty' => false,
 			),

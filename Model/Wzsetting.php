@@ -69,7 +69,7 @@ class Wzsetting extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for enable logging',
+				'message' => 'Invalid value for enable logging',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -77,25 +77,25 @@ class Wzsetting extends WebzashAppModel {
 		'row_count' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Row count is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Row count outside valid range',
+				'message' => 'Row count should be greater than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Row count outside valid range',
+				'message' => 'Row count should be less than 1000',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => 'naturalNumber',
-				'message' => 'Row count is invalid',
+				'message' => 'Row count cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -109,7 +109,7 @@ class Wzsetting extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for user registration',
+				'message' => 'Invalid value for user registration',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -123,7 +123,7 @@ class Wzsetting extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for admin verification',
+				'message' => 'Invalid value for admin verification',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -137,7 +137,7 @@ class Wzsetting extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for email verification',
+				'message' => 'Invalid value for email verification',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -145,7 +145,7 @@ class Wzsetting extends WebzashAppModel {
 		'email_protocol' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('Smtp', 'Mail')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid value for email protocol',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -161,25 +161,25 @@ class Wzsetting extends WebzashAppModel {
 		'email_port' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Port is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be less than 65000',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => 'naturalNumber',
-				'message' => 'Port address is invalid',
+				'message' => 'Port cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),

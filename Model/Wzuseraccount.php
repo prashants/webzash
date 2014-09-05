@@ -46,7 +46,7 @@ class Wzuseraccount extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => array('maxLength', 11),
-				'message' => 'Account id cannot be more than 11 characters',
+				'message' => 'User id cannot be more than 11 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
