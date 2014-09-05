@@ -44,7 +44,13 @@
 		echo $this->Form->input('role', array('type' => 'select', 'options' => $this->Generic->wzuser_role_options(), 'label' => __d('webzash', 'Role')));
 
 		/* Accounts selection */
-		echo $this->Form->input('wzaccount_ids', array('type' => 'select', 'options' => $wzaccounts, 'label' => __d('webzash', 'Account access'), 'multiple' => true));
+		echo $this->Form->input('wzaccount_ids', array(
+			'type' => 'select',
+			'options' => $wzaccounts,
+			'label' => __d('webzash', 'Account access'),
+			'multiple' => true,
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Select which accounts a user can access. Selecting "ALL ACCOUNTS" will grant them access to all accounts.') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(

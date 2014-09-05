@@ -35,16 +35,25 @@
 			),
 		));
 
-		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
+		echo $this->Form->input('label', array(
+			'label' => __d('webzash', 'Label'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : It is recommended to use a descriptive label like "sample20142105" which includes both a short name and the accounting year.') . '</span>',
+		));
 		echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 		echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
 		echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host')));
 		echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port')));
 		echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 		echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
-		echo $this->Form->input('db_prefix', array('label' => __d('webzash', 'Database prefix')));
+		echo $this->Form->input('db_prefix', array(
+			'label' => __d('webzash', 'Database prefix'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts.') . '</span>',
+		));
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
-		echo $this->Form->input('db_settings', array('label' => __d('webzash', 'Database settings')));
+		echo $this->Form->input('db_settings', array(
+			'label' => __d('webzash', 'Database settings'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Any additional settings to pass on to the database connection.') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(

@@ -69,7 +69,7 @@ $(document).ready(function() {
 			'legend' => false,
 			'class' => 'radio',
 			'div' => array('class' => 'form-group required', 'id' => 'AffectsGross'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Changes to whether it affects Gross or Net Profit & Loss is reflected in final Profit & Loss statement') . '</span>',
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Changes to whether it affects Gross or Net Profit & Loss is reflected in final Profit & Loss statement.') . '</span>',
 		));
 
 		echo '<div class="form-group">';
