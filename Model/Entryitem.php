@@ -40,7 +40,7 @@ class Entryitem extends WebzashAppModel {
 		'entry_id' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Entry type cannot be empty',
+				'message' => 'Entry id cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -118,7 +118,7 @@ class Entryitem extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'isDC',
-				'message' => 'Dr/Cr can only be debit or credit',
+				'message' => 'Invalid value for Dr/Cr',
 				'required' => true,
 				'allowEmpty' => false,
 			),

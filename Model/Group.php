@@ -86,13 +86,13 @@ class Group extends WebzashAppModel {
 		'affects_gross' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Affects gross or net profit/loss calculations cannot be empty',
+				'message' => 'Affects Gross or Net Profit & Loss cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for whether the account group affects gross or net calculations',
+				'message' => 'Invalid value for whether the account group affects Gross or Net Profit & Loss',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -116,4 +116,3 @@ class Group extends WebzashAppModel {
 		}
 	}
 }
-

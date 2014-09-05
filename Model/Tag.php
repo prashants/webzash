@@ -40,19 +40,19 @@ class Tag extends WebzashAppModel {
 		'title' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Tag title cannot be empty',
+				'message' => 'Title cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
-				'message' => 'Tag title is already in use',
+				'message' => 'Title is already in use',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 100),
-				'message' => 'Tag title cannot be more than 100 characters',
+				'message' => 'Title cannot be more than 100 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -60,19 +60,19 @@ class Tag extends WebzashAppModel {
 		'color' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Tag color cannot be empty',
+				'message' => 'Color cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('between', 6, 6),
-				'message' => 'Tag color has to be exactly 6 characters',
+				'message' => 'Color has to be exactly 6 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => 'hex',
-				'message' => 'Tag color has to be a valid color',
+				'message' => 'Color is not a valid hexadecimal color value',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -81,19 +81,19 @@ class Tag extends WebzashAppModel {
 		'background' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Tag background cannot be empty',
+				'message' => 'Background cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('between', 6, 6),
-				'message' => 'Tag background has to be exactly 6 characters',
+				'message' => 'Background has to be exactly 6 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => 'hex',
-				'message' => 'Tag background has to be a valid color',
+				'message' => 'Background is not a valid hexadecimal color value',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -111,4 +111,3 @@ class Tag extends WebzashAppModel {
 		return ctype_xdigit($value);
 	}
 }
-

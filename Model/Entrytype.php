@@ -40,31 +40,31 @@ class Entrytype extends WebzashAppModel {
 		'label' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Entry type label cannot be empty',
+				'message' => 'Label cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
-				'message' => 'Entry type label is already in use',
+				'message' => 'Label is already in use',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 100),
-				'message' => 'Entry type label cannot be more than 100 characters',
+				'message' => 'Label cannot be more than 100 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => 'alphaNumeric',
-				'message' => 'Entry type label can contain only letter and digits',
+				'message' => 'Label can contain only letter and digits',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule5' => array(
 				'rule' => array('comparison', 'not equal', '0'),
-				'message' => 'Entry type label cannot be "0"',
+				'message' => 'Label cannot be "0"',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -72,19 +72,19 @@ class Entrytype extends WebzashAppModel {
 		'name' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Entry type name cannot be empty',
+				'message' => 'Name cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => 'isUnique',
-				'message' => 'Entry type name is already in use',
+				'message' => 'Name is already in use',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('maxLength', 100),
-				'message' => 'Entry type name cannot be more than 100 characters',
+				'message' => 'Name cannot be more than 100 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -92,7 +92,7 @@ class Entrytype extends WebzashAppModel {
 		'description' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Entry type description cannot be more than 255 characters',
+				'message' => 'Description cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -100,7 +100,7 @@ class Entrytype extends WebzashAppModel {
 		'base_type' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('1')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid option for base type',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -108,7 +108,7 @@ class Entrytype extends WebzashAppModel {
 		'numbering' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('1', '2', '3')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid option for numbering',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -116,7 +116,7 @@ class Entrytype extends WebzashAppModel {
 		'prefix' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Entry type prefix cannot be more than 255 characters',
+				'message' => 'Prefix cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -124,7 +124,7 @@ class Entrytype extends WebzashAppModel {
 		'suffix' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 255),
-				'message' => 'Entry type suffix cannot be more than 255 characters',
+				'message' => 'Suffix cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -132,25 +132,25 @@ class Entrytype extends WebzashAppModel {
 		'zero_padding' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Zero padding is not valid number',
 				'required' => true,
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Zero padding should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 99),
-				'message' => 'Number outside valid range',
+				'message' => 'Zero padding should be less than 99',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => array('naturalNumber', true),
-				'message' => 'Invalid number',
+				'message' => 'Zero padding cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -158,7 +158,7 @@ class Entrytype extends WebzashAppModel {
 		'restriction_bankcash' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('1', '2', '3', '4', '5')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid option for restrictions',
 				'required' => true,
 				'allowEmpty' => false,
 			),

@@ -47,7 +47,7 @@ class Log extends WebzashAppModel {
                         'rule2' => array(
                                 /* 1 = success, 2 = notice & 3 = failure */
                                 'rule' => array('inList', array(1, 2, 3)),
-                                'message' => 'Invalid level',
+                                'message' => 'Invalid value for level',
                                 'required' => true,
                                 'allowEmpty' => false,
                         ),
@@ -79,7 +79,7 @@ class Log extends WebzashAppModel {
                 'url' => array(
                         'rule1' => array(
                                 'rule' => 'url',
-                                'message' => 'URL is not valid',
+                                'message' => 'Invalid URL',
                                 'required' => true,
                                 'allowEmpty' => false,
                         ),

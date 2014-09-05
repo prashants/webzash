@@ -113,7 +113,7 @@ class Ledger extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'isDC',
-				'message' => 'Opening balance Dr/Cr can only be debit or credit',
+				'message' => 'Invalid value for opening balance Dr/Cr',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -127,7 +127,7 @@ class Ledger extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for bank or cash account',
+				'message' => 'Invalid value for bank or cash account',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -147,7 +147,7 @@ class Ledger extends WebzashAppModel {
 			),
 			'rule2' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for reconciliation',
+				'message' => 'Invalid value for reconciliation',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -236,4 +236,3 @@ class Ledger extends WebzashAppModel {
 		}
 	}
 }
-

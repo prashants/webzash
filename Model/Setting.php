@@ -41,13 +41,13 @@ class Setting extends WebzashAppModel {
 		'id' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Account id cannot be empty',
+				'message' => 'Settings id cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('inList', array('1')),
-				'message' => 'Invalid id',
+				'message' => 'Invalid value for settings id',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -144,7 +144,7 @@ class Setting extends WebzashAppModel {
 		'manage_inventory' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('0')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid value for manage inventory',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -153,7 +153,7 @@ class Setting extends WebzashAppModel {
 		'account_locked' => array(
 			'rule1' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for lock',
+				'message' => 'Invalid value for lock',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -162,7 +162,7 @@ class Setting extends WebzashAppModel {
 		'email_use_default' => array(
 			'rule1' => array(
 				'rule' => 'boolean',
-				'message' => 'Incorrect value for use default email settings',
+				'message' => 'Invalid value for use default email settings',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -170,7 +170,7 @@ class Setting extends WebzashAppModel {
 		'email_protocol' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('Smtp', 'Mail')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid value for email protocol',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -186,25 +186,25 @@ class Setting extends WebzashAppModel {
 		'email_port' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Port is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
-				'message' => 'Port outside valid range',
+				'message' => 'Port should be less than 65000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
 				'rule' => array('naturalNumber', true),
-				'message' => 'Port address is invalid',
+				'message' => 'Port cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -237,19 +237,19 @@ class Setting extends WebzashAppModel {
 		'print_paper_height' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Height is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Height should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Height should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -257,19 +257,19 @@ class Setting extends WebzashAppModel {
 		'print_paper_width' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Width is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Width should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Width should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -277,19 +277,19 @@ class Setting extends WebzashAppModel {
 		'print_margin_top' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Top margin is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Top margin should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Top margin should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -297,19 +297,19 @@ class Setting extends WebzashAppModel {
 		'print_margin_bottom' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Bottom margin is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Bottom margin should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Bottom margin should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -317,19 +317,19 @@ class Setting extends WebzashAppModel {
 		'print_margin_left' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Left margin is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Left margin should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Left margin should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -337,19 +337,19 @@ class Setting extends WebzashAppModel {
 		'print_margin_right' => array(
 			'rule1' => array(
 				'rule' => 'numeric',
-				'message' => 'Invalid number',
+				'message' => 'Right margin is not a valid number',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Number outside valid range',
+				'message' => 'Right margin should be more than 0',
 				'required' => true,
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Number outside valid range',
+				'message' => 'Right margin should be less than 1000',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -358,7 +358,7 @@ class Setting extends WebzashAppModel {
 		'print_orientation' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('P', 'L')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid option for orientation',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -366,7 +366,7 @@ class Setting extends WebzashAppModel {
 		'print_page_format' => array(
 			'rule1' => array(
 				'rule' => array('inList', array('H', 'T')),
-				'message' => 'Invalid option',
+				'message' => 'Invalid option for page format',
 				'required' => true,
 				'allowEmpty' => false,
 			),
