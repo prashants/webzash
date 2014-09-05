@@ -136,6 +136,8 @@ class WzusersController extends WebzashAppController {
 					$this->request->data['Wzuser']['all_accounts'] = 0;
 				}
 
+				$this->request->data['Wzuser']['retry_count'] = 0;
+
 				/* Save user */
 				$ds = $this->Wzuser->getDataSource();
 				$ds->begin();
@@ -266,8 +268,9 @@ class WzusersController extends WebzashAppController {
 			$ds->begin();
 
 			$this->request->data['Wzuser']['verification_key'] = Security::hash(uniqid() . uniqid());
+			$this->request->data['Wzuser']['retry_count'] = 0;
 
-			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key', 'all_accounts'))) {
+			if ($this->Wzuser->save($this->request->data, true, array('username', 'fullname', 'email', 'role', 'status', 'email_verified', 'admin_verified', 'verification_key', 'retry_count', 'all_accounts'))) {
 
 				/* Delete existing user - account associations */
 				if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzuser_id' => $id))) {
@@ -429,7 +432,36 @@ class WzusersController extends WebzashAppController {
 				'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true)
 			)));
 			if (!$user) {
-				$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'danger');
+				/* On failed login attempt, increase the retry count */
+				$wzuser = $this->Wzuser->find('first', array(
+					'conditions' => array(
+						'username' => $this->request->data['Wzuser']['username'],
+					),
+				));
+				if ($wzuser) {
+					$this->Wzuser->read(null, $wzuser['Wzuser']['id']);
+					/* Use 4 since retry_count starts from 0 */
+					if ($wzuser['Wzuser']['retry_count'] >= 4) {
+						/* If max retry count reached, disable account */
+						$this->Wzuser->set(array(
+							'status' => 0,
+						));
+					} else {
+						$this->Wzuser->set(array(
+							'retry_count' => $wzuser['Wzuser']['retry_count'] + 1,
+						));
+					}
+					$this->Wzuser->save();
+
+					/* Use 4 since retry_count starts from 0 */
+					if ($wzuser['Wzuser']['retry_count'] >= 4) {
+						$this->Session->setFlash(__d('webzash', 'Login failed. You have exceed 5 login attempts hence your account has been disabled. Please contact your administrator to re-enable the account.'), 'danger');
+					} else {
+						$this->Session->setFlash(__d('webzash', 'Login failed. You still have %d attempts left out of 5 before the account is disabled.', 4 - $wzuser['Wzuser']['retry_count']), 'danger');
+					}
+				} else {
+					$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'danger');
+				}
 				return;
 			}
 
@@ -453,6 +485,11 @@ class WzusersController extends WebzashAppController {
 
 			/* Login */
 			if ($this->Auth->login()) {
+				/* Reset retry count on successful login */
+				$this->Wzuser->read(null, $this->Auth->user('id'));
+				$this->Wzuser->set(array('retry_count' => 0));
+				$this->Wzuser->save();
+
 				if (empty($wzsetting['Wzsetting']['enable_logging'])) {
 					$this->Session->write('Wzsetting.enable_logging', 0);
 				} else {

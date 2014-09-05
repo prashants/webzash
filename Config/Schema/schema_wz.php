@@ -102,6 +102,7 @@ class WebzashSchema extends CakeSchema {
 		'fullname' => array('type' => 'string', 'null' => true, 'default' => 'null'),
 		'email_verified' => array('type' => 'integer', 'null' => true),
 		'admin_verified' => array('type' => 'integer', 'null' => true),
+		'retry_count' => array('type' => 'integer', 'null' => true),
 		'all_accounts' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 
