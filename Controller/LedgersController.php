@@ -90,11 +90,11 @@ class LedgersController extends WebzashAppController {
 				if ($this->Ledger->save($this->request->data)) {
 					$this->Log->add('Added Ledger : ' . $this->request->data['Ledger']['name'], 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The account ledger has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account ledger "%s" created.', $this->request->data['Ledger']['name']), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The account ledger could not be saved. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to create account ledger. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -161,11 +161,11 @@ class LedgersController extends WebzashAppController {
 			if ($this->Ledger->save($this->request->data)) {
 				$this->Log->add('Edited Ledger : ' . $this->request->data['Ledger']['name'], 1);
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'The account ledger has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Account ledger "%s" updated.', $this->request->data['Ledger']['name']), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The account ledger could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update account ledger. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -213,7 +213,7 @@ class LedgersController extends WebzashAppController {
 		/* Check if any entry item using this ledger still exists */
 		$entries = $this->Entryitem->find('count', array('conditions' => array('Entryitem.ledger_id' => $id)));
 		if ($entries > 0) {
-			$this->Session->setFlash(__d('webzash', 'The account ledger cannot not be deleted since it has one or more entries still present.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Account ledger cannot not be deleted since it has one or more entries still present.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
@@ -224,10 +224,10 @@ class LedgersController extends WebzashAppController {
 		if ($this->Ledger->delete($id)) {
 			$this->Log->add('Deleted Ledger : ' . $ledger['Ledger']['name'], 1);
 			$ds->commit();
-			$this->Session->setFlash(__d('webzash', 'The account ledger has been deleted.'), 'success');
+			$this->Session->setFlash(__d('webzash', 'Account ledger "%s" deleted.', $ledger['Ledger']['name']), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account ledger could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete account ledger. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));

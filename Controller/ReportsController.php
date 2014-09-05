@@ -279,7 +279,7 @@ class ReportsController extends WebzashAppController {
 		if ($this->request->is('post')) {
 			/* If valid data then redirect with POST values are URL parameters so that pagination works */
 			if (empty($this->request->data['Report']['ledger_id'])) {
-				$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Invalid ledger.'), 'danger');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 			}
 
@@ -308,7 +308,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
-			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
 
@@ -392,7 +392,7 @@ class ReportsController extends WebzashAppController {
 
 				/* If valid data then redirect with POST values are URL parameters so that pagination works */
 				if (empty($this->request->data['Report']['ledger_id'])) {
-					$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Invalid ledger.'), 'danger');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 				}
 
@@ -427,7 +427,7 @@ class ReportsController extends WebzashAppController {
 					if (!empty($recitem['recdate'])) {
 						$recdate = dateToSql($recitem['recdate']);
 						if (!$recdate) {
-							$this->Session->setFlash(__d('webzash', 'Invalid date'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid reconciliation date.'), 'danger');
 							continue;
 						}
 					} else {
@@ -459,7 +459,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Check if ledger exists */
 		if (!$this->Ledger->exists($ledgerId)) {
-			$this->Session->setFlash(__d('webzash', 'Ledger not found'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 		}
 

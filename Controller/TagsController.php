@@ -86,11 +86,11 @@ class TagsController extends WebzashAppController {
 				if ($this->Tag->save($this->request->data)) {
 					$this->Log->add('Added Tag : ' . $this->request->data['Tag']['title'], 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The tag has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Tag "%s" created.', $this->request->data['Tag']['title']), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The tag could not be saved. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to create tag. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -148,11 +148,11 @@ class TagsController extends WebzashAppController {
 			if ($this->Tag->save($this->request->data)) {
 				$this->Log->add('Edited Tag : ' . $this->request->data['Tag']['title'], 1);
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'The tag has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Tag "%s" updated.', $this->request->data['Tag']['title']), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The tag could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update tag. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -200,7 +200,7 @@ class TagsController extends WebzashAppController {
 		/* Check if any entries using the tag exists */
 		$entries = $this->Entry->find('count', array('conditions' => array('Entry.tag_id' => $id)));
 		if ($entries > 0) {
-			$this->Session->setFlash(__d('webzash', 'The tag cannot be deleted since one or more entries are still using it.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Tag cannot be deleted since one or more entries are still using it.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));
 		}
 
@@ -211,10 +211,10 @@ class TagsController extends WebzashAppController {
 		if ($this->Tag->delete($id)) {
 			$this->Log->add('Deleted Tag : ' . $tag['Tag']['title'], 1);
 			$ds->commit();
-			$this->Session->setFlash(__d('webzash', 'The tag has been deleted.'), 'success');
+			$this->Session->setFlash(__d('webzash', 'Tag "%s" deleted.', $tag['Tag']['title']), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The tag could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete tag. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'tags', 'action' => 'index'));

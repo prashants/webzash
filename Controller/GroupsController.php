@@ -78,11 +78,11 @@ class GroupsController extends WebzashAppController {
 				if ($this->Group->save($this->request->data)) {
 					$this->Log->add('Added Group : ' . $this->request->data['Group']['name'], 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The account group has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account group "%s" created.', $this->request->data['Group']['name']), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The account group could not be saved. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to create account group. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -147,7 +147,7 @@ class GroupsController extends WebzashAppController {
 
 			/* Check if group and parent group are not same */
 			if ($id == $this->request->data['Group']['parent_id']) {
-				$this->Session->setFlash(__d('webzash', 'The account group and parent group cannot be same.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Account group and parent group cannot be same.'), 'danger');
 				return;
 			}
 
@@ -158,11 +158,11 @@ class GroupsController extends WebzashAppController {
 			if ($this->Group->save($this->request->data)) {
 				$this->Log->add('Edited Group : ' . $this->request->data['Group']['name'], 1);
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'The account group has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Account group "%s" updated.', $this->request->data['Group']['name']), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The account group could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update account group. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -216,14 +216,14 @@ class GroupsController extends WebzashAppController {
 		/* Check if any child groups exists */
 		$child = $this->Group->find('count', array('conditions' => array('Group.parent_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__d('webzash', 'The account group cannot be deleted since it has one or more child group accounts still present.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Account group cannot be deleted since it has one or more child group accounts still present.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
 		/* Check if any child ledgers exists */
 		$child = $this->Ledger->find('count', array('conditions' => array('Ledger.group_id' => $id)));
 		if ($child > 0) {
-			$this->Session->setFlash(__d('webzash', 'The account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Account group cannot not be deleted since it has one or more child ledger accounts still present.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
 		}
 
@@ -234,10 +234,10 @@ class GroupsController extends WebzashAppController {
 		if ($this->Group->delete($id)) {
 			$this->Log->add('Deleted Group : ' . $group['Group']['name'], 1);
 			$ds->commit();
-			$this->Session->setFlash(__d('webzash', 'The account group has been deleted.'), 'success');
+			$this->Session->setFlash(__d('webzash', 'Account group "%s" deleted.', $group['Group']['name']), 'success');
 		} else {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account group could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete account group. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));

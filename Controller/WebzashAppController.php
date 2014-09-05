@@ -106,7 +106,7 @@ class WebzashAppController extends AppController {
 			$setting = $Setting->findById(1);
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Settings table missing. Please check whether this is a valid account database.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Settings table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		if (!$setting) {
@@ -136,7 +136,7 @@ class WebzashAppController extends AppController {
 			$rawentrytypes = $Entrytype->find('all');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
-			$this->Session->setFlash(__d('webzash', 'Entrytypes table missing. Please check whether this is a valid account database.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Entry types table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 

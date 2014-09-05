@@ -106,7 +106,7 @@ class SettingsController extends WebzashAppController {
 				),
 			));
 			if ($temp != 0) {
-				$this->Session->setFlash(__d('webzash', 'Account setting could not be changed since there are %d entries beyond the selected financial year start and end dates.', $temp), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update account setting since there are %d entries beyond the selected financial year start and end dates.', $temp), 'danger');
 				return;
 			}
 
@@ -117,11 +117,11 @@ class SettingsController extends WebzashAppController {
 			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
 				$this->Log->add('Updated account settings', 1);
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'Account settings has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Account settings updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Account settings could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update account settings. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -187,22 +187,22 @@ class SettingsController extends WebzashAppController {
 				if ($this->Setting->save($this->request->data, true, array('email_use_default'))) {
 					$this->Log->add('Updated email settings', 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Email settings updated.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to update email settings. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
 				if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_username', 'email_password', 'email_from'))) {
 					$this->Log->add('Updated email settings', 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'Email settings has been updated.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Email settings updated.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'Email settings could not be updated. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to update email settings. Please, try again.'), 'danger');
 					return;
 				}
 			}
@@ -251,11 +251,11 @@ class SettingsController extends WebzashAppController {
 			if ($this->Setting->save($this->request->data, true, array('print_paper_height', 'print_paper_width', 'print_margin_top', 'print_margin_bottom', 'print_margin_left', 'print_margin_right', 'print_orientation', 'print_page_format'))) {
 				$this->Log->add('Updated printer settings', 1);
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'Printer settings has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Printer settings updated.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Printer settings could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update printer settings. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -312,17 +312,17 @@ class SettingsController extends WebzashAppController {
 				}
 				$ds->commit();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
-					$this->Session->setFlash(__d('webzash', 'Account has been locked.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account locked.'), 'success');
 				} else {
-					$this->Session->setFlash(__d('webzash', 'Account has been unlocked.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account unlocked.'), 'success');
 				}
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'settings', 'action' => 'index'));
 			} else {
 				$ds->rollback();
 				if ($this->request->data['Setting']['account_locked'] == '1') {
-					$this->Session->setFlash(__d('webzash', 'Account could not be locked. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to lock account. Please, try again.'), 'danger');
 				} else {
-					$this->Session->setFlash(__d('webzash', 'Account could not be unlocked. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to unlock account. Please, try again.'), 'danger');
 				}
 				return;
 			}

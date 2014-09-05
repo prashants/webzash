@@ -65,7 +65,7 @@ class LogsController extends WebzashAppController {
 		if ($this->Log->deleteAll(array('1 = 1'))) {
 			$this->Session->setFlash(__d('webzash', 'Logs cleared.'), 'success');
 		} else {
-			$this->Session->setFlash(__d('webzash', 'Logs could not be cleared. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to clear logs. Please, try again.'), 'danger');
 		}
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));

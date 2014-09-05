@@ -30,7 +30,7 @@
 /* Check if BC Math Library is present */
 if (!extension_loaded('bcmath')) {
 	echo '<div><div role="alert" class="alert alert-danger">' .
-		__d('webzash', 'PHP BC Math library is missing. Please check the "Wiki" in Help section on how to fix it.') .
+		__d('webzash', 'PHP BC Math library is missing. Please check the "Wiki" section in Help on how to fix it.') .
 		'</div></div>';
 }
 ?>

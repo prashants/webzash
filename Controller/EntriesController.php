@@ -305,7 +305,7 @@ class EntriesController extends WebzashAppController {
 				} else if ($entrytype['Entrytype']['numbering'] == 2) {
 					/* Manual + Required */
 					if (empty($this->request->data['Entry']['number'])) {
-						$this->Session->setFlash(__d('webzash', 'Entry number cannot be empty'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Entry number cannot be empty.'), 'danger');
 						return;
 					} else {
 						$entrydata['Entry']['number'] = $this->request->data['Entry']['number'];
@@ -343,19 +343,19 @@ class EntriesController extends WebzashAppController {
 					}
 					$ledger = $this->Ledger->findById($entryitem['ledger_id']);
 					if (!$ledger) {
-						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Invalid ledger selected.'), 'danger');
 						return;
 					}
 
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
-							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed for this entry type.'), 'danger');
 							return;
 						}
 					}
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
-							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed for this entry type.'), 'danger');
 							return;
 						}
 					}
@@ -376,13 +376,13 @@ class EntriesController extends WebzashAppController {
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side for this entry type.'), 'danger');
 						return;
 					}
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side for this entry type.'), 'danger');
 						return;
 					}
 				}
@@ -398,23 +398,23 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
 					} else {
-						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr option selected.'), 'danger');
 						return;
 					}
 				}
 				if (calculate($dr_total, $cr_total, '!=')) {
-					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match.'), 'danger');
 					return;
 				}
 
@@ -458,17 +458,17 @@ class EntriesController extends WebzashAppController {
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers.'), 'danger');
 							return;
 						}
 					}
 					$this->Log->add('Added ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The entry has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Entry created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The entry could not be saved. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to create entry. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -621,19 +621,19 @@ class EntriesController extends WebzashAppController {
 					}
 					$ledger = $this->Ledger->findById($entryitem['ledger_id']);
 					if (!$ledger) {
-						$this->Session->setFlash(__d('webzash', 'Invalid ledger'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Invalid ledger selected.'), 'danger');
 						return;
 					}
 
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 4) {
 						if ($ledger['Ledger']['type'] != 1) {
-							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Only bank or cash ledgers are allowed for this entry type.'), 'danger');
 							return;
 						}
 					}
 					if ($entrytype['Entrytype']['restriction_bankcash'] == 5) {
 						if ($ledger['Ledger']['type'] == 1) {
-							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Bank or cash ledgers are not allowed for this entry type.'), 'danger');
 							return;
 						}
 					}
@@ -654,13 +654,13 @@ class EntriesController extends WebzashAppController {
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 2) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on debit side for this entry type.'), 'danger');
 						return;
 					}
 				}
 				if ($entrytype['Entrytype']['restriction_bankcash'] == 3) {
 					if (!$dc_valid) {
-						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Atleast one bank or cash ledger has to be on credit side for this entry type.'), 'danger');
 						return;
 					}
 				}
@@ -676,23 +676,23 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
 					} else {
-						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Invalid Dr/Cr option selected.'), 'danger');
 						return;
 					}
 				}
 				if (calculate($dr_total, $cr_total, '!=')) {
-					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Debit and Credit total do not match.'), 'danger');
 					return;
 				}
 
@@ -733,7 +733,7 @@ class EntriesController extends WebzashAppController {
 					/* Delete all original entryitems */
 					if (!$this->Entryitem->deleteAll(array('Entryitem.entry_id' => $id))) {
 						$ds->rollback();
-						$this->Session->setFlash(__d('webzash', 'Previous entry items could not be deleted. Please, try again.'), 'danger');
+						$this->Session->setFlash(__d('webzash', 'Previous entry items could not be deleted.'), 'danger');
 						return;
 					}
 
@@ -743,17 +743,17 @@ class EntriesController extends WebzashAppController {
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers.'), 'danger');
 							return;
 						}
 					}
 					$this->Log->add('Edited ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The entry has been updated.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Entry updated.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The entry could not be updated. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to update entry. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -795,12 +795,12 @@ class EntriesController extends WebzashAppController {
 
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
 		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Entry type not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 
@@ -827,21 +827,21 @@ class EntriesController extends WebzashAppController {
 		/* Delete entry items */
 		if (!$this->Entryitem->deleteAll(array('Entryitem.entry_id' => $id))) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The entry items could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete entry items. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
 		/* Delete entry */
 		if (!$this->Entry->delete($id)) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The entry could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete entry. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
 		$this->Log->add('Deleted ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
 		$ds->commit();
 
-		$this->Session->setFlash(__d('webzash', 'The entry has been deleted.'), 'success');
+		$this->Session->setFlash(__d('webzash', 'Entry deleted.'), 'success');
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 	}
 
@@ -968,7 +968,7 @@ class EntriesController extends WebzashAppController {
 				} else {
 					$data = array(
 						'status' => 'error',
-						'msg' => __d('webzash', 'Could not send email. Please check your email settings.'),
+						'msg' => __d('webzash', 'Failed to send email. Please check your email settings.'),
 					);
 				}
 				$this->set('data', $data);
@@ -976,7 +976,7 @@ class EntriesController extends WebzashAppController {
 			} else {
 				$data = array(
 					'status' => 'error',
-					'msg' => __d('webzash', 'No data'),
+					'msg' => __d('webzash', 'No data. Please, try again.'),
 				);
 				$this->set('data', $data);
 				return;
