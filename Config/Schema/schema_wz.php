@@ -84,6 +84,7 @@ class WebzashSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'length' => 11, 'key' => 'primary'),
 		'user_id' => array('type' => 'integer', 'null' => true),
 		'account_id' => array('type' => 'integer', 'null' => true),
+		'role' => array('type' => 'string', 'null' => true, 'default' => 'null'),
 		'indexes' => array(
 
 		),
