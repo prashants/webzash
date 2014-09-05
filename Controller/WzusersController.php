@@ -150,7 +150,7 @@ class WzusersController extends WebzashAppController {
 								if (!$this->Wzaccount->exists($wzaccount_id)) {
 									continue;
 								}
-								$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id);
+								$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id, 'role' => '');
 							}
 							if (!$this->Wzuseraccount->saveMany($data)) {
 								$ds->rollback();
@@ -284,7 +284,7 @@ class WzusersController extends WebzashAppController {
 							if (!$this->Wzaccount->exists($wzaccount_id)) {
 								continue;
 							}
-							$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id);
+							$data[] = array('wzuser_id' => $this->Wzuser->id, 'wzaccount_id' => $wzaccount_id, 'role' => '');
 						}
 						if (!$this->Wzuseraccount->saveMany($data)) {
 							$ds->rollback();
