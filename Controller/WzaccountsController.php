@@ -177,7 +177,7 @@ class WzaccountsController extends WebzashAppController {
 			try {
 				ConnectionManager::create('wz_newconfig', $wz_newconfig);
 			} catch (Exception $e) {
-				$this->Session->setFlash(__d('webzash', 'Cound not connect to database. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Cound not connect to database. Please, check your database settings.'), 'danger');
 				return;
 			}
 
@@ -318,7 +318,7 @@ class WzaccountsController extends WebzashAppController {
 				/* Save database configuration */
 				$this->Wzaccount->create();
 				if ($this->Wzaccount->save($account_config)) {
-					$this->Session->setFlash(__d('webzash', 'The account has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account created.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 				} else {
 					foreach ($this->Wzaccount->validationErrors as $field => $msg) {
@@ -369,11 +369,11 @@ class WzaccountsController extends WebzashAppController {
 
 				if ($this->Wzaccount->save($this->request->data)) {
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'The account config has been created.'), 'success');
+					$this->Session->setFlash(__d('webzash', 'Account config added.'), 'success');
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 				} else {
 					$ds->rollback();
-					$this->Session->setFlash(__d('webzash', 'The account config could not be saved. Please, try again.'), 'danger');
+					$this->Session->setFlash(__d('webzash', 'Failed to add account config. Please, try again.'), 'danger');
 					return;
 				}
 			} else {
@@ -431,11 +431,11 @@ class WzaccountsController extends WebzashAppController {
 
 			if ($this->Wzaccount->save($this->request->data)) {
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'The account config has been updated.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Updated account config.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'The account config could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update account config. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
@@ -483,20 +483,20 @@ class WzaccountsController extends WebzashAppController {
 		/* TODO : Delete database */
 		if (!$this->Wzaccount->delete($id)) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete account config. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Delete user - account association */
 		if (!$this->Wzuseraccount->deleteAll(array('Wzuseraccount.wzaccount_id' => $id))) {
 			$ds->rollback();
-			$this->Session->setFlash(__d('webzash', 'The account config could not be deleted. Please, try again.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'Failed to delete user-account relationship. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 		}
 
 		/* Success */
 		$ds->commit();
-		$this->Session->setFlash(__d('webzash', 'The account config has been deleted. Please delete the account data manually.'), 'success');
+		$this->Session->setFlash(__d('webzash', 'Account config deleted. Please delete the account database manually.'), 'success');
 
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
 	}

@@ -78,11 +78,11 @@ class WzsettingsController extends WebzashAppController {
 
 			if ($this->Wzsetting->save($this->request->data)) {
 				$ds->commit();
-				$this->Session->setFlash(__d('webzash', 'Settings has been updated. Please relogin for the setting to take effect.'), 'success');
+				$this->Session->setFlash(__d('webzash', 'Settings updated. Please relogin for the new settings to take effect.'), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 			} else {
 				$ds->rollback();
-				$this->Session->setFlash(__d('webzash', 'Settings could not be updated. Please, try again.'), 'danger');
+				$this->Session->setFlash(__d('webzash', 'Failed to update settings. Please, try again.'), 'danger');
 				return;
 			}
 		} else {
