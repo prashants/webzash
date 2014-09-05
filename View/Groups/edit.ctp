@@ -61,7 +61,16 @@ $(document).ready(function() {
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Group name')));
 		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'value' => $this->data['Group']['parent_id'], 'label' => __d('webzash', 'Parent group')));
 
-		echo $this->Form->input('affects_gross', array('type' => 'radio', 'options' => $options, 'default' => 1, 'before' => '<label class="control-label">' . __d('webzash', 'Affects') . '</label>', 'legend' => false, 'class' => 'radio', 'div' => array('class' => 'form-group required', 'id' => 'AffectsGross')));
+		echo $this->Form->input('affects_gross', array(
+			'type' => 'radio',
+			'options' => $options,
+			'default' => 1,
+			'before' => '<label class="control-label">' . __d('webzash', 'Affects') . '</label>',
+			'legend' => false,
+			'class' => 'radio',
+			'div' => array('class' => 'form-group required', 'id' => 'AffectsGross'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Changes to whether it affects Gross or Net Profit & Loss is reflected in final Profit & Loss statement') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(

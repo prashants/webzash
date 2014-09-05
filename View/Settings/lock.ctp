@@ -40,7 +40,12 @@
 	} else {
 		echo $this->Form->label('Setting.lock', __d('webzash', 'Currently this account is unlocked'));
 	}
-	echo $this->Form->input('account_locked', array('type' => 'checkbox', 'checked' => $locked, 'label' => __d('webzash', 'Lock account (No further modifications will be possible)')));
+	echo $this->Form->input('account_locked', array(
+		'type' => 'checkbox',
+		'checked' => $locked,
+		'label' => __d('webzash', 'Lock account'),
+		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Once a account is locked no further changes will be permitted. You will have to unlock it to make changes.') . '</span>',
+	));
 
 	echo '<div class="form-group">';
 	echo $this->Form->submit(__d('webzash', 'Submit'), array(

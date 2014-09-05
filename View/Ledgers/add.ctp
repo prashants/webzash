@@ -42,12 +42,27 @@
 		echo '<table>';
 		echo '<tr class="table-top">';
 		echo '<td class="width-drcr">' . $this->Form->input('op_balance_dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'label' => false)) . '</td>';
-		echo '<td>' . $this->Form->input('op_balance', array('label' => false, 'required' => false)) . '</td>';
+		echo '<td>' . $this->Form->input('op_balance', array(
+			'label' => false,
+			'required' => false,
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Assets / Expenses always have Dr balance and Liabilities / Incomes always have Cr balance') . '</span>',
+			)) . '</td>';
 		echo '</tr>';
 		echo '</table>';
 
-		echo $this->Form->input('type', array('type' => 'checkbox', 'label' => __d('webzash', 'Bank or cash account'),  'class' => 'checkbox'));
-		echo $this->Form->input('reconciliation', array('type' => 'checkbox', 'label' => __d('webzash', 'Reconciliation'), 'class' => 'checkbox'));
+		echo $this->Form->input('type', array(
+			'type' => 'checkbox',
+			'label' => __d('webzash', 'Bank or cash account'),
+			'class' => 'checkbox',
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Select if the ledger account is a bank or a cash account') . '</span>',
+		));
+
+		echo $this->Form->input('reconciliation', array(
+			'type' => 'checkbox',
+			'label' => __d('webzash', 'Reconciliation'),
+			'class' => 'checkbox',
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If selected the ledger account can be reconciled from Reports > Reconciliation') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(

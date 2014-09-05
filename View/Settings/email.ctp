@@ -66,7 +66,12 @@ $(document).ready(function() {
 		),
 	));
 
-	echo $this->Form->input('email_use_default', array('type' => 'checkbox', 'label' => __d('webzash', 'Use default email settings'), 'class' => 'checkbox'));
+	echo $this->Form->input('email_use_default', array(
+		'type' => 'checkbox',
+		'label' => __d('webzash', 'Use default email settings'),
+		'class' => 'checkbox',
+		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If selected the default email settings in the Administer > General Settings will be used.') . '</span>',
+	));
 	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));

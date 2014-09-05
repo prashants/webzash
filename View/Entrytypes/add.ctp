@@ -51,11 +51,30 @@
 		echo $this->Form->input('label', array('label' => __d('webzash', 'Label')));
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Name')));
 		echo $this->Form->input('description', array('type' => 'textarea', 'label' => __d('webzash', 'Description'), 'rows' => '3'));
-		echo $this->Form->input('numbering', array('type' => 'select', 'options' => $numbering_options, 'label' => __d('webzash', 'Numbering')));
-		echo $this->Form->input('prefix', array('label' => __d('webzash', 'Prefix')));
-		echo $this->Form->input('suffix', array('label' => __d('webzash', 'Suffix')));
-		echo $this->Form->input('zero_padding', array('label' => __d('webzash', 'Zero Padding')));
-		echo $this->Form->input('restriction_bankcash', array('type' => 'select', 'options' => $restriction_options, 'label' => __d('webzash', 'Restrictions')));
+		echo $this->Form->input('numbering', array(
+			'type' => 'select',
+			'options' => $numbering_options,
+			'label' => __d('webzash', 'Numbering'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : How the entry numbering is handled') . '</span>',
+		));
+		echo $this->Form->input('prefix', array(
+			'label' => __d('webzash', 'Prefix'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Prefix to add before entry numbers') . '</span>',
+		));
+		echo $this->Form->input('suffix', array(
+			'label' => __d('webzash', 'Suffix'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Suffix to add after entry numbers') . '</span>',
+		));
+		echo $this->Form->input('zero_padding', array(
+			'label' => __d('webzash', 'Zero Padding'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Number of zeros to pad before entry numbers') . '</span>',
+		));
+		echo $this->Form->input('restriction_bankcash', array(
+			'type' => 'select',
+			'options' => $restriction_options,
+			'label' => __d('webzash', 'Restrictions'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Restrictions to be placed on the ledgers selected in entry') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(

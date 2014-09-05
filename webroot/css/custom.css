@@ -274,3 +274,7 @@ form .error-message {
 .alert {
 	font-size: 17px;
 }
+
+.help-block {
+	font-size: 12px;
+}
