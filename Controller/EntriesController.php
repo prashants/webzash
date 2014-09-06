@@ -416,9 +416,26 @@ class EntriesController extends WebzashAppController {
 							return;
 						}
 					}
-					$this->Log->add('Added ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
+
+					$tempentry = $this->Entry->read(null, $this->Entry->id);
+					if (!$tempentry) {
+						$this->Session->setFlash(__d('webzash', 'Oh snap ! Failed to create entry. Please, try again.'), 'danger');
+						$ds->rollback();
+						return;
+					}
+					$entryNumber = $this->_showEntryNumber(
+						$tempentry['Entry']['number'],
+						$entrytype['Entrytype']['id']
+					);
+
+					$this->Log->add('Added ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'Entry created.'), 'success');
+
+					$this->Session->setFlash(__d('webzash',
+						'%s entry numbered "%s" created.',
+						$entrytype['Entrytype']['name'],
+						$entryNumber), 'success');
+
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
@@ -701,9 +718,26 @@ class EntriesController extends WebzashAppController {
 							return;
 						}
 					}
-					$this->Log->add('Edited ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
+
+					$tempentry = $this->Entry->read(null, $this->Entry->id);
+					if (!$tempentry) {
+						$this->Session->setFlash(__d('webzash', 'Oh snap ! Failed to update entry. Please, try again.'), 'danger');
+						$ds->rollback();
+						return;
+					}
+					$entryNumber = $this->_showEntryNumber(
+						$tempentry['Entry']['number'],
+						$entrytype['Entrytype']['id']
+					);
+
+					$this->Log->add('Edited ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 					$ds->commit();
-					$this->Session->setFlash(__d('webzash', 'Entry updated.'), 'success');
+
+					$this->Session->setFlash(__d('webzash',
+						'%s entry numbered "%s" updated.',
+						$entrytype['Entrytype']['name'],
+						$entryNumber), 'success');
+
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 				} else {
 					$ds->rollback();
@@ -770,7 +804,8 @@ class EntriesController extends WebzashAppController {
 		}
 
 		/* Check if entry exists */
-		if (!$this->Entry->exists($id)) {
+		$entry = $this->Entry->findById($id);
+		if (!$entry) {
 			$this->Session->setFlash(__d('webzash', 'Entry not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
@@ -792,10 +827,14 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
-		$this->Log->add('Deleted ' . $entrytype['Entrytype']['name'] . ' Entry', 1);
+		$entryNumber = $this->_showEntryNumber($entry['Entry']['number'], $entrytype['Entrytype']['id']);
+
+		$this->Log->add('Deleted ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 		$ds->commit();
 
-		$this->Session->setFlash(__d('webzash', 'Entry deleted.'), 'success');
+		$this->Session->setFlash(__d('webzash', '%s entry numbered "%s" deleted.',
+			$entrytype['Entrytype']['name'], $entryNumber), 'success');
+
 		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 	}
 
@@ -1138,6 +1177,21 @@ class EntriesController extends WebzashAppController {
 		}
 
 		$this->set('ledgers', $ledgers);
+	}
+
+/**
+ * Copy of helper method to return the entry number
+ */
+	function _showEntryNumber($number, $entrytype_id) {
+		if (Configure::read('Account.ET.' . $entrytype_id . '.zero_padding') > 0) {
+			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+				str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
+				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+		} else {
+			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+				$number .
+				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+		}
 	}
 
 	public function beforeFilter() {
