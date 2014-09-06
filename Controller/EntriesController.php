@@ -94,52 +94,6 @@ class EntriesController extends WebzashAppController {
 	}
 
 /**
- * show method
- *
- * @param string $entrytypeLabel
- * @return void
- */
-	public function show($entrytypeLabel = null) {
-
-		$this->set('title_for_layout', __d('webzash', 'List Of Entries'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entrytype");
-		$this->Entrytype = new Entrytype();
-
-		/* Check for valid entry type */
-		if (empty($entrytypeLabel)) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not specified. Showing all entries.'), 'danger');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
-		}
-		$entrytype = $this->Entrytype->find('first', array('conditions' => array('Entrytype.label' => $entrytypeLabel)));
-		if (!$entrytype) {
-			$this->Session->setFlash(__d('webzash', 'Entry type not found. Showing all entries.'), 'danger');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
-		}
-
-		$this->set('actionlinks', array(
-			array('controller' => 'entries', 'action' => 'add', 'data' => $entrytype['Entrytype']['label'], 'title' => __d('webzash', 'Add ') . $entrytype['Entrytype']['name']),
-		));
-
-		/* Setup pagination */
-		$this->Paginator->settings = array(
-			'Entry' => array(
-				'limit' => $this->Session->read('Wzsetting.row_count'),
-				'conditions' => array('Entry.entrytype_id' => $entrytype['Entrytype']['id']),
-				'order' => array('Entry.date' => 'desc'),
-			)
-		);
-
-		$this->set('entries', $this->Paginator->paginate('Entry'));
-
-		$this->set('entrytype', $entrytype);
-
-		return;
-	}
-
-
-/**
  * view method
  *
  * @param string $entrytypeLabel
