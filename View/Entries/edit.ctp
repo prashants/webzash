@@ -282,6 +282,18 @@ $(document).ready(function() {
 
 <div class="entry edit form">
 <?php
+	if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+		$drcr_options = array(
+			'D' => 'By',
+			'C' => 'To',
+		);
+	} else {
+		$drcr_options = array(
+			'D' => 'Dr',
+			'C' => 'Cr',
+		);
+	}
+
 	echo $this->Form->create('Entry', array(
 		'inputDefaults' => array(
 			'div' => 'form-group',
@@ -324,7 +336,11 @@ $(document).ready(function() {
 
 	/* Header */
 	echo '<tr>';
-	echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
+	if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+		echo '<th>' . __d('webzash', 'To/By') . '</th>';
+	} else {
+		echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
+	}
 	echo '<th>' . __d('webzash', 'Ledger') . '</th>';
 	echo '<th>' . __d('webzash', 'Dr Amount') . '</th>';
 	echo '<th>' . __d('webzash', 'Cr Amount') . '</th>';
@@ -337,9 +353,9 @@ $(document).ready(function() {
 		echo '<tr>';
 
 		if (empty($entryitem['dc'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => $drcr_options, 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'type' => 'select', 'options' => $drcr_options, 'default' => $entryitem['dc'], 'class' => 'dc-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		if (empty($entryitem['ledger_id'])) {

@@ -47,7 +47,11 @@
 
 	/* Header */
 	echo '<tr>';
-	echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
+	if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+		echo '<th>' . __d('webzash', 'To/By') . '</th>';
+	} else {
+		echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
+	}
 	echo '<th>' . __d('webzash', 'Ledger') . '</th>';
 	echo '<th>' . __d('webzash', 'Dr Amount') . '</th>';
 	echo '<th>' . __d('webzash', 'Cr Amount') . '</th>';
@@ -58,10 +62,18 @@
 		echo '<tr>';
 
 		echo '<td>';
-		if ($entryitem['dc'] == 'D') {
-			echo 'Dr';
+		if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+			if ($entryitem['dc'] == 'D') {
+				echo 'By';
+			} else {
+				echo 'To';
+			}
 		} else {
-			echo 'Cr';
+			if ($entryitem['dc'] == 'D') {
+				echo 'Dr';
+			} else {
+				echo 'Cr';
+			}
 		}
 		echo '</td>';
 

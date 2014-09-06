@@ -31,7 +31,11 @@
 
 	echo '<tr class="ajax-add">';
 
-	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">Dr</option><option value="C">Cr</option></select></div>' . '</td>';
+	if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">By</option><option value="C">To</option></select></div>' . '</td>';
+	} else {
+		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">Dr</option><option value="C">Cr</option></select></div>' . '</td>';
+	}
 
 	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown" name="data[Entryitem][' . $i . '][ledger_id]">';
 	foreach ($ledgers as $row => $data) {

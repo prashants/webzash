@@ -389,7 +389,11 @@ class Entry extends WebzashAppModel {
 			$cr_name = $cr_name . ' [+]';
 		}
 
-		$ledgerstr = 'Dr ' . $dr_name . ' / ' . 'Cr ' . $cr_name;
+		if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+			$ledgerstr = 'By ' . $dr_name . ' / ' . 'To ' . $cr_name;
+		} else {
+			$ledgerstr = 'Dr ' . $dr_name . ' / ' . 'Cr ' . $cr_name;
+		}
 		return $ledgerstr;
 	}
 }

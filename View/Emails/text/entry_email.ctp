@@ -14,10 +14,18 @@
 
 <?php
 	foreach ($entryitems as $row => $entryitem) {
-		if ($entryitem['dc'] == 'D') {
-			echo 'Dr ';
+		if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
+			if ($entryitem['dc'] == 'D') {
+				echo 'By';
+			} else {
+				echo 'To';
+			}
 		} else {
-			echo 'Cr ';
+			if ($entryitem['dc'] == 'D') {
+				echo 'Dr';
+			} else {
+				echo 'Cr';
+			}
 		}
 
 		echo h($this->Generic->getLedgerName($entryitem['ledger_id']));
