@@ -1112,6 +1112,7 @@ class WzusersController extends WebzashAppController {
 				'fields' => array('Wzaccount.id', 'Wzaccount.label'),
 				'order' => array('Wzaccount.label')
 			));
+			$wzaccounts = array(0 => '(NONE)') + $wzaccounts;
 		} else {
 			$wzaccounts = array();
 			$rawwzaccounts = $this->Wzuseraccount->find('all', array(
@@ -1123,6 +1124,7 @@ class WzusersController extends WebzashAppController {
 					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['label'];
 				}
 			}
+			$wzaccounts = array(0 => '(NONE)') + $wzaccounts;
 		}
 		$this->set('wzaccounts', $wzaccounts);
 
@@ -1134,6 +1136,13 @@ class WzusersController extends WebzashAppController {
 
 		/* On POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Check if NONE selected */
+			if ($this->request->data['Wzuser']['wzaccount_id'] == 0) {
+				$this->Session->delete('ActiveAccount.id');
+				$this->Session->setFlash(__d('webzash', 'All accounts deactivated.'), 'success');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+			}
 
 			/* Check if user is allowed to access the account */
 			$activateAccount = FALSE;
@@ -1168,6 +1177,8 @@ class WzusersController extends WebzashAppController {
 		} else {
 			if ($curActiveAccount) {
 				$this->request->data['Wzuser']['wzaccount_id'] = $this->Session->read('ActiveAccount.id');
+			} else {
+				$this->request->data['Wzuser']['wzaccount_id'] = 0;
 			}
 		}
 	}

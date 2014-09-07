@@ -25,6 +25,13 @@
  * THE SOFTWARE.
  */
 ?>
+
+<?php
+	echo '<div><div role="alert" class="alert alert-warning">' .
+		__d('webzash', 'Please make sure no user is actively using any account before editing or deleting it.') .
+		'</div></div>';
+?>
+
 <table class="stripped">
 	<tr>
 		<th><?php echo $this->Paginator->sort('label', __d('webzash', 'Label')); ?></th>
@@ -44,9 +51,15 @@
 			<td><?php echo h($wzaccount['Wzaccount']['db_port']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_prefix']); ?></td>
 			<td>
-				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false)); ?>
-				<?php echo $this->Html->tag('span', '', array('class' => 'link-pad')); ?>
-				<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'delete', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the account config ?'))); ?>
+				<?php
+				if ($wzaccount['Wzaccount']['id'] == $this->Session->read('ActiveAccount.id')) {
+					echo $this->Form->label('active', __d('webzash', 'Active'));
+				} else {
+					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'edit', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false));
+					echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+					echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'delete', $wzaccount['Wzaccount']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the account config ?')));
+				}
+				?>
 			</td>
 		</tr>
 	<?php } ?>

@@ -35,6 +35,12 @@
 			}
 		} else if (!$wzaccounts) {
 			echo $this->Form->label('create', __d('webzash', 'Sorry, no accounts are available. Please contact your administrator.'));
+		} else if (sizeof($wzaccounts) < 2) {
+			if ($this->Session->read('Auth.User.role') == 'admin') {
+				echo $this->Form->label('create', __d('webzash', 'Sorry, you do not have access to any accounts. You can manage your accounts ') . $this->Html->link(__d('webzash', 'here'), array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index')) . '.');
+			} else {
+				echo $this->Form->label('create', __d('webzash', 'Sorry, you do not have access to any accounts. Please contact your administrator.'));
+			}
 		} else {
 			echo $this->Form->create('Wzuser', array(
 				'inputDefaults' => array(
@@ -50,7 +56,7 @@
 				'options' => $wzaccounts,
 				'label' => __d('webzash', 'Select account'),
 				'multiple' => false,
-				'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each.') . '</span>'
+				'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If you wish to use multiple accounts simultaneously, please use different browsers for each. Also, please select (NONE) if you wish to deactivate all accounts.') . '</span>'
 			));
 
 			echo '<div class="form-group">';
