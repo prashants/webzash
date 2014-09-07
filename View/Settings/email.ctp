@@ -35,6 +35,7 @@ $(document).ready(function() {
 			$('#SettingEmailProtocol').prop('disabled', true);
 			$('#SettingEmailHost').prop('disabled', true);
 			$('#SettingEmailPort').prop('disabled', true);
+			$('#SettingEmailTls').prop('disabled', true);
 			$('#SettingEmailUsername').prop('disabled', true);
 			$('#SettingEmailPassword').prop('disabled', true);
 			$('#SettingEmailFrom').prop('disabled', true);
@@ -42,6 +43,7 @@ $(document).ready(function() {
 			$('#SettingEmailProtocol').prop('disabled', false);
 			$('#SettingEmailHost').prop('disabled', false);
 			$('#SettingEmailPort').prop('disabled', false);
+			$('#SettingEmailTls').prop('disabled', false);
 			$('#SettingEmailUsername').prop('disabled', false);
 			$('#SettingEmailPassword').prop('disabled', false);
 			$('#SettingEmailFrom').prop('disabled', false);
@@ -75,6 +77,7 @@ $(document).ready(function() {
 	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
+	echo $this->Form->input('email_tls', array('type' => 'checkbox', 'label' => __d('webzash', 'Use TLS'), 'class' => 'checkbox'));
 	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Username')));
 	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Password')));
 	echo $this->Form->input('email_from', array('label' => __d('webzash', 'From')));

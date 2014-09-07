@@ -195,7 +195,7 @@ class SettingsController extends WebzashAppController {
 					return;
 				}
 			} else {
-				if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_username', 'email_password', 'email_from'))) {
+				if ($this->Setting->save($this->request->data, true, array('email_use_default', 'email_protocol', 'email_host', 'email_port', 'email_tls', 'email_username', 'email_password', 'email_from'))) {
 					$this->Log->add('Updated email settings', 1);
 					$ds->commit();
 					$this->Session->setFlash(__d('webzash', 'Email settings updated.'), 'success');

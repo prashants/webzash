@@ -58,6 +58,7 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`email_protocol` varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_port` int(5) NOT NULL,
+	`email_tls` int(1) NOT NULL,
 	`email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

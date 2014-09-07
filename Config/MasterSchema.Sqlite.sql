@@ -2,7 +2,7 @@ CREATE TABLE "wzaccounts" ("id" INTEGER PRIMARY KEY NOT NULL, "label" VARCHAR NO
 
 CREATE TABLE "wzusers" ("id" INTEGER PRIMARY KEY NOT NULL, "username" VARCHAR NOT NULL, "password" VARCHAR NOT NULL, "fullname" VARCHAR, "email" VARCHAR NOT NULL, "role" VARCHAR NOT NULL, "status" INTEGER NOT NULL, "verification_key" VARCHAR, "email_verified" INTEGER NOT NULL, "admin_verified" INTEGER NOT NULL, "retry_count" INTEGER NOT NULL, "all_accounts" INTEGER NOT NULL);
 
-CREATE TABLE "wzsettings" ("id" INTEGER NOT NULL, "sitename" VARCHAR, "drcr_toby" VARCHAR, "enable_logging" INTEGER, "row_count" INTEGER, "user_registration" INTEGER, "admin_verification" INTEGER, "email_verification" INTEGER, "email_protocol" VARCHAR, "email_host" VARCHAR, "email_port" INTEGER, "email_username" VARCHAR, "email_password" VARCHAR, "email_from" VARCHAR);
+CREATE TABLE "wzsettings" ("id" INTEGER NOT NULL, "sitename" VARCHAR, "drcr_toby" VARCHAR, "enable_logging" INTEGER, "row_count" INTEGER, "user_registration" INTEGER, "admin_verification" INTEGER, "email_verification" INTEGER, "email_protocol" VARCHAR, "email_host" VARCHAR, "email_port" INTEGER, "email_tls" INTEGER, "email_username" VARCHAR, "email_password" VARCHAR, "email_from" VARCHAR);
 
 CREATE TABLE "wzuseraccounts" ("id" INTEGER PRIMARY KEY NOT NULL, "wzuser_id" INTEGER NOT NULL, "wzaccount_id" INTEGER NOT NULL, "role" VARCHAR NOT NULL);
 

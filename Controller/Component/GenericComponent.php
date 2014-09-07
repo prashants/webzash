@@ -66,7 +66,11 @@ class GenericComponent extends Component {
 				'password' => $wzsetting['Wzsetting']['email_password'],
 				'transport' => $wzsetting['Wzsetting']['email_protocol'],
 			);
-
+			if ($wzsetting['Wzsetting']['email_tls'] == '1') {
+				$config['tls'] = true;
+			} else {
+				$config['tls'] = false;
+			}
 
 			$Email = new CakeEmail();
 			$Email->config($config);
@@ -113,6 +117,11 @@ class GenericComponent extends Component {
 				'password' => $setting['Setting']['email_password'],
 				'transport' => $setting['Setting']['email_protocol'],
 			);
+			if ($setting['Setting']['email_tls'] == '1') {
+				$config['tls'] = true;
+			} else {
+				$config['tls'] = false;
+			}
 
 			$Email = new CakeEmail();
 			$Email->config($config);

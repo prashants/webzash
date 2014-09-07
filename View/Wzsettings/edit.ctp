@@ -85,6 +85,7 @@
 	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
+	echo $this->Form->input('email_tls', array('type' => 'checkbox', 'label' => __d('webzash', 'Use TLS'), 'class' => 'checkbox'));
 	echo $this->Form->input('email_username', array('label' => __d('webzash', 'Username')));
 	echo $this->Form->input('email_password', array('type' => 'password', 'label' => __d('webzash', 'Password')));
 	echo $this->Form->input('email_from', array('label' => __d('webzash', 'From')));

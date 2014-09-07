@@ -184,6 +184,14 @@ class Wzsetting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'email_tls' => array(
+			'rule1' => array(
+				'rule' => 'boolean',
+				'message' => 'Invalid value for Use TLS',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 		'email_username' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 255),

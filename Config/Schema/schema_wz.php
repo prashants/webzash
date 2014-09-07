@@ -71,6 +71,7 @@ class WebzashSchema extends CakeSchema {
 		'email_protocol' => array('type' => 'string', 'null' => true),
 		'email_host' => array('type' => 'string', 'null' => true),
 		'email_port' => array('type' => 'integer', 'null' => true),
+		'email_tls' => array('type' => 'integer', 'null' => true),
 		'email_username' => array('type' => 'string', 'null' => true),
 		'email_password' => array('type' => 'string', 'null' => true),
 		'email_from' => array('type' => 'string', 'null' => true),

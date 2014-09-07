@@ -143,7 +143,7 @@ class Setting extends WebzashAppModel {
 		),
 		'manage_inventory' => array(
 			'rule1' => array(
-				'rule' => array('inList', array('0')),
+				'rule' => 'boolean',
 				'message' => 'Invalid value for manage inventory',
 				'required' => true,
 				'allowEmpty' => false,
@@ -205,6 +205,14 @@ class Setting extends WebzashAppModel {
 			'rule4' => array(
 				'rule' => array('naturalNumber', true),
 				'message' => 'Port cannot contain a decimal point',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'email_tls' => array(
+			'rule1' => array(
+				'rule' => 'boolean',
+				'message' => 'Invalid value for Use TLS',
 				'required' => true,
 				'allowEmpty' => false,
 			),
