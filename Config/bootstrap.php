@@ -295,7 +295,7 @@ function toCurrency($dc, $amount) {
 function init_account() {
 
 	/* Setup master database path inside the Plugin 'Database' folder */
-	$root_path = App::path('Model', 'Webzash')[0];
+	$root_path = App::pluginPath('Webzash');
 	if (empty($root_path)) {
 		debug("Could not set database path. Please check your setup.");
 		CakeSession::delete('ActiveAccount.id');
@@ -304,7 +304,7 @@ function init_account() {
 
 	/* Setup master database configuration */
 	$wz['datasource'] = 'Database/Sqlite';
-	$wz['database'] = $root_path . '../Database/' . 'webzash.sqlite';
+	$wz['database'] = $root_path . './Database/' . 'webzash.sqlite';
 	$wz['prefix'] = '';
 	$wz['encoding'] = 'utf8';
 	$wz['persistent'] = false;
@@ -373,4 +373,3 @@ function init_account() {
 	}
 }
 init_account();
-

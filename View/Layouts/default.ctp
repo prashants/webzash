@@ -27,7 +27,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		Webzash | <?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
+		echo $this->Html->meta('favicon.ico',
+			$this->Html->url('/' . 'webzash/img/favicon.ico', true),
+			array('type' => 'icon')
+		);
 
 		echo $this->Html->script('Webzash.jquery-1.10.2.js?'.time());
 
