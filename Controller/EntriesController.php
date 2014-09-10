@@ -1214,32 +1214,32 @@ class EntriesController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('view entry', $user['role']);
+			return $this->Permission->is_allowed('view entry');
 		}
 
 		if ($this->action === 'show') {
-			return $this->Permission->is_allowed('view entry', $user['role']);
+			return $this->Permission->is_allowed('view entry');
 		}
 
 		if ($this->action === 'view') {
-			return $this->Permission->is_allowed('view entry', $user['role']);
+			return $this->Permission->is_allowed('view entry');
 		}
 
 		if ($this->action === 'add') {
-			return $this->Permission->is_allowed('add entry', $user['role']);
+			return $this->Permission->is_allowed('add entry');
 		}
 
 		if ($this->action === 'edit') {
-			return $this->Permission->is_allowed('edit entry', $user['role']);
+			return $this->Permission->is_allowed('edit entry');
 		}
 
 		if ($this->action === 'delete') {
-			return $this->Permission->is_allowed('delete entry', $user['role']);
+			return $this->Permission->is_allowed('delete entry');
 		}
 
 		if ($this->action === 'addrow') {
-			if ($this->Permission->is_allowed('add entry', $user['role']) ||
-				$this->Permission->is_allowed('edit entry', $user['role'])) {
+			if ($this->Permission->is_allowed('add entry') ||
+				$this->Permission->is_allowed('edit entry')) {
 				return true;
 			} else {
 				return false;

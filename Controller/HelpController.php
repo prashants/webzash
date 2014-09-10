@@ -58,7 +58,7 @@ class HelpController extends WebzashAppController {
 	public function isAuthorized($user) {
 
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('registered', $user['role']);
+			return $this->Permission->is_registered_allowed();
 		}
 
 		return parent::isAuthorized($user);

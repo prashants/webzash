@@ -35,13 +35,17 @@ App::uses('Component', 'Controller');
  */
 class PermissionComponent extends Component {
 
+	public $components = array('Session');
+
 /**
- * Check if a role stored in session is allow a particular action
+ * Check if a role is allow a particular action
  *
  * @return boolean return true is access is allow, false otherwise
  */
-	public function is_allowed($action_name, $role)
+	public function is_allowed($action_name)
 	{
+		$account_role = $this->Session->read('ActiveAccount.account_role');
+
 		$permissions['manager'] = array(
 			'view accounts chart',
 
@@ -81,8 +85,6 @@ class PermissionComponent extends Component {
 			'change account settings',
 			'cf account',
 			'backup account',
-
-			'access admin section',
 		);
 		$permissions['accountant'] = array(
 			'view accounts chart',
@@ -136,7 +138,54 @@ class PermissionComponent extends Component {
 			'download entry',
 		);
 
-		if (!isset($role)) {
+		if (!isset($account_role)) {
+			return false;
+		}
+
+		/* If user is admin then always allow full access */
+		if ($account_role == 'admin') {
+			return true;
+		}
+
+		/* If invaid user role then deny access */
+		if (!isset($permissions[$account_role])) {
+			return false;
+		}
+
+		/* Check if the user role is allowed access */
+		if (in_array($action_name, $permissions[$account_role])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
+ * Allow access for all registered user that are logged in
+ *
+ * @return boolean return true is access is allow, false otherwise
+ */
+	public function is_registered_allowed()
+	{
+		$user_id = $this->Session->read('Auth.User.id');
+
+		if (empty($user_id)) {
+			return false;
+		}
+
+		return true;
+	}
+
+/**
+ * Check if a role is allow a admin action
+ *
+ * @return boolean return true is access is allow, false otherwise
+ */
+	public function is_admin_allowed()
+	{
+		$role = $this->Session->read('Auth.User.role');
+
+		if (empty($role)) {
 			return false;
 		}
 
@@ -145,25 +194,6 @@ class PermissionComponent extends Component {
 			return true;
 		}
 
-		/* If invaid user role then deny access */
-		if (!isset($permissions[$role])) {
-			return false;
-		}
-
-		/* If action is registered then only check if user is logged in */
-		if ($action_name == 'registered') {
-			if (empty($role)) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		/* Check if the user role is allowed access */
-		if (in_array($action_name, $permissions[$role])) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 }

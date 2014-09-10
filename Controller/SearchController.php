@@ -58,7 +58,7 @@ class SearchController extends WebzashAppController {
 	public function isAuthorized($user) {
 
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('search', $user['role']);
+			return $this->Permission->is_allowed('search');
 		}
 
 		return parent::isAuthorized($user);

@@ -516,27 +516,27 @@ class ReportsController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		if ($this->action === 'balancesheet') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		if ($this->action === 'profitloss') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		if ($this->action === 'trialbalance') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		if ($this->action === 'ledgerstatement') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		if ($this->action === 'reconciliation') {
-			return $this->Permission->is_allowed('access reports', $user['role']);
+			return $this->Permission->is_allowed('access reports');
 		}
 
 		return parent::isAuthorized($user);

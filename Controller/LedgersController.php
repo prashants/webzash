@@ -285,15 +285,15 @@ class LedgersController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'add') {
-			return $this->Permission->is_allowed('add ledger', $user['role']);
+			return $this->Permission->is_allowed('add ledger');
 		}
 
 		if ($this->action === 'edit') {
-			return $this->Permission->is_allowed('edit ledger', $user['role']);
+			return $this->Permission->is_allowed('edit ledger');
 		}
 
 		if ($this->action === 'delete') {
-			return $this->Permission->is_allowed('delete ledger', $user['role']);
+			return $this->Permission->is_allowed('delete ledger');
 		}
 
 		return parent::isAuthorized($user);

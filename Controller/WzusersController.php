@@ -1191,39 +1191,39 @@ class WzusersController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'add') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'edit') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'delete') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'profile') {
-			return $this->Permission->is_allowed('registered', $user['role']);
+			return $this->Permission->is_registered_allowed();
 		}
 
 		if ($this->action === 'changepass') {
-			return $this->Permission->is_allowed('registered', $user['role']);
+			return $this->Permission->is_registered_allowed();
 		}
 
 		if ($this->action === 'resetpass') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'first') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		if ($this->action === 'account') {
-			return $this->Permission->is_allowed('registered', $user['role']);
+			return $this->Permission->is_registered_allowed();
 		}
 
 		return parent::isAuthorized($user);

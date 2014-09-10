@@ -70,7 +70,7 @@ class AdminController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('access admin section', $user['role']);
+			return $this->Permission->is_admin_allowed();
 		}
 
 		return parent::isAuthorized($user);

@@ -86,11 +86,11 @@ class LogsController extends WebzashAppController {
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
-			return $this->Permission->is_allowed('view log', $user['role']);
+			return $this->Permission->is_allowed('view log');
 		}
 
 		if ($this->action === 'clear') {
-			return $this->Permission->is_allowed('clear log', $user['role']);
+			return $this->Permission->is_allowed('clear log');
 		}
 
 		return parent::isAuthorized($user);
