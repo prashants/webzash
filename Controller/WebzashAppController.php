@@ -115,6 +115,18 @@ class WebzashAppController extends AppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 
+		/* Check if database version is correct */
+		if ($setting['Setting']['database_version'] < 5) {
+			CakeSession::delete('ActiveAccount.id');
+			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to older version of this application. Please check the Wiki in the help section on how to upgrade your database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+		if ($setting['Setting']['database_version'] > 5) {
+			CakeSession::delete('ActiveAccount.id');
+			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to newer version of this application. Please upgrade this application before you can connect to the database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
 		Configure::write('Account.name', $setting['Setting']['name']);
 		Configure::write('Account.address', $setting['Setting']['address']);
 		Configure::write('Account.email', $setting['Setting']['email']);
