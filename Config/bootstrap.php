@@ -299,6 +299,7 @@ function init_account() {
 	if (empty($root_path)) {
 		debug("Could not set database path. Please check your setup.");
 		CakeSession::delete('ActiveAccount.id');
+		CakeSession::delete('ActiveAccount.account_role');
 		return;
 	}
 
@@ -316,6 +317,7 @@ function init_account() {
 	} catch (Exception $e) {
 		debug("Missing master sqlite database file. Please check your setup.");
 		CakeSession::delete('ActiveAccount.id');
+		CakeSession::delete('ActiveAccount.account_role');
 		return;
 	}
 
@@ -338,11 +340,13 @@ function init_account() {
 	} catch (Exception $e) {
 		debug("Missing master sqlite database file. Please check your setup.");
 		CakeSession::delete('ActiveAccount.id');
+		CakeSession::delete('ActiveAccount.account_role');
 		return;
 	}
 	if (!$account) {
 		debug("Account not found. Please check your accounts in the 'Administer' section.");
 		CakeSession::delete('ActiveAccount.id');
+		CakeSession::delete('ActiveAccount.account_role');
 		return;
 	}
 
@@ -368,6 +372,7 @@ function init_account() {
 		ConnectionManager::create('wz_accconfig', $wz_accconfig);
 	} catch (Exception $e) {
 		CakeSession::delete('ActiveAccount.id');
+		CakeSession::delete('ActiveAccount.account_role');
 		CakeSession::write('ActiveAccount.failed', true);
 		return;
 	}

@@ -61,6 +61,7 @@ class DashboardController extends WebzashAppController {
 			$this->Group->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Groups table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -71,6 +72,7 @@ class DashboardController extends WebzashAppController {
 			$this->Ledger->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Ledgers table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -81,6 +83,7 @@ class DashboardController extends WebzashAppController {
 			$this->Entry->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Entries table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -91,6 +94,7 @@ class DashboardController extends WebzashAppController {
 			$this->Entryitem->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Entry items table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -101,6 +105,7 @@ class DashboardController extends WebzashAppController {
 			$this->Tag->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Tags table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -111,6 +116,7 @@ class DashboardController extends WebzashAppController {
 			$this->Log->find('first');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Logs table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -125,6 +131,7 @@ class DashboardController extends WebzashAppController {
 			));
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Ledgers table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}

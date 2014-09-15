@@ -50,6 +50,10 @@ if (!extension_loaded('bcmath')) {
 						<td><?php echo h(Configure::read('Account.email')); ?></td>
 					</tr>
 					<tr>
+						<td><?php echo __d('webzash', 'Role'); ?></td>
+						<td><?php echo h($this->Session->read('ActiveAccount.account_role')); ?></td>
+					</tr>
+					<tr>
 						<td><?php echo __d('webzash', 'Currency'); ?></td>
 						<td><?php echo h(Configure::read('Account.currency_symbol')); ?></td>
 					</tr>

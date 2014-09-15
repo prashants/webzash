@@ -106,11 +106,13 @@ class WebzashAppController extends AppController {
 			$setting = $Setting->findById(1);
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Settings table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		if (!$setting) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Account settings not found. Please check if the database settings are correct.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -118,11 +120,13 @@ class WebzashAppController extends AppController {
 		/* Check if database version is correct */
 		if ($setting['Setting']['database_version'] < 5) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to older version of this application. Please check the Wiki in the help section on how to upgrade your database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		if ($setting['Setting']['database_version'] > 5) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to newer version of this application. Please upgrade this application before you can connect to the database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
@@ -148,6 +152,7 @@ class WebzashAppController extends AppController {
 			$rawentrytypes = $Entrytype->find('all');
 		} catch (Exception $e) {
 			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Entry types table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}

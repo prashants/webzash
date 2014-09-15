@@ -139,6 +139,7 @@ class PermissionComponent extends Component {
 		);
 
 		if (!isset($account_role)) {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
@@ -149,6 +150,7 @@ class PermissionComponent extends Component {
 
 		/* If invaid user role then deny access */
 		if (!isset($permissions[$account_role])) {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
@@ -156,6 +158,7 @@ class PermissionComponent extends Component {
 		if (in_array($action_name, $permissions[$account_role])) {
 			return true;
 		} else {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 	}
@@ -170,6 +173,7 @@ class PermissionComponent extends Component {
 		$user_id = $this->Session->read('Auth.User.id');
 
 		if (empty($user_id)) {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
@@ -186,6 +190,7 @@ class PermissionComponent extends Component {
 		$role = $this->Session->read('Auth.User.role');
 
 		if (empty($role)) {
+			$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 			return false;
 		}
 
@@ -194,6 +199,7 @@ class PermissionComponent extends Component {
 			return true;
 		}
 
+		$this->Session->setFlash(__d('webzash', 'Access denied.'), 'danger');
 		return false;
 	}
 }
