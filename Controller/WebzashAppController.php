@@ -143,6 +143,8 @@ class WebzashAppController extends AppController {
 		Configure::write('Account.locked', $setting['Setting']['account_locked']);
 		Configure::write('Account.email_use_default', $setting['Setting']['email_use_default']);
 
+		date_default_timezone_set($setting['Setting']['timezone']);
+
 		/* Write entry types */
 		App::import("Webzash.Model", "Entrytype");
 		$Entrytype = new Entrytype();

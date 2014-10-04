@@ -73,7 +73,7 @@ class AccountList
 	{
 		if ($id == 0)
 		{
-			$this->id = 0;
+			$this->id = NULL;
 			$this->name = "None";
 		} else {
 			$group = self::$Group->find('first', array('conditions' => array('id' => $id)));
@@ -211,4 +211,3 @@ class AccountList
 		}
 	}
 }
-

@@ -40,7 +40,7 @@ class TimezoneHelper extends AppHelper {
 		$timestamp = time();
 		foreach(timezone_identifiers_list() as $key => $zone) {
 			date_default_timezone_set($zone);
-			$zones_array[$zone] = 'UTC/GMT ' . date('P', $timestamp) . ' - ' . $zone;
+			$zones_array[$zone] = $zone . ' - [UTC/GMT ' . date('P', $timestamp) . ']';
 		}
 
 		/* Restore timezone */

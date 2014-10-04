@@ -62,6 +62,10 @@ if (!extension_loaded('bcmath')) {
 						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . ' - ' . dateFromSql(Configure::read('Account.enddate')); ?></td>
 					</tr>
 					<tr>
+						<td><?php echo __d('webzash', 'Timezone'); ?></td>
+						<td><?php echo h(date_default_timezone_get()); ?></td>
+					</tr>
+					<tr>
 						<td><?php echo __d('webzash', 'Status'); ?></td>
 						<?php
 							if (Configure::read('Account.locked') == 0) {
