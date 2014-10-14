@@ -64,7 +64,7 @@ class WebzashSchema extends CakeSchema {
 		'tag_id' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
 		'entrytype_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
 		'number' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'date' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'date' => array('type' => 'date', 'null' => false, 'default' => null),
 		'dr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
 		'cr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
 		'narration' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 500, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
@@ -80,7 +80,7 @@ class WebzashSchema extends CakeSchema {
 		'ledger_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
 		'amount' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
 		'dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'reconciliation_date' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'reconciliation_date' => array('type' => 'date', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -92,8 +92,8 @@ class WebzashSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'address' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'fy_start' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'fy_end' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'fy_start' => array('type' => 'date', 'null' => false, 'default' => null),
+		'fy_end' => array('type' => 'date', 'null' => false, 'default' => null),
 		'currency_symbol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'date_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'timezone' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
