@@ -87,7 +87,7 @@ class Wzuser extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule2' => array(
-				'rule' => array('email', true),
+				'rule' => 'email',
 				'message' => 'Email is not a valid email address',
 				'required' => true,
 				'allowEmpty' => false,
@@ -159,6 +159,20 @@ class Wzuser extends WebzashAppModel {
 			'rule2' => array(
 				'rule' => 'boolean',
 				'message' => 'Invalid value for administrator approved',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
+		'retry_count' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Retry count is not a valid number',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('naturalNumber', true),
+				'message' => 'Retry count cannot contain a decimal point',
 				'required' => true,
 				'allowEmpty' => false,
 			),

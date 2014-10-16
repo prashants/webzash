@@ -978,6 +978,8 @@ class WzusersController extends WebzashAppController {
 					'verification_key' => $verification_key,
 					'email_verified' => '0',
 					'admin_verified' => '0',
+					'retry_count' => '0',
+					'all_accounts' => '0',
 				));
 
 				/* Save user */

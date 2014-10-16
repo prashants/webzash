@@ -6,4 +6,4 @@ CREATE TABLE "wzsettings" ("id" INTEGER NOT NULL, "sitename" VARCHAR, "drcr_toby
 
 CREATE TABLE "wzuseraccounts" ("id" INTEGER PRIMARY KEY NOT NULL, "wzuser_id" INTEGER NOT NULL, "wzaccount_id" INTEGER NOT NULL, "role" VARCHAR NOT NULL);
 
-INSERT INTO "wzusers" VALUES ("1","admin","77f9101246a0ca5e24a20ef8d06d19c83bbb69e4","Administrator","","","admin","1","","1","1","0","1");
+INSERT INTO "wzusers" VALUES ("1","admin","77f9101246a0ca5e24a20ef8d06d19c83bbb69e4","Administrator","","UTC","admin","1","","1","1","0","1");
