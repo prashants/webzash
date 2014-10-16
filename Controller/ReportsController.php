@@ -105,9 +105,6 @@ class ReportsController extends WebzashAppController {
 			}
 		}
 
-		/* Calculating total */
-		$bsheet['total'] = calculate($bsheet['assets_total'], $bsheet['liabilities_total'], '-');
-
 		/* Profit and loss calculations */
 		$income = new AccountList();
 		$income->start(3);
@@ -133,6 +130,35 @@ class ReportsController extends WebzashAppController {
 			$bsheet['is_opdiff'] = false;
 		} else {
 			$bsheet['is_opdiff'] = true;
+		}
+
+		/**** Final balancesheet total ****/
+		$bsheet['final_liabilities_total'] = $bsheet['liabilities_total'];
+		$bsheet['final_assets_total'] = $bsheet['assets_total'];
+
+		/* If net profit add to liabilities, if net loss add to assets */
+		if (calculate($bsheet['pandl'], 0, '>=')) {
+			$bsheet['final_liabilities_total'] = calculate(
+				$bsheet['final_liabilities_total'],
+				$bsheet['pandl'], '+');
+		} else {
+			$positive_pandl = calculate($bsheet['pandl'], 0, 'n');
+			$bsheet['final_assets_total'] = calculate(
+				$bsheet['final_assets_total'],
+				$positive_pandl, '+');
+		}
+
+		/* If difference in opening balance is Dr then add to liabilities else add to assets */
+		if ($bsheet['is_opdiff']) {
+			if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
+				$bsheet['final_liabilities_total'] = calculate(
+					$bsheet['final_liabilities_total'],
+					$bsheet['opdiff']['opdiff_balance'], '+');
+			} else {
+				$bsheet['final_assets_total'] = calculate(
+					$bsheet['final_assets_total'],
+					$bsheet['opdiff']['opdiff_balance'], '+');
+			}
 		}
 
 		$this->set('bsheet', $bsheet);
