@@ -137,6 +137,7 @@ class WzusersController extends WebzashAppController {
 				}
 
 				$this->request->data['Wzuser']['retry_count'] = 0;
+				$this->request->data['Wzuser']['timezone'] = 'UTC';
 
 				/* Save user */
 				$ds = $this->Wzuser->getDataSource();
@@ -951,6 +952,7 @@ class WzusersController extends WebzashAppController {
 			if (!empty($this->request->data)) {
 				/* Unset ID */
 				unset($this->request->data['Wzuser']['id']);
+				unset($this->request->data['Wzuser']['timezone']);
 				unset($this->request->data['Wzuser']['role']);
 				unset($this->request->data['Wzuser']['status']);
 				unset($this->request->data['Wzuser']['verification_key']);
@@ -970,6 +972,7 @@ class WzusersController extends WebzashAppController {
 					'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true),
 					'fullname' => $this->request->data['Wzuser']['fullname'],
 					'email' => $this->request->data['Wzuser']['email'],
+					'timezone' => 'UTC',
 					'role' => 'guest',
 					'status' => '1',
 					'verification_key' => $verification_key,

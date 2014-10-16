@@ -323,12 +323,12 @@ class ReportsController extends WebzashAppController {
 		if (!empty($this->passedArgs['startdate'])) {
 			/* TODO : Validate date */
 			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate'], '00:00:00');
+			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
 		}
 		if (!empty($this->passedArgs['enddate'])) {
 			/* TODO : Validate date */
 			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate'], '23:59:00');
+			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
 		}
 
 		/* Setup pagination */
@@ -475,12 +475,12 @@ class ReportsController extends WebzashAppController {
 		if (!empty($this->passedArgs['startdate'])) {
 			/* TODO : Validate date */
 			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate'], '00:00:00');
+			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
 		}
 		if (!empty($this->passedArgs['enddate'])) {
 			/* TODO : Validate date */
 			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate'], '23:59:00');
+			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
 		}
 		if (!empty($this->passedArgs['showall'])) {
 			/* nothing to do */

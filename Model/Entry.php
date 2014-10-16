@@ -273,9 +273,9 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$unixtime = strtotime($value);
+		$unixtime = strtotime($value . ' 00:00:00');
 
-		if (FALSE !== $unixtime) {
+		if ($unixtime !== FALSE) {
 			return true;
 		} else {
 			return false;
@@ -292,10 +292,10 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$startdate = strtotime(Configure::read('Account.startdate'));
-		$entrydate = strtotime($value);
+		$startdate = strtotime(Configure::read('Account.startdate') . ' 00:00:00');
+		$entrydate = strtotime($value . ' 00:00:00');
 
-		if ($startdate < $entrydate) {
+		if ($startdate <= $entrydate) {
 			return true;
 		} else {
 			return false;
@@ -312,8 +312,8 @@ class Entry extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$enddate = strtotime(Configure::read('Account.enddate'));
-		$entrydate = strtotime($value);
+		$enddate = strtotime(Configure::read('Account.enddate') . ' 00:00:00');
+		$entrydate = strtotime($value . ' 00:00:00');
 
 		if ($enddate >= $entrydate) {
 			return true;

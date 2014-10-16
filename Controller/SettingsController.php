@@ -93,15 +93,15 @@ class SettingsController extends WebzashAppController {
 			$this->Setting->id = 1;
 
 			$settings = $this->request->data;
-			$settings['Setting']['fy_start'] = dateToSql($this->request->data['Setting']['fy_start'], '00:00:00');
-			$settings['Setting']['fy_end'] = dateToSql($this->request->data['Setting']['fy_end'], '23:59:59');
+			$settings['Setting']['fy_start'] = dateToSql($this->request->data['Setting']['fy_start']);
+			$settings['Setting']['fy_end'] = dateToSql($this->request->data['Setting']['fy_end']);
 
 			/* Check if any entries are beyond start and end data */
 			$temp = $this->Entry->find('count', array(
 				'conditions' => array(
 					'OR' => array(
-						'Entry.date <' => dateToSql($this->request->data['Setting']['fy_start'], '00:00:00'),
-						'Entry.date >' => dateToSql($this->request->data['Setting']['fy_end'], '23:59:59'),
+						'Entry.date <' => dateToSql($this->request->data['Setting']['fy_start']),
+						'Entry.date >' => dateToSql($this->request->data['Setting']['fy_end']),
 					),
 				),
 			));
@@ -114,7 +114,7 @@ class SettingsController extends WebzashAppController {
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();
 
-			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format', 'timezone'))) {
+			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format'))) {
 				$this->Log->add('Updated account settings', 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account settings updated.'), 'success');

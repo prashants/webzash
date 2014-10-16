@@ -147,8 +147,8 @@ class WzaccountsController extends WebzashAppController {
 
 			/* Check financial year start is before end */
 			$fy_start = strtotime($this->request->data['Wzaccount']['fy_start'] . ' 00:00:00');
-			$fy_end = strtotime($this->request->data['Wzaccount']['fy_end'] . ' 23:59:59');
-			if ($fy_start > $fy_end) {
+			$fy_end = strtotime($this->request->data['Wzaccount']['fy_end'] . ' 00:00:00');
+			if ($fy_start >= $fy_end) {
 				$this->Session->setFlash(__d('webzash', 'Financial year start date cannot be after end date.'), 'danger');
 				return;
 			}
@@ -244,7 +244,7 @@ class WzaccountsController extends WebzashAppController {
 
 				/* Create tables */
 				try {
-					$db->query($final_schema);
+					$db->rawQuery($final_schema);
 				} catch (Exception $e) {
 					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
 					return;
@@ -260,11 +260,11 @@ class WzaccountsController extends WebzashAppController {
 					'name' => $this->request->data['Wzaccount']['name'],
 					'address' => $this->request->data['Wzaccount']['address'],
 					'email' => $this->request->data['Wzaccount']['email'],
-					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start'], '00:00:00'),
-					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end'], '23:59:59'),
+					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
+					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
 					'currency_symbol' => $this->request->data['Wzaccount']['currency_symbol'],
 					'date_format' => $this->request->data['Wzaccount']['date_format'],
-					'timezone' => $this->request->data['Wzaccount']['timezone'],
+					'timezone' => 'UTC',
 					'manage_inventory' => 0,
 					'account_locked' => 0,
 					'email_use_default' => 1,

@@ -134,7 +134,7 @@ class Setting extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
-			'rule1' => array(
+			'rule2' => array(
 				'rule' => 'timezone',
 				'message' => 'Invalid timezone format',
 				'required' => true,
@@ -400,9 +400,9 @@ class Setting extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$unixtime = strtotime($value);
+		$unixtime = strtotime($value . ' 00:00:00');
 
-		if (FALSE !== $unixtime) {
+		if ($unixtime !== FALSE) {
 			return true;
 		} else {
 			return false;
@@ -417,8 +417,8 @@ class Setting extends WebzashAppModel {
 		}
 		$value = $values[0];
 
-		$startdate = strtotime($this->data['Setting']['fy_start']);
-		$enddate = strtotime($value);
+		$startdate = strtotime($this->data['Setting']['fy_start'] . ' 00:00:00');
+		$enddate = strtotime($value . ' 00:00:00');
 
 		if ($startdate < $enddate) {
 			return true;

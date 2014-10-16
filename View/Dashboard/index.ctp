@@ -59,11 +59,7 @@ if (!extension_loaded('bcmath')) {
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Financial Year'); ?></td>
-						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . ' - ' . dateFromSql(Configure::read('Account.enddate')); ?></td>
-					</tr>
-					<tr>
-						<td><?php echo __d('webzash', 'Timezone'); ?></td>
-						<td><?php echo h(date_default_timezone_get()); ?></td>
+						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . ' to ' . dateFromSql(Configure::read('Account.enddate')); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Status'); ?></td>

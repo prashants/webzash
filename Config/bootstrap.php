@@ -246,19 +246,19 @@ function closingBalance($id) {
 /**
  * This function converts the date and time string to valid SQL datetime value
  */
-function dateToSql($indate, $intime = '00:00:00') {
-	$unixTimestamp = strtotime($indate . ' ' . $intime);
+function dateToSql($indate) {
+	$unixTimestamp = strtotime($indate . ' 00:00:00');
 	if (!$unixTimestamp) {
 		return false;
 	}
-	return date("Y-m-d H:i:s", $unixTimestamp);
+	return date("Y-m-d", $unixTimestamp);
 }
 
 /**
  * This function converts the SQL datetime value to PHP date and time string
  */
-function dateFromSql($sqldatetime) {
-	$unixTimestamp = strtotime($sqldatetime);
+function dateFromSql($sqldate) {
+	$unixTimestamp = strtotime($sqldate . ' 00:00:00');
 	if (!$unixTimestamp) {
 		return false;
 	}

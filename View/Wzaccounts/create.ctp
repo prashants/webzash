@@ -82,7 +82,6 @@ $(document).ready(function() {
 	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));
-	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
 
 	echo "<fieldset><legend>Database Settings</legend>";
 	// TODO echo $this->Form->input('create_db', array('type' => 'checkbox', 'label' => __d('webzash', 'Create database if it does not exists')));

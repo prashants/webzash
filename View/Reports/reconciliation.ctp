@@ -164,10 +164,18 @@ $(document).ready(function() {
 
 		echo '<td>';
 		echo $this->Form->hidden('ReportRec.' . $row . '.id', array('value' => $entry['Entryitem']['id']));
-		echo $this->Form->input('ReportRec.' . $row . '.recdate', array('label' => false, 'class' => 'recdate',
-			'default' => dateFromSql($entry['Entryitem']['reconciliation_date']),
-			'div' => false,
-		));
+		if ($entry['Entryitem']['reconciliation_date']) {
+			echo $this->Form->input('ReportRec.' . $row . '.recdate', array(
+				'label' => false, 'class' => 'recdate',
+				'default' => dateFromSql($entry['Entryitem']['reconciliation_date']),
+				'div' => false,
+			));
+		} else {
+			echo $this->Form->input('ReportRec.' . $row . '.recdate', array(
+				'label' => false, 'class' => 'recdate',
+				'div' => false,
+			));
+		}
 		echo '</td>';
 		echo '</tr>';
 	}

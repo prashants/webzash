@@ -99,6 +99,14 @@ class Wzuser extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'timezone' => array(
+			'rule1' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Timezone cannot be empty',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),
 		'role' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',

@@ -77,7 +77,6 @@ $(document).ready(function() {
 	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'label' => __d('webzash', 'Financial year end')));
-	echo $this->Form->input('timezone', array('type' => 'select', 'options' => $this->Timezone->show(), 'default' => 'US/Eastern', 'label' => __d('webzash', 'Timezone')));
 
 	echo '<div class="form-group">';
 	echo $this->Form->submit(__d('webzash', 'Submit'), array(
