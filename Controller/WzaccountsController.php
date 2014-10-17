@@ -250,6 +250,23 @@ class WzaccountsController extends WebzashAppController {
 					return;
 				}
 
+				/* Read the intial data from the Config folder */
+				App::uses('File', 'Utility');
+				$initdata_filepath = App::pluginPath('Webzash') . 'Config/InitialData.Mysql.sql';
+				$initdata_file = new File($initdata_filepath, false);
+				$initdata = $initdata_file->read(true, 'r');
+
+				/* Add prefix to the table names in the intial data */
+				$final_initdata = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $initdata);
+
+				/* Add initial data */
+				try {
+					$db->rawQuery($final_initdata);
+				} catch (Exception $e) {
+					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while adding initial data. Please try again.'), 'danger');
+					return;
+				}
+
 				/* Create settings */
 				/* TODO : Switch to loadModel() */
 				App::import("Webzash.Model", "Setting");

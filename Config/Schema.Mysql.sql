@@ -31,20 +31,20 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
-DROP TRIGGER IF EXISTS `check_%_PREFIX_%ledgers`;
-DELIMITER //
-CREATE TRIGGER `check_%_PREFIX_%ledgers` BEFORE INSERT ON `%_PREFIX_%ledgers`
-FOR EACH ROW BEGIN
-	SET NEW.op_balance_dc = UPPER(NEW.op_balance_dc);
-	IF !(NEW.op_balance_dc <=> 'D' OR NEW.op_balance_dc <=> 'C') THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'Invalid value for key op_balance_dc. Allowed values are char D or C';
-	END IF;
-	IF (NEW.op_balance < 0.0) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance cannot be less than 0.00.';
-	END IF;
-END
-//
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS `check_%_PREFIX_%ledgers`;
+-- DELIMITER //
+-- CREATE TRIGGER `check_%_PREFIX_%ledgers` BEFORE INSERT ON `%_PREFIX_%ledgers`
+-- FOR EACH ROW BEGIN
+-- 	SET NEW.op_balance_dc = UPPER(NEW.op_balance_dc);
+-- 	IF !(NEW.op_balance_dc <=> 'D' OR NEW.op_balance_dc <=> 'C') THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'Invalid value for key op_balance_dc. Allowed values are char D or C';
+-- 	END IF;
+-- 	IF (NEW.op_balance < 0.0) THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance cannot be less than 0.00.';
+-- 	END IF;
+-- END
+-- //
+-- DELIMITER ;
 
 CREATE TABLE `%_PREFIX_%tags` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -99,22 +99,22 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
-DROP TRIGGER IF EXISTS `check_%_PREFIX_%entries`;
-DELIMITER //
-CREATE TRIGGER `check_%_PREFIX_%entries` BEFORE INSERT ON `%_PREFIX_%entries`
-FOR EACH ROW BEGIN
-	IF (NEW.dr_total < 0.0) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'dr_total cannot be less than 0.00.';
-	END IF;
-	IF (NEW.cr_total < 0.0) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'cr_total cannot be less than 0.00.';
-	END IF;
-	IF !(NEW.dr_total <=> NEW.cr_total) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'dr_total is not equal to cr_total.';
-	END IF;
-END
-//
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS `check_%_PREFIX_%entries`;
+-- DELIMITER //
+-- CREATE TRIGGER `check_%_PREFIX_%entries` BEFORE INSERT ON `%_PREFIX_%entries`
+-- FOR EACH ROW BEGIN
+-- 	IF (NEW.dr_total < 0.0) THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'dr_total cannot be less than 0.00.';
+-- 	END IF;
+-- 	IF (NEW.cr_total < 0.0) THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'cr_total cannot be less than 0.00.';
+-- 	END IF;
+-- 	IF !(NEW.dr_total <=> NEW.cr_total) THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'dr_total is not equal to cr_total.';
+-- 	END IF;
+-- END
+-- //
+-- DELIMITER ;
 
 CREATE TABLE `%_PREFIX_%entryitems` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -133,20 +133,20 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
-DROP TRIGGER IF EXISTS `check_%_PREFIX_%entryitems`;
-DELIMITER //
-CREATE TRIGGER `check_%_PREFIX_%entryitems` BEFORE INSERT ON `%_PREFIX_%entryitems`
-FOR EACH ROW BEGIN
-	SET NEW.dc = UPPER(NEW.dc);
-	IF !(NEW.dc <=> 'D' OR NEW.dc <=> 'C') THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'Invalid value for key dc. Allowed values are char D or C';
-	END IF;
-	IF (NEW.amount < 0.0) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'amount cannot be less than 0.00.';
-	END IF;
-END
-//
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS `check_%_PREFIX_%entryitems`;
+-- DELIMITER //
+-- CREATE TRIGGER `check_%_PREFIX_%entryitems` BEFORE INSERT ON `%_PREFIX_%entryitems`
+-- FOR EACH ROW BEGIN
+-- 	SET NEW.dc = UPPER(NEW.dc);
+-- 	IF !(NEW.dc <=> 'D' OR NEW.dc <=> 'C') THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'Invalid value for key dc. Allowed values are char D or C';
+-- 	END IF;
+-- 	IF (NEW.amount < 0.0) THEN
+-- 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'amount cannot be less than 0.00.';
+-- 	END IF;
+-- END
+-- //
+-- DELIMITER ;
 
 CREATE TABLE `%_PREFIX_%settings` (
 	`id` int(1) NOT NULL,
@@ -184,14 +184,14 @@ CREATE TABLE `%_PREFIX_%settings` (
 COLLATE=utf8_unicode_ci,
 ENGINE=InnoDB;
 
-DROP TRIGGER IF EXISTS `check_%_PREFIX_%settings`;
-DELIMITER //
-CREATE TRIGGER `check_%_PREFIX_%settings` BEFORE INSERT ON `%_PREFIX_%settings`
-FOR EACH ROW BEGIN
-	SET NEW.id = 1;
-END
-//
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS `check_%_PREFIX_%settings`;
+-- DELIMITER //
+-- CREATE TRIGGER `check_%_PREFIX_%settings` BEFORE INSERT ON `%_PREFIX_%settings`
+-- FOR EACH ROW BEGIN
+-- 	SET NEW.id = 1;
+-- END
+-- //
+-- DELIMITER ;
 
 CREATE TABLE `%_PREFIX_%logs` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -223,25 +223,3 @@ ALTER TABLE `%_PREFIX_%entries`
 ALTER TABLE `%_PREFIX_%entryitems`
 	ADD CONSTRAINT `entryitems_fk_check_ledger_id` FOREIGN KEY (`ledger_id`) REFERENCES `%_PREFIX_%ledgers` (`id`),
 	ADD CONSTRAINT `entryitems_fk_check_entry_id` FOREIGN KEY (`entry_id`) REFERENCES `%_PREFIX_%entries` (`id`);
-
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (1, NULL, 'Assets', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (2, NULL, 'Liabilities and Owners Equity', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (3, NULL, 'Incomes', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (4, NULL, 'Expenses', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (5, 1, 'Fixed Assets', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (6, 1, 'Current Assets', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (7, 1, 'Investments', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (8, 2, 'Capital Account', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (9, 2, 'Current Liabilities', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (10, 2, 'Loans (Liabilities)', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (11, 3, 'Direct Incomes', 1);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (12, 4, 'Direct Expenses', 1);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (13, 3, 'Indirect Incomes', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (14, 4, 'Indirect Expenses', 0);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (15, 3, 'Sales', 1);
-INSERT INTO `%_PREFIX_%groups` (`id`, `parent_id`, `name`, `affects_gross`) VALUES (16, 4, 'Purchases', 1);
-
-INSERT INTO `%_PREFIX_%entrytypes` (`id`, `label`, `name`, `description`, `base_type`, `numbering`, `prefix`, `suffix`, `zero_padding`, `restriction_bankcash`) VALUES (1, 'receipt', 'Receipt', 'Received in Bank account or Cash account', 1, 1, '', '', 0, 2);
-INSERT INTO `%_PREFIX_%entrytypes` (`id`, `label`, `name`, `description`, `base_type`, `numbering`, `prefix`, `suffix`, `zero_padding`, `restriction_bankcash`) VALUES (2, 'payment', 'Payment', 'Payment made from Bank account or Cash account', 1, 1, '', '', 0, 3);
-INSERT INTO `%_PREFIX_%entrytypes` (`id`, `label`, `name`, `description`, `base_type`, `numbering`, `prefix`, `suffix`, `zero_padding`, `restriction_bankcash`) VALUES (3, 'contra', 'Contra', 'Transfer between Bank account and Cash account', 1, 1, '', '', 0, 4);
-INSERT INTO `%_PREFIX_%entrytypes` (`id`, `label`, `name`, `description`, `base_type`, `numbering`, `prefix`, `suffix`, `zero_padding`, `restriction_bankcash`) VALUES (4, 'journal', 'Journal', 'Transfer between Non Bank account and Cash account', 1, 1, '', '', 0, 5);
