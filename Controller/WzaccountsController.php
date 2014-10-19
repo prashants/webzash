@@ -267,7 +267,7 @@ class WzaccountsController extends WebzashAppController {
 					return;
 				}
 
-				/* Create settings */
+				/******* Create settings *******/
 				/* TODO : Switch to loadModel() */
 				App::import("Webzash.Model", "Setting");
 				$this->Setting = new Setting();
@@ -313,7 +313,7 @@ class WzaccountsController extends WebzashAppController {
 					return;
 				}
 
-				/* Add to wzaccount table */
+				/******* Add to wzaccount table *******/
 				$account_config = array('Wzaccount' => array(
 					'label' => $this->request->data['Wzaccount']['label'],
 					'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],

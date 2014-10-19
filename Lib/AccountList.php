@@ -32,26 +32,26 @@ class AccountList
 {
 	var $id = 0;
 	var $name = '';
+	var $g_parent_id = 0;		/* Group specific */
+	var $g_affects_gross = 0;	/* Group specific */
+	var $l_group_id = 0;		/* Ledger specific */
+	var $l_type = 0;		/* Ledger specific */
+	var $l_reconciliation = 0;	/* Ledger specific */
 
 	var $op_total = 0;
 	var $op_total_dc = 'D';
-
 	var $dr_total = 0;
 	var $cr_total = 0;
-
 	var $cl_total = 0;
 	var $cl_total_dc = 'D';
 
 	var $children_groups = array();
 	var $children_ledgers = array();
+
 	var $counter = 0;
 
 	public static $Group = null;
 	public static $Ledger = null;
-	public static $temp_max = 0;
-	public static $max_depth = 0;
-	public static $csv_data = array();
-	public static $csv_row = 0;
 
 /**
  * Initializer
@@ -79,6 +79,8 @@ class AccountList
 			$group = self::$Group->find('first', array('conditions' => array('id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
+			$this->g_parent_id = $group['Group']['parent_id'];
+			$this->g_affects_gross = $group['Group']['affects_gross'];
 		}
 
 		$this->op_total = 0;
@@ -157,6 +159,9 @@ class AccountList
 		{
 			$this->children_ledgers[$counter]['id'] = $row['Ledger']['id'];
 			$this->children_ledgers[$counter]['name'] = $row['Ledger']['name'];
+			$this->children_ledgers[$counter]['l_group_id'] = $row['Ledger']['group_id'];
+			$this->children_ledgers[$counter]['l_type'] = $row['Ledger']['type'];
+			$this->children_ledgers[$counter]['l_reconciliation'] = $row['Ledger']['reconciliation'];
 
 			$this->children_ledgers[$counter]['op_total'] = $row['Ledger']['op_balance'];
 			$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
