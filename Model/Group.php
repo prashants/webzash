@@ -101,7 +101,7 @@ class Group extends WebzashAppModel {
 
 	/* Validation - Check if parent_id is a valid id */
 	public function parentValid($data) {
-		if (!empty($data['parent_id'])) {
+		if (empty($data['parent_id'])) {
 			return false;
 		}
 
