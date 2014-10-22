@@ -144,7 +144,7 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Database password cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'db_prefix' => array(

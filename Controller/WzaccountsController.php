@@ -140,16 +140,18 @@ class WzaccountsController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Database login is required.'), 'danger');
 				return;
 			}
-			if (empty($this->request->data['Wzaccount']['db_password'])) {
-				$this->Session->setFlash(__d('webzash', 'Database password is required.'), 'danger');
-				return;
-			}
 
 			/* Check financial year start is before end */
 			$fy_start = strtotime($this->request->data['Wzaccount']['fy_start'] . ' 00:00:00');
 			$fy_end = strtotime($this->request->data['Wzaccount']['fy_end'] . ' 00:00:00');
 			if ($fy_start >= $fy_end) {
 				$this->Session->setFlash(__d('webzash', 'Financial year start date cannot be after end date.'), 'danger');
+				return;
+			}
+
+			/* Check email */
+			if (!filter_var($this->request->data['Wzaccount']['email'], FILTER_VALIDATE_EMAIL)) {
+				$this->Session->setFlash(__d('webzash', 'Email address is invalid.'), 'danger');
 				return;
 			}
 
