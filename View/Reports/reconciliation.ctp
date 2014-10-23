@@ -29,19 +29,18 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+	$("#accordion").accordion({
+		collapsible: true,
+		<?php
+			if ($options == false) {
+				echo 'active: false';
+			}
+		?>
+	});
+
 	/* Calculate date range in javascript */
 	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
 	endDate = new Date(<?php echo strtotime(Configure::read('Account.enddate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
-
-	/* On selecting custom period show the start and end date form fields */
-	$('#ReportCustomPeriod').change(function() {
-		if ($(this).prop('checked')) {
-			$('#ledgerst-period').show();
-		} else {
-			$('#ledgerst-period').hide();
-		}
-	});
-	$('#ReportCustomPeriod').trigger('change');
 
 	/* Setup jQuery datepicker ui */
 	$('#ReportStartdate').datepicker({
@@ -91,13 +90,17 @@ $(document).ready(function() {
 		));
 
 		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'label' => __d('webzash', 'Ledger account')));
-		echo $this->Form->input('showall', array('type' => 'checkbox', 'label' => __d('webzash', 'Show all entries'), 'class' => 'checkbox'));
 
-		echo $this->Form->input('custom_period', array('type' => 'checkbox', 'label' => __d('webzash', 'Change default period'), 'class' => 'checkbox'));
-		echo '<fieldset id="ledgerst-period">';
+		echo '<div id="accordion">';
+		echo '<h3>Options</h3>';
+		echo '<div>';
+
+		echo $this->Form->input('showall', array('type' => 'checkbox', 'label' => __d('webzash', 'Show all entries'), 'class' => 'checkbox'));
 		echo $this->Form->input('startdate', array('label' => __d('webzash', 'Start date')));
 		echo $this->Form->input('enddate', array('label' => __d('webzash', 'End date')));
-		echo '</fieldset>';
+		echo '</div>';
+		echo '</div>';
+		echo '<br />';
 
 		echo $this->Form->hidden('submitledger', array('value' => '1'));
 		echo '<div class="form-group">';

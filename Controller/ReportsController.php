@@ -179,6 +179,53 @@ class ReportsController extends WebzashAppController {
 		App::import("Webzash.Model", "Group");
 		$this->Group = new Group();
 
+		/* POST */
+		if ($this->request->is('post')) {
+			if ($this->request->data['Profitloss']['opening'] == 1) {
+				return $this->redirect(array(
+					'plugin' => 'webzash',
+					'controller' => 'reports',
+					'action' => 'profitloss',
+					'options' => 1,
+					'opening' => 1,
+				));
+			} else {
+				if (!empty($this->request->data['Profitloss']['startdate']) || !empty($this->request->data['Profitloss']['enddate'])) {
+					return $this->redirect(array(
+						'plugin' => 'webzash',
+						'controller' => 'reports',
+						'action' => 'profitloss',
+						'options' => 1,
+						'opening' => 0,
+						'startdate' => $this->request->data['Profitloss']['startdate'],
+						'enddate' => $this->request->data['Profitloss']['enddate']
+					));
+				} else {
+					return $this->redirect(array(
+						'plugin' => 'webzash',
+						'controller' => 'reports',
+						'action' => 'profitloss'
+					));
+				}
+			}
+		}
+
+		if (empty($this->passedArgs['options'])) {
+			$this->set('options', false);
+		} else {
+			$this->set('options', true);
+			if (!empty($this->passedArgs['opening'])) {
+				$this->request->data['Profitloss']['opening'] = '1';
+			} else {
+				if (!empty($this->passedArgs['startdate'])) {
+					$this->request->data['Profitloss']['startdate'] = $this->passedArgs['startdate'];
+				}
+				if (!empty($this->passedArgs['enddate'])) {
+					$this->request->data['Profitloss']['enddate'] = $this->passedArgs['enddate'];
+				}
+			}
+		}
+
 		/**********************************************************************/
 		/*********************** GROSS CALCULATIONS ***************************/
 		/**********************************************************************/
@@ -309,10 +356,11 @@ class ReportsController extends WebzashAppController {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 			}
 
-			if ($this->request->data['Report']['custom_period'] == 1) {
+			if (!empty($this->request->data['Report']['startdate']) ||
+				!empty($this->request->data['Report']['enddate'])) {
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement',
 					'ledgerid' => $this->request->data['Report']['ledger_id'],
-					'customperiod' => 1,
+					'options' => 1,
 					'startdate' => $this->request->data['Report']['startdate'],
 					'enddate' => $this->request->data['Report']['enddate'],
 				));
@@ -324,6 +372,7 @@ class ReportsController extends WebzashAppController {
 		}
 
 		$this->set('showEntries', false);
+		$this->set('options', false);
 
 		/* Check if ledger id is set in parameters, if not return and end view here */
 		if (empty($this->passedArgs['ledgerid'])) {
@@ -340,21 +389,26 @@ class ReportsController extends WebzashAppController {
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
 
-		/* Set the approprite search conditions if custom date is selected */
+		/* Set the approprite search conditions */
 		$conditions = array();
 		$conditions['Entryitem.ledger_id'] = $ledgerId;
-		if (!empty($this->passedArgs['customperiod'])) {
-			$this->request->data['Report']['custom_period'] = $this->passedArgs['customperiod'];
-		}
-		if (!empty($this->passedArgs['startdate'])) {
-			/* TODO : Validate date */
-			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
-		}
-		if (!empty($this->passedArgs['enddate'])) {
-			/* TODO : Validate date */
-			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
+
+		/* Set the approprite search conditions if custom date is selected */
+		if (empty($this->passedArgs['options'])) {
+			$this->set('options', false);
+		} else {
+			$this->set('options', true);
+
+			if (!empty($this->passedArgs['startdate'])) {
+				/* TODO : Validate date */
+				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
+				$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
+			}
+			if (!empty($this->passedArgs['enddate'])) {
+				/* TODO : Validate date */
+				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
+				$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
+			}
 		}
 
 		/* Setup pagination */
@@ -422,18 +476,19 @@ class ReportsController extends WebzashAppController {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 				}
 
-				if ($this->request->data['Report']['custom_period'] == 1) {
+				if (!empty($this->request->data['Report']['startdate']) ||
+					!empty($this->request->data['Report']['enddate']) ||
+					!empty($this->request->data['Report']['showall'])) {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation',
 						'ledgerid' => $this->request->data['Report']['ledger_id'],
+						'options' => 1,
 						'showall' => $this->request->data['Report']['showall'],
-						'customperiod' => 1,
 						'startdate' => $this->request->data['Report']['startdate'],
 						'enddate' => $this->request->data['Report']['enddate'],
 					));
 				} else {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation',
-						'ledgerid' => $this->request->data['Report']['ledger_id'],
-						'showall' => $this->request->data['Report']['showall'],
+						'ledgerid' => $this->request->data['Report']['ledger_id']
 					));
 				}
 
@@ -475,6 +530,7 @@ class ReportsController extends WebzashAppController {
 		}
 
 		$this->set('showEntries', false);
+		$this->set('options', false);
 
 		/* Check if ledger id is set in parameters, if not return and end view here */
 		if (empty($this->passedArgs['ledgerid'])) {
@@ -490,28 +546,36 @@ class ReportsController extends WebzashAppController {
 		}
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
-		$this->request->data['Report']['showall'] = $this->passedArgs['showall'];
 
-		/* Set the approprite search conditions if custom date is selected */
+		/* Set the approprite search conditions */
 		$conditions = array();
 		$conditions['Entryitem.ledger_id'] = $ledgerId;
-		if (!empty($this->passedArgs['customperiod'])) {
-			$this->request->data['Report']['custom_period'] = $this->passedArgs['customperiod'];
-		}
-		if (!empty($this->passedArgs['startdate'])) {
-			/* TODO : Validate date */
-			$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-			$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
-		}
-		if (!empty($this->passedArgs['enddate'])) {
-			/* TODO : Validate date */
-			$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-			$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
-		}
-		if (!empty($this->passedArgs['showall'])) {
-			/* nothing to do */
+
+		/* Set the approprite search conditions if custom date is selected */
+		if (empty($this->passedArgs['options'])) {
+			$this->set('options', false);
 		} else {
-			$conditions['Entryitem.reconciliation_date'] = null;
+			$this->set('options', true);
+
+			if (!empty($this->passedArgs['showall'])) {
+				$this->request->data['Report']['showall'] = 1;
+			}
+			if (!empty($this->passedArgs['startdate'])) {
+				/* TODO : Validate date */
+				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
+				$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
+			}
+			if (!empty($this->passedArgs['enddate'])) {
+				/* TODO : Validate date */
+				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
+				$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
+			}
+		}
+
+		if (!empty($this->passedArgs['showall'])) {
+			/* Nothing to do */
+		} else {
+			$conditions['Entryitem.reconciliation_date'] = NULL;
 		}
 
 		/* Setup pagination */
@@ -537,6 +601,13 @@ class ReportsController extends WebzashAppController {
 		$this->set('showEntries', true);
 
 		return;
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
+		$this->Security->unlockedFields = array('startdate', 'enddate');
 	}
 
 	/* Authorization check */
