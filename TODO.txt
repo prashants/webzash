@@ -1,0 +1,2 @@
+Set default value for AccountList -> show_opening, start and end date through out the application
+BUG - uncomment App::import of Entryitems in DashboardController.php, due to multiple imports all balances are zero
