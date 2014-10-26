@@ -278,3 +278,9 @@ form .error-message {
 .help-block {
 	font-size: 12px;
 }
+
+.subtitle {
+	color: #333333;
+	font-size: 19px;
+	margin-bottom: 10px;
+}

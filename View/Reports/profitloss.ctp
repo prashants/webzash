@@ -180,8 +180,14 @@ $(document).ready(function() {
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : In opening Profit and Loss Statement all ledgers and groups balance must be zero.') . '</span>',
 		));
 
-		echo $this->Form->input('startdate', array('label' => __d('webzash', 'Start date')));
-		echo $this->Form->input('enddate', array('label' => __d('webzash', 'End date')));
+		echo $this->Form->input('startdate', array(
+			'label' => __d('webzash', 'Start date'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave start date as empty if you want statement from the start of the financial year.') . '</span>',
+		));
+		echo $this->Form->input('enddate', array(
+			'label' => __d('webzash', 'End date'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave end date as empty if you want statement till the end of the financial year.') . '</span>',
+		));
 
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(
@@ -197,6 +203,10 @@ $(document).ready(function() {
 	</div>
 </div>
 <br />
+
+<div class="subtitle text-center">
+	<?php echo $subtitle ?>
+</div>
 
 <table>
 

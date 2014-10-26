@@ -174,6 +174,7 @@ class ReportsController extends WebzashAppController {
 	public function profitloss() {
 
 		$this->set('title_for_layout', __d('webzash', 'Profit and Loss Statement'));
+		$this->set('subtitle', '');
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Group");
@@ -210,18 +211,50 @@ class ReportsController extends WebzashAppController {
 			}
 		}
 
+		$only_opening = false;
+		$startdate = null;
+		$enddate = null;
+
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+			/* Sub-title*/
+			$this->set('subtitle', __d('webzash', 'Closing Profit and Loss Statement as on ') .
+				dateFromSql(Configure::read('Account.enddate')));
 		} else {
 			$this->set('options', true);
 			if (!empty($this->passedArgs['opening'])) {
+				$only_opening = true;
 				$this->request->data['Profitloss']['opening'] = '1';
+				/* Sub-title*/
+				$this->set('subtitle', __d('webzash', 'Opening Profit and Loss Statement as on ') .
+					dateFromSql(Configure::read('Account.startdate')));
 			} else {
 				if (!empty($this->passedArgs['startdate'])) {
+					$startdate = dateToSQL($this->passedArgs['startdate']);
 					$this->request->data['Profitloss']['startdate'] = $this->passedArgs['startdate'];
 				}
 				if (!empty($this->passedArgs['enddate'])) {
+					$enddate = dateToSQL($this->passedArgs['enddate']);
 					$this->request->data['Profitloss']['enddate'] = $this->passedArgs['enddate'];
+				}
+
+				/* Sub-title*/
+				if (!empty($this->passedArgs['startdate']) &&
+					!empty($this->passedArgs['enddate'])) {
+					$this->set('subtitle', __d('webzash', 'Profit and Loss Statement from ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['enddate']))
+					));
+				} else if (!empty($this->passedArgs['startdate'])) {
+					$this->set('subtitle', __d('webzash', 'Profit and Loss Statement from ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(Configure::read('Account.enddate'))
+					));
+				} else if (!empty($this->passedArgs['enddate'])) {
+					$this->set('subtitle', __d('webzash', 'Profit and Loss Statement from ' .
+						dateFromSql(Configure::read('Account.startdate')) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['enddate']))
+					));
 				}
 			}
 		}
@@ -236,6 +269,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($gross_expense_groups as $row => $group) {
 			$pandl['gross_expense_list'][$row] = new AccountList();
+			$pandl['gross_expense_list'][$row]->only_opening = $only_opening;
+			$pandl['gross_expense_list'][$row]->start_date = $startdate;
+			$pandl['gross_expense_list'][$row]->end_date = $enddate;
+
 			$pandl['gross_expense_list'][$row]->start($group['Group']['id']);
 
 			if ($pandl['gross_expense_list'][$row]->cl_total_dc == 'D') {
@@ -251,6 +288,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($gross_income_groups as $row => $group) {
 			$pandl['gross_income_list'][$row] = new AccountList();
+			$pandl['gross_income_list'][$row]->only_opening = $only_opening;
+			$pandl['gross_income_list'][$row]->start_date = $startdate;
+			$pandl['gross_income_list'][$row]->end_date = $enddate;
+
 			$pandl['gross_income_list'][$row]->start($group['Group']['id']);
 
 			if ($pandl['gross_income_list'][$row]->cl_total_dc == 'C') {
@@ -273,6 +314,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($net_expense_groups as $row => $group) {
 			$pandl['net_expense_list'][$row] = new AccountList();
+			$pandl['net_expense_list'][$row]->only_opening = $only_opening;
+			$pandl['net_expense_list'][$row]->start_date = $startdate;
+			$pandl['net_expense_list'][$row]->end_date = $enddate;
+
 			$pandl['net_expense_list'][$row]->start($group['Group']['id']);
 
 			if ($pandl['net_expense_list'][$row]->cl_total_dc == 'D') {
@@ -288,6 +333,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($net_income_groups as $row => $group) {
 			$pandl['net_income_list'][$row] = new AccountList();
+			$pandl['net_income_list'][$row]->only_opening = $only_opening;
+			$pandl['net_income_list'][$row]->start_date = $startdate;
+			$pandl['net_income_list'][$row]->end_date = $enddate;
+
 			$pandl['net_income_list'][$row]->start($group['Group']['id']);
 
 			if ($pandl['net_income_list'][$row]->cl_total_dc == 'C') {

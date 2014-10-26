@@ -50,6 +50,10 @@ class AccountList
 
 	var $counter = 0;
 
+	var $only_opening = false;
+	var $start_date = null;
+	var $end_date = null;
+
 	public static $Group = null;
 	public static $Ledger = null;
 
@@ -103,7 +107,14 @@ class AccountList
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
+			/* Create new AccountList object */
 			$this->children_groups[$counter] = new AccountList();
+
+			/* Initial setup */
+			$this->children_groups[$counter]->only_opening = $this->only_opening;
+			$this->children_groups[$counter]->start_date = $this->start_date;
+			$this->children_groups[$counter]->end_date = $this->end_date;
+
 			$this->children_groups[$counter]->start($row['Group']['id']);
 
 			/* Calculating opening balance total for the group */
@@ -163,10 +174,16 @@ class AccountList
 			$this->children_ledgers[$counter]['l_type'] = $row['Ledger']['type'];
 			$this->children_ledgers[$counter]['l_reconciliation'] = $row['Ledger']['reconciliation'];
 
-			$this->children_ledgers[$counter]['op_total'] = $row['Ledger']['op_balance'];
-			$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
+			/* If start date is specified dont use the opening balance since its not applicable */
+			if (is_null($this->start_date)) {
+				$this->children_ledgers[$counter]['op_total'] = $row['Ledger']['op_balance'];
+				$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
+			} else {
+				$this->children_ledgers[$counter]['op_total'] = 0.00;
+				$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
+			}
 
-			/* Calculating opening balance total */
+			/* Calculating group opening balance total */
 			if ($this->op_total_dc == 'D' && $this->children_ledgers[$counter]['op_total_dc'] == 'D') {
 				$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '+');
 				$this->op_total_dc = 'D';
@@ -183,15 +200,34 @@ class AccountList
 				}
 			}
 
-			$cl = closingBalance($row['Ledger']['id']);
+			if ($this->only_opening == true) {
+				/* If calculating only opening balance */
+				$this->children_ledgers[$counter]['dr_total'] = 0;
+				$this->children_ledgers[$counter]['cr_total'] = 0;
 
-			$this->children_ledgers[$counter]['dr_total'] = $cl['dr_total'];
-			$this->children_ledgers[$counter]['cr_total'] = $cl['cr_total'];
+				$this->children_ledgers[$counter]['cl_total'] =
+					$this->children_ledgers[$counter]['op_total'];
+				$this->children_ledgers[$counter]['cl_total_dc'] =
+					$this->children_ledgers[$counter]['op_total_dc'];
+			} else {
+				if (is_null($this->start_date) && is_null($this->end_date)) {
+					$cl = closingBalance($row['Ledger']['id']);
+				} else {
+					$cl = closingBalanceWithDate(
+						$row['Ledger']['id'],
+						$this->start_date,
+						$this->end_date
+					);
+				}
 
-			$this->children_ledgers[$counter]['cl_total'] = $cl['balance'];
-			$this->children_ledgers[$counter]['cl_total_dc'] = $cl['dc'];
+				$this->children_ledgers[$counter]['dr_total'] = $cl['dr_total'];
+				$this->children_ledgers[$counter]['cr_total'] = $cl['cr_total'];
 
-			/* Calculating ledger closing balance total */
+				$this->children_ledgers[$counter]['cl_total'] = $cl['balance'];
+				$this->children_ledgers[$counter]['cl_total_dc'] = $cl['dc'];
+			}
+
+			/* Calculating group closing balance total */
 			if ($this->cl_total_dc == 'D' && $this->children_ledgers[$counter]['cl_total_dc'] == 'D') {
 				$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '+');
 				$this->cl_total_dc = 'D';
