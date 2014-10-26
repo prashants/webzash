@@ -87,17 +87,18 @@ class DashboardController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Entries table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entryitem");
-		$this->Entryitem = new Entryitem();
-		try {
-			$this->Entryitem->find('first');
-		} catch (Exception $e) {
-			CakeSession::delete('ActiveAccount.id');
-			CakeSession::delete('ActiveAccount.account_role');
-			$this->Session->setFlash(__d('webzash', 'Entry items table is missing. Please check whether this is a valid account database.'), 'danger');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
-		}
+		// TODO : BUG if loaded then all values are 0 due to virtualFields not working correctly.
+		// /* TODO : Switch to loadModel() */
+		// App::import("Webzash.Model", "Entryitem");
+		// $this->Entryitem = new Entryitem();
+		// try {
+		// 	$this->Entryitem->find('first');
+		// } catch (Exception $e) {
+		// 	CakeSession::delete('ActiveAccount.id');
+		// 	CakeSession::delete('ActiveAccount.account_role');
+		// 	$this->Session->setFlash(__d('webzash', 'Entry items table is missing. Please check whether this is a valid account database.'), 'danger');
+		// 	return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		// }
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Tag");
 		$this->Tag = new Tag();
