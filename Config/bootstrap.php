@@ -244,9 +244,12 @@ function closingBalance($id) {
 }
 
 /**
- * Calculate closing balance of specified ledger account
+ * Calculate closing balance of specified ledger account for the given
+ * date range
  *
  * @param1 int ledger id
+ * @param2 date start date
+ * @param3 date end date
  * @return array D/C, Amount
 */
 function closingBalanceWithDate($id, $start_date = null, $end_date = null) {
