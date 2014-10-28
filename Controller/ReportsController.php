@@ -71,6 +71,87 @@ class ReportsController extends WebzashAppController {
 		App::import("Webzash.Model", "Ledger");
 		$this->Ledger = new Ledger();
 
+		/* POST */
+		if ($this->request->is('post')) {
+			if ($this->request->data['Balancesheet']['opening'] == 1) {
+				return $this->redirect(array(
+					'plugin' => 'webzash',
+					'controller' => 'reports',
+					'action' => 'balancesheet',
+					'options' => 1,
+					'opening' => 1,
+				));
+			} else {
+				if (!empty($this->request->data['Balancesheet']['startdate']) || !empty($this->request->data['Balancesheet']['enddate'])) {
+					return $this->redirect(array(
+						'plugin' => 'webzash',
+						'controller' => 'reports',
+						'action' => 'balancesheet',
+						'options' => 1,
+						'opening' => 0,
+						'startdate' => $this->request->data['Balancesheet']['startdate'],
+						'enddate' => $this->request->data['Balancesheet']['enddate']
+					));
+				} else {
+					return $this->redirect(array(
+						'plugin' => 'webzash',
+						'controller' => 'reports',
+						'action' => 'balancesheet'
+					));
+				}
+			}
+		}
+
+		$only_opening = false;
+		$startdate = null;
+		$enddate = null;
+
+		if (empty($this->passedArgs['options'])) {
+			$this->set('options', false);
+			/* Sub-title*/
+			$this->set('subtitle', __d('webzash', 'Closing Balance Sheet as on ') .
+				dateFromSql(Configure::read('Account.enddate')));
+		} else {
+			$this->set('options', true);
+			if (!empty($this->passedArgs['opening'])) {
+				$only_opening = true;
+				$this->request->data['Balancesheet']['opening'] = '1';
+				/* Sub-title*/
+				$this->set('subtitle', __d('webzash', 'Opening Balance Sheet as on ') .
+					dateFromSql(Configure::read('Account.startdate')));
+			} else {
+				if (!empty($this->passedArgs['startdate'])) {
+					$startdate = dateToSQL($this->passedArgs['startdate']);
+					$this->request->data['Balancesheet']['startdate'] =
+						$this->passedArgs['startdate'];
+				}
+				if (!empty($this->passedArgs['enddate'])) {
+					$enddate = dateToSQL($this->passedArgs['enddate']);
+					$this->request->data['Balancesheet']['enddate'] =
+						$this->passedArgs['enddate'];
+				}
+
+				/* Sub-title*/
+				if (!empty($this->passedArgs['startdate']) &&
+					!empty($this->passedArgs['enddate'])) {
+					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['enddate']))
+					));
+				} else if (!empty($this->passedArgs['startdate'])) {
+					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(Configure::read('Account.enddate'))
+					));
+				} else if (!empty($this->passedArgs['enddate'])) {
+					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
+						dateFromSql(Configure::read('Account.startdate')) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['enddate']))
+					));
+				}
+			}
+		}
+
 		/**********************************************************************/
 		/*********************** BALANCESHEET CALCULATIONS ********************/
 		/**********************************************************************/
@@ -81,6 +162,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($liabilities_groups as $row => $group) {
 			$bsheet['liabilities_list'][$row] = new AccountList();
+			$bsheet['liabilities_list'][$row]->only_opening = $only_opening;
+			$bsheet['liabilities_list'][$row]->start_date = $startdate;
+			$bsheet['liabilities_list'][$row]->end_date = $enddate;
+
 			$bsheet['liabilities_list'][$row]->start($group['Group']['id']);
 
 			if ($bsheet['liabilities_list'][$row]->cl_total_dc == 'C') {
@@ -96,6 +181,10 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($assets_groups as $row => $group) {
 			$bsheet['assets_list'][$row] = new AccountList();
+			$bsheet['assets_list'][$row]->only_opening = $only_opening;
+			$bsheet['assets_list'][$row]->start_date = $startdate;
+			$bsheet['assets_list'][$row]->end_date = $enddate;
+
 			$bsheet['assets_list'][$row]->start($group['Group']['id']);
 
 			if ($bsheet['assets_list'][$row]->cl_total_dc == 'D') {
@@ -107,8 +196,17 @@ class ReportsController extends WebzashAppController {
 
 		/* Profit and loss calculations */
 		$income = new AccountList();
+		$income->only_opening = $only_opening;
+		$income->start_date = $startdate;
+		$income->end_date = $enddate;
+
 		$income->start(3);
+
 		$expense = new AccountList();
+		$expense->only_opening = $only_opening;
+		$expense->start_date = $startdate;
+		$expense->end_date = $enddate;
+
 		$expense->start(4);
 
 		if ($income->cl_total_dc == 'C') {

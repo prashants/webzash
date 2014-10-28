@@ -105,7 +105,7 @@ $positive_net_pl = 0;
 $(document).ready(function() {
 	$('.show-tooltip').tooltip({trigger: 'manual'}).tooltip('show');
 
-	$( "#accordion" ).accordion({
+	$("#accordion").accordion({
 		collapsible: true,
 		<?php
 			if ($options == false) {
