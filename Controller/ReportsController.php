@@ -41,7 +41,7 @@ class ReportsController extends WebzashAppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entry', 'Webzash.Entryitem');
 
 /**
  * index method
@@ -62,14 +62,6 @@ class ReportsController extends WebzashAppController {
 	public function balancesheet() {
 
 		$this->set('title_for_layout', __d('webzash', 'Balance Sheet'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Group");
-		$this->Group = new Group();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
 
 		/* POST */
 		if ($this->request->is('post')) {
@@ -162,6 +154,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($liabilities_groups as $row => $group) {
 			$bsheet['liabilities_list'][$row] = new AccountList();
+			$bsheet['liabilities_list'][$row]->Group = &$this->Group;
+			$bsheet['liabilities_list'][$row]->Ledger = &$this->Ledger;
 			$bsheet['liabilities_list'][$row]->only_opening = $only_opening;
 			$bsheet['liabilities_list'][$row]->start_date = $startdate;
 			$bsheet['liabilities_list'][$row]->end_date = $enddate;
@@ -181,6 +175,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($assets_groups as $row => $group) {
 			$bsheet['assets_list'][$row] = new AccountList();
+			$bsheet['assets_list'][$row]->Group = &$this->Group;
+			$bsheet['assets_list'][$row]->Ledger = &$this->Ledger;
 			$bsheet['assets_list'][$row]->only_opening = $only_opening;
 			$bsheet['assets_list'][$row]->start_date = $startdate;
 			$bsheet['assets_list'][$row]->end_date = $enddate;
@@ -196,6 +192,8 @@ class ReportsController extends WebzashAppController {
 
 		/* Profit and loss calculations */
 		$income = new AccountList();
+		$income->Group = &$this->Group;
+		$income->Ledger = &$this->Ledger;
 		$income->only_opening = $only_opening;
 		$income->start_date = $startdate;
 		$income->end_date = $enddate;
@@ -203,6 +201,8 @@ class ReportsController extends WebzashAppController {
 		$income->start(3);
 
 		$expense = new AccountList();
+		$expense->Group = &$this->Group;
+		$expense->Ledger = &$this->Ledger;
 		$expense->only_opening = $only_opening;
 		$expense->start_date = $startdate;
 		$expense->end_date = $enddate;
@@ -273,10 +273,6 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Profit and Loss Statement'));
 		$this->set('subtitle', '');
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Group");
-		$this->Group = new Group();
 
 		/* POST */
 		if ($this->request->is('post')) {
@@ -367,6 +363,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($gross_expense_groups as $row => $group) {
 			$pandl['gross_expense_list'][$row] = new AccountList();
+			$pandl['gross_expense_list'][$row]->Group = &$this->Group;
+			$pandl['gross_expense_list'][$row]->Ledger = &$this->Ledger;
 			$pandl['gross_expense_list'][$row]->only_opening = $only_opening;
 			$pandl['gross_expense_list'][$row]->start_date = $startdate;
 			$pandl['gross_expense_list'][$row]->end_date = $enddate;
@@ -386,6 +384,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($gross_income_groups as $row => $group) {
 			$pandl['gross_income_list'][$row] = new AccountList();
+			$pandl['gross_income_list'][$row]->Group = &$this->Group;
+			$pandl['gross_income_list'][$row]->Ledger = &$this->Ledger;
 			$pandl['gross_income_list'][$row]->only_opening = $only_opening;
 			$pandl['gross_income_list'][$row]->start_date = $startdate;
 			$pandl['gross_income_list'][$row]->end_date = $enddate;
@@ -412,6 +412,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($net_expense_groups as $row => $group) {
 			$pandl['net_expense_list'][$row] = new AccountList();
+			$pandl['net_expense_list'][$row]->Group = &$this->Group;
+			$pandl['net_expense_list'][$row]->Ledger = &$this->Ledger;
 			$pandl['net_expense_list'][$row]->only_opening = $only_opening;
 			$pandl['net_expense_list'][$row]->start_date = $startdate;
 			$pandl['net_expense_list'][$row]->end_date = $enddate;
@@ -431,6 +433,8 @@ class ReportsController extends WebzashAppController {
 
 		foreach ($net_income_groups as $row => $group) {
 			$pandl['net_income_list'][$row] = new AccountList();
+			$pandl['net_income_list'][$row]->Group = &$this->Group;
+			$pandl['net_income_list'][$row]->Ledger = &$this->Ledger;
 			$pandl['net_income_list'][$row]->only_opening = $only_opening;
 			$pandl['net_income_list'][$row]->start_date = $startdate;
 			$pandl['net_income_list'][$row]->end_date = $enddate;
@@ -463,6 +467,12 @@ class ReportsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Trial Balance'));
 
 		$accountlist = new AccountList();
+		$accountlist->Group = &$this->Group;
+		$accountlist->Ledger = &$this->Ledger;
+		$accountlist->only_opening = false;
+		$accountlist->start_date = null;
+		$accountlist->end_date = null;
+
 		$accountlist->start(0);
 		$this->set('accountlist', $accountlist);
 		return;
@@ -476,18 +486,6 @@ class ReportsController extends WebzashAppController {
 	public function ledgerstatement() {
 
 		$this->set('title_for_layout', __d('webzash', 'Ledger Statement'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entryitem");
-		$this->Entryitem = new Entryitem();
 
 		/* Create list of ledgers to pass to view */
 		$ledgers = $this->Ledger->find('list', array(
@@ -541,6 +539,8 @@ class ReportsController extends WebzashAppController {
 		$conditions['Entryitem.ledger_id'] = $ledgerId;
 
 		/* Set the approprite search conditions if custom date is selected */
+		$startdate = null;
+		$enddate = null;
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
 		} else {
@@ -548,15 +548,30 @@ class ReportsController extends WebzashAppController {
 
 			if (!empty($this->passedArgs['startdate'])) {
 				/* TODO : Validate date */
+				$startdate = dateToSql($this->passedArgs['startdate']);
 				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
 				$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
 			}
 			if (!empty($this->passedArgs['enddate'])) {
 				/* TODO : Validate date */
+				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
 				$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
 			}
 		}
+
+		/* Calculating opening balance */
+		$op = array();
+		$op = $this->Ledger->openingBalance($ledgerId, $startdate);
+		$this->set('op', $op);
+
+		/* Calculating closing balance */
+		$cl = $this->Ledger->closingBalance(
+			$ledgerId,
+			$startdate,
+			$enddate
+		);
+		$this->set('cl', $cl);
 
 		/* Setup pagination */
 		$this->Paginator->settings = array(
@@ -591,18 +606,6 @@ class ReportsController extends WebzashAppController {
 	public function reconciliation() {
 
 		$this->set('title_for_layout', __d('webzash', 'Ledger Reconciliation'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entryitem");
-		$this->Entryitem = new Entryitem();
 
 		/* Create list of ledgers to pass to view */
 		$ledgers = $this->Ledger->find('list', array(

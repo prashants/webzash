@@ -27,6 +27,9 @@
 
 App::uses('WebzashAppModel', 'Webzash.Model');
 
+App::uses('Entry', 'Webzash.Model');
+App::uses('Entryitem', 'Webzash.Model');
+
 /**
 * Webzash Plugin Ledger Model
 *
@@ -235,4 +238,266 @@ class Ledger extends WebzashAppModel {
 			return 'ERROR';
 		}
 	}
+
+/**
+ * Calculate opening balance of specified ledger account for the given
+ * date range
+ *
+ * @param1 int ledger id
+ * @param2 date start date
+ * @return array D/C, Amount
+ */
+	function openingBalance($id, $start_date = null) {
+
+		if (empty($id)) {
+			throw new InternalErrorException(__d('webzash',
+				'Ledger not specified. Failed to calculate opening balance.')
+			);
+		}
+
+		/* Load models that are needed for calculations */
+		$Entry = ClassRegistry::init('Webzash.Entry');
+		$Entryitem = ClassRegistry::init('Webzash.Entryitem');
+
+		/* Opening balance */
+		$op = $this->find('first', array(
+			'conditions' => array('Ledger.id' => $id)
+		));
+		if (!$op) {
+			throw new InternalErrorException(__d('webzash',
+				'Ledger not found. Failed to calculate opening balance.')
+			);
+		}
+
+		$op_total = 0;
+		$op_total_dc = $op['Ledger']['op_balance_dc'];
+		if (is_null($start_date)) {
+			if (empty($op['Ledger']['op_balance'])) {
+				$op_total = 0;
+			} else {
+				$op_total = $op['Ledger']['op_balance'];
+			}
+
+			/* If start date is not specified then return here */
+			return array('dc' => $op_total_dc, 'balance' => $op_total);
+		}
+
+		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+
+		/* Debit total */
+		$dr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'D'
+		);
+		if (!is_null($start_date)) {
+			$dr_conditions['Entry.date <'] = $start_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $dr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$dr_total = 0;
+		} else {
+			$dr_total = $total['Entryitem']['total'];
+		}
+
+		/* Credit total */
+		$cr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'C'
+		);
+		if (!is_null($start_date)) {
+			$cr_conditions['Entry.date <'] = $start_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $cr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$cr_total = 0;
+		} else {
+			$cr_total = $total['Entryitem']['total'];
+		}
+
+		/* Add opening balance */
+		if ($op_total_dc == 'D') {
+			$dr_total_final = calculate($op_total, $dr_total, '+');
+			$cr_total_final = $cr_total;
+		} else {
+			$dr_total_final = $dr_total;
+			$cr_total_final = calculate($op_total, $cr_total, '+');
+		}
+
+		/* Calculate final opening balance */
+		if (calculate($dr_total_final, $cr_total_final, '>')) {
+			$op_total = calculate($dr_total_final, $cr_total_final, '-');
+			$op_total_dc = 'D';
+		} else if (calculate($dr_total_final, $cr_total_final, '==')) {
+			$op_total = 0;
+			$op_total_dc = $op_total_dc;
+		} else {
+			$op_total = calculate($cr_total_final, $dr_total_final, '-');
+			$op_total_dc = 'C';
+		}
+
+		return array('dc' => $op_total_dc, 'balance' => $op_total);
+	}
+
+/**
+ * Calculate closing balance of specified ledger account for the given
+ * date range
+ *
+ * @param1 int ledger id
+ * @param2 date start date
+ * @param3 date end date
+ * @return array D/C, Amount
+ */
+	function closingBalance($id, $start_date = null, $end_date = null) {
+
+		if (empty($id)) {
+			throw new InternalErrorException(__d('webzash',
+				'Ledger not specified. Failed to calculate closing balance.')
+			);
+		}
+
+		/* Load models that are needed for calculations */
+		$Entry = ClassRegistry::init('Webzash.Entry');
+		$Entryitem = ClassRegistry::init('Webzash.Entryitem');
+
+		/* Opening balance */
+		$op = $this->find('first', array(
+			'conditions' => array('Ledger.id' => $id)
+		));
+		if (!$op) {
+			throw new InternalErrorException(__d('webzash',
+				'Ledger not found. Failed to calculate closing balance.')
+			);
+		}
+
+		$op_total = 0;
+		$op_total_dc = $op['Ledger']['op_balance_dc'];
+		if (is_null($start_date)) {
+			if (empty($op['Ledger']['op_balance'])) {
+				$op_total = 0;
+			} else {
+				$op_total = $op['Ledger']['op_balance'];
+			}
+		}
+
+		$dr_total = 0;
+		$cr_total = 0;
+		$dr_total_dc = 0;
+		$cr_total_dc = 0;
+
+		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+
+		/* Debit total */
+		$dr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'D'
+		);
+		if (!is_null($start_date)) {
+			$dr_conditions['Entry.date >='] = $start_date;
+		}
+		if (!is_null($end_date)) {
+			$dr_conditions['Entry.date <='] = $end_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $dr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$dr_total = 0;
+		} else {
+			$dr_total = $total['Entryitem']['total'];
+		}
+
+		/* Credit total */
+		$cr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'C'
+		);
+		if (!is_null($start_date)) {
+			$cr_conditions['Entry.date >='] = $start_date;
+		}
+		if (!is_null($end_date)) {
+			$cr_conditions['Entry.date <='] = $end_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $cr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$cr_total = 0;
+		} else {
+			$cr_total = $total['Entryitem']['total'];
+		}
+
+		/* Add opening balance */
+		if ($op_total_dc == 'D') {
+			$dr_total_dc = calculate($op_total, $dr_total, '+');
+			$cr_total_dc = $cr_total;
+		} else {
+			$dr_total_dc = $dr_total;
+			$cr_total_dc = calculate($op_total, $cr_total, '+');
+		}
+
+		/* Calculate and update closing balance */
+		$cl = 0;
+		$cl_dc = '';
+		if (calculate($dr_total_dc, $cr_total_dc, '>')) {
+			$cl = calculate($dr_total_dc, $cr_total_dc, '-');
+			$cl_dc = 'D';
+		} else if (calculate($cr_total_dc, $dr_total_dc, '==')) {
+			$cl = 0;
+			$cl_dc = $op_total_dc;
+		} else {
+			$cl = calculate($cr_total_dc, $dr_total_dc, '-');
+			$cl_dc = 'C';
+		}
+
+		return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
+	}
+
 }

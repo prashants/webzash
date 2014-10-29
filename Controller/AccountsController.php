@@ -36,12 +36,7 @@ App::uses('AccountList', 'Webzash.Lib');
  */
 class AccountsController extends WebzashAppController {
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
-	public $uses = array();
+	public $uses = array('Webzash.Group', 'Webzash.Ledger');
 
 /**
  * index method
@@ -61,15 +56,17 @@ class AccountsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Chart Of Accounts'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
-
 		$this->set('actionlinks', array(
 			array('controller' => 'groups', 'action' => 'add', 'title' => 'Add Group'),
 			array('controller' => 'ledgers', 'action' => 'add', 'title' => 'Add Ledger')
 		));
 		$accountlist = new AccountList();
+		$accountlist->Group = &$this->Group;
+		$accountlist->Ledger = &$this->Ledger;
+		$accountlist->only_opening = false;
+		$accountlist->start_date = null;
+		$accountlist->end_date = null;
+
 		$accountlist->start(0);
 		$this->set('accountlist', $accountlist);
 

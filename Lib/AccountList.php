@@ -54,19 +54,14 @@ class AccountList
 	var $start_date = null;
 	var $end_date = null;
 
-	public static $Group = null;
-	public static $Ledger = null;
+	var $Group = null;
+	var $Ledger = null;
 
 /**
  * Initializer
  */
 	function AccountList()
 	{
-		/* Setup the Group and Ledger model to use later */
-		self::$Group = ClassRegistry::init('Group');
-		self::$Ledger = ClassRegistry::init('Ledger');
-		self::$Group->useDbConfig = 'wz_accconfig';
-		self::$Ledger->useDbConfig = 'wz_accconfig';
 		return;
 	}
 
@@ -80,7 +75,7 @@ class AccountList
 			$this->id = NULL;
 			$this->name = "None";
 		} else {
-			$group = self::$Group->find('first', array('conditions' => array('id' => $id)));
+			$group = $this->Group->find('first', array('conditions' => array('id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
 			$this->g_parent_id = $group['Group']['parent_id'];
@@ -103,7 +98,7 @@ class AccountList
  */
 	function add_sub_groups()
 	{
-		$child_group_q = self::$Group->find('all', array('conditions' => array('parent_id' => $this->id)));
+		$child_group_q = $this->Group->find('all', array('conditions' => array('parent_id' => $this->id)));
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
@@ -111,6 +106,8 @@ class AccountList
 			$this->children_groups[$counter] = new AccountList();
 
 			/* Initial setup */
+			$this->children_groups[$counter]->Group = &$this->Group;
+			$this->children_groups[$counter]->Ledger = &$this->Ledger;
 			$this->children_groups[$counter]->only_opening = $this->only_opening;
 			$this->children_groups[$counter]->start_date = $this->start_date;
 			$this->children_groups[$counter]->end_date = $this->end_date;
@@ -164,7 +161,7 @@ class AccountList
  */
 	function add_sub_ledgers()
 	{
-		$child_ledger_q = self::$Ledger->find('all', array('conditions' => array('group_id' => $this->id)));
+		$child_ledger_q = $this->Ledger->find('all', array('conditions' => array('group_id' => $this->id)));
 		$counter = 0;
 		foreach ($child_ledger_q as $row)
 		{
@@ -210,15 +207,11 @@ class AccountList
 				$this->children_ledgers[$counter]['cl_total_dc'] =
 					$this->children_ledgers[$counter]['op_total_dc'];
 			} else {
-				if (is_null($this->start_date) && is_null($this->end_date)) {
-					$cl = closingBalance($row['Ledger']['id']);
-				} else {
-					$cl = closingBalanceWithDate(
-						$row['Ledger']['id'],
-						$this->start_date,
-						$this->end_date
-					);
-				}
+				$cl = $this->Ledger->closingBalance(
+					$row['Ledger']['id'],
+					$this->start_date,
+					$this->end_date
+				);
 
 				$this->children_ledgers[$counter]['dr_total'] = $cl['dr_total'];
 				$this->children_ledgers[$counter]['cr_total'] = $cl['cr_total'];

@@ -36,12 +36,8 @@ App::uses('AccountList', 'Webzash.Lib');
  */
 class DashboardController extends WebzashAppController {
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
-	public $uses = array();
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entry',
+		'Webzash.Entryitem', 'Webzash.Tag', 'Webzash.Log');
 
 /**
  * index method
@@ -54,9 +50,6 @@ class DashboardController extends WebzashAppController {
 
 		/**** Start initial check if all tables are present ****/
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Group");
-		$this->Group = new Group();
 		try {
 			$this->Group->find('first');
 		} catch (Exception $e) {
@@ -65,9 +58,7 @@ class DashboardController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Groups table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
+
 		try {
 			$this->Ledger->find('first');
 		} catch (Exception $e) {
@@ -76,9 +67,7 @@ class DashboardController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Ledgers table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
+
 		try {
 			$this->Entry->find('first');
 		} catch (Exception $e) {
@@ -87,21 +76,16 @@ class DashboardController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Entries table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		// TODO : BUG if loaded then all values are 0 due to virtualFields not working correctly.
-		// /* TODO : Switch to loadModel() */
-		// App::import("Webzash.Model", "Entryitem");
-		// $this->Entryitem = new Entryitem();
-		// try {
-		// 	$this->Entryitem->find('first');
-		// } catch (Exception $e) {
-		// 	CakeSession::delete('ActiveAccount.id');
-		// 	CakeSession::delete('ActiveAccount.account_role');
-		// 	$this->Session->setFlash(__d('webzash', 'Entry items table is missing. Please check whether this is a valid account database.'), 'danger');
-		// 	return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
-		// }
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Tag");
-		$this->Tag = new Tag();
+
+		try {
+			$this->Entryitem->find('first');
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'Entryitems table is missing. Please check whether this is a valid account database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
 		try {
 			$this->Tag->find('first');
 		} catch (Exception $e) {
@@ -110,9 +94,7 @@ class DashboardController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Tags table is missing. Please check whether this is a valid account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
+
 		try {
 			$this->Log->find('first');
 		} catch (Exception $e) {
@@ -141,19 +123,46 @@ class DashboardController extends WebzashAppController {
 		foreach ($ledgers as $ledger) {
 			$ledgersCB[] = array(
 				'name' => $ledger['Ledger']['name'],
-				'balance' => closingBalance($ledger['Ledger']['id']),
+				'balance' => $this->Ledger->closingBalance($ledger['Ledger']['id']),
 			);
 		}
 		$this->set('ledgers', $ledgersCB);
 
 		/* Account summary */
 		$assets = new AccountList();
+		$assets->Group = &$this->Group;
+		$assets->Ledger = &$this->Ledger;
+		$assets->only_opening = false;
+		$assets->start_date = null;
+		$assets->end_date = null;
+
 		$assets->start(1);
+
 		$liabilities = new AccountList();
+		$liabilities->Group = &$this->Group;
+		$liabilities->Ledger = &$this->Ledger;
+		$liabilities->only_opening = false;
+		$liabilities->start_date = null;
+		$liabilities->end_date = null;
+
 		$liabilities->start(2);
+
 		$income = new AccountList();
+		$income->Group = &$this->Group;
+		$income->Ledger = &$this->Ledger;
+		$income->only_opening = false;
+		$income->start_date = null;
+		$income->end_date = null;
+
 		$income->start(3);
+
 		$expense = new AccountList();
+		$expense->Group = &$this->Group;
+		$expense->Ledger = &$this->Ledger;
+		$expense->only_opening = false;
+		$expense->start_date = null;
+		$expense->end_date = null;
+
 		$expense->start(4);
 
 		$accsummary = array(

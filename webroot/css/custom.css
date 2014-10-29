@@ -284,3 +284,15 @@ form .error-message {
 	font-size: 19px;
 	margin-bottom: 10px;
 }
+
+.summary {
+	background-color: #FFFFCC;
+	border: 1px solid #BBBBBB;
+	border-collapse: collapse;
+	text-align: left;
+	width: 500px;
+}
+
+.summary td {
+	border: 1px solid #BBBBBB;
+}

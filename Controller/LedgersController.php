@@ -261,7 +261,7 @@ class LedgersController extends WebzashAppController {
 			return;
 		}
 
-		$cl = closingBalance($id);
+		$cl = $this->Ledger->closingBalance($id);
 
 		/* Return closing balance */
 		$this->set('cl', array('cl' => array(

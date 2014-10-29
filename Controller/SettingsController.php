@@ -320,20 +320,47 @@ class SettingsController extends WebzashAppController {
 
 				/******* Add initial data ********/
 
+				$this->loadModel("Webzash.Group");
+				$this->loadModel("Webzash.Ledger");
+
 				/* CF groups and ledgers */
 				$assetsList = new AccountList();
+				$assetsList->Group = &$this->Group;
+				$assetsList->Ledger = &$this->Ledger;
+				$assetsList->only_opening = false;
+				$assetsList->start_date = null;
+				$assetsList->end_date = null;
+
 				$assetsList->start(1);
 				$this->_extract_groups_ledgers($assetsList, true);
 
 				$liabilitiesList = new AccountList();
+				$liabilitiesList->Group = &$this->Group;
+				$liabilitiesList->Ledger = &$this->Ledger;
+				$liabilitiesList->only_opening = false;
+				$liabilitiesList->start_date = null;
+				$liabilitiesList->end_date = null;
+
 				$liabilitiesList->start(2);
 				$this->_extract_groups_ledgers($liabilitiesList, true);
 
 				$incomesList = new AccountList();
+				$incomesList->Group = &$this->Group;
+				$incomesList->Ledger = &$this->Ledger;
+				$incomesList->only_opening = false;
+				$incomesList->start_date = null;
+				$incomesList->end_date = null;
+
 				$incomesList->start(3);
 				$this->_extract_groups_ledgers($incomesList, false);
 
 				$expenseList = new AccountList();
+				$expenseList->Group = &$this->Group;
+				$expenseList->Ledger = &$this->Ledger;
+				$expenseList->only_opening = false;
+				$expenseList->start_date = null;
+				$expenseList->end_date = null;
+
 				$expenseList->start(4);
 				$this->_extract_groups_ledgers($expenseList, false);
 
