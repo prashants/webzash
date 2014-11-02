@@ -114,39 +114,25 @@ class AccountList
 
 			$this->children_groups[$counter]->start($row['Group']['id']);
 
-			/* Calculating opening balance total for the group */
-			if ($this->op_total_dc == 'D' && $this->children_groups[$counter]->op_total_dc == 'D') {
-				$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '+');
-				$this->op_total_dc = 'D';
-			} else if ($this->op_total_dc == 'C' && $this->children_groups[$counter]->op_total_dc == 'C') {
-				$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '+');
-				$this->op_total_dc = 'C';
-			} else {
-				if (calculate($this->op_total, $this->children_groups[$counter]->op_total, '>')) {
-					$this->op_total = calculate($this->op_total, $this->children_groups[$counter]->op_total, '-');
-					$this->op_total_dc = $this->op_total_dc;
-				} else {
-					$this->op_total = calculate($this->children_groups[$counter]->op_total, $this->op_total, '-');
-					$this->op_total_dc = $this->children_groups[$counter]->op_total_dc;
-				}
-			}
+			/* Calculating opening balance total for all the child groups */
+			$temp1 = calculate_withdc(
+				$this->op_total,
+				$this->op_total_dc,
+				$this->children_groups[$counter]->op_total,
+				$this->children_groups[$counter]->op_total_dc
+			);
+			$this->op_total = $temp1['result'];
+			$this->op_total_dc = $temp1['result_dc'];
 
-			/* Calculating group total */
-			if ($this->cl_total_dc == 'D' && $this->children_groups[$counter]->cl_total_dc == 'D') {
-				$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '+');
-				$this->cl_total_dc = 'D';
-			} else if ($this->cl_total_dc == 'C' && $this->children_groups[$counter]->cl_total_dc == 'C') {
-				$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '+');
-				$this->cl_total_dc = 'C';
-			} else {
-				if (calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '>')) {
-					$this->cl_total = calculate($this->cl_total, $this->children_groups[$counter]->cl_total, '-');
-					$this->cl_total_dc = $this->cl_total_dc;
-				} else {
-					$this->cl_total = calculate($this->children_groups[$counter]->cl_total, $this->cl_total, '-');
-					$this->cl_total_dc = $this->children_groups[$counter]->cl_total_dc;
-				}
-			}
+			/* Calculating closing balance total for all the child groups */
+			$temp2 = calculate_withdc(
+				$this->cl_total,
+				$this->cl_total_dc,
+				$this->children_groups[$counter]->cl_total,
+				$this->children_groups[$counter]->cl_total_dc
+			);
+			$this->cl_total = $temp2['result'];
+			$this->cl_total_dc = $temp2['result_dc'];
 
 			/* Calculate Dr and Cr total */
 			$this->dr_total = calculate($this->dr_total, $this->children_groups[$counter]->dr_total, '+');
@@ -180,22 +166,15 @@ class AccountList
 				$this->children_ledgers[$counter]['op_total_dc'] = $row['Ledger']['op_balance_dc'];
 			}
 
-			/* Calculating group opening balance total */
-			if ($this->op_total_dc == 'D' && $this->children_ledgers[$counter]['op_total_dc'] == 'D') {
-				$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '+');
-				$this->op_total_dc = 'D';
-			} else if ($this->op_total_dc == 'C' && $this->children_ledgers[$counter]['op_total_dc'] == 'C') {
-				$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '+');
-				$this->op_total_dc = 'C';
-			} else {
-				if (calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '>')) {
-					$this->op_total = calculate($this->op_total, $this->children_ledgers[$counter]['op_total'], '-');
-					$this->op_total_dc = $this->op_total_dc;
-				} else {
-					$this->op_total = calculate($this->children_ledgers[$counter]['op_total'], $this->op_total, '-');
-					$this->op_total_dc = $this->children_ledgers[$counter]['op_total_dc'];
-				}
-			}
+			/* Calculating current group opening balance total */
+			$temp3 = calculate_withdc(
+				$this->op_total,
+				$this->op_total_dc,
+				$this->children_ledgers[$counter]['op_total'],
+				$this->children_ledgers[$counter]['op_total_dc']
+			);
+			$this->op_total = $temp3['result'];
+			$this->op_total_dc = $temp3['result_dc'];
 
 			if ($this->only_opening == true) {
 				/* If calculating only opening balance */
@@ -220,22 +199,15 @@ class AccountList
 				$this->children_ledgers[$counter]['cl_total_dc'] = $cl['dc'];
 			}
 
-			/* Calculating group closing balance total */
-			if ($this->cl_total_dc == 'D' && $this->children_ledgers[$counter]['cl_total_dc'] == 'D') {
-				$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '+');
-				$this->cl_total_dc = 'D';
-			} else if ($this->cl_total_dc == 'C' && $this->children_ledgers[$counter]['cl_total_dc'] == 'C') {
-				$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '+');
-				$this->cl_total_dc = 'C';
-			} else {
-				if (calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '>')) {
-					$this->cl_total = calculate($this->cl_total, $this->children_ledgers[$counter]['cl_total'], '-');
-					$this->cl_total_dc = $this->cl_total_dc;
-				} else {
-					$this->cl_total = calculate($this->children_ledgers[$counter]['cl_total'], $this->cl_total, '-');
-					$this->cl_total_dc = $this->children_ledgers[$counter]['cl_total_dc'];
-				}
-			}
+			/* Calculating current group closing balance total */
+			$temp4 = calculate_withdc(
+				$this->cl_total,
+				$this->cl_total_dc,
+				$this->children_ledgers[$counter]['cl_total'],
+				$this->children_ledgers[$counter]['cl_total_dc']
+			);
+			$this->cl_total = $temp4['result'];
+			$this->cl_total_dc = $temp4['result_dc'];
 
 			/* Calculate Dr and Cr total */
 			$this->dr_total = calculate($this->dr_total, $this->children_ledgers[$counter]['dr_total'], '+');

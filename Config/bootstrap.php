@@ -157,6 +157,39 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 }
 
 /**
+ * Perform a calculate with Debit and Credit Values
+ *
+ * @param1 float number 1
+ * @param2 char nuber 1 debit or credit
+ * @param3 float number 2
+ * @param4 float number 2 debit or credit
+ * @return array() result of the operation
+*/
+function calculate_withdc($param1, $param1_dc, $param2, $param2_dc) {
+	$result = 0;
+	$result_dc = 'D';
+
+	if ($param1_dc == 'D' && $param2_dc == 'D') {
+		$result = calculate($param1, $param2, '+');
+		$result_dc = 'D';
+	} else if ($param1_dc == 'C' && $param2_dc == 'C') {
+		$result = calculate($param1, $param2, '+');
+		$result_dc = 'C';
+	} else {
+		if (calculate($param1, $param2, '>')) {
+			$result = calculate($param1, $param2, '-');
+			$result_dc = $param1_dc;
+		} else {
+			$result = calculate($param2, $param1, '-');
+			$result_dc = $param2_dc;
+		}
+	}
+
+	return array('result' => $result, 'result_dc' => $result_dc);
+}
+
+
+/**
  * This function converts the date and time string to valid SQL datetime value
  */
 function dateToSql($indate) {
