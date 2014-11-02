@@ -212,6 +212,10 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('tag_options', $this->Tag->listAll());
 
+		$this->set('ledger_options', $this->Ledger->listAll(
+			$entrytype['Entrytype']['restriction_bankcash']
+		));
+
 		/* Initial data */
 		if ($this->request->is('post')) {
 			$curEntryitems = array();
@@ -500,6 +504,10 @@ class EntriesController extends WebzashAppController {
 		$this->set('entrytype', $entrytype);
 
 		$this->set('tag_options', $this->Tag->listAll());
+
+		$this->set('ledger_options', $this->Ledger->listAll(
+			$entrytype['Entrytype']['restriction_bankcash']
+		));
 
 		/* Check for valid entry id */
 		if (empty($id)) {
@@ -1165,7 +1173,7 @@ class EntriesController extends WebzashAppController {
  * @param string $addType
  * @return void
  */
-	function addrow($addType = 'all') {
+	function addrow($restriction_bankcash) {
 
 		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Ledger");
@@ -1173,22 +1181,9 @@ class EntriesController extends WebzashAppController {
 
 		$this->layout = null;
 
-		$ledgers[0] = '(Please select..)';
-		$rawledgers = array();
-
-		if ($addType == 'bankcash') {
-			$rawledgers = $this->Ledger->find('all', array('conditions' => array('Ledger.type' => '1'), 'order' => 'Ledger.name'));
-		} else if ($addType == 'nonbankcash') {
-			$rawledgers = $this->Ledger->find('all', array('conditions' => array('Ledger.type' => '0'), 'order' => 'Ledger.name'));
-		} else {
-			$rawledgers = $this->Ledger->find('all', array('order' => 'Ledger.name'));
-		}
-
-		foreach ($rawledgers as $rawledger) {
-			$ledgers[$rawledger['Ledger']['id']] = $rawledger['Ledger']['name'];
-		}
-
-		$this->set('ledgers', $ledgers);
+		$this->set('ledger_options', $this->Ledger->listAll(
+			$restriction_bankcash
+		));
 	}
 
 /**

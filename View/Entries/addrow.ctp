@@ -38,7 +38,7 @@
 	}
 
 	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown" name="data[Entryitem][' . $i . '][ledger_id]">';
-	foreach ($ledgers as $row => $data) {
+	foreach ($ledger_options as $row => $data) {
 		echo '<option value="' . $row . '">' . $data . '</option>';
 	}
 	echo '</select></div>' . '</td>';

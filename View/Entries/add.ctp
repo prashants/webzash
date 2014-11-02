@@ -250,7 +250,7 @@ $(document).ready(function() {
 	$(document).on('click', '.addrow', function() {
 		var cur_obj = this;
 		$.ajax({
-			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $this->Generic->ajaxAddLedger($entrytype["Entrytype"]["restriction_bankcash"]))); ?>',
+			url: '<?php echo $this->Html->url(array("controller" => "entries", "action" => "addrow", $entrytype["Entrytype"]["restriction_bankcash"])); ?>',
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
 				/* Trigger ledger item change */
@@ -359,9 +359,9 @@ $(document).ready(function() {
 		}
 
 		if (empty($entryitem['ledger_id'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $this->Generic->ledgerList($entrytype['Entrytype']['restriction_bankcash']), 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'default' => $entryitem['ledger_id'], 'class' => 'ledger-dropdown', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
 
 		if (empty($entryitem['dr_amount'])) {

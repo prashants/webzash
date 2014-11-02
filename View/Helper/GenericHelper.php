@@ -93,32 +93,6 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Helper method to return the ledgers in list form
- */
-	function ledgerList($restriction_bankcash) {
-		/* Load the Ledger model */
-		App::import("Webzash.Model", "Ledger");
-		$Ledger = new Ledger();
-
-		/* Fetch all ledgers depending on the entry type */
-		$ledgers[0] = '(Please select..)';
-
-		if ($restriction_bankcash == 4) {
-			$rawledgers = $Ledger->find('all', array('conditions' => array('Ledger.type' => '1'), 'order' => 'Ledger.name'));
-		} else if ($restriction_bankcash == 5) {
-			$rawledgers = $Ledger->find('all', array('conditions' => array('Ledger.type' => '0'), 'order' => 'Ledger.name'));
-		} else {
-			$rawledgers = $Ledger->find('all', array('order' => 'Ledger.name'));
-		}
-
-		foreach ($rawledgers as $row => $rawledger) {
-			$ledgers[$rawledger['Ledger']['id']] = h($rawledger['Ledger']['name']);
-		}
-
-		return $ledgers;
-	}
-
-/**
  * Show the entry ledger details
  */
 	public function entryLedgers($id) {
@@ -136,21 +110,6 @@ class GenericHelper extends AppHelper {
 		App::import("Webzash.Model", "Ledger");
 		$Ledger = new Ledger();
 		return $Ledger->getName($id);
-	}
-
-/**
- * Helper method to return the ledgers in list form
- */
-	function ajaxAddLedger($restriction_bankcash) {
-		$ajaxurl = '';
-		if ($restriction_bankcash == 4) {
-			$ajaxurl = 'bankcash';
-		} else if ($restriction_bankcash == 5) {
-			$ajaxurl = 'nonbankcash';
-		} else {
-			$ajaxurl = 'all';
-		}
-		return $ajaxurl;
 	}
 
 /**
