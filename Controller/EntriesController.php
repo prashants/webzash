@@ -191,6 +191,10 @@ class EntriesController extends WebzashAppController {
 		$this->Ledger = new Ledger();
 
 		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Tag");
+		$this->Tag = new Tag();
+
+		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Log");
 		$this->Log = new Log();
 
@@ -205,6 +209,8 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
+
+		$this->set('tag_options', $this->Tag->listAll());
 
 		/* Initial data */
 		if ($this->request->is('post')) {
@@ -474,6 +480,10 @@ class EntriesController extends WebzashAppController {
 		$this->Ledger = new Ledger();
 
 		/* TODO : Switch to loadModel() */
+		App::import("Webzash.Model", "Tag");
+		$this->Tag = new Tag();
+
+		/* TODO : Switch to loadModel() */
 		App::import("Webzash.Model", "Log");
 		$this->Log = new Log();
 
@@ -488,6 +498,8 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
+
+		$this->set('tag_options', $this->Tag->listAll());
 
 		/* Check for valid entry id */
 		if (empty($id)) {

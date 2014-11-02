@@ -395,7 +395,7 @@ $(document).ready(function() {
 	echo '<br />';
 
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
-	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $this->Generic->tagList(), 'label' => __d('webzash', 'Tag')));
+	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $tag_options, 'label' => __d('webzash', 'Tag')));
 
 	echo '<div class="form-group">';
 	echo $this->Form->submit(__d('webzash', 'Submit'), array(

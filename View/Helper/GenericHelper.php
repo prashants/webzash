@@ -93,22 +93,6 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Helper method to return the tags in list form
- */
-	function tagList() {
-		/* Load the Tag model */
-		App::import("Webzash.Model", "Tag");
-		$model = new Tag();
-
-		$rawtags = $model->find('all', array('fields' => array('id', 'title'), 'order' => 'Tag.title'));
-		$tags = array(0 => '(None)');
-		foreach ($rawtags as $id => $rawtag) {
-			$tags[$rawtag['Tag']['id']] = h($rawtag['Tag']['title']);
-		}
-		return $tags;
-	}
-
-/**
  * Helper method to return the ledgers in list form
  */
 	function ledgerList($restriction_bankcash) {

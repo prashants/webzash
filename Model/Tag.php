@@ -110,4 +110,19 @@ class Tag extends WebzashAppModel {
 
 		return ctype_xdigit($value);
 	}
+
+/**
+ * Method to return the tags in list form
+ */
+	function listAll() {
+		$rawtags = $this->find('all', array('fields' => array('id', 'title'),
+			'order' => 'Tag.title'));
+
+		$tags = array(0 => '(None)');
+		foreach ($rawtags as $id => $rawtag) {
+			$tags[$rawtag['Tag']['id']] = h($rawtag['Tag']['title']);
+		}
+
+		return $tags;
+	}
 }
