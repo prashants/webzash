@@ -149,6 +149,7 @@ class EntriesController extends WebzashAppController {
 				$curEntryitems[$row] = array(
 					'dc' => $data['Entryitem']['dc'],
 					'ledger_id' => $data['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($data['Entryitem']['ledger_id']),
 					'dr_amount' => $data['Entryitem']['amount'],
 					'cr_amount' => '',
 				);
@@ -156,6 +157,7 @@ class EntriesController extends WebzashAppController {
 				$curEntryitems[$row] = array(
 					'dc' => $data['Entryitem']['dc'],
 					'ledger_id' => $data['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($data['Entryitem']['ledger_id']),
 					'dr_amount' => '',
 					'cr_amount' => $data['Entryitem']['amount'],
 				);
@@ -942,20 +944,22 @@ class EntriesController extends WebzashAppController {
 				$rawentryitems = $this->Entryitem->find('all', array(
 					'conditions' => array('Entryitem.entry_id' => $id),
 				));
-				foreach ($rawentryitems as $row => $data) {
-					if ($data['Entryitem']['dc'] == 'D') {
+				foreach ($rawentryitems as $row => $entryitem) {
+					if ($entryitem['Entryitem']['dc'] == 'D') {
 						$entryitems[$row] = array(
 							'dc' => 'D',
-							'ledger_id' => $data['Entryitem']['ledger_id'],
-							'dr_amount' => toCurrency('D', $data['Entryitem']['amount']),
+							'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+							'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
+							'dr_amount' => toCurrency('D', $entryitem['Entryitem']['amount']),
 							'cr_amount' => '',
 						);
 					} else {
 						$entryitems[$row] = array(
 							'dc' => 'C',
-							'ledger_id' => $data['Entryitem']['ledger_id'],
+							'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+							'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
 							'dr_amount' => '',
-							'cr_amount' => toCurrency('C', $data['Entryitem']['amount']),
+							'cr_amount' => toCurrency('C', $entryitem['Entryitem']['amount']),
 						);
 					}
 				}
@@ -1050,6 +1054,7 @@ class EntriesController extends WebzashAppController {
 				$entryitems[$row] = array(
 					'dc' => 'D',
 					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
 					'dr_amount' => toCurrency('D', $entryitem['Entryitem']['amount']),
 					'cr_amount' => '',
 				);
@@ -1057,6 +1062,7 @@ class EntriesController extends WebzashAppController {
 				$entryitems[$row] = array(
 					'dc' => 'C',
 					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
 					'dr_amount' => '',
 					'cr_amount' => toCurrency('C', $entryitem['Entryitem']['amount']),
 				);
@@ -1132,6 +1138,7 @@ class EntriesController extends WebzashAppController {
 				$entryitems[$row] = array(
 					'dc' => 'D',
 					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
 					'dr_amount' => toCurrency('D', $entryitem['Entryitem']['amount']),
 					'cr_amount' => '',
 				);
@@ -1139,6 +1146,7 @@ class EntriesController extends WebzashAppController {
 				$entryitems[$row] = array(
 					'dc' => 'C',
 					'ledger_id' => $entryitem['Entryitem']['ledger_id'],
+					'ledger_name' => $this->Ledger->getName($entryitem['Entryitem']['ledger_id']),
 					'dr_amount' => '',
 					'cr_amount' => toCurrency('C', $entryitem['Entryitem']['amount']),
 				);

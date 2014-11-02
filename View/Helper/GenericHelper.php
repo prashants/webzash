@@ -103,16 +103,6 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Return Ledger name from id
- */
-	public function getLedgerName($id) {
-		/* Load the Ledger model */
-		App::import("Webzash.Model", "Ledger");
-		$Ledger = new Ledger();
-		return $Ledger->getName($id);
-	}
-
-/**
  * Wzuser return status string
  */
 	function wzuser_status($status) {

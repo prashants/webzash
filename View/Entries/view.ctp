@@ -120,7 +120,7 @@ $(document).ready(function() {
 		echo '</td>';
 
 		echo '<td>';
-		echo $this->Generic->getLedgerName($entryitem['ledger_id']);
+		echo h($entryitem['ledger_name']);
 		echo '</td>';
 
 		echo '<td>';

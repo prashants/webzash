@@ -78,7 +78,7 @@
 		echo '</td>';
 
 		echo '<td>';
-		echo h($this->Generic->getLedgerName($entryitem['ledger_id']));
+		echo h($entryitem['ledger_name']);
 		echo '</td>';
 
 		echo '<td>';
