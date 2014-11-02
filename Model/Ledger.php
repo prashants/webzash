@@ -500,4 +500,97 @@ class Ledger extends WebzashAppModel {
 		return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
 	}
 
+/**
+ * Calculate reconciliation pending of specified ledger account for the given
+ * date range
+ *
+ * @param1 int ledger id
+ * @param2 date start date
+ * @param3 date end date
+ * @return array Debit_Amount, Credit_Amount
+ */
+	function reconciliationPending($id, $start_date = null, $end_date = null) {
+
+		if (empty($id)) {
+			throw new InternalErrorException(__d('webzash',
+				'Ledger not specified. Failed to calculate closing balance.')
+			);
+		}
+
+		/* Load models that are needed for calculations */
+		$Entry = ClassRegistry::init('Webzash.Entry');
+		$Entryitem = ClassRegistry::init('Webzash.Entryitem');
+
+		$dr_total = 0;
+		$cr_total = 0;
+
+		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
+
+		/* Debit total */
+		$dr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'D',
+			'Entryitem.reconciliation_date' => null
+		);
+		if (!is_null($start_date)) {
+			$dr_conditions['Entry.date >='] = $start_date;
+		}
+		if (!is_null($end_date)) {
+			$dr_conditions['Entry.date <='] = $end_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $dr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$dr_total = 0;
+		} else {
+			$dr_total = $total['Entryitem']['total'];
+		}
+
+		/* Credit total */
+		$cr_conditions = array(
+			'Entryitem.ledger_id' => $id,
+			'Entryitem.dc' => 'C',
+			'Entryitem.reconciliation_date' => null
+		);
+		if (!is_null($start_date)) {
+			$cr_conditions['Entry.date >='] = $start_date;
+		}
+		if (!is_null($end_date)) {
+			$cr_conditions['Entry.date <='] = $end_date;
+		}
+		$total = $Entryitem->find('first', array(
+			'fields' => array('total'),
+			'conditions' => $cr_conditions,
+			'joins' => array(
+				array(
+					'table' => 'entries',
+					'alias' => 'Entry',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Entry.id = Entryitem.entry_id'
+					)
+				),
+			),
+		));
+		if (empty($total['Entryitem']['total'])) {
+			$cr_total = 0;
+		} else {
+			$cr_total = $total['Entryitem']['total'];
+		}
+
+		return array('dr_total' => $dr_total, 'cr_total' => $cr_total);
+
+	}
 }

@@ -111,11 +111,11 @@ $(document).ready(function() {
 
 	<table class="summary stripped table-condensed">
 		<tr>
-			<td class="col-sm-1"><?php echo __d('webzash', 'Opening Balance'); ?></td>
-			<td class="col-sm-2"><?php echo toCurrency($op['dc'], $op['balance']); ?></td>
+			<td class="col-sm-2"><?php echo $opening_title; ?></td>
+			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['balance']); ?></td>
 		</tr>
 		<tr>
-			<td><?php echo __d('webzash', 'Closing Balance'); ?></td>
+			<td><?php echo $closing_title; ?></td>
 			<td><?php echo toCurrency($cl['dc'], $cl['balance']); ?></td>
 		</tr>
 	</table>

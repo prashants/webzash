@@ -118,6 +118,26 @@ $(document).ready(function() {
 
 <?php if ($showEntries) { ?>
 
+	<table class="summary stripped table-condensed">
+		<tr>
+			<td class="col-sm-3"><?php echo $opening_title; ?></td>
+			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['balance']); ?></td>
+		</tr>
+		<tr>
+			<td><?php echo $closing_title; ?></td>
+			<td><?php echo toCurrency($cl['dc'], $cl['balance']); ?></td>
+		</tr>
+		<tr>
+			<td><?php echo __d('webzash', 'Debit ') . $recpending_title; ?></td>
+			<td><?php echo toCurrency('D', $rp['dr_total']); ?></td>
+		</tr>
+		<tr>
+			<td><?php echo __d('webzash', 'Credit ') . $recpending_title; ?></td>
+			<td><?php echo toCurrency('C', $rp['cr_total']); ?></td>
+		</tr>
+	</table>
+	<br />
+
 <div class="reconciliation form">
 
 	<?php

@@ -474,6 +474,7 @@ class ReportsController extends WebzashAppController {
 		$accountlist->end_date = null;
 
 		$accountlist->start(0);
+
 		$this->set('accountlist', $accountlist);
 		return;
 	}
@@ -550,27 +551,38 @@ class ReportsController extends WebzashAppController {
 				/* TODO : Validate date */
 				$startdate = dateToSql($this->passedArgs['startdate']);
 				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-				$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
+				$conditions['Entry.date >='] = $startdate;
 			}
 			if (!empty($this->passedArgs['enddate'])) {
 				/* TODO : Validate date */
 				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-				$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
+				$conditions['Entry.date <='] = $enddate;
 			}
 		}
 
+		/* Opening and closing titles */
+		if (is_null($startdate)) {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql(Configure::read('Account.startdate'))));
+		} else {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql($startdate)));
+		}
+		if (is_null($enddate)) {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql(Configure::read('Account.enddate'))));
+		} else {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql($enddate)));
+		}
+
 		/* Calculating opening balance */
-		$op = array();
 		$op = $this->Ledger->openingBalance($ledgerId, $startdate);
 		$this->set('op', $op);
 
 		/* Calculating closing balance */
-		$cl = $this->Ledger->closingBalance(
-			$ledgerId,
-			$startdate,
-			$enddate
-		);
+		$cl = $this->Ledger->closingBalance($ledgerId, null, $enddate);
 		$this->set('cl', $cl);
 
 		/* Setup pagination */
@@ -702,6 +714,9 @@ class ReportsController extends WebzashAppController {
 		$conditions['Entryitem.ledger_id'] = $ledgerId;
 
 		/* Set the approprite search conditions if custom date is selected */
+		$startdate = null;
+		$enddate = null;
+
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
 		} else {
@@ -712,13 +727,15 @@ class ReportsController extends WebzashAppController {
 			}
 			if (!empty($this->passedArgs['startdate'])) {
 				/* TODO : Validate date */
+				$startdate = dateToSql($this->passedArgs['startdate']);
 				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
-				$conditions['Entry.date >='] = dateToSql($this->passedArgs['startdate']);
+				$conditions['Entry.date >='] = $startdate;
 			}
 			if (!empty($this->passedArgs['enddate'])) {
 				/* TODO : Validate date */
+				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
-				$conditions['Entry.date <='] = dateToSql($this->passedArgs['enddate']);
+				$conditions['Entry.date <='] = $enddate;
 			}
 		}
 
@@ -727,6 +744,56 @@ class ReportsController extends WebzashAppController {
 		} else {
 			$conditions['Entryitem.reconciliation_date'] = NULL;
 		}
+
+		/* Opening and closing titles */
+		if (is_null($startdate)) {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql(Configure::read('Account.startdate'))));
+		} else {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql($startdate)));
+		}
+		if (is_null($enddate)) {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql(Configure::read('Account.enddate'))));
+		} else {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql($enddate)));
+		}
+		/* Reconciliation pending title */
+		$this->set('recpending_title', '');
+		if (is_null($startdate) && is_null($enddate)) {
+			$this->set('recpending_title', __d('webzash', 'Reconciliation pending from %s to %s',
+				dateFromSql(Configure::read('Account.startdate')),
+				dateFromSql(Configure::read('Account.enddate'))
+			));
+		} else if (!is_null($startdate) && !is_null($enddate)) {
+			$this->set('recpending_title', __d('webzash', 'Reconciliation pending from %s to %s',
+				dateFromSql($startdate), dateFromSql($enddate)
+			));
+		} else if (is_null($startdate)) {
+			$this->set('recpending_title', __d('webzash', 'Reconciliation pending from %s to %s',
+				dateFromSql(Configure::read('Account.startdate')),
+				dateFromSql($enddate)
+			));
+		} else if (is_null($enddate)) {
+			$this->set('recpending_title', __d('webzash', 'Reconciliation pending from %s to %s',
+				dateFromSql($startdate),
+				dateFromSql(Configure::read('Account.enddate'))
+			));
+		}
+
+		/* Calculating opening balance */
+		$op = $this->Ledger->openingBalance($ledgerId, $startdate);
+		$this->set('op', $op);
+
+		/* Calculating closing balance */
+		$cl = $this->Ledger->closingBalance($ledgerId, null, $enddate);
+		$this->set('cl', $cl);
+
+		/* Calculating reconciliation pending balance */
+		$rp = $this->Ledger->reconciliationPending($ledgerId, $startdate, $enddate);
+		$this->set('rp', $rp);
 
 		/* Setup pagination */
 		$this->Paginator->settings = array(
