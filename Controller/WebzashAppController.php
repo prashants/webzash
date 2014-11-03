@@ -35,7 +35,7 @@ App::uses('AppController', 'Controller');
  */
 class WebzashAppController extends AppController {
 
-	public $helpers = array('Webzash.Menu', 'Webzash.Generic',
+	public $helpers = array('Webzash.Generic',
 		'Html' => array('className' => 'BoostCake.BoostCakeHtml'),
 		'Form' => array('className' => 'BoostCake.BoostCakeForm'),
 	);

@@ -90,8 +90,8 @@ $(document).ready(function() {
 		</button>
 		<ul class="dropdown-menu" role="menu">
 		<?php
-			foreach ($this->Menu->entrytypes() as $entrytype) {
-				echo '<li>' . $this->Html->link($entrytype['Entrytype']['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'add', $entrytype['Entrytype']['label'])) . '</li>';
+			foreach (Configure::read('Account.ET') as $entrytype) {
+				echo '<li>' . $this->Html->link($entrytype['name'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'add', $entrytype['label'])) . '</li>';
 			}
 		?>
 		</ul>
@@ -101,8 +101,8 @@ $(document).ready(function() {
 		<?php
 			$options = array();
 			$options['0'] = 'All';
-			foreach ($this->Menu->entrytypes() as $entrytype) {
-				$options[h($entrytype['Entrytype']['label'])] = h($entrytype['Entrytype']['name']);
+			foreach (Configure::read('Account.ET') as $entrytype) {
+				$options[h($entrytype['label'])] = h($entrytype['name']);
 			}
 		?>
 		<?php echo $this->Form->create('Entry'); ?>

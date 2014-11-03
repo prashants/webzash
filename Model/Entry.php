@@ -346,7 +346,7 @@ class Entry extends WebzashAppModel {
 		App::import("Webzash.Model", "Entryitem");
 		$Entryitem = new Entryitem();
 
-		/* Load the Entryitem model */
+		/* Load the Ledger model */
 		App::import("Webzash.Model", "Ledger");
 		$Ledger = new Ledger();
 

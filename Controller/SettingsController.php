@@ -37,15 +37,6 @@ App::uses('AccountList', 'Webzash.Lib');
 class SettingsController extends WebzashAppController {
 
 /**
- * This controller does not use a model
- *
- * @var array
- */
-	public $uses = array();
-
-	public $helpers = array('Webzash.Timezone');
-
-/**
  * index method
  *
  * @return void
