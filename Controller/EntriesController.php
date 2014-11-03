@@ -435,10 +435,10 @@ class EntriesController extends WebzashAppController {
 						$ds->rollback();
 						return;
 					}
-					$entryNumber = $this->_showEntryNumber(
+					$entryNumber = h(toEntryNumber(
 						$tempentry['Entry']['number'],
 						$entrytype['Entrytype']['id']
-					);
+					));
 
 					$this->Log->add('Added ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 					$ds->commit();
@@ -747,10 +747,10 @@ class EntriesController extends WebzashAppController {
 						$ds->rollback();
 						return;
 					}
-					$entryNumber = $this->_showEntryNumber(
+					$entryNumber = h(toEntryNumber(
 						$tempentry['Entry']['number'],
 						$entrytype['Entrytype']['id']
-					);
+					));
 
 					$this->Log->add('Edited ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 					$ds->commit();
@@ -849,7 +849,7 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
-		$entryNumber = $this->_showEntryNumber($entry['Entry']['number'], $entrytype['Entrytype']['id']);
+		$entryNumber = h(toEntryNumber($entry['Entry']['number'], $entrytype['Entrytype']['id']));
 
 		$this->Log->add('Deleted ' . $entrytype['Entrytype']['name'] . ' entry numbered ' . $entryNumber, 1);
 		$ds->commit();
@@ -1192,21 +1192,6 @@ class EntriesController extends WebzashAppController {
 		$this->set('ledger_options', $this->Ledger->listAll(
 			$restriction_bankcash
 		));
-	}
-
-/**
- * Copy of helper method to return the entry number
- */
-	function _showEntryNumber($number, $entrytype_id) {
-		if (Configure::read('Account.ET.' . $entrytype_id . '.zero_padding') > 0) {
-			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
-				str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
-				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
-		} else {
-			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
-				$number .
-				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
-		}
 	}
 
 	public function beforeFilter() {

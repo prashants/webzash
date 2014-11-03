@@ -6,7 +6,7 @@
 <?php echo h($entrytype['Entrytype']['name']) . ' ' . __d('webzash', 'Entry'); ?>
 
 
-<?php echo __d('webzash', 'Number') . ' : ' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])); ?>
+<?php echo __d('webzash', 'Number') . ' : ' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])); ?>
 
 
 <?php echo __d('webzash', 'Date') . ' : ' . h(dateFromSql($entry['Entry']['date'])); ?>

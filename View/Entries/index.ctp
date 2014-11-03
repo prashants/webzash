@@ -129,7 +129,7 @@ foreach ($entries as $entry) {
 	list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
 	echo '<tr>';
 	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
-	echo '<td>' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
+	echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 	echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '</td>';
 	echo '<td>' . h($entryTypeName) . '</td>';
 	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
@@ -148,7 +148,7 @@ foreach ($entries as $entry) {
 	echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'delete', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the entry ?')));
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 	/* Email */
-	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entryTypeName) . '" data-number="' . $this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']) . '" data-target="#emailModal">' . $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-envelope')) . '</a>';
+	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entryTypeName) . '" data-number="' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '" data-target="#emailModal">' . $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-envelope')) . '</a>';
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 	/* Download */
 	echo $this->Html->link($this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-download-alt')), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'download', $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));

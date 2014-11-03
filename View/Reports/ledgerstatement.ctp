@@ -140,7 +140,7 @@ $(document).ready(function() {
 		list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
 		echo '<tr>';
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
-		echo '<td>' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
+		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 		echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '</td>';
 		echo '<td>' . h($entryTypeName) . '</td>';
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';

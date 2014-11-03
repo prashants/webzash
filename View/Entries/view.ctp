@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 <div>
 <?php
-	echo __d('webzash', 'Number') . ' : ' . h($this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']));
+	echo __d('webzash', 'Number') . ' : ' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']));
 	echo '<br /><br />';
 	echo __d('webzash', 'Date') . ' : ' . h(dateFromSql($entry['Entry']['date']));
 	echo '<br /><br />';
@@ -177,7 +177,7 @@ $(document).ready(function() {
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 
 	/* Email */
-	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entrytype['Entrytype']['name']) . '" data-number="' . $this->Generic->showEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id']) . '" data-target="#emailModal">' . $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-envelope')) . '</a>';
+	echo '<a href="#" data-toggle="modal" data-id="' . $entry['Entry']['id'] . '" data-type="' . h($entrytype['Entrytype']['name']) . '" data-number="' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '" data-target="#emailModal">' . $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-envelope')) . '</a>';
 
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 

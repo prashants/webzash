@@ -242,6 +242,21 @@ function toCurrency($dc, $amount) {
 }
 
 /**
+ * Helper method to return the entry number
+ */
+function toEntryNumber($number, $entrytype_id) {
+	if (Configure::read('Account.ET.' . $entrytype_id . '.zero_padding') > 0) {
+		return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+			str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
+			Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+	} else {
+		return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
+			$number .
+			Configure::read('Account.ET.' . $entrytype_id . '.suffix');
+	}
+}
+
+/**
  * Read all account settings from database
  */
 function init_account() {

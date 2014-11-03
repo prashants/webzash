@@ -78,21 +78,6 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Helper method to return the entry number
- */
-	function showEntryNumber($number, $entrytype_id) {
-		if (Configure::read('Account.ET.' . $entrytype_id . '.zero_padding') > 0) {
-			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
-				str_pad($number, Configure::read('Account.ET.' . $entrytype_id . '.zero_padding'), '0', STR_PAD_LEFT) .
-				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
-		} else {
-			return Configure::read('Account.ET.' . $entrytype_id . '.prefix') .
-				$number .
-				Configure::read('Account.ET.' . $entrytype_id . '.suffix');
-		}
-	}
-
-/**
  * Show the entry ledger details
  */
 	public function entryLedgers($id) {
