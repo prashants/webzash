@@ -166,7 +166,7 @@ $(document).ready(function() {
 	<?php
 	/* Show the entries table */
 	foreach ($entries as $row => $entry) {
-		list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
+		$entryTypeName = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.name');
 		echo '<tr>';
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';

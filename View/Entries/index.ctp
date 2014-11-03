@@ -126,7 +126,8 @@ $(document).ready(function() {
 
 <?php
 foreach ($entries as $entry) {
-	list($entryTypeName, $entryTypeLabel) = $this->Generic->showEntrytype($entry['Entry']['entrytype_id']);
+	$entryTypeName = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.name');
+	$entryTypeLabel = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.label');
 	echo '<tr>';
 	echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 	echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';

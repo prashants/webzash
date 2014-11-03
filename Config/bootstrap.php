@@ -242,7 +242,8 @@ function toCurrency($dc, $amount) {
 }
 
 /**
- * Helper method to return the entry number
+ * This function formats the the entry number as per prefix, suffix and zero
+ * padding for that entry type
  */
 function toEntryNumber($number, $entrytype_id) {
 	if (Configure::read('Account.ET.' . $entrytype_id . '.zero_padding') > 0) {

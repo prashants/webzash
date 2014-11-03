@@ -57,27 +57,6 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Helper method to return the entry type
- */
-	function showEntrytype($id) {
-		if (empty($id)) {
-			return array('(Unknown)', '');
-		}
-
-		/* Load the Entry type model */
-		App::import("Webzash.Model", "Entrytype");
-		$model = new Entrytype();
-
-		/* Find and return the entry type */
-		$entrytype = $model->findById($id);
-		if (empty($entrytype)) {
-			return array('(Unknown)', '');
-		} else {
-			return array($entrytype['Entrytype']['name'], $entrytype['Entrytype']['label']);
-		}
-	}
-
-/**
  * Show the entry ledger details
  */
 	public function entryLedgers($id) {
