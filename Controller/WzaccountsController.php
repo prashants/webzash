@@ -252,8 +252,23 @@ class WzaccountsController extends WebzashAppController {
 					return;
 				}
 
+				/* Read the database trigger from the Config folder */
+				$triggers_filepath = App::pluginPath('Webzash') . 'Config/Triggers.Mysql.sql';
+				$triggers_file = new File($triggers_filepath, false);
+				$triggers = $triggers_file->read(true, 'r');
+
+				/* Add prefix to the table names in the database triggers */
+				$final_triggers = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $triggers);
+
+				/* Add database triggers */
+				try {
+					$db->rawQuery($final_triggers);
+				} catch (Exception $e) {
+					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while adding database triggers. Please try again.'), 'danger');
+					return;
+				}
+
 				/* Read the intial data from the Config folder */
-				App::uses('File', 'Utility');
 				$initdata_filepath = App::pluginPath('Webzash') . 'Config/InitialData.Mysql.sql';
 				$initdata_file = new File($initdata_filepath, false);
 				$initdata = $initdata_file->read(true, 'r');
