@@ -121,8 +121,8 @@ class AccountList
 				$this->children_groups[$counter]->op_total,
 				$this->children_groups[$counter]->op_total_dc
 			);
-			$this->op_total = $temp1['result'];
-			$this->op_total_dc = $temp1['result_dc'];
+			$this->op_total = $temp1['amount'];
+			$this->op_total_dc = $temp1['dc'];
 
 			/* Calculating closing balance total for all the child groups */
 			$temp2 = calculate_withdc(
@@ -131,8 +131,8 @@ class AccountList
 				$this->children_groups[$counter]->cl_total,
 				$this->children_groups[$counter]->cl_total_dc
 			);
-			$this->cl_total = $temp2['result'];
-			$this->cl_total_dc = $temp2['result_dc'];
+			$this->cl_total = $temp2['amount'];
+			$this->cl_total_dc = $temp2['dc'];
 
 			/* Calculate Dr and Cr total */
 			$this->dr_total = calculate($this->dr_total, $this->children_groups[$counter]->dr_total, '+');
@@ -173,8 +173,8 @@ class AccountList
 				$this->children_ledgers[$counter]['op_total'],
 				$this->children_ledgers[$counter]['op_total_dc']
 			);
-			$this->op_total = $temp3['result'];
-			$this->op_total_dc = $temp3['result_dc'];
+			$this->op_total = $temp3['amount'];
+			$this->op_total_dc = $temp3['dc'];
 
 			if ($this->only_opening == true) {
 				/* If calculating only opening balance */
@@ -206,8 +206,8 @@ class AccountList
 				$this->children_ledgers[$counter]['cl_total'],
 				$this->children_ledgers[$counter]['cl_total_dc']
 			);
-			$this->cl_total = $temp4['result'];
-			$this->cl_total_dc = $temp4['result_dc'];
+			$this->cl_total = $temp4['amount'];
+			$this->cl_total_dc = $temp4['dc'];
 
 			/* Calculate Dr and Cr total */
 			$this->dr_total = calculate($this->dr_total, $this->children_ledgers[$counter]['dr_total'], '+');

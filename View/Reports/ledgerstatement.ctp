@@ -137,8 +137,8 @@ $(document).ready(function() {
 
 	<?php
 		/* Current opening balance */
-		$entry_balance['result'] = $current_op['balance'];
-		$entry_balance['result_dc'] = $current_op['dc'];
+		$entry_balance['amount'] = $current_op['balance'];
+		$entry_balance['dc'] = $current_op['dc'];
 		echo '<tr class="tr-highlight">';
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current opening balance');
@@ -173,10 +173,10 @@ $(document).ready(function() {
 
 		/* Calculate current entry balance */
 		$entry_balance = calculate_withdc(
-			$entry_balance['result'], $entry_balance['result_dc'],
+			$entry_balance['amount'], $entry_balance['dc'],
 			$entry['Entryitem']['amount'], $entry['Entryitem']['dc']
 		);
-		echo '<td>' . toCurrency($entry_balance['result_dc'], $entry_balance['result']) . '</td>';
+		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 
 		echo '<td>';
 		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
@@ -195,7 +195,7 @@ $(document).ready(function() {
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current closing balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($entry_balance['result_dc'], $entry_balance['result']) . '</td>';
+		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>

@@ -185,7 +185,7 @@ function calculate_withdc($param1, $param1_dc, $param2, $param2_dc) {
 		}
 	}
 
-	return array('result' => $result, 'result_dc' => $result_dc);
+	return array('amount' => $result, 'dc' => $result_dc);
 }
 
 

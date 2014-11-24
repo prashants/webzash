@@ -612,20 +612,20 @@ class ReportsController extends WebzashAppController {
 			));
 
 			/* Initially set as opening balance */
-			$temp['result'] = $op['balance'];
-			$temp['result_dc'] = $op['dc'];
+			$temp['amount'] = $op['balance'];
+			$temp['dc'] = $op['dc'];
 
 			/* Loop through each previous entryitem and add the amount */
 			foreach ($prev_entries as $prev_entry) {
 				$temp = calculate_withdc(
-					$temp['result'],
-					$temp['result_dc'],
+					$temp['amount'],
+					$temp['dc'],
 					$prev_entry['Entryitem']['amount'],
 					$prev_entry['Entryitem']['dc']
 				);
 			}
-			$current_op['balance'] = $temp['result'];
-			$current_op['dc'] = $temp['result_dc'];
+			$current_op['balance'] = $temp['amount'];
+			$current_op['dc'] = $temp['dc'];
 		}
 		/* Set the current page opening balance */
 		$this->set('current_op', $current_op);
