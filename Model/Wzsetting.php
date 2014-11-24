@@ -205,7 +205,7 @@ class Wzsetting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Password cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_from' => array(
