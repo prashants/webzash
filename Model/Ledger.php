@@ -316,8 +316,6 @@ class Ledger extends WebzashAppModel {
 			return array('dc' => $op_total_dc, 'amount' => $op_total);
 		}
 
-		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
-
 		/* Debit total */
 		$dr_conditions = array(
 			'Entryitem.ledger_id' => $id,
@@ -327,7 +325,7 @@ class Ledger extends WebzashAppModel {
 			$dr_conditions['Entry.date <'] = $start_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $dr_conditions,
 			'joins' => array(
 				array(
@@ -340,10 +338,11 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+
+		if (empty($total[0]['total'])) {
 			$dr_total = 0;
 		} else {
-			$dr_total = $total['Entryitem']['total'];
+			$dr_total = $total[0]['total'];
 		}
 
 		/* Credit total */
@@ -355,7 +354,7 @@ class Ledger extends WebzashAppModel {
 			$cr_conditions['Entry.date <'] = $start_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $cr_conditions,
 			'joins' => array(
 				array(
@@ -368,10 +367,10 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+		if (empty($total[0]['total'])) {
 			$cr_total = 0;
 		} else {
-			$cr_total = $total['Entryitem']['total'];
+			$cr_total = $total[0]['total'];
 		}
 
 		/* Add opening balance */
@@ -444,8 +443,6 @@ class Ledger extends WebzashAppModel {
 		$dr_total_dc = 0;
 		$cr_total_dc = 0;
 
-		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
-
 		/* Debit total */
 		$dr_conditions = array(
 			'Entryitem.ledger_id' => $id,
@@ -458,7 +455,7 @@ class Ledger extends WebzashAppModel {
 			$dr_conditions['Entry.date <='] = $end_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $dr_conditions,
 			'joins' => array(
 				array(
@@ -471,10 +468,10 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+		if (empty($total[0]['total'])) {
 			$dr_total = 0;
 		} else {
-			$dr_total = $total['Entryitem']['total'];
+			$dr_total = $total[0]['total'];
 		}
 
 		/* Credit total */
@@ -489,7 +486,7 @@ class Ledger extends WebzashAppModel {
 			$cr_conditions['Entry.date <='] = $end_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $cr_conditions,
 			'joins' => array(
 				array(
@@ -502,10 +499,10 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+		if (empty($total[0]['total'])) {
 			$cr_total = 0;
 		} else {
-			$cr_total = $total['Entryitem']['total'];
+			$cr_total = $total[0]['total'];
 		}
 
 		/* Add opening balance */
@@ -558,8 +555,6 @@ class Ledger extends WebzashAppModel {
 		$dr_total = 0;
 		$cr_total = 0;
 
-		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
-
 		/* Debit total */
 		$dr_conditions = array(
 			'Entryitem.ledger_id' => $id,
@@ -573,7 +568,7 @@ class Ledger extends WebzashAppModel {
 			$dr_conditions['Entry.date <='] = $end_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $dr_conditions,
 			'joins' => array(
 				array(
@@ -586,10 +581,10 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+		if (empty($total[0]['total'])) {
 			$dr_total = 0;
 		} else {
-			$dr_total = $total['Entryitem']['total'];
+			$dr_total = $total[0]['total'];
 		}
 
 		/* Credit total */
@@ -605,7 +600,7 @@ class Ledger extends WebzashAppModel {
 			$cr_conditions['Entry.date <='] = $end_date;
 		}
 		$total = $Entryitem->find('first', array(
-			'fields' => array('total'),
+			'fields' => array('SUM(Entryitem.amount) as total'),
 			'conditions' => $cr_conditions,
 			'joins' => array(
 				array(
@@ -618,10 +613,10 @@ class Ledger extends WebzashAppModel {
 				),
 			),
 		));
-		if (empty($total['Entryitem']['total'])) {
+		if (empty($total[0]['total'])) {
 			$cr_total = 0;
 		} else {
-			$cr_total = $total['Entryitem']['total'];
+			$cr_total = $total[0]['total'];
 		}
 
 		return array('dr_total' => $dr_total, 'cr_total' => $cr_total);
