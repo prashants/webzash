@@ -612,7 +612,7 @@ class ReportsController extends WebzashAppController {
 			));
 
 			/* Initially set as opening balance */
-			$temp['amount'] = $op['balance'];
+			$temp['amount'] = $op['amount'];
 			$temp['dc'] = $op['dc'];
 
 			/* Loop through each previous entryitem and add the amount */
@@ -624,7 +624,7 @@ class ReportsController extends WebzashAppController {
 					$prev_entry['Entryitem']['dc']
 				);
 			}
-			$current_op['balance'] = $temp['amount'];
+			$current_op['amount'] = $temp['amount'];
 			$current_op['dc'] = $temp['dc'];
 		}
 		/* Set the current page opening balance */

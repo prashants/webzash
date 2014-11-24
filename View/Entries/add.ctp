@@ -216,7 +216,7 @@ $(document).ready(function() {
 				dataType: 'json',
 				success: function(data)
 				{
-					var ledger_bal = parseFloat(data['cl']['balance']);
+					var ledger_bal = parseFloat(data['cl']['amount']);
 					if (data['cl']['dc'] == 'D') {
 						rowid.parent().parent().next().next().next().next().children().text("Dr " + ledger_bal);
 					} else if (data['cl']['dc'] == 'C') {

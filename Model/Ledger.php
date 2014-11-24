@@ -313,7 +313,7 @@ class Ledger extends WebzashAppModel {
 			}
 
 			/* If start date is not specified then return here */
-			return array('dc' => $op_total_dc, 'balance' => $op_total);
+			return array('dc' => $op_total_dc, 'amount' => $op_total);
 		}
 
 		$Entryitem->virtualFields = array('total' => 'SUM(Entryitem.amount)');
@@ -395,7 +395,7 @@ class Ledger extends WebzashAppModel {
 			$op_total_dc = 'C';
 		}
 
-		return array('dc' => $op_total_dc, 'balance' => $op_total);
+		return array('dc' => $op_total_dc, 'amount' => $op_total);
 	}
 
 /**
@@ -531,7 +531,7 @@ class Ledger extends WebzashAppModel {
 			$cl_dc = 'C';
 		}
 
-		return array('dc' => $cl_dc, 'balance' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
+		return array('dc' => $cl_dc, 'amount' => $cl, 'dr_total' => $dr_total, 'cr_total' => $cr_total);
 	}
 
 /**

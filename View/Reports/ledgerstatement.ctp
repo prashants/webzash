@@ -112,11 +112,11 @@ $(document).ready(function() {
 	<table class="summary stripped table-condensed">
 		<tr>
 			<td class="col-sm-2"><?php echo $opening_title; ?></td>
-			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['balance']); ?></td>
+			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['amount']); ?></td>
 		</tr>
 		<tr>
 			<td><?php echo $closing_title; ?></td>
-			<td><?php echo toCurrency($cl['dc'], $cl['balance']); ?></td>
+			<td><?php echo toCurrency($cl['dc'], $cl['amount']); ?></td>
 		</tr>
 	</table>
 	<br />
@@ -137,13 +137,13 @@ $(document).ready(function() {
 
 	<?php
 		/* Current opening balance */
-		$entry_balance['amount'] = $current_op['balance'];
+		$entry_balance['amount'] = $current_op['amount'];
 		$entry_balance['dc'] = $current_op['dc'];
 		echo '<tr class="tr-highlight">';
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current opening balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($current_op['dc'], $current_op['balance']) . '</td>';
+		echo '<td>' . toCurrency($current_op['dc'], $current_op['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>

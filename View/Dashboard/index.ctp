@@ -82,7 +82,7 @@ if (!extension_loaded('bcmath')) {
 					foreach ($ledgers as $ledger) {
 						echo '<tr>';
 						echo '<td>' . $ledger['name'] . '</td>';
-						echo '<td>' . toCurrency($ledger['balance']['dc'], $ledger['balance']['balance']) . '</td>';
+						echo '<td>' . toCurrency($ledger['balance']['dc'], $ledger['balance']['amount']) . '</td>';
 						echo '</tr>';
 					}
 				?>

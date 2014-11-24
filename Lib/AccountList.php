@@ -195,7 +195,7 @@ class AccountList
 				$this->children_ledgers[$counter]['dr_total'] = $cl['dr_total'];
 				$this->children_ledgers[$counter]['cr_total'] = $cl['cr_total'];
 
-				$this->children_ledgers[$counter]['cl_total'] = $cl['balance'];
+				$this->children_ledgers[$counter]['cl_total'] = $cl['amount'];
 				$this->children_ledgers[$counter]['cl_total_dc'] = $cl['dc'];
 			}
 
