@@ -51,6 +51,7 @@
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Profit & Loss'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'profitloss')); ?></li>
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Trial Balance'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'trialbalance')); ?></li>
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Ledger Statement'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement')); ?></li>
+						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Ledger Entries'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries')); ?></li>
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Reconciliation'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation')); ?></li>
 					</ul>
 				</li>
@@ -76,4 +77,3 @@
 		</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
 </div>
-

@@ -585,6 +585,183 @@ class ReportsController extends WebzashAppController {
 		$cl = $this->Ledger->closingBalance($ledgerId, null, $enddate);
 		$this->set('cl', $cl);
 
+		/* Calculate current page opening balance */
+		if (!isset($this->passedArgs['page']) || $this->passedArgs['page'] <= 1) {
+			/* If 1st page then current page opening balance is opening balance */
+			$current_op = $op;
+		} else {
+			/* Setup limit that selects all previous entryitems */
+			$cur_limit = (($this->passedArgs['page'] - 1) *
+				$this->Session->read('Wzsetting.row_count'));
+
+			/* Find all previous entryitems */
+			$prev_entries = $this->Entry->find('all', array(
+				'fields' => array('Entryitem.*'),
+				'limit' => $cur_limit,
+				'order' => array('Entry.date' => 'asc'),
+				'conditions' => $conditions,
+				'joins' => array(
+					array(
+						'table' => 'entryitems',
+						'alias' => 'Entryitem',
+						'conditions' => array(
+							'Entry.id = Entryitem.entry_id'
+						)
+					),
+				),
+			));
+
+			/* Initially set as opening balance */
+			$temp['result'] = $op['balance'];
+			$temp['result_dc'] = $op['dc'];
+
+			/* Loop through each previous entryitem and add the amount */
+			foreach ($prev_entries as $prev_entry) {
+				$temp = calculate_withdc(
+					$temp['result'],
+					$temp['result_dc'],
+					$prev_entry['Entryitem']['amount'],
+					$prev_entry['Entryitem']['dc']
+				);
+			}
+			$current_op['balance'] = $temp['result'];
+			$current_op['dc'] = $temp['result_dc'];
+		}
+		/* Set the current page opening balance */
+		$this->set('current_op', $current_op);
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'fields' => array('Entry.*', 'Entryitem.*'),
+				'limit' => $this->Session->read('Wzsetting.row_count'),
+				'order' => array('Entry.date' => 'asc'),
+				'conditions' => $conditions,
+				'joins' => array(
+					array(
+						'table' => 'entryitems',
+						'alias' => 'Entryitem',
+						'conditions' => array(
+							'Entry.id = Entryitem.entry_id'
+						)
+					),
+				),
+			),
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('showEntries', true);
+
+		return;
+	}
+
+
+/**
+ * ledgerentries method
+ *
+ * @return void
+ */
+	public function ledgerentries() {
+
+		$this->set('title_for_layout', __d('webzash', 'Ledger Entries'));
+
+		/* Create list of ledgers to pass to view */
+		$ledgers = $this->Ledger->find('list', array(
+			'fields' => array('Ledger.id', 'Ledger.name'),
+			'order' => array('Ledger.name')
+		));
+		$this->set('ledgers', $ledgers);
+
+		if ($this->request->is('post')) {
+			/* If valid data then redirect with POST values are URL parameters so that pagination works */
+			if (empty($this->request->data['Report']['ledger_id'])) {
+				$this->Session->setFlash(__d('webzash', 'Invalid ledger.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries'));
+			}
+
+			if (!empty($this->request->data['Report']['startdate']) ||
+				!empty($this->request->data['Report']['enddate'])) {
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries',
+					'ledgerid' => $this->request->data['Report']['ledger_id'],
+					'options' => 1,
+					'startdate' => $this->request->data['Report']['startdate'],
+					'enddate' => $this->request->data['Report']['enddate'],
+				));
+			} else {
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries',
+					'ledgerid' => $this->request->data['Report']['ledger_id'],
+				));
+			}
+		}
+
+		$this->set('showEntries', false);
+		$this->set('options', false);
+
+		/* Check if ledger id is set in parameters, if not return and end view here */
+		if (empty($this->passedArgs['ledgerid'])) {
+			return;
+		}
+
+		$ledgerId = $this->passedArgs['ledgerid'];
+
+		/* Check if ledger exists */
+		if (!$this->Ledger->exists($ledgerId)) {
+			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries'));
+		}
+
+		$this->request->data['Report']['ledger_id'] = $ledgerId;
+
+		/* Set the approprite search conditions */
+		$conditions = array();
+		$conditions['Entryitem.ledger_id'] = $ledgerId;
+
+		/* Set the approprite search conditions if custom date is selected */
+		$startdate = null;
+		$enddate = null;
+		if (empty($this->passedArgs['options'])) {
+			$this->set('options', false);
+		} else {
+			$this->set('options', true);
+
+			if (!empty($this->passedArgs['startdate'])) {
+				/* TODO : Validate date */
+				$startdate = dateToSql($this->passedArgs['startdate']);
+				$this->request->data['Report']['startdate'] = $this->passedArgs['startdate'];
+				$conditions['Entry.date >='] = $startdate;
+			}
+			if (!empty($this->passedArgs['enddate'])) {
+				/* TODO : Validate date */
+				$enddate = dateToSql($this->passedArgs['enddate']);
+				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
+				$conditions['Entry.date <='] = $enddate;
+			}
+		}
+
+		/* Opening and closing titles */
+		if (is_null($startdate)) {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql(Configure::read('Account.startdate'))));
+		} else {
+			$this->set('opening_title', __d('webzash', 'Opening balance as on %s',
+				dateFromSql($startdate)));
+		}
+		if (is_null($enddate)) {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql(Configure::read('Account.enddate'))));
+		} else {
+			$this->set('closing_title', __d('webzash', 'Closing balance as on %s',
+				dateFromSql($enddate)));
+		}
+
+		/* Calculating opening balance */
+		$op = $this->Ledger->openingBalance($ledgerId, $startdate);
+		$this->set('op', $op);
+
+		/* Calculating closing balance */
+		$cl = $this->Ledger->closingBalance($ledgerId, null, $enddate);
+		$this->set('cl', $cl);
+
 		/* Setup pagination */
 		$this->Paginator->settings = array(
 			'Entry' => array(
@@ -846,6 +1023,10 @@ class ReportsController extends WebzashAppController {
 		}
 
 		if ($this->action === 'ledgerstatement') {
+			return $this->Permission->is_allowed('access reports');
+		}
+
+		if ($this->action === 'ledgerentries') {
 			return $this->Permission->is_allowed('access reports');
 		}
 

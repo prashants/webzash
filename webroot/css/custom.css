@@ -296,3 +296,7 @@ form .error-message {
 .summary td {
 	border: 1px solid #BBBBBB;
 }
+
+table.stripped .tr-highlight {
+	background-color: #F3F3F3;
+}

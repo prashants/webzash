@@ -72,7 +72,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="ledgerstatement form">
+<div class="ledgerentries form">
 	<?php
 		echo $this->Form->create('Report', array(
 			'inputDefaults' => array(
@@ -100,7 +100,7 @@ $(document).ready(function() {
 			'class' => 'btn btn-primary'
 		));
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-		echo $this->Html->link(__d('webzash', 'Clear'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'), array('class' => 'btn btn-default'));
+		echo $this->Html->link(__d('webzash', 'Clear'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries'), array('class' => 'btn btn-default'));
 		echo '</div>';
 
 		echo $this->Form->end();
@@ -124,29 +124,15 @@ $(document).ready(function() {
 	<table class="stripped">
 
 	<tr>
-	<th><?php echo __d('webzash', 'Date'); ?></th>
-	<th><?php echo __d('webzash', 'Number'); ?></th>
+	<th><?php echo $this->Paginator->sort('date', __d('webzash', 'Date')); ?></th>
+	<th><?php echo $this->Paginator->sort('number', __d('webzash', 'Number')); ?></th>
 	<th><?php echo __d('webzash', 'Ledger'); ?></th>
-	<th><?php echo __d('webzash', 'Type'); ?></th>
-	<th><?php echo __d('webzash', 'Tag'); ?></th>
-	<th><?php echo __d('webzash', 'Debit Amount'); ?></th>
-	<th><?php echo __d('webzash', 'Credit Amount'); ?></th>
-	<th><?php echo __d('webzash', 'Balance'); ?></th>
+	<th><?php echo $this->Paginator->sort('entrytype_id', __d('webzash', 'Type')); ?></th>
+	<th><?php echo $this->Paginator->sort('tag_id', __d('webzash', 'Tag')); ?></th>
+	<th><?php echo $this->Paginator->sort('dr_total', __d('webzash', 'Debit Amount')); ?></th>
+	<th><?php echo $this->Paginator->sort('cr_total', __d('webzash', 'Credit Amount')); ?></th>
 	<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
-
-	<?php
-		/* Current opening balance */
-		$entry_balance['result'] = $current_op['balance'];
-		$entry_balance['result_dc'] = $current_op['dc'];
-		echo '<tr class="tr-highlight">';
-		echo '<td colspan="7">';
-		echo __d('webzash', 'Current opening balance');
-		echo '</td>';
-		echo '<td>' . toCurrency($current_op['dc'], $current_op['balance']) . '</td>';
-		echo '<td></td>';
-		echo '</tr>';
-	?>
 
 	<?php
 	/* Show the entries table */
@@ -171,13 +157,6 @@ $(document).ready(function() {
 			echo '<td>Error</td>';
 		}
 
-		/* Calculate current entry balance */
-		$entry_balance = calculate_withdc(
-			$entry_balance['result'], $entry_balance['result_dc'],
-			$entry['Entryitem']['amount'], $entry['Entryitem']['dc']
-		);
-		echo '<td>' . toCurrency($entry_balance['result_dc'], $entry_balance['result']) . '</td>';
-
 		echo '<td>';
 		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
@@ -188,18 +167,6 @@ $(document).ready(function() {
 		echo '</tr>';
 	}
 	?>
-
-	<?php
-		/* Current closing balance */
-		echo '<tr class="tr-highlight">';
-		echo '<td colspan="7">';
-		echo __d('webzash', 'Current closing balance');
-		echo '</td>';
-		echo '<td>' . toCurrency($entry_balance['result_dc'], $entry_balance['result']) . '</td>';
-		echo '<td></td>';
-		echo '</tr>';
-	?>
-
 	</table>
 
 	<div class="text-center paginate">
