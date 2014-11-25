@@ -134,4 +134,13 @@ class GenericHelper extends AppHelper {
 		);
 	}
 
+	function search_range_options() {
+		return array(
+			'1' => __d('webzash', 'Equal to'),
+			'2' => __d('webzash', 'Less than or Equal to'),
+			'3' => __d('webzash', 'Greater than or equal to'),
+			'4' => __d('webzash', 'In between'),
+		);
+	}
+
 }

@@ -40,7 +40,8 @@ class SearchController extends WebzashAppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('Webzash.Ledger', 'Webzash.Entry', 'Webzash.Entryitem',
+		'Webzash.Entrytype', 'Webzash.Tag');
 
 /**
  * index method
@@ -50,6 +51,240 @@ class SearchController extends WebzashAppController {
 	public function index() {
 
 		$this->set('title_for_layout', __d('webzash', 'Search'));
+
+		$this->set('showEntries', false);
+
+		/* Ledgers */
+		$ledger_options = array();
+		$ledger_options[0] = '(ALL)';
+		$rawledgers = $this->Ledger->find('all', array(
+			'order' => 'Ledger.name'
+		));
+		foreach ($rawledgers as $row => $rawledger) {
+			$ledger_options[$rawledger['Ledger']['id']] = h($rawledger['Ledger']['name']);
+		}
+		$this->set('ledger_options', $ledger_options);
+
+		/* Entrytypes */
+		$entrytype_options = array();
+		$entrytype_options[0] = '(ALL)';
+		$rawentrytypes = $this->Entrytype->find('all', array(
+			'order' => 'Entrytype.id'
+		));
+		foreach ($rawentrytypes as $row => $rawentrytype) {
+			$entrytype_options[$rawentrytype['Entrytype']['id']] = h($rawentrytype['Entrytype']['name']);
+		}
+		$this->set('entrytype_options', $entrytype_options);
+
+		/* Tags */
+		$tag_options = array();
+		$tag_options[0] = '(ALL)';
+		$rawtags = $this->Tag->find('all', array(
+			'order' => 'Tag.title'
+		));
+		foreach ($rawtags as $row => $rawtag) {
+			$tag_options[$rawtag['Tag']['id']] = h($rawtag['Tag']['title']);
+		}
+		$this->set('tag_options', $tag_options);
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			$ledger_ids = '';
+			if (empty($this->request->data['Search']['ledger_ids'])) {
+				$ledger_ids = '0';
+			} else {
+				if (in_array('0', $this->request->data['Search']['ledger_ids'])) {
+					$ledger_ids = '0';
+				} else {
+					$ledger_ids = implode(',', $this->request->data['Search']['ledger_ids']);
+				}
+			}
+
+			$entrytype_ids = '';
+			if (empty($this->request->data['Search']['entrytype_ids'])) {
+				$entrytype_ids = '0';
+			} else {
+				if (in_array('0', $this->request->data['Search']['entrytype_ids'])) {
+					$entrytype_ids = '0';
+				} else {
+					$entrytype_ids = implode(',', $this->request->data['Search']['entrytype_ids']);
+				}
+			}
+
+			$tag_ids = '';
+			if (empty($this->request->data['Search']['tag_ids'])) {
+				$tag_ids = '0';
+			} else {
+				if (in_array('0', $this->request->data['Search']['tag_ids'])) {
+					$tag_ids = '0';
+				} else {
+					$tag_ids = implode(',', $this->request->data['Search']['tag_ids']);
+				}
+			}
+
+			return $this->redirect(array(
+				'plugin' => 'webzash', 'controller' => 'search', 'action' => 'index',
+				'search' => 1,
+				'ledger_ids' => $ledger_ids,
+				'entrytype_ids' => $entrytype_ids,
+				'entrynumber_restriction' => $this->request->data['Search']['entrynumber_restriction'],
+				'entrynumber1' => $this->request->data['Search']['entrynumber1'],
+				'entrynumber2' => $this->request->data['Search']['entrynumber2'],
+				'amount_dc' => $this->request->data['Search']['amount_dc'],
+				'amount_restriction' => $this->request->data['Search']['amount_restriction'],
+				'amount1' => $this->request->data['Search']['amount1'],
+				'amount2' => $this->request->data['Search']['amount2'],
+				'fromdate' => $this->request->data['Search']['fromdate'],
+				'todate' => $this->request->data['Search']['todate'],
+				'tag_ids' => $tag_ids,
+				'narration' => $this->request->data['Search']['narration']
+			));
+		}
+
+		/* Check if search is active */
+		if (empty($this->passedArgs['search']) || $this->passedArgs['search'] != 1) {
+			return;
+		}
+
+		/* Initialize data from passedArgs */
+		$this->request->data['Search']['ledger_ids'] =
+			explode(',', $this->passedArgs['ledger_ids']);
+		$this->request->data['Search']['entrytype_ids'] =
+			explode(',', $this->passedArgs['entrytype_ids']);
+		$this->request->data['Search']['entrynumber_restriction'] =
+			$this->passedArgs['entrynumber_restriction'];
+		$this->request->data['Search']['entrynumber1'] =
+			$this->passedArgs['entrynumber1'];
+		$this->request->data['Search']['entrynumber2'] =
+			$this->passedArgs['entrynumber2'];
+		$this->request->data['Search']['amount_dc'] =
+			$this->passedArgs['amount_dc'];
+		$this->request->data['Search']['amount_restriction'] =
+			$this->passedArgs['amount_restriction'];
+		$this->request->data['Search']['amount1'] =
+			$this->passedArgs['amount1'];
+		$this->request->data['Search']['amount2'] =
+			$this->passedArgs['amount2'];
+		$this->request->data['Search']['fromdate'] =
+			$this->passedArgs['fromdate'];
+		$this->request->data['Search']['todate'] =
+			$this->passedArgs['todate'];
+		$this->request->data['Search']['tag_ids'] =
+			explode(',', $this->passedArgs['tag_ids']);
+		$this->request->data['Search']['narration'] =
+			$this->passedArgs['narration'];
+
+		/* Setup search conditions */
+		$conditions = array();
+
+		if (!empty($this->passedArgs['ledger_ids'])) {
+			if (!in_array('0', $this->request->data['Search']['ledger_ids'])) {
+				$conditions['Entryitem.ledger_id'] =
+					$this->request->data['Search']['ledger_ids'];
+			}
+		}
+
+		if (!empty($this->passedArgs['entrytype_ids'])) {
+			if (!in_array('0', $this->request->data['Search']['entrytype_ids'])) {
+				$conditions['Entry.entrytype_id'] =
+					$this->request->data['Search']['entrytype_ids'];
+			}
+		}
+
+		if (!empty($this->passedArgs['entrynumber1'])) {
+			if ($this->passedArgs['entrynumber_restriction'] == 1) {
+				/* Equal to */
+				$conditions['Entry.number'] = $this->passedArgs['entrynumber1'];
+			} else if ($this->passedArgs['entrynumber_restriction'] == 2) {
+				/* Less than or equal to */
+				$conditions['Entry.number <='] = $this->passedArgs['entrynumber1'];
+			} else if ($this->passedArgs['entrynumber_restriction'] == 3) {
+				/* Greater than or equal to */
+				$conditions['Entry.number >='] = $this->passedArgs['entrynumber1'];
+			} else if ($this->passedArgs['entrynumber_restriction'] == 4) {
+				/* In between */
+				if (!empty($this->passedArgs['entrynumber2'])) {
+					$conditions['Entry.number >='] = $this->passedArgs['entrynumber1'];
+					$conditions['Entry.number <='] = $this->passedArgs['entrynumber2'];
+				} else {
+					$conditions['Entry.number >='] = $this->passedArgs['entrynumber1'];
+				}
+			}
+		}
+
+		if ($this->passedArgs['amount_dc'] == 'D') {
+			/* Dr */
+			$conditions['Entryitem.dc'] = 'D';
+		} else if ($this->passedArgs['amount_dc'] == 'C') {
+			/* Cr */
+			$conditions['Entryitem.dc'] = 'C';
+		}
+
+		if (!empty($this->passedArgs['amount1'])) {
+			if ($this->passedArgs['amount_restriction'] == 1) {
+				/* Equal to */
+				$conditions['Entryitem.amount'] = $this->passedArgs['amount1'];
+			} else if ($this->passedArgs['amount_restriction'] == 2) {
+				/* Less than or equal to */
+				$conditions['Entryitem.amount <='] = $this->passedArgs['amount1'];
+			} else if ($this->passedArgs['amount_restriction'] == 3) {
+				/* Greater than or equal to */
+				$conditions['Entryitem.amount >='] = $this->passedArgs['amount1'];
+			} else if ($this->passedArgs['amount_restriction'] == 4) {
+				/* In between */
+				if (!empty($this->passedArgs['amount2'])) {
+					$conditions['Entryitem.amount >='] = $this->passedArgs['amount1'];
+					$conditions['Entryitem.amount <='] = $this->passedArgs['amount2'];
+				} else {
+					$conditions['Entryitem.amount >='] = $this->passedArgs['amount1'];
+				}
+			}
+		}
+
+		if (!empty($this->passedArgs['fromdate'])) {
+			/* TODO : Validate date */
+			$fromdate = dateToSql($this->passedArgs['fromdate']);
+			$conditions['Entry.date >='] = $fromdate;
+		}
+
+		if (!empty($this->passedArgs['todate'])) {
+			/* TODO : Validate date */
+			$todate = dateToSql($this->passedArgs['todate']);
+			$conditions['Entry.date <='] = $todate;
+		}
+
+		if (!empty($this->passedArgs['tag_ids'])) {
+			if (!in_array('0', $this->request->data['Search']['tag_ids'])) {
+				$conditions['Entry.tag_id'] =
+					$this->request->data['Search']['tag_ids'];
+			}
+		}
+
+		if (!empty($this->passedArgs['narration'])) {
+			$conditions['Entry.narration LIKE'] = '%' . $this->passedArgs['narration'] . '%';
+		}
+
+		/* Setup pagination */
+		$this->Paginator->settings = array(
+			'Entry' => array(
+				'fields' => array('Entry.*', 'Entryitem.*'),
+				'limit' => $this->Session->read('Wzsetting.row_count'),
+				'order' => array('Entry.date' => 'asc'),
+				'conditions' => $conditions,
+				'joins' => array(
+					array(
+						'table' => 'entryitems',
+						'alias' => 'Entryitem',
+						'conditions' => array(
+							'Entry.id = Entryitem.entry_id'
+						)
+					),
+				),
+			),
+		);
+
+		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('showEntries', true);
 
 		return;
 	}
