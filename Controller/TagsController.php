@@ -35,6 +35,8 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class TagsController extends WebzashAppController {
 
+	public $uses = array('Webzash.Tag', 'Webzash.Entry', 'Webzash.Log');
+
 /**
  * index method
  *
@@ -67,10 +69,6 @@ class TagsController extends WebzashAppController {
 	public function add() {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Tag'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* On POST */
 		if ($this->request->is('post')) {
@@ -112,10 +110,6 @@ class TagsController extends WebzashAppController {
 	public function edit($id = null) {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Tag'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* Check for valid tag */
 		if (empty($id)) {
@@ -170,14 +164,6 @@ class TagsController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {

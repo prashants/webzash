@@ -35,11 +35,6 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class SearchController extends WebzashAppController {
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
 	public $uses = array('Webzash.Ledger', 'Webzash.Entry', 'Webzash.Entryitem',
 		'Webzash.Entrytype', 'Webzash.Tag');
 

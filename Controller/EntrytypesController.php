@@ -35,6 +35,8 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class EntrytypesController extends WebzashAppController {
 
+	public $uses = array('Webzash.Entrytype', 'Webzash.Entry', 'Webzash.Log');
+
 /**
  * index method
  *
@@ -67,10 +69,6 @@ class EntrytypesController extends WebzashAppController {
 	public function add() {
 
 		$this->set('title_for_layout', __d('webzash', 'Add Entry Type'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* On POST */
 		if ($this->request->is('post')) {
@@ -122,10 +120,6 @@ class EntrytypesController extends WebzashAppController {
 	public function edit($id = null) {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Entry Type'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* Check for valid entry type */
 		if (empty($id)) {
@@ -190,14 +184,6 @@ class EntrytypesController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {

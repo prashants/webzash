@@ -35,6 +35,8 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class GroupsController extends WebzashAppController {
 
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Log');
+
 /**
  * index method
  *
@@ -50,10 +52,6 @@ class GroupsController extends WebzashAppController {
  * @return void
  */
 	public function add() {
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		$this->set('title_for_layout', __d('webzash', 'Add Account Group'));
 
@@ -104,10 +102,6 @@ class GroupsController extends WebzashAppController {
 	public function edit($id = null) {
 
 		$this->set('title_for_layout', __d('webzash', 'Edit Account Group'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* Check for valid group */
 		if (empty($id)) {
@@ -180,14 +174,6 @@ class GroupsController extends WebzashAppController {
  * @return void
  */
 	public function delete($id = null) {
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Ledger");
-		$this->Ledger = new Ledger();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		/* GET access not allowed */
 		if ($this->request->is('get')) {
