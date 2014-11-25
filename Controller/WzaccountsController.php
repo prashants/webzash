@@ -36,6 +36,9 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzaccountsController extends WebzashAppController {
 
+	public $uses = array('Webzash.Wzaccount', 'Webzash.Wzuser',
+		'Webzash.Wzuseraccount', 'Webzash.Setting');
+
 	var $layout = 'admin';
 
 /**
@@ -76,9 +79,6 @@ class WzaccountsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Create new account'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzaccount");
-		$this->Wzaccount = new Wzaccount();
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		/* on POST */
@@ -285,10 +285,8 @@ class WzaccountsController extends WebzashAppController {
 				}
 
 				/******* Create settings *******/
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Setting");
-				$this->Setting = new Setting();
 				$this->Setting->useDbConfig = 'wz_newconfig';
+
 				$account_setting = array('Setting' => array(
 					'id' => '1',
 					'name' => $this->request->data['Wzaccount']['name'],
@@ -378,10 +376,6 @@ class WzaccountsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Add Account Config'));
 
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuser");
-		$this->Wzuser = new Wzuser();
 		$this->Wzuser->useDbConfig = 'wz';
 
 		/* Create list of wzusers */
@@ -430,10 +424,6 @@ class WzaccountsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Edit Account Config'));
 
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuser");
-		$this->Wzuser = new Wzuser();
 		$this->Wzuser->useDbConfig = 'wz';
 
 		/* Check for valid account */
@@ -493,10 +483,6 @@ class WzaccountsController extends WebzashAppController {
 		}
 
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuseraccount");
-		$this->Wzuseraccount = new Wzuseraccount();
 		$this->Wzuseraccount->useDbConfig = 'wz';
 
 		/* Check if valid id */

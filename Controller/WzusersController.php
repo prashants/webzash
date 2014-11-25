@@ -36,6 +36,9 @@ App::uses('ConnectionManager', 'Model');
  */
 class WzusersController extends WebzashAppController {
 
+	public $uses = array('Webzash.Wzuser', 'Webzash.Wzaccount',
+		'Webzash.Wzuseraccount', 'Webzash.Wzsetting');
+
 	var $layout = 'admin';
 
 /**
@@ -76,20 +79,8 @@ class WzusersController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Add User'));
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzaccount");
-		$this->Wzaccount = new Wzaccount();
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuseraccount");
-		$this->Wzuseraccount = new Wzuseraccount();
 		$this->Wzuseraccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
@@ -205,20 +196,8 @@ class WzusersController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Edit User'));
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzaccount");
-		$this->Wzaccount = new Wzaccount();
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuseraccount");
-		$this->Wzuseraccount = new Wzuseraccount();
 		$this->Wzuseraccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
@@ -340,10 +319,6 @@ class WzusersController extends WebzashAppController {
 		}
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuseraccount");
-		$this->Wzuseraccount = new Wzuseraccount();
 		$this->Wzuseraccount->useDbConfig = 'wz';
 
 		/* Check if valid id */
@@ -398,14 +373,10 @@ class WzusersController extends WebzashAppController {
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
+		$this->Wzsetting->useDbConfig = 'wz';
 
 		$view = new View($this);
 		$this->Html = $view->loadHelper('Html');
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
-		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
 
@@ -554,10 +525,6 @@ class WzusersController extends WebzashAppController {
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
@@ -931,10 +898,6 @@ class WzusersController extends WebzashAppController {
 		$this->layout = 'user';
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
@@ -1083,15 +1046,7 @@ class WzusersController extends WebzashAppController {
 		$this->layout = 'default';
 
 		$this->Wzuser->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzaccount");
-		$this->Wzaccount = new Wzaccount();
 		$this->Wzaccount->useDbConfig = 'wz';
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzuseraccount");
-		$this->Wzuseraccount = new Wzuseraccount();
 		$this->Wzuseraccount->useDbConfig = 'wz';
 
 		$wzuser = $this->Wzuser->findById($this->Auth->user('id'));

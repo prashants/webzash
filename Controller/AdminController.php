@@ -40,7 +40,7 @@ class AdminController extends WebzashAppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('Webzash.Wzsetting');
 
 	var $layout = 'admin';
 
@@ -53,9 +53,6 @@ class AdminController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Administrator Dashboard'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzsetting");
-		$this->Wzsetting = new Wzsetting();
 		$this->Wzsetting->useDbConfig = 'wz';
 
 		$wzsetting = $this->Wzsetting->findById(1);
