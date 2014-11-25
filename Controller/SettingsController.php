@@ -36,6 +36,10 @@ App::uses('AccountList', 'Webzash.Lib');
  */
 class SettingsController extends WebzashAppController {
 
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entrytype',
+		'Webzash.Entry', 'Webzash.Log', 'Webzash.Tag', 'Webzash.Setting',
+		'Webzash.Log', 'Webzash.Wzaccount');
+
 /**
  * index method
  *
@@ -54,14 +58,6 @@ class SettingsController extends WebzashAppController {
  * @return void
  */
 	public function account() {
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Entry");
-		$this->Entry = new Entry();
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		$this->set('title_for_layout', __d('webzash', 'Account Settings'));
 
@@ -135,9 +131,6 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Carry Forward Account'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Wzaccount");
-		$this->Wzaccount = new Wzaccount();
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		/* on POST */
@@ -327,9 +320,6 @@ class SettingsController extends WebzashAppController {
 
 				/******* Add initial data ********/
 
-				$this->loadModel("Webzash.Group");
-				$this->loadModel("Webzash.Ledger");
-
 				/* CF groups and ledgers */
 				$assetsList = new AccountList();
 				$assetsList->Group = &$this->Group;
@@ -371,9 +361,7 @@ class SettingsController extends WebzashAppController {
 				$expenseList->start(4);
 				$this->_extract_groups_ledgers($expenseList, false);
 
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Group");
-				$this->NewGroup = new Group();
+				$this->NewGroup = new $this->Group;
 				$this->NewGroup->useDbConfig = 'wz_newconfig';
 
 				foreach ($this->groups_list as $row => $group) {
@@ -384,9 +372,7 @@ class SettingsController extends WebzashAppController {
 					}
 				}
 
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Ledger");
-				$this->NewLedger = new Ledger();
+				$this->NewLedger = new $this->Ledger;
 				$this->NewLedger->useDbConfig = 'wz_newconfig';
 
 				foreach ($this->ledgers_list as $row => $ledger) {
@@ -398,13 +384,10 @@ class SettingsController extends WebzashAppController {
 				}
 
 				/* CF Entrytypes */
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Entrytype");
-
-				$this->OldEntrytype = new Entrytype();
+				$this->OldEntrytype = new $this->Entrytype;
 				$old_entrytypes = $this->OldEntrytype->find('all');
 
-				$this->NewEntrytype = new Entrytype();
+				$this->NewEntrytype = new $this->Entrytype;
 				$this->NewEntrytype->useDbConfig = 'wz_newconfig';
 
 				foreach ($old_entrytypes as $row => $entrytype) {
@@ -416,13 +399,10 @@ class SettingsController extends WebzashAppController {
 				}
 
 				/* CF Tags */
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Tag");
-
-				$this->OldTag = new Tag();
+				$this->OldTag = new $this->Tag;
 				$old_tags = $this->OldTag->find('all');
 
-				$this->NewTag = new Tag();
+				$this->NewTag = new $this->Tag;
 				$this->NewTag->useDbConfig = 'wz_newconfig';
 
 				foreach ($old_tags as $row => $tag) {
@@ -434,18 +414,16 @@ class SettingsController extends WebzashAppController {
 				}
 
 				/* CF settings */
-				/* TODO : Switch to loadModel() */
-				App::import("Webzash.Model", "Setting");
-
-				$this->OldSetting = new Setting();
+				$this->OldSetting = new $this->Setting;
 				$old_account_setting = $this->OldSetting->findById(1);
 				if (!$old_account_setting) {
 					$this->Session->setFlash(__d('webzash', 'Account database created, but could not retrive original settings. Please, try again.'), 'danger');
 					return;
 				}
 
-				$this->NewSetting = new Setting();
+				$this->NewSetting = new $this->Setting;
 				$this->NewSetting->useDbConfig = 'wz_newconfig';
+
 				$new_account_setting = array('Setting' => array(
 					'id' => '1',
 					'name' => $this->request->data['Wzaccount']['name'],
@@ -580,10 +558,6 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Email Settings'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
-
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
@@ -646,10 +620,6 @@ class SettingsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Printer Settings'));
 
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
-
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
 			$this->Session->setFlash(__d('webzash', 'Account settings not found.'), 'danger');
@@ -706,10 +676,6 @@ class SettingsController extends WebzashAppController {
 	public function lock() {
 
 		$this->set('title_for_layout', __d('webzash', 'Lock Account'));
-
-		/* TODO : Switch to loadModel() */
-		App::import("Webzash.Model", "Log");
-		$this->Log = new Log();
 
 		$setting = $this->Setting->findById(1);
 		if (!$setting) {
