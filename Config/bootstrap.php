@@ -271,12 +271,8 @@ function init_account() {
 		return;
 	}
 
-	/* Setup master database configuration */
-	$wz['datasource'] = 'Database/Sqlite';
-	$wz['database'] = $root_path . './Database/' . 'webzash.sqlite';
-	$wz['prefix'] = '';
-	$wz['encoding'] = 'utf8';
-	$wz['persistent'] = false;
+	/* Load the master database configuration in $wz */
+	require_once($root_path . './Config/' . 'MasterConfig.php');
 
 	/* Create master database config and try to connect to it */
 	App::uses('ConnectionManager', 'Model');
