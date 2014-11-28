@@ -18,33 +18,6 @@ CREATE TABLE IF NOT EXISTS `wzaccounts` (
         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
-CREATE TABLE IF NOT EXISTS `wzsettings` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `sitename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `drcr_toby` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `enable_logging` int(1) NOT NULL DEFAULT '0',
-        `row_count` int(11) NOT NULL DEFAULT '10',
-        `user_registration` int(1) NOT NULL DEFAULT '0',
-        `admin_verification` int(1) NOT NULL DEFAULT '0',
-        `email_verification` int(1) NOT NULL DEFAULT '0',
-        `email_protocol` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-        `email_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-        `email_port` int(11) NOT NULL DEFAULT '0',
-        `email_tls` int(1) NOT NULL DEFAULT '0',
-        `email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS `wzuseraccounts` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `wzuser_id` int(11) NOT NULL,
-        `wzaccount_id` int(11) NOT NULL,
-        `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
-
 CREATE TABLE IF NOT EXISTS `wzusers` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -61,6 +34,34 @@ CREATE TABLE IF NOT EXISTS `wzusers` (
         `all_accounts` int(1) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2;
+
+
+CREATE TABLE IF NOT EXISTS `wzsettings` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `sitename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `drcr_toby` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `enable_logging` int(1) NOT NULL DEFAULT '0',
+        `row_count` int(11) NOT NULL DEFAULT '10',
+        `user_registration` int(1) NOT NULL DEFAULT '0',
+        `admin_verification` int(1) NOT NULL DEFAULT '0',
+        `email_verification` int(1) NOT NULL DEFAULT '0',
+        `email_protocol` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `email_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `email_port` int(11) DEFAULT '0',
+        `email_tls` int(1) DEFAULT '0',
+        `email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `wzuseraccounts` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `wzuser_id` int(11) NOT NULL,
+        `wzaccount_id` int(11) NOT NULL,
+        `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 INSERT INTO `wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES
 (1, 'admin', '77f9101246a0ca5e24a20ef8d06d19c83bbb69e4', 'Administrator', '', 'UTC', 'admin', 1, '', 1, 1, 0, 1);
