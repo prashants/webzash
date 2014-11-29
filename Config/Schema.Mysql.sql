@@ -17,8 +17,8 @@ CREATE TABLE `%_PREFIX_%ledgers` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`group_id` int(11) NOT NULL,
 	`name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`op_balance` float(25,2) NOT NULL DEFAULT '0.00',
-	`op_balance_dc` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`op_balance` decimal(25,2) NOT NULL DEFAULT '0.00',
+	`op_balance_dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`type` int(2) NOT NULL DEFAULT '0',
 	`reconciliation` int(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY(`id`),
@@ -34,8 +34,8 @@ ENGINE=InnoDB;
 CREATE TABLE `%_PREFIX_%tags` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`color` varchar(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`background` varchar(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`color` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`background` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `title` (`title`),
@@ -71,8 +71,8 @@ CREATE TABLE `%_PREFIX_%entries` (
 	`entrytype_id` int(11) NOT NULL,
 	`number` int(11) DEFAULT NULL,
 	`date` date NOT NULL,
-	`dr_total` float(25,2) NOT NULL DEFAULT '0.00',
-	`cr_total` float(25,2) NOT NULL DEFAULT '0.00',
+	`dr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
+	`cr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`narration` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
         PRIMARY KEY (`id`),
 	UNIQUE KEY `unique_id` (`id`),
@@ -88,8 +88,8 @@ CREATE TABLE `%_PREFIX_%entryitems` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`entry_id` int(11) NOT NULL,
 	`ledger_id` int(11) NOT NULL,
-	`amount` float(25,2) NOT NULL DEFAULT '0.00',
-	`dc` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`amount` decimal(25,2) NOT NULL DEFAULT '0.00',
+	`dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`reconciliation_date` date DEFAULT NULL,
         PRIMARY KEY (`id`),
 	UNIQUE KEY `unique_id` (`id`),
@@ -111,7 +111,7 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`currency_symbol` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`date_format` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`timezone` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`manage_inventory` int(1) NOT NULL DEFAULT '0' ,
+	`manage_inventory` int(1) NOT NULL DEFAULT '0',
 	`account_locked` int(1) NOT NULL DEFAULT '0',
 	`email_use_default` int(1) NOT NULL DEFAULT '0',
 	`email_protocol` varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -121,14 +121,14 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`print_paper_height` float NOT NULL DEFAULT '0.0',
-	`print_paper_width` float NOT NULL DEFAULT '0.0',
-	`print_margin_top` float NOT NULL DEFAULT '0.0',
-	`print_margin_bottom` float NOT NULL DEFAULT '0.0',
-	`print_margin_left` float NOT NULL DEFAULT '0.0',
-	`print_margin_right` float NOT NULL DEFAULT '0.0',
-	`print_orientation` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`print_page_format` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`print_paper_height` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_paper_width` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_margin_top` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_margin_bottom` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_margin_left` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_margin_right` decimal(10,3) NOT NULL DEFAULT '0.0',
+	`print_orientation` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`print_page_format` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`database_version` int(10) NOT NULL,
         PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
@@ -150,20 +150,20 @@ CREATE TABLE `%_PREFIX_%logs` (
 	UNIQUE KEY `unique_id` (`id`),
 	KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8,
-COLLATE=utf8_general_ci,
+COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
 ALTER TABLE `%_PREFIX_%groups`
-	ADD CONSTRAINT `groups_fk_check_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `groups` (`id`);
+	ADD CONSTRAINT `%_PREFIX_%groups_fk_check_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `%_PREFIX_%groups` (`id`);
 
 ALTER TABLE `%_PREFIX_%ledgers`
-	ADD CONSTRAINT `ledgers_fk_check_group_id` FOREIGN KEY (`group_id`) REFERENCES `%_PREFIX_%groups` (`id`);
+	ADD CONSTRAINT `%_PREFIX_%ledgers_fk_check_group_id` FOREIGN KEY (`group_id`) REFERENCES `%_PREFIX_%groups` (`id`);
 
 ALTER TABLE `%_PREFIX_%entries`
-	ADD CONSTRAINT `entries_fk_check_entrytype_id` FOREIGN KEY (`entrytype_id`) REFERENCES `%_PREFIX_%entrytypes` (`id`),
-	ADD CONSTRAINT `entries_fk_check_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `%_PREFIX_%tags` (`id`);
+	ADD CONSTRAINT `%_PREFIX_%entries_fk_check_entrytype_id` FOREIGN KEY (`entrytype_id`) REFERENCES `%_PREFIX_%entrytypes` (`id`),
+	ADD CONSTRAINT `%_PREFIX_%entries_fk_check_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `%_PREFIX_%tags` (`id`);
 
 ALTER TABLE `%_PREFIX_%entryitems`
-	ADD CONSTRAINT `entryitems_fk_check_ledger_id` FOREIGN KEY (`ledger_id`) REFERENCES `%_PREFIX_%ledgers` (`id`),
-	ADD CONSTRAINT `entryitems_fk_check_entry_id` FOREIGN KEY (`entry_id`) REFERENCES `%_PREFIX_%entries` (`id`);
+	ADD CONSTRAINT `%_PREFIX_%entryitems_fk_check_ledger_id` FOREIGN KEY (`ledger_id`) REFERENCES `%_PREFIX_%ledgers` (`id`),
+	ADD CONSTRAINT `%_PREFIX_%entryitems_fk_check_entry_id` FOREIGN KEY (`entry_id`) REFERENCES `%_PREFIX_%entries` (`id`);

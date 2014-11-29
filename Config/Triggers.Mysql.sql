@@ -51,8 +51,8 @@ END;
 DROP TRIGGER IF EXISTS `bfup_%_PREFIX_%entries`;
 CREATE TRIGGER `bfup_%_PREFIX_%entries` BEFORE UPDATE ON `%_PREFIX_%entries`
 FOR EACH ROW BEGIN
-	DECLARE dr_total float(25,2);
-	DECLARE cr_total float(25,2);
+	DECLARE dr_total decimal(25,2);
+	DECLARE cr_total decimal(25,2);
 
 	IF (NEW.dr_total IS NOT NULL) THEN
 		SET dr_total = NEW.dr_total;
