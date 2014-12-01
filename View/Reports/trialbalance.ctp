@@ -118,6 +118,13 @@ function print_space($count)
 	return $html;
 }
 
+echo $this->Html->link(
+	__d('webzash', 'Download'),
+	'/' . $this->params->url . '/download:true',
+	array('class' => 'btn btn-info btn-sm')
+);
+echo '<br /><br />';
+
 echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
 	echo '<th>' . __d('webzash', 'Type') . '</th>';

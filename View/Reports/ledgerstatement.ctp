@@ -109,6 +109,15 @@ $(document).ready(function() {
 
 <?php if ($showEntries) { ?>
 
+<?php
+	echo $this->Html->link(
+		__d('webzash', 'Download'),
+		'/' . $this->params->url . '/download:true',
+		array('class' => 'btn btn-info btn-sm')
+	);
+	echo '<br /><br />';
+?>
+
 	<table class="summary stripped table-condensed">
 		<tr>
 			<td class="col-sm-2"><?php echo $opening_title; ?></td>

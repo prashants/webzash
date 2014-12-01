@@ -476,6 +476,18 @@ class ReportsController extends WebzashAppController {
 		$accountlist->start(0);
 
 		$this->set('accountlist', $accountlist);
+
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/trialbalance');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('trialbalance.csv');
+			return $this->response;
+		}
+
 		return;
 	}
 
@@ -631,26 +643,57 @@ class ReportsController extends WebzashAppController {
 		$this->set('current_op', $current_op);
 
 		/* Setup pagination */
-		$this->Paginator->settings = array(
-			'Entry' => array(
-				'fields' => array('Entry.*', 'Entryitem.*'),
-				'limit' => $this->Session->read('Wzsetting.row_count'),
-				'order' => array('Entry.date' => 'asc'),
-				'conditions' => $conditions,
-				'joins' => array(
-					array(
-						'table' => 'entryitems',
-						'alias' => 'Entryitem',
-						'conditions' => array(
-							'Entry.id = Entryitem.entry_id'
-						)
+		if (isset($this->passedArgs['download'])) {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => 100000000000,	/* Max limit */
+					'order' => array('Entry.date' => 'asc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
 					),
 				),
-			),
-		);
+			);
+		} else {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => $this->Session->read('Wzsetting.row_count'),
+					'order' => array('Entry.date' => 'asc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
+					),
+				),
+			);
+		}
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);
+
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/ledgerstatement');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('ledgerstatement.csv');
+			return $this->response;
+		}
 
 		return;
 	}
@@ -763,26 +806,57 @@ class ReportsController extends WebzashAppController {
 		$this->set('cl', $cl);
 
 		/* Setup pagination */
-		$this->Paginator->settings = array(
-			'Entry' => array(
-				'fields' => array('Entry.*', 'Entryitem.*'),
-				'limit' => $this->Session->read('Wzsetting.row_count'),
-				'order' => array('Entry.date' => 'desc'),
-				'conditions' => $conditions,
-				'joins' => array(
-					array(
-						'table' => 'entryitems',
-						'alias' => 'Entryitem',
-						'conditions' => array(
-							'Entry.id = Entryitem.entry_id'
-						)
+		if (isset($this->passedArgs['download'])) {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => 100000000000,	/* Max limit */
+					'order' => array('Entry.date' => 'desc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
 					),
 				),
-			),
-		);
+			);
+		} else {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => $this->Session->read('Wzsetting.row_count'),
+					'order' => array('Entry.date' => 'desc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
+					),
+				),
+			);
+		}
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);
+
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/ledgerentries');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('ledgerentries.csv');
+			return $this->response;
+		}
 
 		return;
 	}
@@ -973,26 +1047,57 @@ class ReportsController extends WebzashAppController {
 		$this->set('rp', $rp);
 
 		/* Setup pagination */
-		$this->Paginator->settings = array(
-			'Entry' => array(
-				'fields' => array('Entry.*', 'Entryitem.*'),
-				'limit' => $this->Session->read('Wzsetting.row_count'),
-				'order' => array('Entry.date' => 'desc'),
-				'conditions' => $conditions,
-				'joins' => array(
-					array(
-						'table' => 'entryitems',
-						'alias' => 'Entryitem',
-						'conditions' => array(
-							'Entry.id = Entryitem.entry_id'
-						)
+		if (isset($this->passedArgs['download'])) {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => 100000000000,	/* Max limit */
+					'order' => array('Entry.date' => 'desc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
 					),
 				),
-			),
-		);
+			);
+		} else {
+			$this->Paginator->settings = array(
+				'Entry' => array(
+					'fields' => array('Entry.*', 'Entryitem.*'),
+					'limit' => $this->Session->read('Wzsetting.row_count'),
+					'order' => array('Entry.date' => 'desc'),
+					'conditions' => $conditions,
+					'joins' => array(
+						array(
+							'table' => 'entryitems',
+							'alias' => 'Entryitem',
+							'conditions' => array(
+								'Entry.id = Entryitem.entry_id'
+							)
+						),
+					),
+				),
+			);
+		}
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);
+
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/reconciliation');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('reconciliation.csv');
+			return $this->response;
+		}
 
 		return;
 	}
