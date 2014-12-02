@@ -100,6 +100,7 @@ class ReportsController extends WebzashAppController {
 
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Closing Balance Sheet as on ') .
 				dateFromSql(Configure::read('Account.enddate')));
@@ -108,6 +109,7 @@ class ReportsController extends WebzashAppController {
 			if (!empty($this->passedArgs['opening'])) {
 				$only_opening = true;
 				$this->request->data['Balancesheet']['opening'] = '1';
+
 				/* Sub-title*/
 				$this->set('subtitle', __d('webzash', 'Opening Balance Sheet as on ') .
 					dateFromSql(Configure::read('Account.startdate')));
@@ -322,6 +324,7 @@ class ReportsController extends WebzashAppController {
 
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Closing Profit and Loss Statement as on ') .
 				dateFromSql(Configure::read('Account.enddate')));
@@ -330,6 +333,7 @@ class ReportsController extends WebzashAppController {
 			if (!empty($this->passedArgs['opening'])) {
 				$only_opening = true;
 				$this->request->data['Profitloss']['opening'] = '1';
+
 				/* Sub-title*/
 				$this->set('subtitle', __d('webzash', 'Opening Profit and Loss Statement as on ') .
 					dateFromSql(Configure::read('Account.startdate')));
@@ -488,6 +492,12 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('title_for_layout', __d('webzash', 'Trial Balance'));
 
+		/* Sub-title*/
+		$this->set('subtitle', __d('webzash', 'Trial Balance from %s to %s',
+			dateFromSql(Configure::read('Account.startdate')),
+			dateFromSql(Configure::read('Account.enddate'))
+		));
+
 		$accountlist = new AccountList();
 		$accountlist->Group = &$this->Group;
 		$accountlist->Ledger = &$this->Ledger;
@@ -562,7 +572,8 @@ class ReportsController extends WebzashAppController {
 		$ledgerId = $this->passedArgs['ledgerid'];
 
 		/* Check if ledger exists */
-		if (!$this->Ledger->exists($ledgerId)) {
+		$ledger = $this->Ledger->findById($ledgerId);
+		if (!$ledger) {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
@@ -578,6 +589,13 @@ class ReportsController extends WebzashAppController {
 		$enddate = null;
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+
+			/* Sub-title*/
+			$this->set('subtitle', __d('webzash', 'Ledger statement for %s from %s to %s',
+				h($ledger['Ledger']['name']),
+				dateFromSql(Configure::read('Account.startdate')),
+				dateFromSql(Configure::read('Account.enddate'))
+			));
 		} else {
 			$this->set('options', true);
 
@@ -592,6 +610,28 @@ class ReportsController extends WebzashAppController {
 				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
 				$conditions['Entry.date <='] = $enddate;
+			}
+
+			/* Sub-title*/
+			if (!empty($this->passedArgs['startdate']) &&
+				!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger statement for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
+			} else if (!empty($this->passedArgs['startdate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger statement for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(Configure::read('Account.enddate'))
+				));
+			} else if (!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger statement for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(Configure::read('Account.startdate')),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
 			}
 		}
 
@@ -770,7 +810,8 @@ class ReportsController extends WebzashAppController {
 		$ledgerId = $this->passedArgs['ledgerid'];
 
 		/* Check if ledger exists */
-		if (!$this->Ledger->exists($ledgerId)) {
+		$ledger = $this->Ledger->findById($ledgerId);
+		if (!$ledger) {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries'));
 		}
@@ -786,6 +827,13 @@ class ReportsController extends WebzashAppController {
 		$enddate = null;
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+
+			/* Sub-title*/
+			$this->set('subtitle', __d('webzash', 'Ledger entries for %s from %s to %s',
+				h($ledger['Ledger']['name']),
+				dateFromSql(Configure::read('Account.startdate')),
+				dateFromSql(Configure::read('Account.enddate'))
+			));
 		} else {
 			$this->set('options', true);
 
@@ -800,6 +848,28 @@ class ReportsController extends WebzashAppController {
 				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
 				$conditions['Entry.date <='] = $enddate;
+			}
+
+			/* Sub-title*/
+			if (!empty($this->passedArgs['startdate']) &&
+				!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger entries for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
+			} else if (!empty($this->passedArgs['startdate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger entries for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(Configure::read('Account.enddate'))
+				));
+			} else if (!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Ledger entries for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(Configure::read('Account.startdate')),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
 			}
 		}
 
@@ -975,7 +1045,8 @@ class ReportsController extends WebzashAppController {
 		$ledgerId = $this->passedArgs['ledgerid'];
 
 		/* Check if ledger exists */
-		if (!$this->Ledger->exists($ledgerId)) {
+		$ledger = $this->Ledger->findById($ledgerId);
+		if (!$ledger) {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 		}
@@ -992,6 +1063,13 @@ class ReportsController extends WebzashAppController {
 
 		if (empty($this->passedArgs['options'])) {
 			$this->set('options', false);
+
+			/* Sub-title*/
+			$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
+				h($ledger['Ledger']['name']),
+				dateFromSql(Configure::read('Account.startdate')),
+				dateFromSql(Configure::read('Account.enddate'))
+			));
 		} else {
 			$this->set('options', true);
 
@@ -1009,6 +1087,28 @@ class ReportsController extends WebzashAppController {
 				$enddate = dateToSql($this->passedArgs['enddate']);
 				$this->request->data['Report']['enddate'] = $this->passedArgs['enddate'];
 				$conditions['Entry.date <='] = $enddate;
+			}
+
+			/* Sub-title*/
+			if (!empty($this->passedArgs['startdate']) &&
+				!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
+			} else if (!empty($this->passedArgs['startdate'])) {
+				$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(dateToSQL($this->passedArgs['startdate'])),
+					dateFromSql(Configure::read('Account.enddate'))
+				));
+			} else if (!empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(Configure::read('Account.startdate')),
+					dateFromSql(dateToSQL($this->passedArgs['enddate']))
+				));
 			}
 		}
 

@@ -27,7 +27,7 @@
 ?>
 
 <?php
-	echo '"' . __d('webzash', 'RECONCILIATION REPORT') . '","","","","","","",""';
+	echo $subtitle;
 	echo "\n";
 	echo "\n";
 

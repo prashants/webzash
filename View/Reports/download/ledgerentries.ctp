@@ -27,7 +27,7 @@
 ?>
 
 <?php
-	echo '"' . __d('webzash', 'LEDGER ENTRIES ') . '","","","","","","",""';
+	echo $subtitle;
 	echo "\n";
 	echo "\n";
 

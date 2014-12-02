@@ -108,7 +108,7 @@ function print_space($count)
 	return $html;
 }
 
-echo '"' . __d('webzash', 'TRIAL BALANCE') . '","","","","","","",""';
+echo $subtitle;
 echo "\n";
 echo "\n";
 

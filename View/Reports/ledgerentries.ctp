@@ -118,6 +118,10 @@ $(document).ready(function() {
 	echo '<br /><br />';
 ?>
 
+<div class="subtitle">
+	<?php echo $subtitle; ?>
+</div>
+
 	<table class="summary stripped table-condensed">
 		<tr>
 			<td class="col-sm-2"><?php echo $opening_title; ?></td>
