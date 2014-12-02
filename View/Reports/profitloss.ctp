@@ -204,6 +204,15 @@ $(document).ready(function() {
 </div>
 <br />
 
+<?php
+	echo $this->Html->link(
+		__d('webzash', 'Download'),
+		'/' . $this->params->url . '/download:true',
+		array('class' => 'btn btn-info btn-sm')
+	);
+	echo '<br /><br />';
+?>
+
 <div class="subtitle text-center">
 	<?php echo $subtitle ?>
 </div>

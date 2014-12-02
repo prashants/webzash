@@ -261,6 +261,17 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('bsheet', $bsheet);
 
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/balancesheet');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('balancesheet.csv');
+			return $this->response;
+		}
+
 		return;
 	}
 
@@ -453,6 +464,17 @@ class ReportsController extends WebzashAppController {
 		$pandl['net_pl'] = calculate($pandl['net_pl'], $pandl['gross_pl'], '+');
 
 		$this->set('pandl', $pandl);
+
+		/* Download report */
+		if (isset($this->passedArgs['download'])) {
+			$this->layout = false;
+			$view = new View($this, false);
+			$response =  $view->render('Reports/download/profitloss');
+			$this->response->body($response);
+			$this->response->type('text/csv');
+			$this->response->download('profitloss.csv');
+			return $this->response;
+		}
 
 		return;
 	}
