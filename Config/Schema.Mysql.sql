@@ -114,7 +114,7 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`manage_inventory` int(1) NOT NULL DEFAULT '0',
 	`account_locked` int(1) NOT NULL DEFAULT '0',
 	`email_use_default` int(1) NOT NULL DEFAULT '0',
-	`email_protocol` varchar(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`email_protocol` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`email_port` int(5) NOT NULL,
 	`email_tls` int(1) NOT NULL DEFAULT '0',

@@ -35,133 +35,270 @@ class WebzashSchema extends CakeSchema {
 	}
 
 	public $groups = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'parent_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'affects_gross' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'parent_id' => array('type' => 'integer', 'null' => true,
+			'default' => 0, 'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'name' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'affects_gross' => array('type' => 'integer', 'null' => false,
+			'default' => 0, 'unsigned' => true, 'length' => 1),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'name' => array('column' => 'name', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0),
+			'parent_id' => array('column' => 'parent_id', 'unique' => 0)
+
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $ledgers = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'op_balance' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
-		'op_balance_dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'type' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 2),
-		'reconciliation' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'group_id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'name' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'op_balance' => array('type' => 'decimal', 'null' => false,
+			'default' => '0.00', 'unsigned' => true, 'length' => '25,2'),
+		'op_balance_dc' => array('type' => 'string', 'null' => false,
+			'length' => 1,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'type' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 2),
+		'reconciliation' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 1),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $entries = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'tag_id' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'entrytype_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'number' => array('type' => 'integer', 'null' => true, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'date' => array('type' => 'date', 'null' => false, 'default' => null),
-		'dr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
-		'cr_total' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
-		'narration' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 500, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'tag_id' => array('type' => 'integer', 'null' => true,
+			'unsigned' => true, 'default' => null, 'length' => 11, 'key' => 'index'),
+		'entrytype_id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'number' => array('type' => 'integer', 'null' => true,
+			'unsigned' => true, 'default' => null, 'length' => 11),
+		'date' => array('type' => 'date', 'null' => false),
+		'dr_total' => array('type' => 'decimal', 'null' => false,
+			'unsigned' => true, 'default' => '0.00', 'length' => '25,2'),
+		'cr_total' => array('type' => 'decimal', 'null' => false,
+			'unsigned' => true, 'default' => '0.00', 'length' => '25,2'),
+		'narration' => array('type' => 'string', 'null' => false,
+			'length' => 500,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0),
+			'tag_id' => array('column' => 'tag_id', 'unique' => 0),
+			'entrytype_id' => array('column' => 'entrytype_id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $entryitems = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'entry_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'ledger_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'length' => 11, 'default' => null),
-		'amount' => array('type' => 'float', 'null' => false, 'default' => '0.00', 'length' => '25,2'),
-		'dc' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'reconciliation_date' => array('type' => 'date', 'null' => true, 'default' => null),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'entry_id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'ledger_id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'amount' => array('type' => 'decimal', 'null' => false,
+			'unsigned' => true, 'default' => '0.00', 'length' => '25,2'),
+		'dc' => array('type' => 'string', 'null' => false,
+			'length' => 1,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'reconciliation_date' => array('type' => 'date',
+			'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0),
+			'entry_id' => array('column' => 'entry_id', 'unique' => 0),
+			'ledger_id' => array('column' => 'ledger_id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $settings = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'address' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'fy_start' => array('type' => 'date', 'null' => false, 'default' => null),
-		'fy_end' => array('type' => 'date', 'null' => false, 'default' => null),
-		'currency_symbol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'date_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'timezone' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'manage_inventory' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
-		'account_locked' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
-		'email_use_default' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
-		'email_protocol' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 9, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email_host' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email_port' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 5),
-		'email_tls' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => true, 'length' => 1),
-		'email_username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email_password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'email_from' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'print_paper_height' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_paper_width' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_margin_top' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_margin_bottom' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_margin_left' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_margin_right' => array('type' => 'float', 'null' => false, 'default' => null),
-		'print_orientation' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'print_page_format' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'database_version' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 10),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 1, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'address' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email' => array('type' => 'string', 'null' => false,
+			'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'fy_start' => array('type' => 'date', 'null' => false,
+		'fy_end' => array('type' => 'date', 'null' => false,
+		'currency_symbol' => array('type' => 'string', 'null' => false,
+			'length' => 100,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'date_format' => array('type' => 'string', 'null' => false,
+			'length' => 100,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'timezone' => array('type' => 'string', 'null' => false,
+			'length' => 100,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'manage_inventory' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 1),
+		'account_locked' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 1),
+		'email_use_default' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 1),
+		'email_protocol' => array('type' => 'string', 'null' => false,
+			'length' => 10,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_host' => array('type' => 'string', 'null' => false,
+			'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_port' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 5),
+		'email_tls' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 1),
+		'email_username' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_password' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'email_from' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'print_paper_height' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_paper_width' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_margin_top' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_margin_bottom' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_margin_left' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_margin_right' => array('type' => 'decimal', 'null' => false
+			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
+		'print_orientation' => array('type' => 'string', 'null' => false,
+			'length' => 1,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'print_page_format' => array('type' => 'string', 'null' => false,
+			'length' => 1,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'database_version' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 10),
 		'indexes' => array(
-			'id' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $tags = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'color' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'background' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'title' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'color' => array('type' => 'string', 'null' => false,
+			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'background' => array('type' => 'string', 'null' => false,
+			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'title' => array('column' => 'title', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $entrytypes = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'label' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'description' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'base_type' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 2),
-		'numbering' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 2),
-		'prefix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'suffix' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'zero_padding' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 2),
-		'restriction_bankcash' => array('type' => 'integer', 'null' => false, 'default' => '1', 'length' => 2),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'label' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'name' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'description' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'base_type' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 2),
+		'numbering' => array('type' => 'integer', 'null' => false,
+			'default' => '1', 'unsigned' => true, 'length' => 2),
+		'prefix' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'suffix' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'zero_padding' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 2),
+		'restriction_bankcash' => array('type' => 'integer', 'null' => false,
+			'default' => '1', 'unsigned' => true, 'length' => 2),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'label' => array('column' => 'label', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
 	);
 
 	public $logs = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'date' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'level' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => true, 'length' => 1),
-		'host_ip' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 25, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'user' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'url' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'user_agent' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'message' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'id' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'date' => array('type' => 'datetime', 'null' => false),
+		'level' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'length' => 1),
+		'host_ip' => array('type' => 'string', 'null' => false,
+			'length' => 25,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'user' => array('type' => 'string', 'null' => false,
+			'length' => 25,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'url' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'user_agent' => array('type' => 'string', 'null' => false,
+			'length' => 100,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'message' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_general_ci', 'engine' => 'InnoDB'
+		)
 	);
 }

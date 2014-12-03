@@ -1,6 +1,6 @@
 /* UPDATE DATABASE TABLES */
 ALTER TABLE `groups` CHANGE `parent_id` `parent_id` INT(11) NULL DEFAULT '0';
-UPDATE `groups` SET `parent_id`=NULL WHERE parent_id = 0;
+UPDATE `groups` SET `parent_id` = NULL WHERE `parent_id` = 0;
 ALTER TABLE `groups` CHANGE `name` `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `groups` ADD UNIQUE KEY `unique_id` (`id`);
 ALTER TABLE `groups` ADD UNIQUE KEY `name` (`name`);
@@ -85,7 +85,7 @@ ALTER TABLE `settings` CHANGE `timezone` `timezone` VARCHAR(100) CHARACTER SET u
 ALTER TABLE `settings` CHANGE `manage_inventory` `manage_inventory` INT(1) NOT NULL DEFAULT '0';
 ALTER TABLE `settings` CHANGE `account_locked` `account_locked` INT(1) NOT NULL DEFAULT '0';
 ALTER TABLE `settings` ADD `email_use_default` INT(1) NOT NULL DEFAULT '0' AFTER `account_locked`;
-ALTER TABLE `settings` CHANGE `email_protocol` `email_protocol` VARCHAR(9) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `settings` CHANGE `email_protocol` `email_protocol` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `settings` CHANGE `email_host` `email_host` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `settings` ADD `email_tls` INT(1) NOT NULL DEFAULT '0' AFTER `email_port`;
 ALTER TABLE `settings` CHANGE `email_username` `email_username` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
@@ -103,6 +103,8 @@ ALTER TABLE `settings` ADD PRIMARY KEY (`id`);
 ALTER TABLE `settings` ADD UNIQUE KEY `unique_id` (`id`);
 ALTER TABLE `settings` ADD KEY `id` (`id`);
 ALTER TABLE `settings` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+UPDATE `settings` SET `database_version` = '5' WHERE `id` = 1;
 
 /* ADD FOREIGN KEY CONSTRAINT */
 ALTER TABLE `groups`
