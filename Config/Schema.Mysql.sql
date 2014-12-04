@@ -1,6 +1,6 @@
 CREATE TABLE `%_PREFIX_%groups` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`parent_id` int(11) DEFAULT '0',
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
+	`parent_id` bigint(18) DEFAULT '0',
 	`name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`affects_gross` int(1) NOT NULL DEFAULT '0',
         PRIMARY KEY(`id`),
@@ -14,8 +14,8 @@ AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
 CREATE TABLE `%_PREFIX_%ledgers` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`group_id` int(11) NOT NULL,
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
+	`group_id` bigint(18) NOT NULL,
 	`name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`op_balance` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`op_balance_dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -31,22 +31,8 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
-CREATE TABLE `%_PREFIX_%tags` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`color` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	`background` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	PRIMARY KEY(`id`),
-	UNIQUE KEY `unique_id` (`id`),
-	UNIQUE KEY `title` (`title`),
-	KEY `id` (`id`)
-) DEFAULT CHARSET=utf8,
-COLLATE=utf8_unicode_ci,
-AUTO_INCREMENT=1,
-ENGINE=InnoDB;
-
 CREATE TABLE `%_PREFIX_%entrytypes` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
 	`label` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -65,11 +51,25 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
+CREATE TABLE `%_PREFIX_%tags` (
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
+	`title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`color` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`background` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	PRIMARY KEY(`id`),
+	UNIQUE KEY `unique_id` (`id`),
+	UNIQUE KEY `title` (`title`),
+	KEY `id` (`id`)
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE=InnoDB;
+
 CREATE TABLE `%_PREFIX_%entries` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`tag_id` int(11) DEFAULT NULL,
-	`entrytype_id` int(11) NOT NULL,
-	`number` int(11) DEFAULT NULL,
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
+	`tag_id` bigint(18) DEFAULT NULL,
+	`entrytype_id` bigint(18) NOT NULL,
+	`number` bigint(18) DEFAULT NULL,
 	`date` date NOT NULL,
 	`dr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`cr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
@@ -85,9 +85,9 @@ AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
 CREATE TABLE `%_PREFIX_%entryitems` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`entry_id` int(11) NOT NULL,
-	`ledger_id` int(11) NOT NULL,
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
+	`entry_id` bigint(18) NOT NULL,
+	`ledger_id` bigint(18) NOT NULL,
 	`amount` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`reconciliation_date` date DEFAULT NULL,
@@ -138,7 +138,7 @@ COLLATE=utf8_unicode_ci,
 ENGINE=InnoDB;
 
 CREATE TABLE `%_PREFIX_%logs` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id` bigint(18) NOT NULL AUTO_INCREMENT,
 	`date` datetime NOT NULL,
 	`level` int(1) NOT NULL,
 	`host_ip` varchar(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

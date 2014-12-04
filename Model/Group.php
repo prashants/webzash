@@ -57,8 +57,8 @@ class Group extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule4' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Parent group id length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Parent group id length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => false,
 			),

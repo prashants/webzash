@@ -45,8 +45,8 @@ class Entry extends WebzashAppModel {
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Tag id length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Tag id length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => true,
 			),
@@ -71,8 +71,8 @@ class Entry extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Entry type length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Entry type length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -91,8 +91,8 @@ class Entry extends WebzashAppModel {
 				'allowEmpty' => true,
 			),
 			'rule2' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Entry number length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Entry number length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => true,
 			),

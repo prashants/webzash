@@ -35,10 +35,10 @@ class WebzashSchema extends CakeSchema {
 	}
 
 	public $groups = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'parent_id' => array('type' => 'integer', 'null' => true,
-			'default' => 0, 'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'parent_id' => array('type' => 'biginteger', 'null' => true,
+			'default' => 0, 'unsigned' => true, 'length' => 18, 'key' => 'index'),
 		'name' => array('type' => 'string', 'null' => false,
 			'length' => 255,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
@@ -58,10 +58,10 @@ class WebzashSchema extends CakeSchema {
 	);
 
 	public $ledgers = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'group_id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'group_id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'index'),
 		'name' => array('type' => 'string', 'null' => false,
 			'length' => 255,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
@@ -82,15 +82,73 @@ class WebzashSchema extends CakeSchema {
 		)
 	);
 
+	public $entrytypes = array(
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'label' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'name' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'description' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'base_type' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 2),
+		'numbering' => array('type' => 'integer', 'null' => false,
+			'default' => '1', 'unsigned' => true, 'length' => 2),
+		'prefix' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'suffix' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'zero_padding' => array('type' => 'integer', 'null' => false,
+			'default' => '0', 'unsigned' => true, 'length' => 2),
+		'restriction_bankcash' => array('type' => 'integer', 'null' => false,
+			'default' => '1', 'unsigned' => true, 'length' => 2),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'label' => array('column' => 'label', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
+		),
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
+	);
+
+	public $tags = array(
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'title' => array('type' => 'string', 'null' => false,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'color' => array('type' => 'string', 'null' => false,
+			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'background' => array('type' => 'string', 'null' => false,
+			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'title' => array('column' => 'title', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0)
+		),
+		'tableParameters' => array('charset' => 'utf8',
+			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
+		)
+	);
+
 	public $entries = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'tag_id' => array('type' => 'integer', 'null' => true,
-			'unsigned' => true, 'default' => null, 'length' => 11, 'key' => 'index'),
-		'entrytype_id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'index'),
-		'number' => array('type' => 'integer', 'null' => true,
-			'unsigned' => true, 'default' => null, 'length' => 11),
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'tag_id' => array('type' => 'biginteger', 'null' => true,
+			'unsigned' => true, 'default' => null, 'length' => 18, 'key' => 'index'),
+		'entrytype_id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'index'),
+		'number' => array('type' => 'biginteger', 'null' => true,
+			'unsigned' => true, 'default' => null, 'length' => 18),
 		'date' => array('type' => 'date', 'null' => false),
 		'dr_total' => array('type' => 'decimal', 'null' => false,
 			'unsigned' => true, 'default' => '0.00', 'length' => '25,2'),
@@ -112,12 +170,12 @@ class WebzashSchema extends CakeSchema {
 	);
 
 	public $entryitems = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'entry_id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'index'),
-		'ledger_id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'index'),
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
+		'entry_id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'index'),
+		'ledger_id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'index'),
 		'amount' => array('type' => 'decimal', 'null' => false,
 			'unsigned' => true, 'default' => '0.00', 'length' => '25,2'),
 		'dc' => array('type' => 'string', 'null' => false,
@@ -213,67 +271,9 @@ class WebzashSchema extends CakeSchema {
 		)
 	);
 
-	public $tags = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
-		'color' => array('type' => 'string', 'null' => false,
-			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'background' => array('type' => 'string', 'null' => false,
-			'length' => 6, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'unique_id' => array('column' => 'id', 'unique' => 1),
-			'title' => array('column' => 'title', 'unique' => 1),
-			'id' => array('column' => 'id', 'unique' => 0)
-		),
-		'tableParameters' => array('charset' => 'utf8',
-			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
-		)
-	);
-
-	public $entrytypes = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
-		'label' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
-		'name' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'description' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'base_type' => array('type' => 'integer', 'null' => false,
-			'default' => '0', 'unsigned' => true, 'length' => 2),
-		'numbering' => array('type' => 'integer', 'null' => false,
-			'default' => '1', 'unsigned' => true, 'length' => 2),
-		'prefix' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'suffix' => array('type' => 'string', 'null' => false,
-			'length' => 255,
-			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'zero_padding' => array('type' => 'integer', 'null' => false,
-			'default' => '0', 'unsigned' => true, 'length' => 2),
-		'restriction_bankcash' => array('type' => 'integer', 'null' => false,
-			'default' => '1', 'unsigned' => true, 'length' => 2),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'unique_id' => array('column' => 'id', 'unique' => 1),
-			'label' => array('column' => 'label', 'unique' => 1),
-			'id' => array('column' => 'id', 'unique' => 0)
-		),
-		'tableParameters' => array('charset' => 'utf8',
-			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
-		)
-	);
-
 	public $logs = array(
-		'id' => array('type' => 'integer', 'null' => false,
-			'unsigned' => true, 'length' => 11, 'key' => 'primary'),
+		'id' => array('type' => 'biginteger', 'null' => false,
+			'unsigned' => true, 'length' => 18, 'key' => 'primary'),
 		'date' => array('type' => 'datetime', 'null' => false),
 		'level' => array('type' => 'integer', 'null' => false,
 			'unsigned' => true, 'length' => 1),

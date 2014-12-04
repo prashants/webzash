@@ -51,8 +51,8 @@ class Entryitem extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Entry id length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Entry id length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -77,8 +77,8 @@ class Entryitem extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => array('maxLength', 11),
-				'message' => 'Ledger id length cannot be more than 11',
+				'rule' => array('maxLength', 18),
+				'message' => 'Ledger id length cannot be more than 18',
 				'required' => true,
 				'allowEmpty' => false,
 			),

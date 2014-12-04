@@ -1,5 +1,6 @@
 /* UPDATE DATABASE TABLES */
-ALTER TABLE `groups` CHANGE `parent_id` `parent_id` INT(11) NULL DEFAULT '0';
+ALTER TABLE `groups` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `groups` CHANGE `parent_id` `parent_id` BIGINT(18) NULL DEFAULT '0';
 UPDATE `groups` SET `parent_id` = NULL WHERE `parent_id` = 0;
 ALTER TABLE `groups` CHANGE `name` `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `groups` ADD UNIQUE KEY `unique_id` (`id`);
@@ -8,6 +9,8 @@ ALTER TABLE `groups` ADD KEY `id` (`id`);
 ALTER TABLE `groups` ADD KEY `parent_id` (`parent_id`);
 ALTER TABLE `groups` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+ALTER TABLE `ledgers` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ledgers` CHANGE `group_id` `group_id` BIGINT(18) NOT NULL;
 ALTER TABLE `ledgers` CHANGE `name` `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `ledgers` CHANGE `op_balance` `op_balance` DECIMAL(25,2) NOT NULL DEFAULT '0.00';
 ALTER TABLE `ledgers` CHANGE `op_balance_dc` `op_balance_dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
@@ -19,7 +22,7 @@ ALTER TABLE `ledgers` ADD KEY `group_id` (`group_id`);
 ALTER TABLE `ledgers` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 RENAME TABLE `entry_types` TO `entrytypes`;
-ALTER TABLE `entrytypes` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `entrytypes` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `entrytypes` CHANGE `label` `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `entrytypes` CHANGE `name` `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `entrytypes` CHANGE `description` `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
@@ -34,7 +37,19 @@ ALTER TABLE `entrytypes` ADD UNIQUE KEY `label` (`label`);
 ALTER TABLE `entrytypes` ADD KEY `id` (`id`);
 ALTER TABLE `entrytypes` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-ALTER TABLE `entries` CHANGE `entry_type` `entrytype_id` INT(11) NOT NULL;
+ALTER TABLE `tags` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tags` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `tags` CHANGE `color` `color` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `tags` CHANGE `background` `background` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `tags` ADD UNIQUE KEY `unique_id` (`id`);
+ALTER TABLE `tags` ADD UNIQUE KEY `title` (`title`);
+ALTER TABLE `tags` ADD KEY `id` (`id`);
+ALTER TABLE `tags` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE `entries` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `entries` CHANGE `tag_id` `tag_id` BIGINT(18) DEFAULT NULL;
+ALTER TABLE `entries` CHANGE `entry_type` `entrytype_id` BIGINT(18) NOT NULL;
+ALTER TABLE `entries` CHANGE `number` `number` BIGINT(18) DEFAULT NULL;
 ALTER TABLE `entries` CHANGE `date` `date` DATE NOT NULL;
 ALTER TABLE `entries` CHANGE `dr_total` `dr_total` DECIMAL(25,2) NOT NULL DEFAULT '0.00';
 ALTER TABLE `entries` CHANGE `cr_total` `cr_total` DECIMAL(25,2) NOT NULL DEFAULT '0.00';
@@ -46,6 +61,9 @@ ALTER TABLE `entries` ADD KEY `entrytype_id` (`entrytype_id`);
 ALTER TABLE `entries` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 RENAME TABLE `entry_items` TO `entryitems`;
+ALTER TABLE `entryitems` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `entryitems` CHANGE `entry_id` `entry_id` BIGINT(18) NOT NULL;
+ALTER TABLE `entryitems` CHANGE `ledger_id` `ledger_id` BIGINT(18) NOT NULL;
 ALTER TABLE `entryitems` CHANGE `amount` `amount` DECIMAL(25,2) NOT NULL DEFAULT '0.00';
 ALTER TABLE `entryitems` CHANGE `dc` `dc` CHAR(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `entryitems` CHANGE `reconciliation_date` `reconciliation_date` DATE DEFAULT NULL;
@@ -54,24 +72,6 @@ ALTER TABLE `entryitems` ADD KEY `id` (`id`);
 ALTER TABLE `entryitems` ADD KEY `entry_id` (`entry_id`);
 ALTER TABLE `entryitems` ADD KEY `ledger_id` (`ledger_id`);
 ALTER TABLE `entryitems` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-ALTER TABLE `tags` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `tags` CHANGE `color` `color` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `tags` CHANGE `background` `background` char(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `tags` ADD UNIQUE KEY `unique_id` (`id`);
-ALTER TABLE `tags` ADD UNIQUE KEY `title` (`title`);
-ALTER TABLE `tags` ADD KEY `id` (`id`);
-ALTER TABLE `tags` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-ALTER TABLE `logs` CHANGE `host_ip` `host_ip` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `logs` CHANGE `user` `user` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `logs` CHANGE `url` `url` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `logs` CHANGE `user_agent` `user_agent` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `logs` DROP `message_title`;
-ALTER TABLE `logs` CHANGE `message_desc` `message` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
-ALTER TABLE `logs` ADD UNIQUE KEY `unique_id` (`id`);
-ALTER TABLE `logs` ADD KEY `id` (`id`);
-ALTER TABLE `logs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 ALTER TABLE `settings` CHANGE `id` `id` INT(1) NOT NULL;
 ALTER TABLE `settings` CHANGE `name` `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
@@ -103,6 +103,17 @@ ALTER TABLE `settings` ADD PRIMARY KEY (`id`);
 ALTER TABLE `settings` ADD UNIQUE KEY `unique_id` (`id`);
 ALTER TABLE `settings` ADD KEY `id` (`id`);
 ALTER TABLE `settings` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE `logs` CHANGE `id` `id` BIGINT(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `logs` CHANGE `host_ip` `host_ip` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `logs` CHANGE `user` `user` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `logs` CHANGE `url` `url` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `logs` CHANGE `user_agent` `user_agent` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `logs` DROP `message_title`;
+ALTER TABLE `logs` CHANGE `message_desc` `message` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE `logs` ADD UNIQUE KEY `unique_id` (`id`);
+ALTER TABLE `logs` ADD KEY `id` (`id`);
+ALTER TABLE `logs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 UPDATE `settings` SET `database_version` = '5' WHERE `id` = 1;
 
