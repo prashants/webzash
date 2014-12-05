@@ -251,7 +251,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 			<table class="stripped">
 				<tr>
 					<th><?php echo __d('webzash', 'Assets'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
 				<?php
 					foreach ($bsheet['assets_list'] as $row => $group) {

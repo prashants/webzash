@@ -670,7 +670,7 @@ class ReportsController extends WebzashAppController {
 
 			/* Find all previous entryitems */
 			$prev_entries = $this->Entry->find('all', array(
-				'fields' => array('Entryitem.*'),
+				'fields' => array('Entry.*', 'Entryitem.*'),
 				'limit' => $cur_limit,
 				'order' => array('Entry.date' => 'asc'),
 				'conditions' => $conditions,

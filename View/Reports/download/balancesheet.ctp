@@ -126,7 +126,7 @@ function print_space($count)
 	echo "\n";
 
 	echo '"' . __d('webzash', 'Assets') . '",';
-	echo '"' . __d('webzash', '(Dr) Amount)') . '"';
+	echo '"' . __d('webzash', '(Dr) Amount') . '"';
 	echo "\n";
 	foreach ($bsheet['assets_list'] as $row => $group) {
 		echo account_st_short($group, $c = 0, $this, 'D');

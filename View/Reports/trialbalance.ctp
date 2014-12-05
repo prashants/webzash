@@ -60,9 +60,7 @@ function print_account_chart($account, $c = 0, $THIS)
 
 		if ($account->cl_total_dc == 'D') {
 			echo '<td>' . toCurrency('D', $account->cl_total) . '</td>';
-			echo '<td></td>';
 		} else {
-			echo '<td></td>';
 			echo '<td>' . toCurrency('C', $account->cl_total) . '</td>';
 		}
 
@@ -90,9 +88,7 @@ function print_account_chart($account, $c = 0, $THIS)
 
 			if ($data['cl_total_dc'] == 'D') {
 				echo '<td>' . toCurrency('D', $data['cl_total']) . '</td>';
-				echo '<td></td>';
 			} else {
-				echo '<td></td>';
 				echo '<td>' . toCurrency('C', $data['cl_total']) . '</td>';
 			}
 
@@ -139,8 +135,7 @@ echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
 	echo '<th>' . __d('webzash', 'Debit Total') . '</th>';
 	echo '<th>' . __d('webzash', 'Credit Total') . '</th>';
-	echo '<th>' . __d('webzash', 'C/L Debit') . '</th>';
-	echo '<th>' . __d('webzash', 'C/L Credit') . '</th>';
+	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
 
 	print_account_chart($accountlist, 0, $this);
 

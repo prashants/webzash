@@ -52,10 +52,8 @@ function print_account_chart($account, $c = 0, $THIS)
 		echo '"' . toCurrency('C', $account->cr_total) . '",';
 
 		if ($account->cl_total_dc == 'D') {
-			echo '"' . toCurrency('D', $account->cl_total) . '",';
-			echo '""';
+			echo '"' . toCurrency('D', $account->cl_total) . '"';
 		} else {
-			echo '"",';
 			echo '"' . toCurrency('C', $account->cl_total) . '"';
 		}
 		echo "\n";
@@ -79,10 +77,8 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '"' . toCurrency('C', $data['cr_total']) . '",';
 
 			if ($data['cl_total_dc'] == 'D') {
-				echo '"' . toCurrency('D', $data['cl_total']) . '",';
-				echo '""';
+				echo '"' . toCurrency('D', $data['cl_total']) . '"';
 			} else {
-				echo '"",';
 				echo '"' . toCurrency('C', $data['cl_total']) . '"';
 			}
 			echo "\n";
@@ -117,8 +113,7 @@ echo '"' . __d('webzash', 'Type') . '",';
 echo '"' . __d('webzash', 'O/P Balance') . '",';
 echo '"' . __d('webzash', 'Debit Total') . '",';
 echo '"' . __d('webzash', 'Credit Total') . '",';
-echo '"' . __d('webzash', 'C/L Debit') . '",';
-echo '"' . __d('webzash', 'C/L Credit') . '"';
+echo '"' . __d('webzash', 'C/L Balance') . '"';
 echo "\n";
 
 print_account_chart($accountlist, 0, $this);
@@ -127,5 +122,5 @@ echo '"' . __d('webzash', 'TOTAL') . '",';
 echo '"","",';
 echo '"' . toCurrency('D', $accountlist->dr_total) . '",';
 echo '"' . toCurrency('C', $accountlist->cr_total) . '",';
-echo '"",""';
+echo '""';
 echo "\n";

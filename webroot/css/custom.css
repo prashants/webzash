@@ -72,10 +72,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 table tr .dc-error {
-	background: #FFFF66;
+	background: #FFB2B2;
 }
 table td .dc-error {
-	background: #FFFF66;
+	background: #FFB2B2;
 }
 
 #show-label {
