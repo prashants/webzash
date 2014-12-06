@@ -242,10 +242,19 @@ class LedgersController extends WebzashAppController {
 
 		$cl = $this->Ledger->closingBalance($id);
 
+		$status = 'ok';
+		/* If its a cash or bank account and closing balance is Cr then negative balance */
+		if ($ledger['Ledger']['type'] == 1) {
+			if ($cl['dc'] == 'C') {
+				$status = 'neg';
+			}
+		}
+
 		/* Return closing balance */
 		$this->set('cl', array('cl' => array(
 			'dc' => $cl['dc'],
 			'amount' => $cl['amount'],
+			'status' => $status,
 		)));
 
 		return;

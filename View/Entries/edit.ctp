@@ -217,12 +217,20 @@ $(document).ready(function() {
 				success: function(data)
 				{
 					var ledger_bal = parseFloat(data['cl']['amount']);
+
+					var prefix = '';
+					var suffix = '';
+					if (data['cl']['status'] == 'neg') {
+						prefix = '<span class="error-text">';
+						suffix = '</span>';
+					}
+
 					if (data['cl']['dc'] == 'D') {
-						rowid.parent().parent().next().next().next().next().children().text("Dr " + ledger_bal);
+						rowid.parent().parent().next().next().next().next().children().html(prefix + "Dr " + ledger_bal + suffix);
 					} else if (data['cl']['dc'] == 'C') {
-						rowid.parent().parent().next().next().next().next().children().text("Cr " + ledger_bal);
+						rowid.parent().parent().next().next().next().next().children().html(prefix + "Cr " + ledger_bal + suffix);
 					} else {
-						rowid.parent().parent().next().next().next().next().children().text("");
+						rowid.parent().parent().next().next().next().next().children().html("");
 					}
 				}
 			});
