@@ -180,8 +180,8 @@ $(document).ready(function() {
 			echo '<td>' . '</td>';
 			echo '<td>' . toCurrency('C', $entry['Entryitem']['amount']) . '</td>';
 		} else {
-			echo '<td>Error</td>';
-			echo '<td>Error</td>';
+			echo '<td>' . __d('webzash', 'ERROR') . '</td>';
+			echo '<td>' . __d('webzash', 'ERROR') . '</td>';
 		}
 
 		/* Calculate current entry balance */

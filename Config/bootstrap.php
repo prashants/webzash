@@ -238,7 +238,7 @@ function toCurrency($dc, $amount) {
 	} else {
 		return number_format($amount, 2, '.', '');
 	}
-	return 'ERROR';
+	return __d('webzash', 'ERROR');
 }
 
 /**

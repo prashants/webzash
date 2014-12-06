@@ -74,8 +74,8 @@
 			echo '"",';
 			echo '"' . toCurrency('C', $entry['Entryitem']['amount']) . '",';
 		} else {
-			echo '"Error",';
-			echo '"Error",';
+			echo '"' . __d('webzash', 'ERROR') . '",';
+			echo '"' . __d('webzash', 'ERROR') . '",';
 		}
 
 		/* Calculate current entry balance */

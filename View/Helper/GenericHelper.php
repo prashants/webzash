@@ -73,7 +73,7 @@ class GenericHelper extends AppHelper {
 		switch ($status) {
 			case '0': return __d('webzash', 'Disabled');
 			case '1': return __d('webzash', 'Enabled');
-			default: return __d('webzash', 'Error');
+			default: return __d('webzash', 'ERROR');
 		}
 	}
 /**
@@ -96,7 +96,7 @@ class GenericHelper extends AppHelper {
 			case 'accountant': return __d('webzash', 'Accountant');
 			case 'dataentry': return __d('webzash', 'Data entry operator');
 			case 'guest': return __d('webzash', 'Guest');
-			default: return __d('webzash', 'Error');
+			default: return __d('webzash', 'ERROR');
 		}
 	}
 /**
@@ -120,7 +120,7 @@ class GenericHelper extends AppHelper {
 			case 'Database/Mysql': return __d('webzash', 'MySQL');
 			case 'Database/Sqlserver': return __d('webzash', 'MS SQL Server');
 			case 'Database/Postgres': return __d('webzash', 'Postgres SQL');
-			default: return __d('webzash', 'Error');
+			default: return __d('webzash', 'ERROR');
 		}
 	}
 /**

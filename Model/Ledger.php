@@ -235,7 +235,7 @@ class Ledger extends WebzashAppModel {
 		if ($ledger) {
 			return $ledger['Ledger']['name'];
 		} else {
-			return 'ERROR';
+			return __d('webzash', 'ERROR');
 		}
 	}
 

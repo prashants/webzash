@@ -103,7 +103,7 @@ $(document).ready(function() {
 	</table>
 
 	<br />
-	<?php echo $this->Form->label('Cf.note', __d('webzash', 'Important Note : Please manually carry forward the profit and loss balance for the current year to capital account for the next year, else the opening balance sheet for the next year will not tally.')); ?>
+	<?php echo $this->Form->label('Cf.note', __d('webzash', 'Important Note : Please manually carry forward the profit and loss balance for the current year to a ledger account like capital account for the next year, otherwise the opening balance sheet for the next year will not tally.')); ?>
 	<br /><br />
 
 	<?php

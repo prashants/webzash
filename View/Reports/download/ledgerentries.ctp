@@ -63,8 +63,8 @@
 			echo '"",';
 			echo '"' . toCurrency('C', $entry['Entryitem']['amount']) . '"';
 		} else {
-			echo '"' . __d('webzash', 'Error') . '",';
-			echo '"' . __d('webzash', 'Error') . '"';
+			echo '"' . __d('webzash', 'ERROR') . '",';
+			echo '"' . __d('webzash', 'ERROR') . '"';
 		}
 		echo "\n";
 	}

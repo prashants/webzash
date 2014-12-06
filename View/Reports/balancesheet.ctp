@@ -293,7 +293,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 				</tr>
 				<?php
 				if ($bsheet['is_opdiff']) {
-					echo '<tr class="error-text bold-text">';
+					echo '<tr class="bold-text error-text">';
 					/* If diff in opening balance is Dr */
 					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
 						echo '<td>' . __d('webzash', 'Diff in O/P Balance') . '</td>';

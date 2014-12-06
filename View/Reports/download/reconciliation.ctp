@@ -69,8 +69,8 @@
 			echo '"",';
 			echo '"' . toCurrency('C', $entry['Entryitem']['amount']) . '",';
 		} else {
-			echo '"Error",';
-			echo '"Error",';
+			echo '"' . __d('webzash', 'ERROR') . '",';
+			echo '"' . __d('webzash', 'ERROR') . '",';
 		}
 
 		if ($entry['Entryitem']['reconciliation_date']) {
