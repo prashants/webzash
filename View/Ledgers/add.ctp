@@ -64,6 +64,12 @@
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If selected the ledger account can be reconciled from Reports > Reconciliation.') . '</span>',
 		));
 
+		echo $this->Form->input('notes', array(
+			'type' => 'textarea',
+			'label' => __d('webzash', 'Notes'),
+			'rows' => '3',
+		));
+
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(
 			'div' => false,

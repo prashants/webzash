@@ -15,6 +15,7 @@ ALTER TABLE `ledgers` CHANGE `name` `name` varchar(255) CHARACTER SET utf8 COLLA
 ALTER TABLE `ledgers` CHANGE `op_balance` `op_balance` DECIMAL(25,2) NOT NULL DEFAULT '0.00';
 ALTER TABLE `ledgers` CHANGE `op_balance_dc` `op_balance_dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `ledgers` CHANGE `reconciliation` `reconciliation` INT(1) NOT NULL DEFAULT '0';
+ALTER TABLE `ledgers` ADD `notes` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 ALTER TABLE `ledgers` ADD UNIQUE KEY `unique_id` (`id`);
 ALTER TABLE `ledgers` ADD UNIQUE KEY `name` (`name`);
 ALTER TABLE `ledgers` ADD KEY `id` (`id`);

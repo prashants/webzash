@@ -32,11 +32,13 @@ class AccountList
 {
 	var $id = 0;
 	var $name = '';
+
 	var $g_parent_id = 0;		/* Group specific */
 	var $g_affects_gross = 0;	/* Group specific */
 	var $l_group_id = 0;		/* Ledger specific */
 	var $l_type = 0;		/* Ledger specific */
 	var $l_reconciliation = 0;	/* Ledger specific */
+	var $l_notes = '';		/* Ledger specific */
 
 	var $op_total = 0;
 	var $op_total_dc = 'D';
@@ -156,6 +158,7 @@ class AccountList
 			$this->children_ledgers[$counter]['l_group_id'] = $row['Ledger']['group_id'];
 			$this->children_ledgers[$counter]['l_type'] = $row['Ledger']['type'];
 			$this->children_ledgers[$counter]['l_reconciliation'] = $row['Ledger']['reconciliation'];
+			$this->children_ledgers[$counter]['l_notes'] = $row['Ledger']['notes'];
 
 			/* If start date is specified dont use the opening balance since its not applicable */
 			if (is_null($this->start_date)) {

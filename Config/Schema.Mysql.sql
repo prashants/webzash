@@ -21,6 +21,7 @@ CREATE TABLE `%_PREFIX_%ledgers` (
 	`op_balance_dc` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`type` int(2) NOT NULL DEFAULT '0',
 	`reconciliation` int(1) NOT NULL DEFAULT '0',
+	`notes` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `name` (`name`),

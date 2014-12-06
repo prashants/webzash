@@ -58,9 +58,9 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<td class="td-actions"></td>';
 		} else {
 			echo '<td class="td-actions">';
-			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'edit', $account->id), array('class' => 'no-hover', 'escape' => false));
+			echo $THIS->Html->link($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-edit')) . __d('webzash', ' Edit'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'edit', $account->id), array('class' => 'no-hover font-normal', 'escape' => false));
 			echo $THIS->Html->tag('span', '', array('class' => 'link-pad'));
-			echo $THIS->Form->postLink($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'delete', $account->id), array('class' => 'no-hover', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the group ?')));
+			echo $THIS->Form->postLink($THIS->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('plugin' => 'webzash', 'controller' => 'groups', 'action' => 'delete', $account->id), array('class' => 'no-hover font-normal', 'escape' => false, 'confirm' => __d('webzash', 'Are you sure you want to delete the group ?')));
 			echo '</td>';
 		}
 		echo '</tr>';

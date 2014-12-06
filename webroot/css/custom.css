@@ -305,3 +305,7 @@ form .error-message {
 table.stripped .tr-highlight {
 	background-color: #F3F3F3;
 }
+
+.font-normal {
+	font-weight: normal;
+}

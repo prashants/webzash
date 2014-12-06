@@ -74,6 +74,9 @@ class WebzashSchema extends CakeSchema {
 			'default' => '0', 'unsigned' => true, 'length' => 2),
 		'reconciliation' => array('type' => 'integer', 'null' => false,
 			'default' => '0', 'unsigned' => true, 'length' => 1),
+		'notes' => array('type' => 'string', 'null' => false,
+			'length' => 500,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),

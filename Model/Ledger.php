@@ -155,6 +155,14 @@ class Ledger extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'notes' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 500),
+				'message' => 'Notes length cannot be more than 500',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
 
 	);
 

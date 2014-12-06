@@ -532,6 +532,7 @@ class SettingsController extends WebzashAppController {
 					'name' => $data['name'],
 					'type' => $data['l_type'],
 					'reconciliation' => $data['l_reconciliation'],
+					'notes' => $data['l_notes'],
 				)
 			);
 			if ($calculate_closing) {
