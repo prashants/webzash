@@ -309,3 +309,8 @@ table.stripped .tr-highlight {
 .font-normal {
 	font-weight: normal;
 }
+
+.td-fixwidth-summary {
+	width: 300px;
+	vertical-align: text-top;
+}

@@ -578,12 +578,7 @@ class ReportsController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
 
-		/* Check if the ledger is a cash or bank account */
-		if ($ledger['Ledger']['type'] == 1) {
-			$this->set('isCashBank', true);
-		} else {
-			$this->set('isCashBank', false);
-		}
+		$this->set('ledger', $ledger);
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
 
@@ -823,6 +818,8 @@ class ReportsController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerentries'));
 		}
 
+		$this->set('ledger', $ledger);
+
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
 
 		/* Set the approprite search conditions */
@@ -1057,6 +1054,8 @@ class ReportsController extends WebzashAppController {
 			$this->Session->setFlash(__d('webzash', 'Ledger not found.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'reconciliation'));
 		}
+
+		$this->set('ledger', $ledger);
 
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
 

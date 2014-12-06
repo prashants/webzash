@@ -124,11 +124,31 @@ $(document).ready(function() {
 
 	<table class="summary stripped table-condensed">
 		<tr>
-			<td class="col-sm-2"><?php echo $opening_title; ?></td>
-			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['amount']); ?></td>
+			<td class="td-fixwidth-summary"><?php echo __d('webzash', 'Bank or cash account'); ?></td>
+			<td>
+				<?php
+					if ($ledger['Ledger']['type'] == 1) {
+						echo __d('webzash', 'Yes');
+					} else {
+						echo __d('webzash', 'No');
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
-			<td><?php echo $closing_title; ?></td>
+			<td class="td-fixwidth-summary"><?php echo __d('webzash', 'Notes'); ?></td>
+			<td><?php echo h($ledger['Ledger']['notes']); ?></td>
+		</tr>
+	</table>
+	<br />
+
+	<table class="summary stripped table-condensed">
+		<tr>
+			<td class="td-fixwidth-summary"><?php echo $opening_title; ?></td>
+			<td><?php echo toCurrency($op['dc'], $op['amount']); ?></td>
+		</tr>
+		<tr>
+			<td class="td-fixwidth-summary"><?php echo $closing_title; ?></td>
 			<td><?php echo toCurrency($cl['dc'], $cl['amount']); ?></td>
 		</tr>
 	</table>

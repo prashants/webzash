@@ -122,13 +122,34 @@ $(document).ready(function() {
 	<?php echo $subtitle; ?>
 </div>
 
+
 	<table class="summary stripped table-condensed">
 		<tr>
-			<td class="col-sm-2"><?php echo $opening_title; ?></td>
-			<td class="col-sm-1"><?php echo toCurrency($op['dc'], $op['amount']); ?></td>
+			<td class="td-fixwidth-summary"><?php echo __d('webzash', 'Bank or cash account'); ?></td>
+			<td>
+				<?php
+					if ($ledger['Ledger']['type'] == 1) {
+						echo __d('webzash', 'Yes');
+					} else {
+						echo __d('webzash', 'No');
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
-			<td><?php echo $closing_title; ?></td>
+			<td class="td-fixwidth-summary"><?php echo __d('webzash', 'Notes'); ?></td>
+			<td><?php echo h($ledger['Ledger']['notes']); ?></td>
+		</tr>
+	</table>
+	<br />
+
+	<table class="summary stripped table-condensed">
+		<tr>
+			<td class="td-fixwidth-summary"><?php echo $opening_title; ?></td>
+			<td><?php echo toCurrency($op['dc'], $op['amount']); ?></td>
+		</tr>
+		<tr>
+			<td class="td-fixwidth-summary"><?php echo $closing_title; ?></td>
 			<td><?php echo toCurrency($cl['dc'], $cl['amount']); ?></td>
 		</tr>
 	</table>
@@ -174,7 +195,7 @@ $(document).ready(function() {
 		$entryTypeLabel = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.label');
 
 		/* Negative balance if its a cash or bank account and balance is Cr */
-		if ($isCashBank == true) {
+		if ($ledger['Ledger']['type'] == 1) {
 			if ($entry_balance['dc'] == 'C') {
 				echo '<tr class="error-text">';
 			} else {
