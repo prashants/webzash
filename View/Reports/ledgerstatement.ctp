@@ -164,9 +164,26 @@ $(document).ready(function() {
 	<?php
 	/* Show the entries table */
 	foreach ($entries as $entry) {
+		/* Calculate current entry balance */
+		$entry_balance = calculate_withdc(
+			$entry_balance['amount'], $entry_balance['dc'],
+			$entry['Entryitem']['amount'], $entry['Entryitem']['dc']
+		);
+
 		$entryTypeName = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.name');
 		$entryTypeLabel = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.label');
-		echo '<tr>';
+
+		/* Negative balance if its a cash or bank account and balance is Cr */
+		if ($isCashBank == true) {
+			if ($entry_balance['dc'] == 'C') {
+				echo '<tr class="error-text">';
+			} else {
+				echo '<tr>';
+			}
+		} else {
+			echo '<tr>';
+		}
+
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 		echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '</td>';
@@ -184,11 +201,6 @@ $(document).ready(function() {
 			echo '<td>' . __d('webzash', 'ERROR') . '</td>';
 		}
 
-		/* Calculate current entry balance */
-		$entry_balance = calculate_withdc(
-			$entry_balance['amount'], $entry_balance['dc'],
-			$entry['Entryitem']['amount'], $entry['Entryitem']['dc']
-		);
 		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 
 		echo '<td>';

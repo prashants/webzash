@@ -578,6 +578,13 @@ class ReportsController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement'));
 		}
 
+		/* Check if the ledger is a cash or bank account */
+		if ($ledger['Ledger']['type'] == 1) {
+			$this->set('isCashBank', true);
+		} else {
+			$this->set('isCashBank', false);
+		}
+
 		$this->request->data['Report']['ledger_id'] = $ledgerId;
 
 		/* Set the approprite search conditions */
