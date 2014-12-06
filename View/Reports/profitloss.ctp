@@ -257,19 +257,18 @@ $(document).ready(function() {
 				<?php /* Gross Expense Total */ ?>
 				<?php $gross_total = $pandl['gross_expense_total']; ?>
 				<?php if (calculate($pandl['gross_expense_total'], 0, '>=')) {
-					echo '<tr>';
+					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['gross_expense_total']) . '</td>';
 					echo '</tr>';
 				} else {
-					echo '<tr class="dc-error">';
+					echo '<tr class="dc-error bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Expenses') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Dr Balance">' . toCurrency('D', $pandl['gross_expense_total']) . '</td>';
 					echo '</tr>';
 				}
 				?>
-				</tr>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Gross Profit C/O */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
@@ -295,18 +294,18 @@ $(document).ready(function() {
 				<?php /* Gross Income Total */ ?>
 				<?php $gross_total = $pandl['gross_income_total']; ?>
 				<?php if (calculate($pandl['gross_income_total'], 0, '>=')) {
-					echo '<tr>';
+					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['gross_income_total']) . '</td>';
 					echo '</tr>';
 				} else {
-					echo '<tr class="dc-error">';
+					echo '<tr class="dc-error bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Incomes') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Cr Balance">' . toCurrency('C', $pandl['gross_income_total']) . '</td>';
 					echo '</tr>';
 				}
 				?>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Gross Loss C/O */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
@@ -368,18 +367,18 @@ $(document).ready(function() {
 				<?php /* Net Expense Total */ ?>
 				<?php $net_total = $pandl['net_expense_total']; ?>
 				<?php if (calculate($pandl['net_expense_total'], 0, '>=')) {
-					echo '<tr>';
+					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['net_expense_total']) . '</td>';
 					echo '</tr>';
 				} else {
-					echo '<tr class="dc-error">';
+					echo '<tr class="dc-error bold-text">';
 					echo '<td>' . __d('webzash', 'Total Expenses') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Dr Balance">' . toCurrency('D', $pandl['net_expense_total']) . '</td>';
 					echo '</tr>';
 				}
 				?>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Gross Loss B/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
@@ -392,7 +391,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Net Profit */
 					if (calculate($pandl['net_pl'], 0, '>=')) {
@@ -418,18 +417,18 @@ $(document).ready(function() {
 				<?php /* Net Income Total */ ?>
 				<?php $net_total = $pandl['net_income_total']; ?>
 				<?php if (calculate($pandl['net_income_total'], 0, '>=')) {
-					echo '<tr>';
+					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['net_income_total']) . '</td>';
 					echo '</tr>';
 				} else {
-					echo '<tr class="dc-error">';
+					echo '<tr class="dc-error bold-text">';
 					echo '<td>' . __d('webzash', 'Total Incomes') . '</td>';
 					echo '<td class="text-right show-tooltip" data-toggle="tooltip" data-original-title="Expecting Cr Balance">' . toCurrency('C', $pandl['net_income_total']) . '</td>';
 					echo '</tr>';
 				}
 				?>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Gross Profit B/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
@@ -442,7 +441,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr>
+				<tr class="bold-text">
 					<?php
 					/* Net Loss */
 					if (calculate($pandl['net_pl'], 0, '>=')) {

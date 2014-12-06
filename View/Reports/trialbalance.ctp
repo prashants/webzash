@@ -38,16 +38,16 @@ function print_account_chart($account, $c = 0, $THIS)
 
 	/* Print groups */
 	if ($account->id != 0) {
-		echo '<tr class="tr-group">';
+		if ($account->id <= 4) {
+			echo '<tr class="tr-group tr-root-group">';
+		} else {
+			echo '<tr class="tr-group">';
+		}
 		echo '<td class="td-group">';
 		echo print_space($counter);
-		/* If group id less than 4 bold the primary groups */
-		if ($account->id <= 4) {
-			echo '<strong>' .  h($account->name) . '</strong>';
-		} else {
-			echo h($account->name);
-		}
+		echo h($account->name);
 		echo '</td>';
+
 		echo '<td>Group</td>';
 
 		echo '<td>';
@@ -144,7 +144,7 @@ echo '<table class="stripped">';
 	} else {
 		echo '<tr class="bold-text error-text">';
 	}
-	echo '<td>' . __d('webzash', 'TOTAL') . '</td>';
+	echo '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __d('webzash', 'TOTAL') . '</td>';
 	echo '<td></td><td></td>';
 	echo '<td>' . toCurrency('D', $accountlist->dr_total) . '</td>';
 	echo '<td>' . toCurrency('C', $accountlist->cr_total) . '</td>';

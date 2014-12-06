@@ -180,11 +180,16 @@ table.stripped .tr-ledger {
 }
 
 table.stripped .tr-group {
-	background-color: #F3F3F3;
+	font-weight: bold;
 }
 
 table.extra tr td {
 	padding: 6px;
+}
+
+table.stripped .tr-root-group {
+	background-color: #F3F3F3;
+	color: #754719;
 }
 
 .ajax-add {

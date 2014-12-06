@@ -32,20 +32,20 @@
 	echo '<tr class="ajax-add">';
 
 	if ($this->Session->read('Wzsetting.drcr_toby') == 'toby') {
-		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">By</option><option value="C">To</option></select></div>' . '</td>';
+		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown form-control" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">By</option><option value="C">To</option></select></div>' . '</td>';
 	} else {
-		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">Dr</option><option value="C">Cr</option></select></div>' . '</td>';
+		echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'Dc" class="dc-dropdown form-control" name="data[Entryitem][' . $i . '][dc]"><option selected="selected" value="D">Dr</option><option value="C">Cr</option></select></div>' . '</td>';
 	}
 
-	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown" name="data[Entryitem][' . $i . '][ledger_id]">';
+	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown form-control" name="data[Entryitem][' . $i . '][ledger_id]">';
 	foreach ($ledger_options as $row => $data) {
 		echo '<option value="' . $row . '">' . $data . '</option>';
 	}
 	echo '</select></div>' . '</td>';
 
-	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'DrAmount" class="dr-item" name="data[Entryitem][' . $i . '][dr_amount]" disabled=""></div>' . '</td>';
+	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'DrAmount" class="dr-item form-control" name="data[Entryitem][' . $i . '][dr_amount]" disabled=""></div>' . '</td>';
 
-	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'CrAmount" class="cr-item" name="data[Entryitem][' . $i . '][cr_amount]" disabled=""></div>' . '</td>';
+	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'CrAmount" class="cr-item form-control" name="data[Entryitem][' . $i . '][cr_amount]" disabled=""></div>' . '</td>';
 
 	echo '<td>';
 	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false));
