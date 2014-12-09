@@ -39,21 +39,33 @@ class GenericHelper extends AppHelper {
  * Helper method to return the tag
  */
 	function showTag($id) {
+
 		if (empty($id)) {
 			return '';
 		}
 
-		/* Load the Tag model */
-		App::import("Webzash.Model", "Tag");
-		$model = new Tag();
-
-		/* Find and return the tag */
-		$tag = $model->findById($id);
-		if (empty($tag)) {
+		if (empty($this->_View->viewVars['allTags'])) {
 			return '';
-		} else {
-			return '<span class="tag" style="color:#' . h($tag['Tag']['color']) . '; background-color:#' . h($tag['Tag']['background']) . ';">' . $this->Html->link($tag['Tag']['title'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index', 'tag' => $tag['Tag']['id']), array('style' => 'color:#' . h($tag['Tag']['color']) . ';')) . '</span>';
 		}
+
+		$tags = $this->_View->viewVars['allTags'];
+
+		if (empty($tags[$id])) {
+			return __d('webzash', 'ERROR');
+		}
+
+		$tag = $tags[$id];
+
+		return '<span class="tag" style="color:#' . h($tag['color']) .
+			'; background-color:#' . h($tag['background']) . ';">' .
+			$this->Html->link($tag['title'], array(
+					'plugin' => 'webzash',
+					'controller' => 'entries',
+					'action' => 'index',
+					'tag' => $tag['id']
+				),
+				array('style' => 'color:#' . h($tag['color']) . ';')
+			) . '</span>';
 	}
 
 /**

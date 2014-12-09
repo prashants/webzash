@@ -259,6 +259,9 @@ class SearchController extends WebzashAppController {
 			$conditions['Entry.narration LIKE'] = '%' . $this->passedArgs['narration'] . '%';
 		}
 
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
+
 		/* Setup pagination */
 		$this->Paginator->settings = array(
 			'Entry' => array(

@@ -88,6 +88,9 @@ class EntriesController extends WebzashAppController {
 			$this->request->data['Entry']['show'] = $this->passedArgs['show'];
 		}
 
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
+
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		return;
 	}
@@ -151,6 +154,9 @@ class EntriesController extends WebzashAppController {
 			}
 		}
 		$this->set('curEntryitems', $curEntryitems);
+
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
 
 		$this->set('entry', $entry);
 

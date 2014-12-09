@@ -125,4 +125,23 @@ class Tag extends WebzashAppModel {
 
 		return $tags;
 	}
+
+/**
+ * Method to return all the tags
+ */
+	function fetchAll() {
+		$rawtags = $this->find('all');
+
+		$tags = array();
+		foreach ($rawtags as $id => $rawtag) {
+			$tags[$rawtag['Tag']['id']] = array(
+				'id' => $rawtag['Tag']['id'],
+				'title' => h($rawtag['Tag']['title']),
+				'color' => $rawtag['Tag']['color'],
+				'background' => $rawtag['Tag']['background'],
+			);
+		}
+
+		return $tags;
+	}
 }

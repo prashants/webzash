@@ -41,7 +41,8 @@ class ReportsController extends WebzashAppController {
  *
  * @var array
  */
-	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entry', 'Webzash.Entryitem');
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entry',
+		'Webzash.Entryitem', 'Webzash.Tag');
 
 /**
  * index method
@@ -745,6 +746,9 @@ class ReportsController extends WebzashAppController {
 			);
 		}
 
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
+
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);
 
@@ -939,6 +943,9 @@ class ReportsController extends WebzashAppController {
 				),
 			);
 		}
+
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);
@@ -1212,6 +1219,9 @@ class ReportsController extends WebzashAppController {
 				),
 			);
 		}
+
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
 
 		$this->set('entries', $this->Paginator->paginate('Entry'));
 		$this->set('showEntries', true);

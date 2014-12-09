@@ -57,6 +57,9 @@ class TagsController extends WebzashAppController {
 			)
 		);
 
+		/* Pass varaibles to view which are used in Helpers */
+		$this->set('allTags', $this->Tag->fetchAll());
+
 		$this->set('tags', $this->Paginator->paginate('Tag'));
 		return;
 	}
