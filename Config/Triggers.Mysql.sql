@@ -39,7 +39,7 @@ FOR EACH ROW BEGIN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'dr_total is not equal to cr_total.';
 	END IF;
 
-	SELECT fy_start, fy_end FROM `settings` WHERE id = 1 INTO @fy_start, @fy_end;
+	SELECT fy_start, fy_end FROM `%_PREFIX_%settings` WHERE id = 1 INTO @fy_start, @fy_end;
 	IF (NEW.date < @fy_start) THEN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'date before fy_start.';
 	END IF;
@@ -76,7 +76,7 @@ FOR EACH ROW BEGIN
 	END IF;
 
 	IF (NEW.date IS NOT NULL) THEN
-		SELECT fy_start, fy_end FROM `settings` WHERE id = 1 INTO @fy_start, @fy_end;
+		SELECT fy_start, fy_end FROM `%_PREFIX_%settings` WHERE id = 1 INTO @fy_start, @fy_end;
 		IF (NEW.date < @fy_start) THEN
 			SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'date before fy_start.';
 		END IF;
@@ -119,11 +119,11 @@ CREATE TRIGGER `bfins_%_PREFIX_%settings` BEFORE INSERT ON `%_PREFIX_%settings`
 FOR EACH ROW BEGIN
 	SET NEW.id = 1;
 
-	IF EXISTS (SELECT id FROM `entries` WHERE date < NEW.fy_start) THEN
+	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date < NEW.fy_start) THEN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present before fy_start.';
 	END IF;
 
-	IF EXISTS (SELECT id FROM `entries` WHERE date > NEW.fy_end) THEN
+	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date > NEW.fy_end) THEN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present after fy_end.';
 	END IF;
 
@@ -152,11 +152,11 @@ FOR EACH ROW BEGIN
 		SET fy_end = NEW.fy_end;
 	END IF;
 
-	IF EXISTS (SELECT id FROM `entries` WHERE date < fy_start) THEN
+	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date < fy_start) THEN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present before fy_start.';
 	END IF;
 
-	IF EXISTS (SELECT id FROM `entries` WHERE date > fy_end) THEN
+	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date > fy_end) THEN
 		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present after fy_end.';
 	END IF;
 
