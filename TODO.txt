@@ -1,2 +1,16 @@
-Set default value for AccountList -> show_opening, start and end date through out the application
-BUG - uncomment App::import of Entryitems in DashboardController.php, due to multiple imports all balances are zero
+- Account code ?
+- Print reports
+- Download reports as excel
+- Dr/Cr separate column in reports
+- Negative balance highlight
+- Income / Expense should have no opening balance
+- Move all select to helpers
+- Ledger selection in tree format
+- Use model methods whereever possible
+- Optimize
+- Theme email entries
+- Return to correct URL
+- Backup
+- Add Postgres / MS SQL support
+- Cheque number and cheque date ?
+- Cash flow statement
