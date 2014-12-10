@@ -1,0 +1,10 @@
+Webzash version 2.0 - 11 December 2014
+--------------------------------------
+
+- Switched to CakePHP
+- Switched to sqlite3 for master data
+- Add notes to ledger account
+- Use database reference keys and trigger to maintain data integrity
+- All primary id are bigint(64) bit from int(32) bit
+- Add date range to all reports
+- Support large numbers upto 23 places
