@@ -205,6 +205,35 @@ class SettingsController extends WebzashAppController {
 				return;
 			}
 
+			/* Only check for valid input data, save later */
+			$check_data = array('Wzaccount' => array(
+				'label' => $this->request->data['Wzaccount']['label'],
+				'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],
+				'db_database' => $this->request->data['Wzaccount']['db_database'],
+				'db_host' => $this->request->data['Wzaccount']['db_host'],
+				'db_port' => $this->request->data['Wzaccount']['db_port'],
+				'db_login' => $this->request->data['Wzaccount']['db_login'],
+				'db_password' => $this->request->data['Wzaccount']['db_password'],
+				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_schema' => '',
+				'db_unixsocket' => '',
+				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
+			));
+			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
+				$check_data['Wzaccount']['db_persistent'] = 1;
+			} else {
+				$check_data['Wzaccount']['db_persistent'] = 0;
+			}
+			$this->Wzaccount->set($check_data);
+			if (!$this->Wzaccount->validates()) {
+				foreach ($this->Wzaccount->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
+				}
+				$this->Session->setFlash($errmsg, 'danger');
+				return;
+			}
+
 			/* Create account database configuration */
 			$wz_newconfig['datasource'] = $this->request->data['Wzaccount']['db_datasource'];
 			$wz_newconfig['database'] = $this->request->data['Wzaccount']['db_database'];
