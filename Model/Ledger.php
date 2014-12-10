@@ -81,8 +81,8 @@ class Ledger extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => array('maxLength', 100),
-				'message' => 'Ledger name cannot be more than 100 characters',
+				'rule' => array('maxLength', 255),
+				'message' => 'Ledger name cannot be more than 255 characters',
 				'required' => true,
 				'allowEmpty' => false,
 			),
