@@ -103,7 +103,6 @@ $positive_net_pl = 0;
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.show-tooltip').tooltip({trigger: 'manual'}).tooltip('show');
 
 	$("#accordion").accordion({
 		collapsible: true,
@@ -113,6 +112,8 @@ $(document).ready(function() {
 			}
 		?>
 	});
+
+	$('.show-tooltip').tooltip({trigger: 'manual'}).tooltip('show');
 
 	/* Calculate date range in javascript */
 	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
