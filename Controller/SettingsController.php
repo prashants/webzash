@@ -607,6 +607,10 @@ class SettingsController extends WebzashAppController {
 			unset($this->request->data['Setting']['id']);
 			$this->Setting->id = 1;
 
+			if (empty($this->request->data['Setting']['email_port'])) {
+				$this->request->data['Setting']['email_port'] = 0;
+			}
+
 			/* Save settings */
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();

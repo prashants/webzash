@@ -155,7 +155,7 @@ class Wzsetting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Hostname cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_port' => array(
@@ -163,25 +163,25 @@ class Wzsetting extends WebzashAppModel {
 				'rule' => 'numeric',
 				'message' => 'Port is not a valid number',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 			'rule2' => array(
 				'rule' => array('comparison', '>=', 0),
-				'message' => 'Port should be more than 0',
+				'message' => 'Port should be greater than 0',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 			'rule3' => array(
 				'rule' => array('comparison', '<=', 65000),
 				'message' => 'Port should be less than 65000',
 				'required'   => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 			'rule4' => array(
-				'rule' => 'naturalNumber',
+				'rule' => array('naturalNumber', true),
 				'message' => 'Port cannot contain a decimal point',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_tls' => array(
@@ -197,7 +197,7 @@ class Wzsetting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Username cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 		'email_password' => array(
@@ -213,7 +213,7 @@ class Wzsetting extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'From cannot be more than 255 characters',
 				'required' => true,
-				'allowEmpty' => false,
+				'allowEmpty' => true,
 			),
 		),
 

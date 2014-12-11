@@ -76,6 +76,10 @@ class WzsettingsController extends WebzashAppController {
 				$this->Wzsetting->id = 1;
 			}
 
+			if (empty($this->request->data['Wzsetting']['email_port'])) {
+				$this->request->data['Wzsetting']['email_port'] = 0;
+			}
+
 			if ($this->Wzsetting->save($this->request->data)) {
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Settings updated. Please relogin for the new settings to take effect.'), 'success');
