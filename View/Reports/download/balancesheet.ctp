@@ -28,7 +28,7 @@
 function account_st_short($account, $c = 0, $THIS, $dc_type)
 {
 	$counter = $c;
-	if ($account->id != 0)
+	if ($account->id > 4)
 	{
 		echo '"';
 		echo print_space($counter);
@@ -102,7 +102,7 @@ function print_space($count)
 	echo '"' . __d('webzash', 'Liabilities and Owners Equity') . '",';
 	echo '"' . __d('webzash', '(Cr) Amount') . '"';
 	echo "\n";
-	echo account_st_short($bsheet['liabilities'], $c = 0, $this, 'C');
+	echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C');
 	echo "\n";
 
 	/* Liabilities Total */
@@ -126,7 +126,7 @@ function print_space($count)
 	echo '"' . __d('webzash', 'Assets') . '",';
 	echo '"' . __d('webzash', '(Dr) Amount') . '"';
 	echo "\n";
-	echo account_st_short($bsheet['assets'], $c = 0, $this, 'D');
+	echo account_st_short($bsheet['assets'], $c = -1, $this, 'D');
 	echo "\n";
 
 	if ($bsheet['is_opdiff']) {

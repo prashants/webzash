@@ -28,7 +28,7 @@
 function account_st_short($account, $c = 0, $THIS, $dc_type)
 {
 	$counter = $c;
-	if ($account->id != 0)
+	if ($account->id > 4)
 	{
 		if ($dc_type == 'D' && $account->cl_total_dc == 'C' && calculate($account->cl_total, 0, '!=')) {
 			echo '<tr class="tr-group dc-error">';
@@ -240,7 +240,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 					<th><?php echo __d('webzash', 'Liabilities and Owners Equity'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
-				<?php echo account_st_short($bsheet['liabilities'], $c = 0, $this, 'C'); ?>
+				<?php echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C'); ?>
 			</table>
 		</td>
 
@@ -250,7 +250,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 					<th><?php echo __d('webzash', 'Assets'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
-				<?php echo account_st_short($bsheet['assets'], $c = 0, $this, 'D'); ?>
+				<?php echo account_st_short($bsheet['assets'], $c = -1, $this, 'D'); ?>
 			</table>
 		</td>
 	</tr>

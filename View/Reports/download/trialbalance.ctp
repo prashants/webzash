@@ -116,7 +116,7 @@ echo '"' . __d('webzash', 'Credit Total') . '",';
 echo '"' . __d('webzash', 'C/L Balance') . '"';
 echo "\n";
 
-print_account_chart($accountlist, 0, $this);
+print_account_chart($accountlist, -1, $this);
 
 echo '"' . __d('webzash', 'TOTAL') . '",';
 echo '"","",';

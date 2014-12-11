@@ -137,14 +137,14 @@ echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Credit Total') . '</th>';
 	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
 
-	print_account_chart($accountlist, 0, $this);
+	print_account_chart($accountlist, -1, $this);
 
 	if (calculate($accountlist->dr_total, $accountlist->cr_total, '==')) {
 		echo '<tr class="bold-text ok-text">';
 	} else {
 		echo '<tr class="bold-text error-text">';
 	}
-	echo '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __d('webzash', 'TOTAL') . '</td>';
+	echo '<td>' . __d('webzash', 'TOTAL') . '</td>';
 	echo '<td></td><td></td>';
 	echo '<td>' . toCurrency('D', $accountlist->dr_total) . '</td>';
 	echo '<td>' . toCurrency('C', $accountlist->cr_total) . '</td>';

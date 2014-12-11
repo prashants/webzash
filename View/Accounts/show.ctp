@@ -126,5 +126,5 @@ echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
 	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
 	echo '<th>' . __d('webzash', 'Actions') . '</th>';
-	print_account_chart($accountlist, 0, $this);
+	print_account_chart($accountlist, -1, $this);
 echo '</table>';
