@@ -366,45 +366,41 @@ class ReportsController extends WebzashAppController {
 		/**********************************************************************/
 
 		/* Gross P/L : Expenses */
+		$gross_expenses = new AccountList();
+		$gross_expenses->Group = &$this->Group;
+		$gross_expenses->Ledger = &$this->Ledger;
+		$gross_expenses->only_opening = $only_opening;
+		$gross_expenses->start_date = $startdate;
+		$gross_expenses->end_date = $enddate;
+		$gross_expenses->affects_gross = 1;
+		$gross_expenses->start(4);
+
+		$pandl['gross_expenses'] = $gross_expenses;
+
 		$pandl['gross_expense_total'] = 0;
-		$gross_expense_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 4, 'Group.affects_gross' => 1)));
-
-		foreach ($gross_expense_groups as $row => $group) {
-			$pandl['gross_expense_list'][$row] = new AccountList();
-			$pandl['gross_expense_list'][$row]->Group = &$this->Group;
-			$pandl['gross_expense_list'][$row]->Ledger = &$this->Ledger;
-			$pandl['gross_expense_list'][$row]->only_opening = $only_opening;
-			$pandl['gross_expense_list'][$row]->start_date = $startdate;
-			$pandl['gross_expense_list'][$row]->end_date = $enddate;
-
-			$pandl['gross_expense_list'][$row]->start($group['Group']['id']);
-
-			if ($pandl['gross_expense_list'][$row]->cl_total_dc == 'D') {
-				$pandl['gross_expense_total'] = calculate($pandl['gross_expense_total'], $pandl['gross_expense_list'][$row]->cl_total, '+');
-			} else {
-				$pandl['gross_expense_total'] = calculate($pandl['gross_expense_total'], $pandl['gross_expense_list'][$row]->cl_total, '-');
-			}
+		if ($gross_expenses->cl_total_dc == 'D') {
+			$pandl['gross_expense_total'] = $gross_expenses->cl_total;
+		} else {
+			$pandl['gross_expense_total'] = calculate($gross_expenses->cl_total, 0, 'n');
 		}
 
 		/* Gross P/L : Incomes */
+		$gross_incomes = new AccountList();
+		$gross_incomes->Group = &$this->Group;
+		$gross_incomes->Ledger = &$this->Ledger;
+		$gross_incomes->only_opening = $only_opening;
+		$gross_incomes->start_date = $startdate;
+		$gross_incomes->end_date = $enddate;
+		$gross_incomes->affects_gross = 1;
+		$gross_incomes->start(3);
+
+		$pandl['gross_incomes'] = $gross_incomes;
+
 		$pandl['gross_income_total'] = 0;
-		$gross_income_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 3, 'Group.affects_gross' => 1)));
-
-		foreach ($gross_income_groups as $row => $group) {
-			$pandl['gross_income_list'][$row] = new AccountList();
-			$pandl['gross_income_list'][$row]->Group = &$this->Group;
-			$pandl['gross_income_list'][$row]->Ledger = &$this->Ledger;
-			$pandl['gross_income_list'][$row]->only_opening = $only_opening;
-			$pandl['gross_income_list'][$row]->start_date = $startdate;
-			$pandl['gross_income_list'][$row]->end_date = $enddate;
-
-			$pandl['gross_income_list'][$row]->start($group['Group']['id']);
-
-			if ($pandl['gross_income_list'][$row]->cl_total_dc == 'C') {
-				$pandl['gross_income_total'] = calculate($pandl['gross_income_total'], $pandl['gross_income_list'][$row]->cl_total, '+');
-			} else {
-				$pandl['gross_income_total'] = calculate($pandl['gross_income_total'], $pandl['gross_income_list'][$row]->cl_total, '-');
-			}
+		if ($gross_incomes->cl_total_dc == 'C') {
+			$pandl['gross_income_total'] = $gross_incomes->cl_total;
+		} else {
+			$pandl['gross_income_total'] = calculate($gross_incomes->cl_total, 0, 'n');
 		}
 
 		/* Calculating Gross P/L */
@@ -415,45 +411,41 @@ class ReportsController extends WebzashAppController {
 		/**********************************************************************/
 
 		/* Net P/L : Expenses */
+		$net_expenses = new AccountList();
+		$net_expenses->Group = &$this->Group;
+		$net_expenses->Ledger = &$this->Ledger;
+		$net_expenses->only_opening = $only_opening;
+		$net_expenses->start_date = $startdate;
+		$net_expenses->end_date = $enddate;
+		$net_expenses->affects_gross = 0;
+		$net_expenses->start(4);
+
+		$pandl['net_expenses'] = $net_expenses;
+
 		$pandl['net_expense_total'] = 0;
-		$net_expense_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 4, 'Group.affects_gross' => 0)));
-
-		foreach ($net_expense_groups as $row => $group) {
-			$pandl['net_expense_list'][$row] = new AccountList();
-			$pandl['net_expense_list'][$row]->Group = &$this->Group;
-			$pandl['net_expense_list'][$row]->Ledger = &$this->Ledger;
-			$pandl['net_expense_list'][$row]->only_opening = $only_opening;
-			$pandl['net_expense_list'][$row]->start_date = $startdate;
-			$pandl['net_expense_list'][$row]->end_date = $enddate;
-
-			$pandl['net_expense_list'][$row]->start($group['Group']['id']);
-
-			if ($pandl['net_expense_list'][$row]->cl_total_dc == 'D') {
-				$pandl['net_expense_total'] = calculate($pandl['net_expense_total'], $pandl['net_expense_list'][$row]->cl_total, '+');
-			} else {
-				$pandl['net_expense_total'] = calculate($pandl['net_expense_total'], $pandl['net_expense_list'][$row]->cl_total, '-');
-			}
+		if ($net_expenses->cl_total_dc == 'D') {
+			$pandl['net_expense_total'] = $net_expenses->cl_total;
+		} else {
+			$pandl['net_expense_total'] = calculate($net_expenses->cl_total, 0, 'n');
 		}
 
 		/* Net P/L : Incomes */
+		$net_incomes = new AccountList();
+		$net_incomes->Group = &$this->Group;
+		$net_incomes->Ledger = &$this->Ledger;
+		$net_incomes->only_opening = $only_opening;
+		$net_incomes->start_date = $startdate;
+		$net_incomes->end_date = $enddate;
+		$net_incomes->affects_gross = 0;
+		$net_incomes->start(3);
+
+		$pandl['net_incomes'] = $net_incomes;
+
 		$pandl['net_income_total'] = 0;
-		$net_income_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 3, 'Group.affects_gross' => 0)));
-
-		foreach ($net_income_groups as $row => $group) {
-			$pandl['net_income_list'][$row] = new AccountList();
-			$pandl['net_income_list'][$row]->Group = &$this->Group;
-			$pandl['net_income_list'][$row]->Ledger = &$this->Ledger;
-			$pandl['net_income_list'][$row]->only_opening = $only_opening;
-			$pandl['net_income_list'][$row]->start_date = $startdate;
-			$pandl['net_income_list'][$row]->end_date = $enddate;
-
-			$pandl['net_income_list'][$row]->start($group['Group']['id']);
-
-			if ($pandl['net_income_list'][$row]->cl_total_dc == 'C') {
-				$pandl['net_income_total'] = calculate($pandl['net_income_total'], $pandl['net_income_list'][$row]->cl_total, '+');
-			} else {
-				$pandl['net_income_total'] = calculate($pandl['net_income_total'], $pandl['net_income_list'][$row]->cl_total, '-');
-			}
+		if ($net_incomes->cl_total_dc == 'C') {
+			$pandl['net_income_total'] = $net_incomes->cl_total;
+		} else {
+			$pandl['net_income_total'] = calculate($net_incomes->cl_total, 0, 'n');
 		}
 
 		/* Calculating Net P/L */

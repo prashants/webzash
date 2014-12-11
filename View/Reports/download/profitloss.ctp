@@ -28,7 +28,7 @@
 function account_st_short($account, $c = 0, $THIS, $dc_type)
 {
 	$counter = $c;
-	if ($account->id != 0)
+	if ($account->id > 4)
 	{
 		echo '"';
 		echo print_space($counter);
@@ -82,13 +82,11 @@ $positive_net_pl = 0;
 	echo "\n";
 	echo "\n";
 
-	/* Gross Profit and Loss */
+	/* Gross Expense */
 	echo '"' . __d('webzash', 'Gross Expenses') . '",';
 	echo '"' , __d('webzash', '(Dr) Amount') . '"';
 	echo "\n";
-	foreach ($pandl['gross_expense_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'D');
-	}
+	echo account_st_short($pandl['gross_expenses'], $c = -1, $this, 'D');
 	echo "\n";
 
 	/* Gross Expense Total */
@@ -110,12 +108,11 @@ $positive_net_pl = 0;
 	echo "\n";
 	echo "\n";
 
+	/* Gross Incomes */
 	echo '"' . __d('webzash', 'Gross Incomes') . '",';
 	echo '"' , __d('webzash', '(Cr) Amount') . '"';
 	echo "\n";
-	foreach ($pandl['gross_income_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'C');
-	}
+	echo account_st_short($pandl['gross_incomes'], $c = -1, $this, 'C');
 	echo "\n";
 
 	/* Gross Income Total */
@@ -140,13 +137,12 @@ $positive_net_pl = 0;
 	echo "\n";
 	echo "\n";
 
-	/* Net Profit and Loss */
-	echo '"' . __d('webzash', 'Expenses') . '",';
+	/* Net Expenses */
+	echo '"' . __d('webzash', 'Net Expenses') . '",';
 	echo '"' . __d('webzash', '(Dr) Amount'). '"';
 	echo "\n";
-	foreach ($pandl['net_expense_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'D');
-	}
+	echo account_st_short($pandl['net_expenses'], $c = -1, $this, 'D');
+	echo "\n";
 
 	/* Net Expense Total */
 	$net_total = $pandl['net_expense_total'];
@@ -177,12 +173,12 @@ $positive_net_pl = 0;
 	echo "\n";
 	echo "\n";
 
-	echo '"' . __d('webzash', 'Incomes') . '",';
+	/* Net Income */
+	echo '"' . __d('webzash', 'Net Incomes') . '",';
 	echo '"' . __d('webzash', '(Cr) Amount') . '"';
 	echo "\n";
-	foreach ($pandl['net_income_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'C');
-	}
+	echo account_st_short($pandl['net_incomes'], $c = -1, $this, 'C');
+	echo "\n";
 
 	/* Net Income Total */
 	$net_total = $pandl['net_income_total'];

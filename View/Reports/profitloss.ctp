@@ -28,7 +28,7 @@
 function account_st_short($account, $c = 0, $THIS, $dc_type)
 {
 	$counter = $c;
-	if ($account->id != 0)
+	if ($account->id > 4)
 	{
 		if ($dc_type == 'D' && $account->cl_total_dc == 'C' && calculate($account->cl_total, 0, '!=')) {
 			echo '<tr class="tr-group dc-error">';
@@ -40,7 +40,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 
 		echo '<td class="td-group">';
 		echo print_space($counter);
-		echo "&nbsp;" . h($account->name);
+		echo h($account->name);
 		echo '</td>';
 
 		echo '<td class="text-right">';
@@ -228,11 +228,7 @@ $(document).ready(function() {
 					<th><?php echo __d('webzash', 'Gross Expenses'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($pandl['gross_expense_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'D');
-					}
-				?>
+				<?php echo account_st_short($pandl['gross_expenses'], $c = -1, $this, 'D'); ?>
 			</table>
 		</td>
 
@@ -242,11 +238,7 @@ $(document).ready(function() {
 					<th><?php echo __d('webzash', 'Gross Incomes'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($pandl['gross_income_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'C');
-					}
-				?>
+				<?php echo account_st_short($pandl['gross_incomes'], $c = -1, $this, 'C'); ?>
 			</table>
 		</td>
 	</tr>
@@ -334,14 +326,10 @@ $(document).ready(function() {
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Expenses'); ?></th>
+					<th><?php echo __d('webzash', 'Net Expenses'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($pandl['net_expense_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'D');
-					}
-				?>
+				<?php echo account_st_short($pandl['net_expenses'], $c = -1, $this, 'D'); ?>
 			</table>
 		</td>
 
@@ -349,14 +337,10 @@ $(document).ready(function() {
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Incomes'); ?></th>
+					<th><?php echo __d('webzash', 'Net Incomes'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($pandl['net_income_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'C');
-					}
-				?>
+				<?php echo account_st_short($pandl['net_incomes'], $c = -1, $this, 'C'); ?>
 			</table>
 		</td>
 	</tr>

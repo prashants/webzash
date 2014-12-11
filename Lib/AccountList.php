@@ -55,6 +55,7 @@ class AccountList
 	var $only_opening = false;
 	var $start_date = null;
 	var $end_date = null;
+	var $affects_gross = -1;
 
 	var $Group = null;
 	var $Ledger = null;
@@ -77,7 +78,7 @@ class AccountList
 			$this->id = NULL;
 			$this->name = "None";
 		} else {
-			$group = $this->Group->find('first', array('conditions' => array('id' => $id)));
+			$group = $this->Group->find('first', array('conditions' => array('Group.id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
 			$this->g_parent_id = $group['Group']['parent_id'];
@@ -91,7 +92,17 @@ class AccountList
 		$this->cl_total = 0;
 		$this->cl_total_dc = 'D';
 
-		$this->add_sub_ledgers();
+		/* If affects_gross set, add sub-ledgers to only affects_gross == 0 */
+		if ($this->affects_gross == 1) {
+			/* Skip adding sub-ledgers if affects_gross is set and value == 1 */
+		} else if ($this->affects_gross == 0) {
+			/* Add sub-ledgers if affects_gross is set and value == 0 */
+			$this->add_sub_ledgers();
+		} else {
+			/* Add sub-ledgers if affects_gross is not set == -1 */
+			$this->add_sub_ledgers();
+		}
+
 		$this->add_sub_groups();
 	}
 
@@ -100,7 +111,19 @@ class AccountList
  */
 	function add_sub_groups()
 	{
-		$child_group_q = $this->Group->find('all', array('conditions' => array('parent_id' => $this->id)));
+		$conditions = array('Group.parent_id' => $this->id);
+
+		/* Check if net or gross restriction is set */
+		if ($this->affects_gross == 0) {
+			$conditions['Group.affects_gross'] = 0;
+		}
+		if ($this->affects_gross == 1) {
+			$conditions['Group.affects_gross'] = 1;
+		}
+		/* Reset is since its no longer needed below 1st level of sub-groups */
+		$this->affects_gross = -1;
+
+		$child_group_q = $this->Group->find('all', array('conditions' => $conditions));
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
@@ -113,6 +136,7 @@ class AccountList
 			$this->children_groups[$counter]->only_opening = $this->only_opening;
 			$this->children_groups[$counter]->start_date = $this->start_date;
 			$this->children_groups[$counter]->end_date = $this->end_date;
+			$this->children_groups[$counter]->affects_gross = -1; /* No longer needed in sub groups */
 
 			$this->children_groups[$counter]->start($row['Group']['id']);
 
@@ -149,7 +173,7 @@ class AccountList
  */
 	function add_sub_ledgers()
 	{
-		$child_ledger_q = $this->Ledger->find('all', array('conditions' => array('group_id' => $this->id)));
+		$child_ledger_q = $this->Ledger->find('all', array('conditions' => array('Ledger.group_id' => $this->id)));
 		$counter = 0;
 		foreach ($child_ledger_q as $row)
 		{
