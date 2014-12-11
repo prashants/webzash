@@ -240,11 +240,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 					<th><?php echo __d('webzash', 'Liabilities and Owners Equity'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($bsheet['liabilities_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'C');
-					}
-				?>
+				<?php echo account_st_short($bsheet['liabilities'], $c = 0, $this, 'C'); ?>
 			</table>
 		</td>
 
@@ -254,11 +250,7 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 					<th><?php echo __d('webzash', 'Assets'); ?></th>
 					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
 				</tr>
-				<?php
-					foreach ($bsheet['assets_list'] as $row => $group) {
-						echo account_st_short($group, $c = 0, $this, 'D');
-					}
-				?>
+				<?php echo account_st_short($bsheet['assets'], $c = 0, $this, 'D'); ?>
 			</table>
 		</td>
 	</tr>

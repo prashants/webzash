@@ -102,9 +102,7 @@ function print_space($count)
 	echo '"' . __d('webzash', 'Liabilities and Owners Equity') . '",';
 	echo '"' . __d('webzash', '(Cr) Amount') . '"';
 	echo "\n";
-	foreach ($bsheet['liabilities_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'C');
-	}
+	echo account_st_short($bsheet['liabilities'], $c = 0, $this, 'C');
 	echo "\n";
 
 	/* Liabilities Total */
@@ -128,9 +126,7 @@ function print_space($count)
 	echo '"' . __d('webzash', 'Assets') . '",';
 	echo '"' . __d('webzash', '(Dr) Amount') . '"';
 	echo "\n";
-	foreach ($bsheet['assets_list'] as $row => $group) {
-		echo account_st_short($group, $c = 0, $this, 'D');
-	}
+	echo account_st_short($bsheet['assets'], $c = 0, $this, 'D');
 	echo "\n";
 
 	if ($bsheet['is_opdiff']) {

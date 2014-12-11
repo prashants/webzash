@@ -152,45 +152,39 @@ class ReportsController extends WebzashAppController {
 		/**********************************************************************/
 
 		/* Liabilities */
+		$liabilities = new AccountList();
+		$liabilities->Group = &$this->Group;
+		$liabilities->Ledger = &$this->Ledger;
+		$liabilities->only_opening = $only_opening;
+		$liabilities->start_date = $startdate;
+		$liabilities->end_date = $enddate;
+		$liabilities->start(2);
+
+		$bsheet['liabilities'] = $liabilities;
+
 		$bsheet['liabilities_total'] = 0;
-		$liabilities_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 2)));
-
-		foreach ($liabilities_groups as $row => $group) {
-			$bsheet['liabilities_list'][$row] = new AccountList();
-			$bsheet['liabilities_list'][$row]->Group = &$this->Group;
-			$bsheet['liabilities_list'][$row]->Ledger = &$this->Ledger;
-			$bsheet['liabilities_list'][$row]->only_opening = $only_opening;
-			$bsheet['liabilities_list'][$row]->start_date = $startdate;
-			$bsheet['liabilities_list'][$row]->end_date = $enddate;
-
-			$bsheet['liabilities_list'][$row]->start($group['Group']['id']);
-
-			if ($bsheet['liabilities_list'][$row]->cl_total_dc == 'C') {
-				$bsheet['liabilities_total'] = calculate($bsheet['liabilities_total'], $bsheet['liabilities_list'][$row]->cl_total, '+');
-			} else {
-				$bsheet['liabilities_total'] = calculate($bsheet['liabilities_total'], $bsheet['liabilities_list'][$row]->cl_total, '-');
-			}
+		if ($liabilities->cl_total_dc == 'C') {
+			$bsheet['liabilities_total'] = $liabilities->cl_total;
+		} else {
+			$bsheet['liabilities_total'] = calculate($liabilities->cl_total, 0, 'n');
 		}
 
 		/* Assets */
+		$assets = new AccountList();
+		$assets->Group = &$this->Group;
+		$assets->Ledger = &$this->Ledger;
+		$assets->only_opening = $only_opening;
+		$assets->start_date = $startdate;
+		$assets->end_date = $enddate;
+		$assets->start(1);
+
+		$bsheet['assets'] = $assets;
+
 		$bsheet['assets_total'] = 0;
-		$assets_groups = $this->Group->find('all', array('conditions' => array('Group.parent_id' => 1)));
-
-		foreach ($assets_groups as $row => $group) {
-			$bsheet['assets_list'][$row] = new AccountList();
-			$bsheet['assets_list'][$row]->Group = &$this->Group;
-			$bsheet['assets_list'][$row]->Ledger = &$this->Ledger;
-			$bsheet['assets_list'][$row]->only_opening = $only_opening;
-			$bsheet['assets_list'][$row]->start_date = $startdate;
-			$bsheet['assets_list'][$row]->end_date = $enddate;
-
-			$bsheet['assets_list'][$row]->start($group['Group']['id']);
-
-			if ($bsheet['assets_list'][$row]->cl_total_dc == 'D') {
-				$bsheet['assets_total'] = calculate($bsheet['assets_total'], $bsheet['assets_list'][$row]->cl_total, '+');
-			} else {
-				$bsheet['assets_total'] = calculate($bsheet['assets_total'], $bsheet['assets_list'][$row]->cl_total, '-');
-			}
+		if ($assets->cl_total_dc == 'D') {
+			$bsheet['assets_total'] = $assets->cl_total;
+		} else {
+			$bsheet['assets_total'] = calculate($assets->cl_total, 0, 'n');
 		}
 
 		/* Profit and loss calculations */
@@ -200,7 +194,6 @@ class ReportsController extends WebzashAppController {
 		$income->only_opening = $only_opening;
 		$income->start_date = $startdate;
 		$income->end_date = $enddate;
-
 		$income->start(3);
 
 		$expense = new AccountList();
@@ -209,7 +202,6 @@ class ReportsController extends WebzashAppController {
 		$expense->only_opening = $only_opening;
 		$expense->start_date = $startdate;
 		$expense->end_date = $enddate;
-
 		$expense->start(4);
 
 		if ($income->cl_total_dc == 'C') {
