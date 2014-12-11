@@ -14,3 +14,6 @@
 - Add Postgres / MS SQL support
 - Cheque number and cheque date ?
 - Cash flow statement
+- Tooltips
+- Remove default password, security salt can be changed
+- Swap columns in balance sheet and profit and loss statements
