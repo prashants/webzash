@@ -66,8 +66,9 @@ class AccountsController extends WebzashAppController {
 		$accountlist->only_opening = false;
 		$accountlist->start_date = null;
 		$accountlist->end_date = null;
-
+		$accountlist->affects_gross = -1;
 		$accountlist->start(0);
+
 		$this->set('accountlist', $accountlist);
 
 		$opdiff = $this->Ledger->getOpeningDiff();

@@ -356,8 +356,9 @@ class SettingsController extends WebzashAppController {
 				$assetsList->only_opening = false;
 				$assetsList->start_date = null;
 				$assetsList->end_date = null;
-
+				$assetsList->affects_gross = -1;
 				$assetsList->start(1);
+
 				$this->_extract_groups_ledgers($assetsList, true);
 
 				$liabilitiesList = new AccountList();
@@ -366,8 +367,9 @@ class SettingsController extends WebzashAppController {
 				$liabilitiesList->only_opening = false;
 				$liabilitiesList->start_date = null;
 				$liabilitiesList->end_date = null;
-
+				$liabilitiesList->affects_gross = -1;
 				$liabilitiesList->start(2);
+
 				$this->_extract_groups_ledgers($liabilitiesList, true);
 
 				$incomesList = new AccountList();
@@ -376,8 +378,9 @@ class SettingsController extends WebzashAppController {
 				$incomesList->only_opening = false;
 				$incomesList->start_date = null;
 				$incomesList->end_date = null;
-
+				$incomesList->affects_gross = -1;
 				$incomesList->start(3);
+
 				$this->_extract_groups_ledgers($incomesList, false);
 
 				$expenseList = new AccountList();
@@ -386,8 +389,9 @@ class SettingsController extends WebzashAppController {
 				$expenseList->only_opening = false;
 				$expenseList->start_date = null;
 				$expenseList->end_date = null;
-
+				$expenseList->affects_gross = -1;
 				$expenseList->start(4);
+
 				$this->_extract_groups_ledgers($expenseList, false);
 
 				$this->NewGroup = new $this->Group;

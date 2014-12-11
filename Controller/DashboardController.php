@@ -135,7 +135,7 @@ class DashboardController extends WebzashAppController {
 		$assets->only_opening = false;
 		$assets->start_date = null;
 		$assets->end_date = null;
-
+		$assets->affects_gross = -1;
 		$assets->start(1);
 
 		$liabilities = new AccountList();
@@ -144,7 +144,7 @@ class DashboardController extends WebzashAppController {
 		$liabilities->only_opening = false;
 		$liabilities->start_date = null;
 		$liabilities->end_date = null;
-
+		$liabilities->affects_gross = -1;
 		$liabilities->start(2);
 
 		$income = new AccountList();
@@ -153,7 +153,7 @@ class DashboardController extends WebzashAppController {
 		$income->only_opening = false;
 		$income->start_date = null;
 		$income->end_date = null;
-
+		$income->affects_gross = -1;
 		$income->start(3);
 
 		$expense = new AccountList();
@@ -162,7 +162,7 @@ class DashboardController extends WebzashAppController {
 		$expense->only_opening = false;
 		$expense->start_date = null;
 		$expense->end_date = null;
-
+		$expense->affects_gross = -1;
 		$expense->start(4);
 
 		$accsummary = array(

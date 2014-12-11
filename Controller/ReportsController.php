@@ -158,6 +158,7 @@ class ReportsController extends WebzashAppController {
 		$liabilities->only_opening = $only_opening;
 		$liabilities->start_date = $startdate;
 		$liabilities->end_date = $enddate;
+		$liabilities->affects_gross = -1;
 		$liabilities->start(2);
 
 		$bsheet['liabilities'] = $liabilities;
@@ -176,6 +177,7 @@ class ReportsController extends WebzashAppController {
 		$assets->only_opening = $only_opening;
 		$assets->start_date = $startdate;
 		$assets->end_date = $enddate;
+		$assets->affects_gross = -1;
 		$assets->start(1);
 
 		$bsheet['assets'] = $assets;
@@ -194,6 +196,7 @@ class ReportsController extends WebzashAppController {
 		$income->only_opening = $only_opening;
 		$income->start_date = $startdate;
 		$income->end_date = $enddate;
+		$income->affects_gross = -1;
 		$income->start(3);
 
 		$expense = new AccountList();
@@ -202,6 +205,7 @@ class ReportsController extends WebzashAppController {
 		$expense->only_opening = $only_opening;
 		$expense->start_date = $startdate;
 		$expense->end_date = $enddate;
+		$expense->affects_gross = -1;
 		$expense->start(4);
 
 		if ($income->cl_total_dc == 'C') {
@@ -489,6 +493,7 @@ class ReportsController extends WebzashAppController {
 		$accountlist->only_opening = false;
 		$accountlist->start_date = null;
 		$accountlist->end_date = null;
+		$accountlist->affects_gross = -1;
 
 		$accountlist->start(0);
 
