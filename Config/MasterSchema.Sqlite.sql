@@ -58,4 +58,4 @@ CREATE TABLE "wzuseraccounts" (
         "role" VARCHAR DEFAULT (null)
 );
 
-INSERT INTO "wzusers" (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES ("1","admin","0298fba52534346b8faae06791ceb26c754dafb0","Administrator", "","UTC","admin","1","","1","1","0","1");
+INSERT INTO "wzusers" (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES ('1','admin','','Administrator', '','UTC','admin','1','','1','1','0','1');

@@ -381,28 +381,41 @@ class WzusersController extends WebzashAppController {
 		$wzsetting = $this->Wzsetting->findById(1);
 
 		/* Check if this is the first time user is using this application */
+		$default_password = false;
 		$first_login = false;
-		$user_count = $this->Wzuser->find('count');
-		if ($user_count == 1) {
-			$user_check = $user = $this->Wzuser->find('first', array('conditions' => array(
-				'id' => '1',
-				'username' => 'admin',
-				'password' => Security::hash('admin', 'sha1', true),
-				'email' => '',
-			)));
-			if ($user_check) {
+		$admin_check = $this->Wzuser->find('first', array('conditions' => array(
+			'id' => 1,
+			'username' => 'admin',
+			'password' => '',
+		)));
+		if ($admin_check) {
+			/* Password still not updated for admin user */
+			$default_password = true;
+
+			if ($admin_check['Wzuser']['email'] == '') {
+				/* This is the first login by user */
 				$first_login = true;
 			}
 		}
+
 		$this->set('first_login', $first_login);
+		$this->set('default_password', $default_password);
 
 		if ($this->request->is('post')) {
-
 			/* Check status of user account */
+			if ($default_password &&
+				$this->request->data['Wzuser']['username'] == 'admin' &&
+				$this->request->data['Wzuser']['password'] == 'admin') {
+					$password = '';
+			} else {
+				$password = Security::hash($this->request->data['Wzuser']['password'], 'sha1', true);
+			}
+
 			$user = $this->Wzuser->find('first', array('conditions' => array(
 				'username' => $this->request->data['Wzuser']['username'],
-				'password' => Security::hash($this->request->data['Wzuser']['password'], 'sha1', true)
+				'password' => $password
 			)));
+
 			if (!$user) {
 				/* On failed login attempt, increase the retry count */
 				$wzuser = $this->Wzuser->find('first', array(
@@ -415,15 +428,13 @@ class WzusersController extends WebzashAppController {
 					/* Use 4 since retry_count starts from 0 */
 					if ($wzuser['Wzuser']['retry_count'] >= 4) {
 						/* If max retry count reached, disable account */
-						$this->Wzuser->set(array(
-							'status' => 0,
-						));
+						$this->Wzuser->saveField('status', 0);
 					} else {
-						$this->Wzuser->set(array(
-							'retry_count' => $wzuser['Wzuser']['retry_count'] + 1,
-						));
+						/* Update retry count */
+						$this->Wzuser->saveField('retry_count',
+							$wzuser['Wzuser']['retry_count'] + 1
+						);
 					}
-					$this->Wzuser->save();
 
 					/* Use 4 since retry_count starts from 0 */
 					if ($wzuser['Wzuser']['retry_count'] >= 4) {
@@ -456,11 +467,17 @@ class WzusersController extends WebzashAppController {
 			}
 
 			/* Login */
-			if ($this->Auth->login()) {
+			if ($default_password &&
+				$this->request->data['Wzuser']['username'] == 'admin' &&
+				$this->request->data['Wzuser']['password'] == 'admin') {
+				$login_status = $this->Auth->login($user['Wzuser']);
+			} else {
+				$login_status = $this->Auth->login();
+			}
+			if ($login_status) {
 				/* Reset retry count on successful login */
 				$this->Wzuser->read(null, $this->Auth->user('id'));
-				$this->Wzuser->set(array('retry_count' => 0));
-				$this->Wzuser->save();
+				$this->Wzuser->saveField('retry_count', 0);
 
 				if (empty($wzsetting['Wzsetting']['enable_logging'])) {
 					$this->Session->write('Wzsetting.enable_logging', 0);
