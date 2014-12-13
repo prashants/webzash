@@ -36,12 +36,12 @@ to "webzash"
 Step 3. Edit the app/Config/core.php file and change the following lines
 
  Configure::write('debug', 0);
- Configure::write('Security.salt', 'IBs5T2I3gFdLcqUQoIP5NIFM4woPy4RqeGHqxo8h');
- Configure::write('Security.cipherSeed', '2990451816135972911329758922326');
+ Configure::write('Security.salt', 'IMPORTANT_CHANGE_THIS_VALUE');
+ Configure::write('Security.cipherSeed', 'IMPORTANT_CHANGE_THIS_VALUE');
  date_default_timezone_set('UTC');
 
-Note : If you change any of the above security salt the default passwords
-will not work.
+Note : Please change the above security salts before changing your password
+or creating any new user.
 
 Step 4. Edit the app/Config/bootstrap.php file and add the following lines
 
