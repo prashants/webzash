@@ -253,11 +253,11 @@ class ReportsController extends WebzashAppController {
 			if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
 				$bsheet['final_assets_total'] = calculate(
 					$bsheet['final_assets_total'],
-					$bsheet['opdiff']['opdiff_balance'], '-');
+					$bsheet['opdiff']['opdiff_balance'], '+');
 			} else {
 				$bsheet['final_liabilities_total'] = calculate(
 					$bsheet['final_liabilities_total'],
-					$bsheet['opdiff']['opdiff_balance'], '-');
+					$bsheet['opdiff']['opdiff_balance'], '+');
 			}
 		}
 

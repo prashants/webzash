@@ -230,10 +230,12 @@ class Ledger extends WebzashAppModel {
 				$total_op = calculate($total_op, $ledger['Ledger']['op_balance'], '-');
 			}
 		}
+
+		/* Dr is more ==> $total_op >= 0 ==> balancing figure is Cr */
 		if (calculate($total_op, 0, '>=')) {
-			return array('opdiff_balance_dc' => 'D', 'opdiff_balance' => $total_op);
+			return array('opdiff_balance_dc' => 'C', 'opdiff_balance' => $total_op);
 		} else {
-			return array('opdiff_balance_dc' => 'C', 'opdiff_balance' => calculate($total_op, 0, 'n'));
+			return array('opdiff_balance_dc' => 'D', 'opdiff_balance' => calculate($total_op, 0, 'n'));
 		}
 	}
 
