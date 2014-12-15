@@ -104,7 +104,7 @@ $positive_net_pl = 0;
 	}
 
 	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $gross_total) . '"';
+	echo '"' . toCurrency('D', $gross_total) . '"';
 	echo "\n";
 	echo "\n";
 
@@ -133,7 +133,7 @@ $positive_net_pl = 0;
 	}
 
 	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $gross_total) . '"';
+	echo '"' . toCurrency('C', $gross_total) . '"';
 	echo "\n";
 	echo "\n";
 
@@ -169,7 +169,7 @@ $positive_net_pl = 0;
 	}
 
 	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $net_total) . '"';
+	echo '"' . toCurrency('D', $net_total) . '"';
 	echo "\n";
 	echo "\n";
 
@@ -206,5 +206,5 @@ $positive_net_pl = 0;
 	}
 
 	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $net_total) . '"';
+	echo '"' . toCurrency('C', $net_total) . '"';
 	echo "\n";

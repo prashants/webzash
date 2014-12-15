@@ -220,8 +220,8 @@ $(document).ready(function() {
 
 <table>
 
-	<!-- Gross Profit and Loss -->
 	<tr>
+		<!-- Gross Expenses -->
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
@@ -232,6 +232,7 @@ $(document).ready(function() {
 			</table>
 		</td>
 
+		<!-- Gross Incomes -->
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
@@ -247,9 +248,10 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
-				<?php /* Gross Expense Total */ ?>
-				<?php $gross_total = $pandl['gross_expense_total']; ?>
-				<?php if (calculate($pandl['gross_expense_total'], 0, '>=')) {
+				<?php
+				/* Gross Expense Total */
+				$gross_total = $pandl['gross_expense_total'];
+				if (calculate($pandl['gross_expense_total'], 0, '>=')) {
 					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['gross_expense_total']) . '</td>';
@@ -276,7 +278,7 @@ $(document).ready(function() {
 				</tr>
 				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
-					<td class="text-right"><?php echo toCurrency('', $gross_total); ?></td>
+					<td class="text-right"><?php echo toCurrency('D', $gross_total); ?></td>
 				</tr>
 			</table>
 		</td>
@@ -284,9 +286,10 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
-				<?php /* Gross Income Total */ ?>
-				<?php $gross_total = $pandl['gross_income_total']; ?>
-				<?php if (calculate($pandl['gross_income_total'], 0, '>=')) {
+				<?php
+				/* Gross Income Total */
+				$gross_total = $pandl['gross_income_total'];
+				if (calculate($pandl['gross_income_total'], 0, '>=')) {
 					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Gross Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['gross_income_total']) . '</td>';
@@ -314,7 +317,7 @@ $(document).ready(function() {
 				</tr>
 				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
-					<td class="text-right"><?php echo toCurrency('', $gross_total); ?></td>
+					<td class="text-right"><?php echo toCurrency('C', $gross_total); ?></td>
 				</tr>
 			</table>
 		</td>
@@ -349,9 +352,10 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
-				<?php /* Net Expense Total */ ?>
-				<?php $net_total = $pandl['net_expense_total']; ?>
-				<?php if (calculate($pandl['net_expense_total'], 0, '>=')) {
+				<?php
+				/* Net Expense Total */
+				$net_total = $pandl['net_expense_total'];
+				if (calculate($pandl['net_expense_total'], 0, '>=')) {
 					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Expenses') . '</td>';
 					echo '<td class="text-right">' . toCurrency('D', $pandl['net_expense_total']) . '</td>';
@@ -391,7 +395,7 @@ $(document).ready(function() {
 				</tr>
 				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
-					<td class="text-right"><?php echo toCurrency('', $net_total); ?></td>
+					<td class="text-right"><?php echo toCurrency('D', $net_total); ?></td>
 				</tr>
 			</table>
 		</td>
@@ -399,9 +403,10 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
-				<?php /* Net Income Total */ ?>
-				<?php $net_total = $pandl['net_income_total']; ?>
-				<?php if (calculate($pandl['net_income_total'], 0, '>=')) {
+				<?php
+				/* Net Income Total */
+				$net_total = $pandl['net_income_total'];
+				if (calculate($pandl['net_income_total'], 0, '>=')) {
 					echo '<tr class="bold-text">';
 					echo '<td>' . __d('webzash', 'Total Incomes') . '</td>';
 					echo '<td class="text-right">' . toCurrency('C', $pandl['net_income_total']) . '</td>';
@@ -442,7 +447,7 @@ $(document).ready(function() {
 				</tr>
 				<tr class="bold-text">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
-					<td class="text-right"><?php echo toCurrency('', $net_total); ?></td>
+					<td class="text-right"><?php echo toCurrency('C', $net_total); ?></td>
 				</tr>
 			</table>
 		</td>
