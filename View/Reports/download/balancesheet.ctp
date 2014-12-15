@@ -98,45 +98,12 @@ function print_space($count)
 	echo "\n";
 	echo "\n";
 
-	/* Liabilities and Assets */
-	echo '"' . __d('webzash', 'Liabilities and Owners Equity') . '",';
-	echo '"' . __d('webzash', '(Cr) Amount') . '"';
-	echo "\n";
-	echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C');
-	echo "\n";
-
-	/* Liabilities Total */
-	echo '"' . __d('webzash', 'Total Liability and Owners Equity') . '",';
-	echo '"' . toCurrency('C', $bsheet['liabilities_total']) . '"';
-	echo "\n";
-
-	/* Net profit */
-	if (calculate($bsheet['pandl'], 0, '>=')) {
-		echo '"' . __d('webzash', 'Profit & Loss Account (Net Profit)') . '",';
-		echo '"' . toCurrency('', $bsheet['pandl']) . '"';
-		echo "\n";
-	}
-
-	/* Total */
-	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $bsheet['final_liabilities_total']) .	'"';
-	echo "\n";
-	echo "\n";
-
+	/**************** Assets ****************/
 	echo '"' . __d('webzash', 'Assets') . '",';
 	echo '"' . __d('webzash', '(Dr) Amount') . '"';
 	echo "\n";
 	echo account_st_short($bsheet['assets'], $c = -1, $this, 'D');
 	echo "\n";
-
-	if ($bsheet['is_opdiff']) {
-		/* If diff in opening balance is Dr */
-		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
-			echo '"' . __d('webzash', 'Diff in O/P Balance') . '",';
-			echo '"' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '"';
-			echo "\n";
-		}
-	}
 
 	/* Assets Total */
 	echo '"' . __d('webzash', 'Total Assets') . '",';
@@ -149,7 +116,7 @@ function print_space($count)
 	} else {
 		echo '"' . __d('webzash', 'Profit & Loss Account (Net Loss)') . '",';
 		$positive_pandl = calculate($bsheet['pandl'], 0, 'n');
-		echo '"' . toCurrency('', $positive_pandl) . '"';
+		echo '"' . toCurrency('D', $positive_pandl) . '"';
 		echo "\n";
 	}
 
@@ -164,5 +131,41 @@ function print_space($count)
 
 	/* Total */
 	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('', $bsheet['final_assets_total']) . '"';
+	echo '"' . toCurrency('D', $bsheet['final_assets_total']) . '"';
+	echo "\n";
+	echo "\n";
+
+
+	/**************** Liabilities ****************/
+	echo '"' . __d('webzash', 'Liabilities and Owners Equity') . '",';
+	echo '"' . __d('webzash', '(Cr) Amount') . '"';
+	echo "\n";
+	echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C');
+	echo "\n";
+
+	/* Liabilities Total */
+	echo '"' . __d('webzash', 'Total Liability and Owners Equity') . '",';
+	echo '"' . toCurrency('C', $bsheet['liabilities_total']) . '"';
+	echo "\n";
+
+	/* Net profit */
+	if (calculate($bsheet['pandl'], 0, '>=')) {
+		echo '"' . __d('webzash', 'Profit & Loss Account (Net Profit)') . '",';
+		echo '"' . toCurrency('C', $bsheet['pandl']) . '"';
+		echo "\n";
+	}
+
+	if ($bsheet['is_opdiff']) {
+		/* If diff in opening balance is Dr */
+		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
+			echo '"' . __d('webzash', 'Diff in O/P Balance') . '",';
+			echo '"' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '"';
+			echo "\n";
+		}
+	}
+
+	/* Total */
+	echo '"' . __d('webzash', 'Total') . '",';
+	echo '"' . toCurrency('C', $bsheet['final_liabilities_total']) .	'"';
+	echo "\n";
 	echo "\n";
