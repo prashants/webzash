@@ -294,10 +294,10 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 				/* Difference in opening balance */
 				if ($bsheet['is_opdiff']) {
 					echo '<tr class="bold-text error-text">';
-					/* If diff in opening balance is Cr */
-					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'C') {
+					/* If diff in opening balance is Dr */
+					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
 						echo '<td>' . __d('webzash', 'Diff in O/P Balance') . '</td>';
-						echo '<td class="text-right">' . toCurrency('C', $bsheet['opdiff']['opdiff_balance']) . '</td>';
+						echo '<td class="text-right">(-) ' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '</td>';
 					} else {
 						echo '<td>&nbsp</td>';
 						echo '<td>&nbsp</td>';
@@ -357,10 +357,10 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 				/* Difference in opening balance */
 				if ($bsheet['is_opdiff']) {
 					echo '<tr class="bold-text error-text">';
-					/* If diff in opening balance is Dr */
-					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
+					/* If diff in opening balance is Cr */
+					if ($bsheet['opdiff']['opdiff_balance_dc'] == 'C') {
 						echo '<td>' . __d('webzash', 'Diff in O/P Balance') . '</td>';
-						echo '<td class="text-right">' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '</td>';
+						echo '<td class="text-right">(-) ' . toCurrency('C', $bsheet['opdiff']['opdiff_balance']) . '</td>';
 					} else {
 						echo '<td>&nbsp</td>';
 						echo '<td>&nbsp</td>';

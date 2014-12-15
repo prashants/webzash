@@ -121,10 +121,10 @@ function print_space($count)
 	}
 
 	if ($bsheet['is_opdiff']) {
-		/* If diff in opening balance is Cr */
-		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'C') {
+		/* If diff in opening balance is Dr */
+		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
 			echo '"' . __d('webzash', 'Diff in O/P Balance') . '",';
-			echo '"' . toCurrency('C', $bsheet['opdiff']['opdiff_balance']) . '"';
+			echo '"(-) ' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '"';
 			echo "\n";
 		}
 	}
@@ -156,10 +156,10 @@ function print_space($count)
 	}
 
 	if ($bsheet['is_opdiff']) {
-		/* If diff in opening balance is Dr */
-		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'D') {
+		/* If diff in opening balance is Cr */
+		if ($bsheet['opdiff']['opdiff_balance_dc'] == 'C') {
 			echo '"' . __d('webzash', 'Diff in O/P Balance') . '",';
-			echo '"' . toCurrency('D', $bsheet['opdiff']['opdiff_balance']) . '"';
+			echo '"(-) ' . toCurrency('C', $bsheet['opdiff']['opdiff_balance']) . '"';
 			echo "\n";
 		}
 	}
