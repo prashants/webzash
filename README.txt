@@ -63,6 +63,13 @@ Step 8. Install Webzash plugin
 
  $git clone https://github.com/prashants/webzash.git app/Plugin/Webzash
 
+Step 9. Load the plugin in domain root
+
+ Comment out both routes in line 27 and 31 in app/Config/routes.php and add the following lines after that.
+
+ Router::connect('/', array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
+ Router::connect('/:controller/:action', array('plugin' => 'webzash'));
+
 Thats it ! You are done :)
 
 The full source code for Webzash is in the app/Plugin/Webzash folder.
