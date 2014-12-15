@@ -265,9 +265,9 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Profit C/O */
+					/* Gross Profit C/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
-						echo '<td>' . __d('webzash', 'Gross Profit C/O') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Profit C/F') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $pandl['gross_pl']) . '</td>';
 						$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 					} else {
@@ -303,12 +303,12 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Loss C/O */
+					/* Gross Loss C/F */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						echo '<td>&nbsp</td>';
 						echo '<td>&nbsp</td>';
 					} else {
-						echo '<td>' . __d('webzash', 'Gross Loss C/O') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Loss C/F') . '</td>';
 						$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 						echo '<td class="text-right">' . toCurrency('', $positive_gross_pl) . '</td>';
 						$gross_total = calculate($gross_total, $positive_gross_pl, '+');

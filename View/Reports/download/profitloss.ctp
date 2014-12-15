@@ -95,9 +95,9 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('D', $pandl['gross_expense_total']) . '"';
 	echo "\n";
 
-	/* Gross Profit C/O */
+	/* Gross Profit C/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
-		echo '"' . __d('webzash', 'Gross Profit C/O') . '",';
+		echo '"' . __d('webzash', 'Gross Profit C/F') . '",';
 		echo '"' . toCurrency('', $pandl['gross_pl']) . '"';
 		$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 		echo "\n";
@@ -121,11 +121,11 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('C', $pandl['gross_income_total']) . '"';
 	echo "\n";
 
-	/* Gross Loss C/O */
+	/* Gross Loss C/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
-		echo '"' . __d('webzash', 'Gross Loss C/O') . '",';
+		echo '"' . __d('webzash', 'Gross Loss C/F') . '",';
 		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 		echo '"' . toCurrency('', $positive_gross_pl) . '"';
 		$gross_total = calculate($gross_total, $positive_gross_pl, '+');
