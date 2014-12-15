@@ -1,19 +1,23 @@
-- Account code ?
+Todo :
 - Print reports
 - Download reports as excel
-- Dr/Cr separate column in reports
-- Negative balance highlight
-- Income / Expense should have no opening balance
 - Move all select to helpers
 - Ledger selection in tree format
-- Use model methods whereever possible
+- Use model methods where ever possible
 - Optimize
-- Theme email entries
-- Return to correct URL
 - Backup
 - Add Postgres / MS SQL support
-- Cheque number and cheque date ?
 - Cash flow statement
 - Tooltips
-- Remove default password, security salt can be changed
 - Swap columns in balance sheet and profit and loss statements
+
+Not decided :
+- Cheque number and cheque date ?
+- Dr/Cr separate column in reports ?
+- Account code ?
+
+Optional :
+- Negative balance highlight
+- Income / Expense should have no opening balance
+- Theme email entries
+- Return to correct URL
