@@ -59,7 +59,7 @@ $(document).ready(function() {
 		));
 
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Group name')));
-		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'label' => __d('webzash', 'Parent group')));
+		echo $this->Form->input('parent_id', array('type' => 'select', 'options' => $parents, 'escape' => false, 'label' => __d('webzash', 'Parent group')));
 
 		echo $this->Form->input('affects_gross', array(
 			'type' => 'radio',

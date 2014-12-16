@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('GroupTree', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Groups Controller
@@ -56,11 +57,12 @@ class GroupsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Add Account Group'));
 
 		/* Create list of parent groups */
-		$parents = $this->Group->find('list', array(
-			'fields' => array('Group.id', 'Group.name'),
-			'order' => array('Group.name')
-		));
-		$this->set('parents', $parents);
+		$parentGroups = new GroupTree();
+		$parentGroups->Group = &$this->Group;
+		$parentGroups->current_id = -1;
+		$parentGroups->build(0);
+		$parentGroups->toList($parentGroups, -1);
+		$this->set('parents', $parentGroups->groupList);
 
 		/* On POST */
 		if ($this->request->is('post')) {
@@ -119,12 +121,12 @@ class GroupsController extends WebzashAppController {
 		}
 
 		/* Create list of parent groups */
-		$parents = $this->Group->find('list', array(
-			'conditions' => array('Group.id !=' => $id),
-			'fields' => array('Group.id', 'Group.name'),
-			'order' => array('Group.name')
-		));
-		$this->set('parents', $parents);
+		$parentGroups = new GroupTree();
+		$parentGroups->Group = &$this->Group;
+		$parentGroups->current_id = $id;
+		$parentGroups->build(0);
+		$parentGroups->toList($parentGroups, -1);
+		$this->set('parents', $parentGroups->groupList);
 
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
