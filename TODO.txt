@@ -7,7 +7,6 @@ Todo :
 - Add Postgres / MS SQL support
 - Cash flow statement
 - Tooltips
-- System info
 
 Not decided :
 - Cheque number and cheque date ?

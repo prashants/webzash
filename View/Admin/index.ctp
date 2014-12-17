@@ -60,4 +60,39 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="col-md-4">
+		<div class="box-container">
+			<div class="box-title">
+				<?php echo __d('webzash', 'System Information'); ?>
+			</div>
+			<div>
+				<?php echo __d('webzash', 'Webzash version : %s', 2.2); ?>
+			</div>
+			<div>
+				<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>
+			</div>
+			<div>
+				<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>
+			</div>
+			<div>
+				<?php
+					if (extension_loaded('bcmath')) {
+						echo __d('webzash', 'PHP BC Math library : Yes');
+					} else {
+						echo '<span class="error-text">';
+						echo __d('webzash', 'PHP BC Math library : No');
+						echo '</span>';
+					}
+				?>
+			</div>
+			<div>
+				<?php
+					if (method_exists('SQLite3', 'version')) {
+						echo __d('webzash', 'PHP Sqlite3 library : %s', SQLite3::version());
+					}
+				?>
+			</div>
+		</div>
+	</div>
 </div>

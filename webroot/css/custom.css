@@ -318,3 +318,14 @@ table.stripped .tr-highlight {
 	width: 300px;
 	vertical-align: text-top;
 }
+
+.box-container {
+	border: 1px solid #BBBBBB;
+	padding: 20px;
+}
+
+.box-title {
+	margin-bottom: 10px;
+	font-size: 18px;
+	color: #428BCA;
+}
