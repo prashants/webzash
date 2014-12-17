@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('LedgerTree', 'Webzash.Lib');
 App::uses('AccountList', 'Webzash.Lib');
 
 /**
@@ -526,11 +527,21 @@ class ReportsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Ledger Statement'));
 
 		/* Create list of ledgers to pass to view */
-		$ledgers = $this->Ledger->find('list', array(
-			'fields' => array('Ledger.id', 'Ledger.name'),
-			'order' => array('Ledger.name')
-		));
-		$this->set('ledgers', $ledgers);
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = 1;
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		foreach ($ledgers->ledgerList as $row => $data) {
+			if ($row < 0) {
+				$ledgers_disabled[] = $row;
+			}
+		}
+		$this->set('ledgers', $ledgers->ledgerList);
+		$this->set('ledgers_disabled', $ledgers_disabled);
 
 		if ($this->request->is('post')) {
 			/* If valid data then redirect with POST values are URL parameters so that pagination works */
@@ -769,11 +780,21 @@ class ReportsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Ledger Entries'));
 
 		/* Create list of ledgers to pass to view */
-		$ledgers = $this->Ledger->find('list', array(
-			'fields' => array('Ledger.id', 'Ledger.name'),
-			'order' => array('Ledger.name')
-		));
-		$this->set('ledgers', $ledgers);
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = 1;
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		foreach ($ledgers->ledgerList as $row => $data) {
+			if ($row < 0) {
+				$ledgers_disabled[] = $row;
+			}
+		}
+		$this->set('ledgers', $ledgers->ledgerList);
+		$this->set('ledgers_disabled', $ledgers_disabled);
 
 		if ($this->request->is('post')) {
 			/* If valid data then redirect with POST values are URL parameters so that pagination works */
@@ -1236,7 +1257,8 @@ class ReportsController extends WebzashAppController {
 		parent::beforeFilter();
 
 		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
-		$this->Security->unlockedFields = array('startdate', 'enddate');
+		$this->Security->unlockedFields = array('startdate', 'enddate',
+			'ledger_id');
 	}
 
 	/* Authorization check */

@@ -82,7 +82,7 @@ $(document).ready(function() {
 			),
 		));
 
-		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'label' => __d('webzash', 'Ledger account')));
+		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'escape' => false, 'disabled' => $ledgers_disabled, 'label' => __d('webzash', 'Ledger account')));
 
 		echo '<div id="accordion">';
 		echo '<h3>Options</h3>';

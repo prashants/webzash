@@ -2,19 +2,18 @@ Todo :
 - Print reports
 - Download reports as excel
 - Move all select to helpers
-- Ledger selection in tree format
 - Use model methods where ever possible
 - Optimize
 - Backup
 - Add Postgres / MS SQL support
 - Cash flow statement
 - Tooltips
-- Swap columns in balance sheet and profit and loss statements
 
 Not decided :
 - Cheque number and cheque date ?
 - Dr/Cr separate column in reports ?
 - Account code ?
+- Swap columns in balance sheet and profit and loss statements ?
 
 Optional :
 - Negative balance highlight
