@@ -56,13 +56,6 @@ $(document).ready(function() {
 <div class="wzaccont create form">
 	<?php
 
-	/* Date format : PHP Format|Javascript Format */
-	$dateformats = array(
-		'd-M-Y|dd-M-yy' => 'Day-Month-Year',
-		'M-d-Y|M-dd-yy' => 'Month-Day-Year',
-		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
-	);
-
 	echo $this->Form->create('Wzaccount', array(
 		'inputDefaults' => array(
 			'div' => 'form-group',
@@ -79,7 +72,7 @@ $(document).ready(function() {
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $this->Generic->dateformat_options(), 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));
 

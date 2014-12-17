@@ -1,13 +1,13 @@
 Todo :
 - Print reports
 - Download reports as excel
-- Move all select to helpers
 - Use model methods where ever possible
 - Optimize
 - Backup
 - Add Postgres / MS SQL support
 - Cash flow statement
 - Tooltips
+- System info
 
 Not decided :
 - Cheque number and cheque date ?

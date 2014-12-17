@@ -55,10 +55,6 @@ $(document).ready(function() {
 
 <div class="email form">
 <?php
-	$protocol_options = array(
-		'Smtp' => __d('webzash', 'smtp'),
-		'Mail' => __d('webzash', 'mail'),
-	);
 
 	echo $this->Form->create('Setting', array(
 		'inputDefaults' => array(
@@ -74,7 +70,7 @@ $(document).ready(function() {
 		'class' => 'checkbox',
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : If selected the default email settings in the Administer > General Settings will be used.') . '</span>',
 	));
-	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
+	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $this->Generic->mail_protocol_options(), 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
 	echo $this->Form->input('email_tls', array('type' => 'checkbox', 'label' => __d('webzash', 'Use TLS'), 'class' => 'checkbox'));

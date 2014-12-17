@@ -27,19 +27,6 @@
 ?>
 <div class="entrytypes edit form">
 	<?php
-		$numbering_options = array(
-			'1' => __d('webzash', 'Auto'),
-			'2' => __d('webzash', 'Manual (required)'),
-			'3' => __d('webzash', 'Manual (optional)'),
-		);
-		$restriction_options = array(
-			'1' => __d('webzash', 'Unrestricted'),
-			'2' => __d('webzash', 'Atleast one Bank or Cash account must be present on Debit side'),
-			'3' => __d('webzash', 'Atleast one Bank or Cash account must be present on Credit side'),
-			'4' => __d('webzash', 'Only Bank or Cash account can be present on both Debit and Credit side'),
-			'5' => __d('webzash', 'Only NON Bank or Cash account can be present on both Debit and Credit side'),
-		);
-
 		echo $this->Form->create('Entrytype', array(
 			'inputDefaults' => array(
 				'div' => 'form-group',
@@ -53,7 +40,7 @@
 		echo $this->Form->input('description', array('type' => 'textarea', 'label' => __d('webzash', 'Description'), 'rows' => '3'));
 		echo $this->Form->input('numbering', array(
 			'type' => 'select',
-			'options' => $numbering_options,
+			'options' => $this->Generic->entrytype_numbering_options(),
 			'label' => __d('webzash', 'Numbering'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : How the entry numbering is handled.') . '</span>',
 		));
@@ -71,7 +58,7 @@
 		));
 		echo $this->Form->input('restriction_bankcash', array(
 			'type' => 'select',
-			'options' => $restriction_options,
+			'options' => $this->Generic->entrytype_restriction_options(),
 			'label' => __d('webzash', 'Restrictions'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Restrictions to be placed on the ledgers selected in entry.') . '</span>',
 		));

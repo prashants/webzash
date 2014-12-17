@@ -27,15 +27,6 @@
 ?>
 <div class="printer form">
 	<?php
-		$orientation_options = array(
-			'P' => __d('webzash', 'Potrait'),
-			'L' => __d('webzash', 'Landscape'),
-		);
-		$page_format_options = array(
-			'H' => __d('webzash', 'HTML'),
-			'T' => __d('webzash', 'Text'),
-		);
-
 		$prefixInches = '<div class="input-group">';
 		$suffixInches = '<span class="input-group-addon">' . __d('webzash', 'inches') .'</span></div>';
 
@@ -61,11 +52,11 @@
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Orientation'); ?></legend>
-		<?php echo $this->Form->input('print_orientation', array('type' => 'radio', 'options' => $orientation_options, 'legend' => false, 'class' => 'radio')); ?>
+		<?php echo $this->Form->input('print_orientation', array('type' => 'radio', 'options' => $this->Generic->printer_orientation_options(), 'legend' => false, 'class' => 'radio')); ?>
 	</fieldset>
 	<fieldset>
 		<legend><?php echo __d('webzash', 'Output Format'); ?></legend>
-		<?php echo $this->Form->input('print_page_format', array('type' => 'radio', 'options' => $page_format_options, 'legend' => false, 'class' => 'radio')); ?>
+		<?php echo $this->Form->input('print_page_format', array('type' => 'radio', 'options' => $this->Generic->printer_pageformat_options(), 'legend' => false, 'class' => 'radio')); ?>
 	</fieldset>
 	<br />
 	<?php

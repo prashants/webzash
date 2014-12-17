@@ -135,6 +135,7 @@ class GenericHelper extends AppHelper {
 			default: return __d('webzash', 'ERROR');
 		}
 	}
+
 /**
  * Wzaccount return database type options
  */
@@ -146,6 +147,66 @@ class GenericHelper extends AppHelper {
 		);
 	}
 
+/**
+ * Wzsetting return row count options
+ */
+	function wzsetting_row_count_options() {
+		return array(
+			'10' => '10',
+			'25' => '25',
+			'50' => '50',
+			'100' => '100',
+			'200' => '200',
+		);
+	}
+
+/**
+ * Wzsetting return drcr or toby options
+ */
+	function wzsetting_drcr_toby_options() {
+		return array(
+			'drcr' => __d('webzash', 'Dr / Cr'),
+			'toby' => __d('webzash', 'To / By'),
+		);
+	}
+
+/**
+ * Group return net or gross options
+ */
+	function group_netgross_options() {
+		return array(
+			1 => __d('webzash', 'Gross Profit & Loss'),
+			0 => __d('webzash', 'Net Profit & Loss'),
+		);
+	}
+
+/**
+ * Entrytype return numbering options
+ */
+	function entrytype_numbering_options() {
+		return array(
+			'1' => __d('webzash', 'Auto'),
+			'2' => __d('webzash', 'Manual (required)'),
+			'3' => __d('webzash', 'Manual (optional)'),
+		);
+	}
+
+/**
+ * Entrytype return restriction options
+ */
+	function entrytype_restriction_options() {
+		return array(
+			'1' => __d('webzash', 'Unrestricted'),
+			'2' => __d('webzash', 'Atleast one Bank or Cash account must be present on Debit side'),
+			'3' => __d('webzash', 'Atleast one Bank or Cash account must be present on Credit side'),
+			'4' => __d('webzash', 'Only Bank or Cash account can be present on both Debit and Credit side'),
+			'5' => __d('webzash', 'Only NON Bank or Cash account can be present on both Debit and Credit side'),
+		);
+	}
+
+/**
+ * Search return range options
+ */
 	function search_range_options() {
 		return array(
 			'1' => __d('webzash', 'Equal to'),
@@ -155,4 +216,46 @@ class GenericHelper extends AppHelper {
 		);
 	}
 
+/**
+ * Settings return printer orientation options
+ */
+	function printer_orientation_options() {
+		return array(
+			'P' => __d('webzash', 'Potrait'),
+			'L' => __d('webzash', 'Landscape'),
+		);
+	}
+
+/**
+ * Settings return printer page format options
+ */
+	function printer_pageformat_options() {
+		return array(
+			'H' => __d('webzash', 'HTML'),
+			'T' => __d('webzash', 'Text'),
+		);
+	}
+
+/**
+ * return mail protocol options
+ */
+	function mail_protocol_options() {
+		return array(
+			'Smtp' => __d('webzash', 'smtp'),
+			'Mail' => __d('webzash', 'mail'),
+		);
+	}
+
+/**
+ * return date format options
+ *
+ * Date format : PHP Format|Javascript Format
+ */
+	function dateformat_options() {
+		return array(
+			'd-M-Y|dd-M-yy' => __d('webzash', 'Day-Month-Year'),
+			'M-d-Y|M-dd-yy' => __d('webzash', 'Month-Day-Year'),
+			'Y-M-d|yy-M-dd' => __d('webzash', 'Year-Month-Day'),
+		);
+	}
 }

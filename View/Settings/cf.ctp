@@ -56,13 +56,6 @@ $(document).ready(function() {
 <div class="cf form">
 	<?php
 
-	/* Date format : PHP Format|Javascript Format */
-	$dateformats = array(
-		'd-M-Y|dd-M-yy' => 'Day-Month-Year',
-		'M-d-Y|M-dd-yy' => 'Month-Day-Year',
-		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
-	);
-
 	echo $this->Form->create('Wzaccount', array(
 		'inputDefaults' => array(
 			'div' => 'form-group',
@@ -113,7 +106,7 @@ $(document).ready(function() {
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : It is recommended to use a descriptive label like "sample20142105" which includes both a short name and the accounting year.') . '</span>',
 	));
 	echo $this->Form->input('name', array('required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Company / Personal Name')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $this->Generic->dateformat_options(), 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));
 

@@ -45,11 +45,6 @@ $(document).ready(function() {
 
 <div class="groups add form">
 	<?php
-		$options = array(
-			1 => __d('webzash', 'Gross Profit & Loss'),
-			0 => __d('webzash', 'Net Profit & Loss'),
-		);
-
 		echo $this->Form->create('Group', array(
 			'inputDefaults' => array(
 				'div' => 'form-group',
@@ -63,7 +58,7 @@ $(document).ready(function() {
 
 		echo $this->Form->input('affects_gross', array(
 			'type' => 'radio',
-			'options' => $options,
+			'options' => $this->Generic->group_netgross_options(),
 			'default' => 1,
 			'before' => '<label class="control-label">' . __d('webzash', 'Affects') . '</label>',
 			'legend' => false,

@@ -28,24 +28,6 @@
 <div class="email form">
 <?php
 
-	$drcr_toby_options = array(
-		'drcr' => __d('webzash', 'Dr / Cr'),
-		'toby' => __d('webzash', 'To / By'),
-	);
-
-	$protocol_options = array(
-		'Smtp' => __d('webzash', 'smtp'),
-		'Mail' => __d('webzash', 'mail'),
-	);
-
-	$row_count_options = array(
-		'10' => '10',
-		'25' => '25',
-		'50' => '50',
-		'100' => '100',
-		'200' => '200',
-	);
-
 	echo $this->Form->create('Wzsetting', array(
 		'inputDefaults' => array(
 			'div' => 'form-group',
@@ -60,7 +42,7 @@
 	));
 	echo $this->Form->input('drcr_toby', array(
 		'type' => 'select',
-		'options' => $drcr_toby_options,
+		'options' => $this->Generic->wzsetting_drcr_toby_options(),
 		'label' => __d('webzash', 'In entries use'),
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Whether to use Dr/Cr or To/By in entries.') . '</span>',
 	));
@@ -72,7 +54,7 @@
 	));
 	echo $this->Form->input('row_count', array(
 		'type' => 'select',
-		'options' => $row_count_options,
+		'options' => $this->Generic->wzsetting_row_count_options(),
 		'label' => __d('webzash', 'Row count'),
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Number of rows to show at a time.') . '</span>',
 	));
@@ -82,7 +64,7 @@
 	echo $this->Form->input('email_verification', array('type' => 'checkbox', 'label' => __d('webzash', 'Email verification required for activating user accounts'), 'class' => 'checkbox'));
 
 	echo "<fieldset><legend>Outgoing Email</legend>";
-	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $protocol_options, 'label' => __d('webzash', 'Protocol')));
+	echo $this->Form->input('email_protocol', array('type' => 'select', 'options' => $this->Generic->mail_protocol_options(), 'label' => __d('webzash', 'Protocol')));
 	echo $this->Form->input('email_host', array('label' => __d('webzash', 'Hostname')));
 	echo $this->Form->input('email_port', array('label' => __d('webzash', 'Port')));
 	echo $this->Form->input('email_tls', array('type' => 'checkbox', 'label' => __d('webzash', 'Use TLS'), 'class' => 'checkbox'));

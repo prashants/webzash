@@ -55,13 +55,6 @@ $(document).ready(function() {
 
 <div class="account form">
 <?php
-	/* Date format : PHP Format|Javascript Format */
-	$dateformats = array(
-		'd-M-Y|dd-M-yy' => 'Day-Month-Year',
-		'M-d-Y|M-dd-yy' => 'Month-Day-Year',
-		'Y-M-d|yy-M-dd' => 'Year-Month-Day'
-	);
-
 	echo $this->Form->create('Setting', array(
 		'inputDefaults' => array(
 			'div' => 'form-group',
@@ -74,7 +67,7 @@ $(document).ready(function() {
 	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
-	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $dateformats, 'label' => __d('webzash', 'Date format')));
+	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $this->Generic->dateformat_options(), 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'label' => __d('webzash', 'Financial year end')));
 
