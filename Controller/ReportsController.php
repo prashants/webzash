@@ -992,6 +992,7 @@ class ReportsController extends WebzashAppController {
 			'order' => array('Ledger.name'),
 			'conditions' => array('Ledger.reconciliation' => '1'),
 		));
+		$ledgers = array(0 => __d('webzash', 'Please select...')) + $ledgers;
 		$this->set('ledgers', $ledgers);
 
 		if ($this->request->is('post')) {

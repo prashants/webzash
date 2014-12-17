@@ -122,7 +122,7 @@ class LedgerTree
 			/* Set the group id to negative value since we want to disable it */
 			$this->ledgerList[-$tree->id] = $this->space($c) . h($tree->name);
 		} else {
-			$this->ledgerList[0] = 'Please select...';
+			$this->ledgerList[0] = __d('webzash', 'Please select...');
 		}
 
 		/* Add child ledgers */
