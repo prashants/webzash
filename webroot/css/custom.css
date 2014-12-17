@@ -276,6 +276,10 @@ form .error-message {
 	color: #006400;
 }
 
+.bg-filled {
+	background-color: #F3F3F3;
+}
+
 .alert {
 	font-size: 17px;
 }

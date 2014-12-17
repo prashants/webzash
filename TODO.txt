@@ -13,7 +13,6 @@ Not decided :
 - Cheque number and cheque date ?
 - Dr/Cr separate column in reports ?
 - Account code ?
-- Swap columns in balance sheet and profit and loss statements ?
 
 Optional :
 - Negative balance highlight

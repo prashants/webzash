@@ -276,7 +276,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text bg-filled">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('D', $gross_total); ?></td>
 				</tr>
@@ -315,7 +315,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text bg-filled">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('C', $gross_total); ?></td>
 				</tr>
@@ -380,7 +380,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text ok-text">
 					<?php
 					/* Net Profit */
 					if (calculate($pandl['net_pl'], 0, '>=')) {
@@ -393,7 +393,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text bg-filled">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('D', $net_total); ?></td>
 				</tr>
@@ -431,7 +431,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text ok-text">
 					<?php
 					/* Net Loss */
 					if (calculate($pandl['net_pl'], 0, '>=')) {
@@ -445,7 +445,7 @@ $(document).ready(function() {
 					}
 					?>
 				</tr>
-				<tr class="bold-text">
+				<tr class="bold-text bg-filled">
 					<td><?php echo __d('webzash', 'Total'); ?></td>
 					<td class="text-right"><?php echo toCurrency('C', $net_total); ?></td>
 				</tr>
