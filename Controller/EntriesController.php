@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('LedgerTree', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Entries Controller
@@ -35,8 +36,8 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class EntriesController extends WebzashAppController {
 
-	public $uses = array('Webzash.Entry', 'Webzash.Ledger', 'Webzash.Entrytype',
-		'Webzash.Entryitem', 'Webzash.Tag', 'Webzash.Log');
+	public $uses = array('Webzash.Entry', 'Webzash.Group', 'Webzash.Ledger',
+		'Webzash.Entrytype', 'Webzash.Entryitem', 'Webzash.Tag', 'Webzash.Log');
 
 /**
  * index method
@@ -187,9 +188,22 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('tag_options', $this->Tag->listAll());
 
-		$this->set('ledger_options', $this->Ledger->listAll(
-			$entrytype['Entrytype']['restriction_bankcash']
-		));
+		/* Ledger selection */
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = $entrytype['Entrytype']['restriction_bankcash'];
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		foreach ($ledgers->ledgerList as $row => $data) {
+			if ($row < 0) {
+				$ledgers_disabled[] = $row;
+			}
+		}
+		$this->set('ledger_options', $ledgers->ledgerList);
+		$this->set('ledgers_disabled', $ledgers_disabled);
 
 		/* Initial data */
 		if ($this->request->is('post')) {
@@ -460,9 +474,22 @@ class EntriesController extends WebzashAppController {
 
 		$this->set('tag_options', $this->Tag->listAll());
 
-		$this->set('ledger_options', $this->Ledger->listAll(
-			$entrytype['Entrytype']['restriction_bankcash']
-		));
+		/* Ledger selection */
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = $entrytype['Entrytype']['restriction_bankcash'];
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		foreach ($ledgers->ledgerList as $row => $data) {
+			if ($row < 0) {
+				$ledgers_disabled[] = $row;
+			}
+		}
+		$this->set('ledger_options', $ledgers->ledgerList);
+		$this->set('ledgers_disabled', $ledgers_disabled);
 
 		/* Check for valid entry id */
 		if (empty($id)) {
@@ -1086,9 +1113,16 @@ class EntriesController extends WebzashAppController {
 
 		$this->layout = null;
 
-		$this->set('ledger_options', $this->Ledger->listAll(
-			$restriction_bankcash
-		));
+		/* Ledger selection */
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = $restriction_bankcash;
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		$this->set('ledger_options', $ledgers->ledgerList);
 	}
 
 	public function beforeFilter() {

@@ -39,7 +39,11 @@
 
 	echo '<td>' . '<div class="form-group-entryitem required"><select id="Entryitem' . $i . 'LedgerId" class="ledger-dropdown form-control" name="data[Entryitem][' . $i . '][ledger_id]">';
 	foreach ($ledger_options as $row => $data) {
-		echo '<option value="' . $row . '">' . $data . '</option>';
+		if ($row >= 0) {
+			echo '<option value="' . $row . '">' . $data . '</option>';
+		} else {
+			echo '<option value="' . $row . '" disabled="disabled">' . $data . '</option>';
+		}
 	}
 	echo '</select></div>' . '</td>';
 
