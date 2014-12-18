@@ -112,7 +112,7 @@ $(document).ready(function() {
 <?php
 	echo $this->Html->link(
 		__d('webzash', 'Download'),
-		'/' . $this->params->url . '/download:true',
+		'/' . $this->params->url . '/downloadcsv:true',
 		array('class' => 'btn btn-info btn-sm')
 	);
 	echo '<br /><br />';

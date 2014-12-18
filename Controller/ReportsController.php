@@ -264,11 +264,20 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('bsheet', $bsheet);
 
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/balancesheet');
+			$this->response->body($response);
+			return $this->response;
+		}
+
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/balancesheet');
+			$response =  $view->render('Reports/downloadcsv/balancesheet');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('balancesheet.csv');
@@ -463,10 +472,10 @@ class ReportsController extends WebzashAppController {
 		$this->set('pandl', $pandl);
 
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/profitloss');
+			$response =  $view->render('Reports/downloadcsv/profitloss');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('profitloss.csv');
@@ -504,10 +513,10 @@ class ReportsController extends WebzashAppController {
 		$this->set('accountlist', $accountlist);
 
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/trialbalance');
+			$response =  $view->render('Reports/downloadcsv/trialbalance');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('trialbalance.csv');
@@ -756,10 +765,10 @@ class ReportsController extends WebzashAppController {
 		$this->set('showEntries', true);
 
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/ledgerstatement');
+			$response =  $view->render('Reports/downloadcsv/ledgerstatement');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('ledgerstatement.csv');
@@ -964,10 +973,10 @@ class ReportsController extends WebzashAppController {
 		$this->set('showEntries', true);
 
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/ledgerentries');
+			$response =  $view->render('Reports/downloadcsv/ledgerentries');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('ledgerentries.csv');
@@ -1241,10 +1250,10 @@ class ReportsController extends WebzashAppController {
 		$this->set('showEntries', true);
 
 		/* Download report */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
 			$view = new View($this, false);
-			$response =  $view->render('Reports/download/reconciliation');
+			$response =  $view->render('Reports/downloadcsv/reconciliation');
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('reconciliation.csv');

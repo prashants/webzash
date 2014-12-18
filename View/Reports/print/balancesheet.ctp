@@ -96,66 +96,6 @@ function print_space($count)
 
 ?>
 
-<script type="text/javascript">
-$(document).ready(function() {
-
-	$("#accordion").accordion({
-		collapsible: true,
-		<?php
-			if ($options == false) {
-				echo 'active: false';
-			}
-		?>
-	});
-
-	$('.show-tooltip').tooltip({trigger: 'manual'}).tooltip('show');
-
-	/* Calculate date range in javascript */
-	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
-	endDate = new Date(<?php echo strtotime(Configure::read('Account.enddate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
-
-	/* On selecting custom period show the start and end date form fields */
-	$('#BalancesheetOpening').change(function() {
-		if ($(this).prop('checked')) {
-			$('#BalancesheetStartdate').prop('disabled', true);
-			$('#BalancesheetEnddate').prop('disabled', true);
-		} else {
-			$('#BalancesheetStartdate').prop('disabled', false);
-			$('#BalancesheetEnddate').prop('disabled', false);
-		}
-	});
-	$('#BalancesheetOpening').trigger('change');
-
-	/* Setup jQuery datepicker ui */
-	$('#BalancesheetStartdate').datepicker({
-		minDate: startDate,
-		maxDate: endDate,
-		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
-		numberOfMonths: 1,
-		onClose: function(selectedDate) {
-			if (selectedDate) {
-				$("#BalancesheetEnddate").datepicker("option", "minDate", selectedDate);
-			} else {
-				$("#BalancesheetEnddate").datepicker("option", "minDate", startDate);
-			}
-		}
-	});
-	$('#BalancesheetEnddate').datepicker({
-		minDate: startDate,
-		maxDate: endDate,
-		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
-		numberOfMonths: 1,
-		onClose: function(selectedDate) {
-			if (selectedDate) {
-				$("#BalancesheetStartdate").datepicker("option", "maxDate", selectedDate);
-			} else {
-				$("#BalancesheetStartdate").datepicker("option", "maxDate", endDate);
-			}
-		}
-	});
-});
-</script>
-
 <?php
 /* Show difference in opening balance */
 if ($bsheet['is_opdiff']) {
@@ -173,69 +113,6 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 		toCurrency('X', $final_total_diff) .
 		'</div></div>';
 }
-?>
-
-<div id="accordion">
-	<h3>Options</h3>
-
-	<div class="balancesheet form">
-	<?php
-		echo $this->Form->create('Balancesheet', array(
-			'inputDefaults' => array(
-				'div' => 'form-group',
-				'wrapInput' => false,
-				'class' => 'form-control',
-			),
-		));
-
-		echo $this->Form->input('opening', array(
-			'type' => 'checkbox',
-			'label' => __d('webzash', 'Show Opening Balance Sheet')
-		));
-
-		echo $this->Form->input('startdate', array(
-			'label' => __d('webzash', 'Start date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave start date as empty if you want statement from the start of the financial year.') . '</span>',
-		));
-		echo $this->Form->input('enddate', array(
-			'label' => __d('webzash', 'End date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave end date as empty if you want statement till the end of the financial year.') . '</span>',
-		));
-
-		echo '<div class="form-group">';
-		echo $this->Form->submit(__d('webzash', 'Submit'), array(
-			'div' => false,
-			'class' => 'btn btn-primary'
-		));
-		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-		echo $this->Html->link(__d('webzash', 'Clear'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'balancesheet'), array('class' => 'btn btn-default'));
-		echo '</div>';
-
-		echo $this->Form->end();
-	?>
-	</div>
-</div>
-<br />
-
-<?php
-	echo '<div class="btn-group" role="group">';
-	echo $this->Html->link(
-		__d('webzash', 'DOWNLOAD .CSV'),
-		'/' . $this->params->url . '/downloadcsv:true',
-		array('class' => 'btn btn-default btn-sm')
-	);
-
-	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-
-	echo $this->Html->link(__d('webzash', 'PRINT'), '',
-		array(
-			'class' => 'btn btn-default btn-sm',
-			'onClick' => "window.open('" . $this->Html->url('/' . $this->params->url . '/print:true') . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1000,height=600'); return false;"
-		)
-	);
-
-	echo '</div>';
-	echo '<br /><br />';
 ?>
 
 <div class="subtitle text-center">

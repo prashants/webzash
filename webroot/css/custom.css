@@ -41,6 +41,11 @@ p {
 	text-align: right;
 }
 
+#printer {
+	clear: both;
+	padding: 6px 10px;
+}
+
 .navbar-default .navbar-brand {
 	font-size: 25px;
 	font-weight: bold;
@@ -328,4 +333,8 @@ table.stripped .tr-highlight {
 	margin-bottom: 10px;
 	font-size: 18px;
 	color: #428BCA;
+}
+
+.print-button {
+	padding: 5px;
 }
