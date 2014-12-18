@@ -264,15 +264,6 @@ class ReportsController extends WebzashAppController {
 
 		$this->set('bsheet', $bsheet);
 
-		/* Print report */
-		if (isset($this->passedArgs['print'])) {
-			$this->layout = 'print';
-			$view = new View($this, false);
-			$response =  $view->render('Reports/print/balancesheet');
-			$this->response->body($response);
-			return $this->response;
-		}
-
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
 			$this->layout = false;
@@ -281,6 +272,15 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('balancesheet.csv');
+			return $this->response;
+		}
+
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/balancesheet');
+			$this->response->body($response);
 			return $this->response;
 		}
 
@@ -482,6 +482,15 @@ class ReportsController extends WebzashAppController {
 			return $this->response;
 		}
 
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/profitloss');
+			$this->response->body($response);
+			return $this->response;
+		}
+
 		return;
 	}
 
@@ -520,6 +529,15 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('trialbalance.csv');
+			return $this->response;
+		}
+
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/trialbalance');
+			$this->response->body($response);
 			return $this->response;
 		}
 
@@ -720,7 +738,9 @@ class ReportsController extends WebzashAppController {
 		$this->set('current_op', $current_op);
 
 		/* Setup pagination */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['downloadcsv']) ||
+			isset($this->passedArgs['downloadxls']) ||
+			isset($this->passedArgs['print'])) {
 			$this->Paginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
@@ -772,6 +792,15 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('ledgerstatement.csv');
+			return $this->response;
+		}
+
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/ledgerstatement');
+			$this->response->body($response);
 			return $this->response;
 		}
 
@@ -928,7 +957,9 @@ class ReportsController extends WebzashAppController {
 		$this->set('cl', $cl);
 
 		/* Setup pagination */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['download']) ||
+			isset($this->passedArgs['downloadxls']) ||
+			isset($this->passedArgs['print'])) {
 			$this->Paginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
@@ -980,6 +1011,15 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('ledgerentries.csv');
+			return $this->response;
+		}
+
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/ledgerentries');
+			$this->response->body($response);
 			return $this->response;
 		}
 
@@ -1145,6 +1185,13 @@ class ReportsController extends WebzashAppController {
 					dateFromSql(Configure::read('Account.startdate')),
 					dateFromSql(dateToSQL($this->passedArgs['enddate']))
 				));
+			} else if (empty($this->passedArgs['startdate']) &&
+				empty($this->passedArgs['enddate'])) {
+				$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
+					h($ledger['Ledger']['name']),
+					dateFromSql(Configure::read('Account.startdate')),
+					dateFromSql(Configure::read('Account.enddate'))
+				));
 			}
 		}
 
@@ -1205,7 +1252,9 @@ class ReportsController extends WebzashAppController {
 		$this->set('rp', $rp);
 
 		/* Setup pagination */
-		if (isset($this->passedArgs['download'])) {
+		if (isset($this->passedArgs['download']) ||
+			isset($this->passedArgs['downloadxls']) ||
+			isset($this->passedArgs['print'])) {
 			$this->Paginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
@@ -1257,6 +1306,15 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('reconciliation.csv');
+			return $this->response;
+		}
+
+		/* Print report */
+		if (isset($this->passedArgs['print'])) {
+			$this->layout = 'print';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/print/reconciliation');
+			$this->response->body($response);
 			return $this->response;
 		}
 

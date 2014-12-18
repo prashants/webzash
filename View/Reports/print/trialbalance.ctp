@@ -74,7 +74,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<tr class="tr-ledger">';
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo $THIS->Html->link($data['name'], array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
+			echo h($data['name']);
 			echo '</td>';
 			echo '<td>Ledger</td>';
 
@@ -113,27 +113,6 @@ function print_space($count)
 	}
 	return $html;
 }
-?>
-
-<?php
-	echo '<div class="btn-group" role="group">';
-	echo $this->Html->link(
-		__d('webzash', 'DOWNLOAD .CSV'),
-		'/' . $this->params->url . '/downloadcsv:true',
-		array('class' => 'btn btn-default btn-sm')
-	);
-
-	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-
-	echo $this->Html->link(__d('webzash', 'PRINT'), '',
-		array(
-			'class' => 'btn btn-default btn-sm',
-			'onClick' => "window.open('" . $this->Html->url('/' . $this->params->url . '/print:true') . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1000,height=600'); return false;"
-		)
-	);
-
-	echo '</div>';
-	echo '<br /><br />';
 ?>
 
 <div class="subtitle">

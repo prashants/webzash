@@ -71,7 +71,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo $THIS->Html->link($data['name'], array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
+			echo h($data['name']);
 			echo '</td>';
 
 			echo '<td class="text-right">';
@@ -99,131 +99,6 @@ $positive_gross_pl = 0;
 $net_total = 0;
 $positive_net_pl = 0;
 
-?>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-	$("#accordion").accordion({
-		collapsible: true,
-		<?php
-			if ($options == false) {
-				echo 'active: false';
-			}
-		?>
-	});
-
-	$('.show-tooltip').tooltip({trigger: 'manual'}).tooltip('show');
-
-	/* Calculate date range in javascript */
-	startDate = new Date(<?php echo strtotime(Configure::read('Account.startdate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
-	endDate = new Date(<?php echo strtotime(Configure::read('Account.enddate')) * 1000; ?>  + (new Date().getTimezoneOffset() * 60 * 1000));
-
-	/* On selecting custom period show the start and end date form fields */
-	$('#ProfitlossOpening').change(function() {
-		if ($(this).prop('checked')) {
-			$('#ProfitlossStartdate').prop('disabled', true);
-			$('#ProfitlossEnddate').prop('disabled', true);
-		} else {
-			$('#ProfitlossStartdate').prop('disabled', false);
-			$('#ProfitlossEnddate').prop('disabled', false);
-		}
-	});
-	$('#ProfitlossOpening').trigger('change');
-
-	/* Setup jQuery datepicker ui */
-	$('#ProfitlossStartdate').datepicker({
-		minDate: startDate,
-		maxDate: endDate,
-		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
-		numberOfMonths: 1,
-		onClose: function(selectedDate) {
-			if (selectedDate) {
-				$("#ProfitlossEnddate").datepicker("option", "minDate", selectedDate);
-			} else {
-				$("#ProfitlossEnddate").datepicker("option", "minDate", startDate);
-			}
-		}
-	});
-	$('#ProfitlossEnddate').datepicker({
-		minDate: startDate,
-		maxDate: endDate,
-		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
-		numberOfMonths: 1,
-		onClose: function(selectedDate) {
-			if (selectedDate) {
-				$("#ProfitlossStartdate").datepicker("option", "maxDate", selectedDate);
-			} else {
-				$("#ProfitlossStartdate").datepicker("option", "maxDate", endDate);
-			}
-		}
-	});
-});
-
-</script>
-
-<div id="accordion">
-	<h3>Options</h3>
-
-	<div class="profitandloss form">
-	<?php
-		echo $this->Form->create('Profitloss', array(
-			'inputDefaults' => array(
-				'div' => 'form-group',
-				'wrapInput' => false,
-				'class' => 'form-control',
-			),
-		));
-
-		echo $this->Form->input('opening', array(
-			'type' => 'checkbox',
-			'label' => __d('webzash', 'Show Opening Profit and Loss Statement'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : In opening Profit and Loss Statement all ledgers and groups balance must be zero.') . '</span>',
-		));
-
-		echo $this->Form->input('startdate', array(
-			'label' => __d('webzash', 'Start date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave start date as empty if you want statement from the start of the financial year.') . '</span>',
-		));
-		echo $this->Form->input('enddate', array(
-			'label' => __d('webzash', 'End date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave end date as empty if you want statement till the end of the financial year.') . '</span>',
-		));
-
-		echo '<div class="form-group">';
-		echo $this->Form->submit(__d('webzash', 'Submit'), array(
-			'div' => false,
-			'class' => 'btn btn-primary'
-		));
-		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-		echo $this->Html->link(__d('webzash', 'Clear'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'profitloss'), array('class' => 'btn btn-default'));
-		echo '</div>';
-
-		echo $this->Form->end();
-	?>
-	</div>
-</div>
-<br />
-
-<?php
-	echo '<div class="btn-group" role="group">';
-	echo $this->Html->link(
-		__d('webzash', 'DOWNLOAD .CSV'),
-		'/' . $this->params->url . '/downloadcsv:true',
-		array('class' => 'btn btn-default btn-sm')
-	);
-
-	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
-
-	echo $this->Html->link(__d('webzash', 'PRINT'), '',
-		array(
-			'class' => 'btn btn-default btn-sm',
-			'onClick' => "window.open('" . $this->Html->url('/' . $this->params->url . '/print:true') . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1000,height=600'); return false;"
-		)
-	);
-
-	echo '</div>';
-	echo '<br /><br />';
 ?>
 
 <div class="subtitle text-center">
