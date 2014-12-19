@@ -25,18 +25,29 @@
  * THE SOFTWARE.
  */
 
+$xRS = '<Row>';
+$xRE = '</Row>' . "\n";
+$xCS = '<Cell><Data ss:Type="String">';
+$xCE = '</Data></Cell>';
+
 function account_st_short($account, $c = 0, $THIS, $dc_type)
 {
+	$xRS = '<Row>';
+	$xRE = '</Row>' . "\n";
+	$xCS = '<Cell><Data ss:Type="String">';
+	$xCE = '</Data></Cell>';
+
 	$counter = $c;
 	if ($account->id > 4)
 	{
-		echo '"';
+		echo $xRS;
+		echo $xCS;
 		echo print_space($counter);
 		echo h($account->name);
-		echo '",';
+		echo $xCE;
 
-		echo '"' . toCurrency($account->cl_total_dc, $account->cl_total) . '"';
-		echo "\n";
+		echo $xCS . toCurrency($account->cl_total_dc, $account->cl_total) . $xCE;
+		echo $xRE;
 	}
 	foreach ($account->children_groups as $id => $data)
 	{
@@ -49,13 +60,14 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 		$counter++;
 		foreach ($account->children_ledgers as $id => $data)
 		{
-			echo '"';
+			echo $xRS;
+			echo $xCS;
 			echo print_space($counter);
 			echo h($data['name']);
-			echo '",';
+			echo $xCE;
 
-			echo '"' . toCurrency($data['cl_total_dc'], $data['cl_total']) . '"';
-			echo "\n";
+			echo $xCS . toCurrency($data['cl_total_dc'], $data['cl_total']) . $xCE;
+			echo $xRE;
 		}
 	$counter--;
 	}
@@ -78,133 +90,151 @@ $positive_net_pl = 0;
 ?>
 
 <?php
-	echo $subtitle;
-	echo "\n";
-	echo "\n";
+	echo $xRS . $xCS . $subtitle . $xCE . $xRE;
+	echo $xRS . $xRE;
 
 	/* Gross Expense */
-	echo '"' . __d('webzash', 'Gross Expenses') . '",';
-	echo '"' . __d('webzash', '(Dr) Amount') . '"';
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Gross Expenses') . $xCE;
+	echo $xCS . __d('webzash', '(Dr) Amount') . $xCE;
+	echo $xRE;
 	echo account_st_short($pandl['gross_expenses'], $c = -1, $this, 'D');
-	echo "\n";
+	echo $xRS . $xRE;
 
 	/* Gross Expense Total */
+	echo $xRS;
 	$gross_total = $pandl['gross_expense_total'];
-	echo '"' . __d('webzash', 'Total Gross Expenses') . '",';
-	echo '"' . toCurrency('D', $pandl['gross_expense_total']) . '"';
-	echo "\n";
+	echo $xCS . __d('webzash', 'Total Gross Expenses') . $xCE;
+	echo $xCS . toCurrency('D', $pandl['gross_expense_total']) . $xCE;
+	echo $xRE;
 
 	/* Gross Profit C/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
-		echo '"' . __d('webzash', 'Gross Profit C/F') . '",';
-		echo '"' . toCurrency('', $pandl['gross_pl']) . '"';
+		echo $xRS;
+		echo $xCS . __d('webzash', 'Gross Profit C/F') . $xCE;
+		echo $xCS . toCurrency('', $pandl['gross_pl']) . $xCE;
 		$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
-		echo "\n";
+		echo $xRE;
 	}
 
-	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('D', $gross_total) . '"';
-	echo "\n";
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Total') . $xCE;
+	echo $xCS . toCurrency('D', $gross_total) . $xCE;
+	echo $xRE;
+	echo $xRS . $xRE;
 
 	/* Gross Incomes */
-	echo '"' . __d('webzash', 'Gross Incomes') . '",';
-	echo '"' . __d('webzash', '(Cr) Amount') . '"';
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Gross Incomes') . $xCE;
+	echo $xCS . __d('webzash', '(Cr) Amount') . $xCE;
+	echo $xRE;
 	echo account_st_short($pandl['gross_incomes'], $c = -1, $this, 'C');
-	echo "\n";
+	echo $xRS . $xRE;
 
 	/* Gross Income Total */
+	echo $xRS;
 	$gross_total = $pandl['gross_income_total'];
-	echo '"' . __d('webzash', 'Total Gross Incomes') . '",';
-	echo '"' . toCurrency('C', $pandl['gross_income_total']) . '"';
-	echo "\n";
+	echo $xCS . __d('webzash', 'Total Gross Incomes') . $xCE;
+	echo $xCS . toCurrency('C', $pandl['gross_income_total']) . $xCE;
+	echo $xRE;
 
 	/* Gross Loss C/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
-		echo '"' . __d('webzash', 'Gross Loss C/F') . '",';
+		echo $xRS;
+		echo $xCS . __d('webzash', 'Gross Loss C/F') . $xCE;
 		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
-		echo '"' . toCurrency('', $positive_gross_pl) . '"';
+		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
 		$gross_total = calculate($gross_total, $positive_gross_pl, '+');
-		echo "\n";
+		echo $xRE;
 	}
 
-	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('C', $gross_total) . '"';
-	echo "\n";
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Total') . $xCE;
+	echo $xCS . toCurrency('C', $gross_total) . $xCE;
+	echo $xRE;
+	echo $xRS . $xRE;
 
 	/* Net Expenses */
-	echo '"' . __d('webzash', 'Net Expenses') . '",';
-	echo '"' . __d('webzash', '(Dr) Amount'). '"';
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Net Expenses') . $xCE;
+	echo $xCS . __d('webzash', '(Dr) Amount'). $xCE;
+	echo $xRE;
 	echo account_st_short($pandl['net_expenses'], $c = -1, $this, 'D');
-	echo "\n";
+	echo $xRS . $xRE;
 
 	/* Net Expense Total */
+	echo $xRS;
 	$net_total = $pandl['net_expense_total'];
-	echo '"' . __d('webzash', 'Total Expenses') . '",';
-	echo '"' . toCurrency('D', $pandl['net_expense_total']) . '"';
-	echo "\n";
+	echo $xCS . __d('webzash', 'Total Expenses') . $xCE;
+	echo $xCS . toCurrency('D', $pandl['net_expense_total']) . $xCE;
+	echo $xRE;
 
 	/* Gross Loss B/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
+		echo $xRS;
 		$net_total = calculate($net_total, $positive_gross_pl, '+');
-		echo '"' . __d('webzash', 'Gross Loss B/F') . '",';
-		echo '"' . toCurrency('', $positive_gross_pl) . '"';
-		echo "\n";
+		echo $xCS . __d('webzash', 'Gross Loss B/F') . $xCE;
+		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
+		echo $xRE;
 	}
 
 	/* Net Profit */
 	if (calculate($pandl['net_pl'], 0, '>=')) {
-		echo '"' . __d('webzash', 'Net Profit') . '",';
-		echo '"' . toCurrency('', $pandl['net_pl']) . '"';
+		echo $xRS;
+		echo $xCS . __d('webzash', 'Net Profit') . $xCE;
+		echo $xCS . toCurrency('', $pandl['net_pl']) . $xCE;
 		$net_total = calculate($net_total, $pandl['net_pl'], '+');
-		echo "\n";
+		echo $xRE;
 	}
 
-	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('D', $net_total) . '"';
-	echo "\n";
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Total') . $xCE;
+	echo $xCS . toCurrency('D', $net_total) . $xCE;
+	echo $xRE;
+	echo $xRS . $xRE;
 
 	/* Net Income */
-	echo '"' . __d('webzash', 'Net Incomes') . '",';
-	echo '"' . __d('webzash', '(Cr) Amount') . '"';
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Net Incomes') . $xCE;
+	echo $xCS . __d('webzash', '(Cr) Amount') . $xCE;
+	echo $xRE;
 	echo account_st_short($pandl['net_incomes'], $c = -1, $this, 'C');
-	echo "\n";
+	echo $xRS . $xRE;
 
 	/* Net Income Total */
+	echo $xRS;
 	$net_total = $pandl['net_income_total'];
-	echo '"' . __d('webzash', 'Total Incomes') . '",';
-	echo '"' . toCurrency('C', $pandl['net_income_total']) . '"';
-	echo "\n";
+	echo $xCS . __d('webzash', 'Total Incomes') . $xCE;
+	echo $xCS . toCurrency('C', $pandl['net_income_total']) . $xCE;
+	echo $xRE;
 
 	/* Gross Profit B/F */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
+		echo $xRS;
 		$net_total = calculate($net_total, $pandl['gross_pl'], '+');
-		echo '"' . __d('webzash', 'Gross Profit B/F') . '",';
-		echo '"' .  toCurrency('', $pandl['gross_pl']) . '"';
-		echo "\n";
+		echo $xCS . __d('webzash', 'Gross Profit B/F') . $xCE;
+		echo $xCS .  toCurrency('', $pandl['gross_pl']) . $xCE;
+		echo $xRE;
 	}
 
 	/* Net Loss */
 	if (calculate($pandl['net_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
-		echo '"' . __d('webzash', 'Net Loss') . '",';
+		echo $xRS;
+		echo $xCS . __d('webzash', 'Net Loss') . $xCE;
 		$positive_net_pl = calculate($pandl['net_pl'], 0, 'n');
-		echo '"' . toCurrency('', $positive_net_pl) . '"';
+		echo $xCS . toCurrency('', $positive_net_pl) . $xCE;
 		$net_total = calculate($net_total, $positive_net_pl, '+');
-		echo "\n";
+		echo $xRE;
 	}
 
-	echo '"' . __d('webzash', 'Total') . '",';
-	echo '"' . toCurrency('C', $net_total) . '"';
-	echo "\n";
+	echo $xRS;
+	echo $xCS . __d('webzash', 'Total') . $xCE;
+	echo $xCS . toCurrency('C', $net_total) . $xCE;
+	echo $xRE;
+	echo $xRS . $xRE;

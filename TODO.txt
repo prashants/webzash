@@ -1,6 +1,4 @@
 Todo :
-- Print reports
-- Download reports as excel
 - Use model methods where ever possible
 - Optimize
 - Backup
@@ -8,6 +6,8 @@ Todo :
 - Cash flow statement
 - Tooltips
 - Root URL
+- Ledger / Group in downloads
+- Group statement
 
 Not decided :
 - Cheque number and cheque date ?
