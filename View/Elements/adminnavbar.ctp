@@ -40,7 +40,7 @@
 		<div class="navbar-collapse collapse">
 			<?php if ($this->Session->read('Auth.User') && $this->Session->read('Auth.User.role') == 'admin'): ?>
 			<ul class="nav navbar-nav">
-				<li><?php echo $this->Html->link(__d('webzash', 'Dashboard'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index')); ?></li>
+				<li><?php echo $this->Html->link(__d('webzash', 'Administrator Dashboard'), array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index')); ?></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><span><?php echo $this->Html->link(__d('webzash', 'Accounts'), array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'), array('class' => 'btn btn-danger navbar-btn')); ?></span></li>
