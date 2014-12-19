@@ -1,3 +1,12 @@
+Webzash version 2.2 - 20 December 2014
+--------------------------------------
+
+- Show ledgers and groups in tree format
+- Add support for printing and downloading xml reports
+- Swap assets and liabilities sides in balance sheet
+- Load the application as root url
+- Add system information page
+
 Webzash version 2.1 - 13 December 2014
 --------------------------------------
 
