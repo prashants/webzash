@@ -95,6 +95,22 @@ class WzsettingsController extends WebzashAppController {
 		}
 	}
 
+/**
+ * System information method
+ *
+ * @return void
+ */
+	public function sysinfo() {
+
+		$this->set('actionlinks', array(
+			array('controller' => 'admin', 'action' => 'index', 'title' => __d('webzash', 'Back')),
+		));
+
+		$this->set('title_for_layout', __d('webzash', 'System Information'));
+
+		return;
+	}
+
 	/* Authorization check */
 	public function isAuthorized($user) {
 		if ($this->action === 'index') {
@@ -102,6 +118,10 @@ class WzsettingsController extends WebzashAppController {
 		}
 
 		if ($this->action === 'edit') {
+			return $this->Permission->is_admin_allowed();
+		}
+
+		if ($this->action === 'sysinfo') {
 			return $this->Permission->is_admin_allowed();
 		}
 
