@@ -48,10 +48,10 @@ Step 4. Edit the app/Config/bootstrap.php file and add the following lines
  CakePlugin::load('BoostCake');
  CakePlugin::load('Webzash', array('routes' => true, 'bootstrap' => true));
 
-Step 5. Edit the app/Controller/PagesController.php and add the following line
-after line no. 47 just after the "public function display() {"
+Step 5. Edit the app/Config/routes.php file and comment out the default route
+on line no. 27 by prepending two forward slashes as shown below
 
- $this->redirect('/webzash');
+ // Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
 Step 6. Copy the app/Config/database.php.default file to app/Config/database.php
 

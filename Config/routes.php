@@ -25,4 +25,6 @@
  * THE SOFTWARE.
  */
 
-Router::connect('/webzash', array('plugin' => 'webzash', 'controller' => 'dashboard'));
+Router::connect('/:controller/:action/*', array('plugin' => 'webzash'));
+Router::connect('/:controller/*', array('plugin' => 'webzash', 'action' => 'index'));
+Router::connect('/*', array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
