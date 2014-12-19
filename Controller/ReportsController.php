@@ -275,6 +275,17 @@ class ReportsController extends WebzashAppController {
 			return $this->response;
 		}
 
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/balancesheet');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('balancesheet.xls');
+			return $this->response;
+		}
+
 		/* Print report */
 		if (isset($this->passedArgs['print'])) {
 			$this->layout = 'print';
@@ -482,6 +493,17 @@ class ReportsController extends WebzashAppController {
 			return $this->response;
 		}
 
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/profitloss');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('profitloss.xls');
+			return $this->response;
+		}
+
 		/* Print report */
 		if (isset($this->passedArgs['print'])) {
 			$this->layout = 'print';
@@ -529,6 +551,17 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('trialbalance.csv');
+			return $this->response;
+		}
+
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/trialbalance');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('trialbalance.xls');
 			return $this->response;
 		}
 
@@ -795,6 +828,17 @@ class ReportsController extends WebzashAppController {
 			return $this->response;
 		}
 
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/ledgerstatement');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('ledgerstatement.xls');
+			return $this->response;
+		}
+
 		/* Print report */
 		if (isset($this->passedArgs['print'])) {
 			$this->layout = 'print';
@@ -1011,6 +1055,17 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('ledgerentries.csv');
+			return $this->response;
+		}
+
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/ledgerentries');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('ledgerentries.xls');
 			return $this->response;
 		}
 
@@ -1306,6 +1361,17 @@ class ReportsController extends WebzashAppController {
 			$this->response->body($response);
 			$this->response->type('text/csv');
 			$this->response->download('reconciliation.csv');
+			return $this->response;
+		}
+
+		/* Download report */
+		if (isset($this->passedArgs['downloadxls'])) {
+			$this->layout = 'xls';
+			$view = new View($this, false);
+			$response =  $view->render('Reports/downloadxls/reconciliation');
+			$this->response->body($response);
+			$this->response->type('application/vnd.ms-excel');
+			$this->response->download('reconciliation.xls');
 			return $this->response;
 		}
 

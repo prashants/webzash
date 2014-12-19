@@ -111,13 +111,18 @@ $(document).ready(function() {
 
 <?php
 	echo '<div class="btn-group" role="group">';
+
 	echo $this->Html->link(
 		__d('webzash', 'DOWNLOAD .CSV'),
 		'/' . $this->params->url . '/downloadcsv:true',
 		array('class' => 'btn btn-default btn-sm')
 	);
 
-	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->link(
+		__d('webzash', 'DOWNLOAD .XLS'),
+		'/' . $this->params->url . '/downloadxls:true',
+		array('class' => 'btn btn-default btn-sm')
+	);
 
 	echo $this->Html->link(__d('webzash', 'PRINT'), '',
 		array(

@@ -79,6 +79,24 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
+ * Add a row to excel sheet
+ */
+	function xlsAddRow($row)
+	{
+		$cells = "";
+		foreach ($row as $k => $v) {
+			$type = 'String';
+			if (is_numeric($v)) {
+				$type = 'Number';
+			}
+			$v = h($v);
+			$cells .= "<Cell><Data ss:Type=\"$type\">" . $v . "</Data></Cell>\n";
+		}
+		return "<Row>\n" . $cells . "</Row>\n";
+	}
+
+
+/**
  * Wzuser return status string
  */
 	function wzuser_status($status) {
