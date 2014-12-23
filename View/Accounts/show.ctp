@@ -77,11 +77,11 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '</td>';
 			echo '<td>Ledger</td>';
 
-			echo '<td align=\'right\'>';
+			echo '<td class=\'right\'>';
 			echo toCurrency($data['op_total_dc'], $data['op_total']);
 			echo '</td>';
 
-			echo '<td align=\'right\'>';
+			echo '<td class=\'right\'>';
 			echo toCurrency($data['cl_total_dc'], $data['cl_total']);
 			echo '</td>';
 
