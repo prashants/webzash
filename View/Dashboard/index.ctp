@@ -95,19 +95,19 @@ if (!extension_loaded('bcmath')) {
 				<table>
 					<tr>
 						<td><?php echo __d('webzash', 'Assets'); ?></td>
-						<td class=\'right\'><?php echo toCurrency($accsummary['assets_total_dc'], $accsummary['assets_total']); ?></td>
+						<td class='right'><?php echo toCurrency($accsummary['assets_total_dc'], $accsummary['assets_total']); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', ' Liabilities and Owners Equity'); ?></td>
-						<td class=\'right\'><?php echo toCurrency($accsummary['liabilities_total_dc'], $accsummary['liabilities_total']); ?></td>
+						<td class='right'><?php echo toCurrency($accsummary['liabilities_total_dc'], $accsummary['liabilities_total']); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Income'); ?></td>
-						<td class=\'right\'><?php echo toCurrency($accsummary['income_total_dc'], $accsummary['income_total']); ?></td>
+						<td class='right'><?php echo toCurrency($accsummary['income_total_dc'], $accsummary['income_total']); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Expense'); ?></td>
-						<td class=\'right\'><?php echo toCurrency($accsummary['expense_total_dc'], $accsummary['expense_total']); ?></td>
+						<td class='right'><?php echo toCurrency($accsummary['expense_total_dc'], $accsummary['expense_total']); ?></td>
 					</tr>
 				</table>
 			</div>
