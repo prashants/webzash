@@ -221,24 +221,30 @@ function makecomma($input)
 }
 
 function formatInIndianStyle($num){
+	// The Locale settings are still PITA to setup even on ubuntu
+	// so we have to work around for the native function to make sure
+	// it always works as expected.
+	
+	// if( function_exists('money_format')){
+	// 	return money_format('%!i', $num);
+	// }else{
+		$pos = strpos((string)$num, ".");
+		if ($pos === false) { $decimalpart="00";}
+		else { $decimalpart= substr($num, $pos+1, 2); $num = substr($num,0,$pos); }
 
-
-   $pos = strpos((string)$num, ".");
-	if ($pos === false) { $decimalpart="00";}
-	else { $decimalpart= substr($num, $pos+1, 2); $num = substr($num,0,$pos); }
-
-	if(strlen($num)>3 & strlen($num) <= 12){
-				$last3digits = substr($num, -3 );
-				$numexceptlastdigits = substr($num, 0, -3 );
-				$formatted = makecomma($numexceptlastdigits);
-				$stringtoreturn = $formatted.",".$last3digits.".".$decimalpart ;
-	}elseif(strlen($num)<=3){
-				$stringtoreturn = $num.".".$decimalpart ;
-	}elseif(strlen($num)>12){
-				$stringtoreturn = number_format($num, 2);
-	}
-	if(substr($stringtoreturn,0,2)=="-,"){$stringtoreturn = "-".substr($stringtoreturn,2 );}
-	return $stringtoreturn;	
+		if(strlen($num)>3 & strlen($num) <= 12){
+					$last3digits = substr($num, -3 );
+					$numexceptlastdigits = substr($num, 0, -3 );
+					$formatted = makecomma($numexceptlastdigits);
+					$stringtoreturn = $formatted.",".$last3digits.".".$decimalpart ;
+		}elseif(strlen($num)<=3){
+					$stringtoreturn = $num.".".$decimalpart ;
+		}elseif(strlen($num)>12){
+					$stringtoreturn = number_format($num, 2);
+		}
+		if(substr($stringtoreturn,0,2)=="-,"){$stringtoreturn = "-".substr($stringtoreturn,2 );}
+		return $stringtoreturn;	
+	//}
 }
 
 
