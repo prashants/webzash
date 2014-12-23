@@ -194,7 +194,7 @@ $(document).ready(function() {
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current opening balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($current_op['dc'], $current_op['amount']) . '</td>';
+		echo '<td class=\'right\'>' . toCurrency($current_op['dc'], $current_op['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>
@@ -258,7 +258,7 @@ $(document).ready(function() {
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current closing balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
+		echo '<td class=\'right\'>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>
