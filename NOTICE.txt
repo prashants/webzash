@@ -36,5 +36,9 @@ notices and distributed according to the terms of their own licenses.
 	HOMEPAGE: https://github.com/slywalker/cakephp-plugin-boost_cake
 	LICENSE: The MIT License
 
+8. Mousetrap - Handling keyboard shortcuts
+	HOMEPAGE: http://craig.is/killing/mice
+	LICENSE: Apache 2.0 license
+
 Whilst every effort has been made to ensure that information is correct, incase
 of any discrepancies please contact the author(s) of this software.

@@ -7,6 +7,9 @@ Todo :
 - Tooltips
 - Ledger / Group in downloads
 - Group statement
+- Mouse bindings
+- Currency format
+- Add entry (name)
 
 Not decided :
 - Cheque number and cheque date ?
