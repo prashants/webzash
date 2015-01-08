@@ -7,9 +7,11 @@ Todo :
 - Tooltips
 - Ledger / Group in downloads
 - Group statement
-- Mouse bindings
+- Keyboard shortcuts
 - Currency format
 - Add entry (name)
+- Currency decimal places
+- Joomla integration
 
 Not decided :
 - Cheque number and cheque date ?
