@@ -1,3 +1,8 @@
+Webzash version 2.3 - Not yet released
+--------------------------------------
+
+- Support third part login
+
 Webzash version 2.2 - 20 December 2014
 --------------------------------------
 
