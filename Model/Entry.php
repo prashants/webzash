@@ -374,12 +374,12 @@ class Entry extends WebzashAppModel {
 		$dr_name = $Ledger->getName($dr_ledger_id);
 		$cr_name = $Ledger->getName($cr_ledger_id);
 
-		if (strlen($dr_name) > 15) {
-			$dr_name = substr($dr_name, 0, 15) . '...';
-		}
-		if (strlen($cr_name) > 15) {
-			$cr_name = substr($cr_name, 0, 15) . '...';
-		}
+		// if (strlen($dr_name) > 15) {
+		// 	$dr_name = substr($dr_name, 0, 15) . '...';
+		// }
+		// if (strlen($cr_name) > 15) {
+		// 	$cr_name = substr($cr_name, 0, 15) . '...';
+		// }
 
 		/* if more than one ledger on dr / cr then add [+] sign */
 		if ($dr_count > 1) {
