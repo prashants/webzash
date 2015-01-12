@@ -284,6 +284,12 @@ class EntriesController extends WebzashAppController {
 				/***** Date *****/
 				$entrydata['Entry']['date'] = dateToSql($this->request->data['Entry']['date']);
 
+				/* Cheque number and date */
+				$entrydata['Entry']['cheque_number'] =
+					$this->request->data['Entry']['cheque_number'];
+				$entrydata['Entry']['cheque_date'] =
+					dateToSql($this->request->data['Entry']['cheque_date']);
+
 				/***************************************************************************/
 				/***************************** ENTRY ITEMS *********************************/
 				/***************************************************************************/
@@ -582,6 +588,12 @@ class EntriesController extends WebzashAppController {
 				/***** Date *****/
 				$entrydata['Entry']['date'] = dateToSql($this->request->data['Entry']['date']);
 
+				/* Cheque number and date */
+				$entrydata['Entry']['cheque_number'] =
+					$this->request->data['Entry']['cheque_number'];
+				$entrydata['Entry']['cheque_date'] =
+					dateToSql($this->request->data['Entry']['cheque_date']);
+
 				/***************************************************************************/
 				/***************************** ENTRY ITEMS *********************************/
 				/***************************************************************************/
@@ -752,6 +764,7 @@ class EntriesController extends WebzashAppController {
 			}
 		} else {
 			$entry['Entry']['date'] = dateFromSql($entry['Entry']['date']);
+			$entry['Entry']['cheque_date'] = dateFromSql($entry['Entry']['cheque_date']);
 			$this->request->data = $entry;
 			return;
 		}

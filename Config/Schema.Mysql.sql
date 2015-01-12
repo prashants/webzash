@@ -72,6 +72,8 @@ CREATE TABLE `%_PREFIX_%entries` (
 	`entrytype_id` bigint(18) NOT NULL,
 	`number` bigint(18) DEFAULT NULL,
 	`date` date NOT NULL,
+	`cheque_date` date DEFAULT NULL,
+	`cheque_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
 	`dr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`cr_total` decimal(25,2) NOT NULL DEFAULT '0.00',
 	`narration` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
