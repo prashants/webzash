@@ -45,6 +45,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->script('Webzash.mousetrap.min.js');
 		echo $this->element('shortcuts');
 
+		echo $this->Html->css('Webzash.select2.min.css');
+		echo $this->Html->script('Webzash.select2.min.js');
+
 		echo $this->Html->css('Webzash.custom.css?'.time());
 
 		echo $this->fetch('meta');
