@@ -105,8 +105,6 @@ class EntriesController extends WebzashAppController {
  */
 	public function view($entrytypeLabel = null, $id = null) {
 
-		$this->set('title_for_layout', __d('webzash', 'View Entry'));
-
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -118,6 +116,8 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
+
+		$this->set('title_for_layout', __d('webzash', 'View %s Entry', $entrytype['Entrytype']['name']));
 
 		/* Check for valid entry id */
 		if (empty($id)) {
@@ -172,8 +172,6 @@ class EntriesController extends WebzashAppController {
  */
 	public function add($entrytypeLabel = null) {
 
-		$this->set('title_for_layout', __d('webzash', 'Add Entry'));
-
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -185,6 +183,8 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
+
+		$this->set('title_for_layout', __d('webzash', 'Add %s Entry', $entrytype['Entrytype']['name']));
 
 		$this->set('tag_options', $this->Tag->listAll());
 
@@ -458,8 +458,6 @@ class EntriesController extends WebzashAppController {
  */
 	public function edit($entrytypeLabel = null, $id = null) {
 
-		$this->set('title_for_layout', __d('webzash', 'Edit Entry'));
-
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -471,6 +469,8 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
 		}
 		$this->set('entrytype', $entrytype);
+
+		$this->set('title_for_layout', __d('webzash', 'Edit %s Entry', $entrytype['Entrytype']['name']));
 
 		$this->set('tag_options', $this->Tag->listAll());
 

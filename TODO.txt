@@ -9,13 +9,13 @@ Todo :
 - Group statement
 - Keyboard shortcuts
 - Currency format
-- Add entry (name)
 - Currency decimal places
 - Add reference number, name and date
 - Cheque printing
 - Update script
 - Three digit decimal
 - Pagination bug
+- Download report + Pagination not working
 
 Not decided :
 - Cheque number and cheque date ?
