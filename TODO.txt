@@ -11,6 +11,11 @@ Todo :
 - Currency format
 - Add entry (name)
 - Currency decimal places
+- Add reference number, name and date
+- Cheque printing
+- Update script
+- Three digit decimal
+- Pagination bug
 
 Not decided :
 - Cheque number and cheque date ?

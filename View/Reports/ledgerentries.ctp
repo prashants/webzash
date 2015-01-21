@@ -69,6 +69,8 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+	$("#ReportLedgerId").select2({width:'100%'});
 });
 </script>
 

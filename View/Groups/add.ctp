@@ -40,8 +40,17 @@ $(document).ready(function() {
 		}
 	});
 	$('#GroupParentId').trigger('change');
+
+	$("#GroupParentId").select2({width:'100%'});
 });
 </script>
+
+<style type="text/css">
+.select2-container--default .select2-results__option {
+	font-weight: bold;
+	color: #333;
+}
+</style>
 
 <div class="groups add form">
 	<?php

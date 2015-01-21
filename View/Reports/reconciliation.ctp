@@ -76,6 +76,8 @@ $(document).ready(function() {
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 	});
+
+	$("#ReportLedgerId").select2({width:'100%'});
 });
 </script>
 
