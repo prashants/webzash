@@ -210,9 +210,9 @@ $(document).ready(function() {
 	<th><?php echo __d('webzash', 'Ledger'); ?></th>
 	<th><?php echo $this->Paginator->sort('entrytype_id', __d('webzash', 'Type')); ?></th>
 	<th><?php echo $this->Paginator->sort('tag_id', __d('webzash', 'Tag')); ?></th>
-	<th><?php echo $this->Paginator->sort('dr_total', __d('webzash', 'Debit Amount')); ?></th>
-	<th><?php echo $this->Paginator->sort('cr_total', __d('webzash', 'Credit Amount')); ?></th>
-	<th><?php echo $this->Paginator->sort('cr_total', __d('webzash', 'Reconciliation Date')); ?></th>
+	<th><?php echo __d('webzash', 'Debit Amount'); ?></th>
+	<th><?php echo __d('webzash', 'Credit Amount'); ?></th>
+	<th><?php echo __d('webzash', 'Reconciliation Date'); ?></th>
 	</tr>
 
 	<?php

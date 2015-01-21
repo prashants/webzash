@@ -215,7 +215,7 @@ $(document).ready(function() {
 
 		/* Negative balance if its a cash or bank account and balance is Cr */
 		if ($ledger['Ledger']['type'] == 1) {
-			if ($entry_balance['dc'] == 'C') {
+			if ($entry_balance['dc'] == 'C' && $entry_balance['amount'] != '0.00') {
 				echo '<tr class="error-text">';
 			} else {
 				echo '<tr>';
