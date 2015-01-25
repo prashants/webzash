@@ -67,7 +67,7 @@ class EntriesController extends WebzashAppController {
 		}
 
 		/* Setup pagination */
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Entry' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'conditions' => $conditions,
@@ -92,7 +92,7 @@ class EntriesController extends WebzashAppController {
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
 
-		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('entries', $this->CustomPaginator->paginate('Entry'));
 		return;
 	}
 

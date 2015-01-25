@@ -49,14 +49,14 @@ class LogsController extends WebzashAppController {
 			array('controller' => 'dashboard', 'action' => 'index', 'title' => __d('webzash', 'Back')),
 		));
 
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Log' => array(
 				'limit' => 50,
 				'order' => array('Log.date' => 'asc'),
 			)
 		);
 
-		$this->set('logs', $this->Paginator->paginate('Log'));
+		$this->set('logs', $this->CustomPaginator->paginate('Log'));
 		return;
 	}
 

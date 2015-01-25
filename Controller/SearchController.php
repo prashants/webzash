@@ -263,7 +263,7 @@ class SearchController extends WebzashAppController {
 		$this->set('allTags', $this->Tag->fetchAll());
 
 		/* Setup pagination */
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Entry' => array(
 				'fields' => array('Entry.*', 'Entryitem.*'),
 				'limit' => $this->Session->read('Wzsetting.row_count'),
@@ -281,7 +281,7 @@ class SearchController extends WebzashAppController {
 			),
 		);
 
-		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('entries', $this->CustomPaginator->paginate('Entry'));
 		$this->set('showEntries', true);
 
 		return;
