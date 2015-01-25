@@ -121,24 +121,28 @@ $(document).ready(function() {
 <?php if ($showEntries) { ?>
 
 <?php
+	/* Remove the page:x string from the current url */
+	$cur_url = $this->params->url;
+	$cur_url = preg_replace("/\/page:\d/", "", $cur_url);
+
 	echo '<div class="btn-group" role="group">';
 
 	echo $this->Html->link(
 		__d('webzash', 'DOWNLOAD .CSV'),
-		'/' . $this->params->url . '/downloadcsv:true',
+		'/' . $cur_url . '/downloadcsv:true',
 		array('class' => 'btn btn-default btn-sm')
 	);
 
 	echo $this->Html->link(
 		__d('webzash', 'DOWNLOAD .XLS'),
-		'/' . $this->params->url . '/downloadxls:true',
+		'/' . $cur_url . '/downloadxls:true',
 		array('class' => 'btn btn-default btn-sm')
 	);
 
 	echo $this->Html->link(__d('webzash', 'PRINT'), '',
 		array(
 			'class' => 'btn btn-default btn-sm',
-			'onClick' => "window.open('" . $this->Html->url('/' . $this->params->url . '/print:true') . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1000,height=600'); return false;"
+			'onClick' => "window.open('" . $this->Html->url('/' . $cur_url . '/print:true') . "', 'windowname','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1000,height=600'); return false;"
 		)
 	);
 
