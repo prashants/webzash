@@ -27,7 +27,7 @@
 ?>
 
 <div>
-	<?php echo __d('webzash', 'Webzash version : %s', 2.2); ?>
+	<?php echo __d('webzash', 'Webzash version : %s', 2.3); ?>
 </div>
 <div>
 	<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>

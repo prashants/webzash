@@ -1,10 +1,7 @@
 Todo :
 - Use model methods where ever possible
-- Optimize
 - Backup
 - Add Postgres / MS SQL support
-- Cash flow statement
-- Tooltips
 - Ledger / Group in downloads
 - Group statement
 - Keyboard shortcuts
@@ -14,8 +11,6 @@ Todo :
 - Cheque printing
 - Update script
 - Three digit decimal
-- Pagination bug
-- Download report + Pagination not working
 
 Not decided :
 - Cheque number and cheque date ?
@@ -27,3 +22,6 @@ Optional :
 - Income / Expense should have no opening balance
 - Theme email entries
 - Return to correct URL
+- Cash flow statement
+- Tooltips
+- Optimize
