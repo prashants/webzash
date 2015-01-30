@@ -78,7 +78,10 @@ class LedgerTree
 	function add_sub_groups()
 	{
 		$conditions = array('Group.parent_id' => $this->id);
-		$child_group_q = $this->Group->find('all', array('conditions' => $conditions));
+		$child_group_q = $this->Group->find('all', array(
+			'conditions' => $conditions,
+			'order' => array('Group.name'),
+		));
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
@@ -101,7 +104,10 @@ class LedgerTree
  */
 	function add_sub_ledgers()
 	{
-		$child_ledger_q = $this->Ledger->find('all', array('conditions' => array('Ledger.group_id' => $this->id)));
+		$child_ledger_q = $this->Ledger->find('all', array(
+			'conditions' => array('Ledger.group_id' => $this->id),
+			'order' => array('Ledger.name'),
+		));
 		$counter = 0;
 		foreach ($child_ledger_q as $row)
 		{

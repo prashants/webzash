@@ -123,7 +123,10 @@ class AccountList
 		/* Reset is since its no longer needed below 1st level of sub-groups */
 		$this->affects_gross = -1;
 
-		$child_group_q = $this->Group->find('all', array('conditions' => $conditions));
+		$child_group_q = $this->Group->find('all', array(
+			'conditions' => $conditions,
+			'order' => array('Group.name'),
+		));
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
@@ -173,7 +176,10 @@ class AccountList
  */
 	function add_sub_ledgers()
 	{
-		$child_ledger_q = $this->Ledger->find('all', array('conditions' => array('Ledger.group_id' => $this->id)));
+		$child_ledger_q = $this->Ledger->find('all', array(
+			'conditions' => array('Ledger.group_id' => $this->id),
+			'order' => array('Ledger.name'),
+		));
 		$counter = 0;
 		foreach ($child_ledger_q as $row)
 		{
