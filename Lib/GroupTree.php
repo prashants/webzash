@@ -77,7 +77,10 @@ class GroupTree
 	function add_sub_groups()
 	{
 		$conditions = array('Group.parent_id' => $this->id);
-		$child_group_q = $this->Group->find('all', array('conditions' => $conditions));
+		$child_group_q = $this->Group->find('all', array(
+			'conditions' => $conditions,
+			'order' => array('Group.name'),
+		));
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{

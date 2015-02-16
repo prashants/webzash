@@ -263,6 +263,8 @@ $(document).ready(function() {
 				$(cur_obj).parent().parent().after(data);
 				/* Trigger ledger item change */
 					$(cur_obj).parent().parent().next().children().first().next().children().children().children().trigger('change');
+
+				$("tr.ajax-add .ledger-dropdown").select2({width:'100%'});
 			}
 		});
 	});
@@ -284,6 +286,7 @@ $(document).ready(function() {
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 	});
+
 	/* Setup jQuery datepicker ui */
 	$('#EntryChequeDate').datepicker({
 		minDate: startDate,
@@ -291,6 +294,8 @@ $(document).ready(function() {
 		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
 		numberOfMonths: 1,
 	});
+
+	$(".ledger-dropdown").select2({width:'100%'});
 });
 
 </script>

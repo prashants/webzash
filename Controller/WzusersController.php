@@ -58,14 +58,14 @@ class WzusersController extends WebzashAppController {
 			array('controller' => 'admin', 'action' => 'index', 'title' => __d('webzash', 'Back')),
 		));
 
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Wzuser' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Wzuser.username' => 'asc'),
 			)
 		);
 
-		$this->set('wzusers', $this->Paginator->paginate('Wzuser'));
+		$this->set('wzusers', $this->CustomPaginator->paginate('Wzuser'));
 
 		return;
 	}

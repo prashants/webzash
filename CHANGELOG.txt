@@ -1,7 +1,10 @@
-Webzash version 2.3 - Not yet released
---------------------------------------
+Webzash version 2.3 - 25 January 2015
+-------------------------------------
 
-- Support third part login
+- Support third party login
+- Support hotkeys
+- Use select2 for selecting ledgers in entires and reports
+- Fix pagination bug
 
 Webzash version 2.2 - 20 December 2014
 --------------------------------------
