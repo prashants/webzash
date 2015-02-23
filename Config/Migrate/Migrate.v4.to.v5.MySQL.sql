@@ -117,6 +117,8 @@ ALTER TABLE `logs` ADD KEY `id` (`id`);
 ALTER TABLE `logs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 UPDATE `settings` SET `database_version` = '5' WHERE `id` = 1;
+UPDATE `settings` SET `date_format` = 'd-M-Y|dd-M-yy' WHERE `id` = 1;
+UPDATE `settings` SET `timezone` = 'UTC' WHERE `id` = 1;
 
 /* ADD FOREIGN KEY CONSTRAINT */
 ALTER TABLE `groups`
