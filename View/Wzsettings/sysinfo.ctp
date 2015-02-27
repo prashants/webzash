@@ -27,10 +27,10 @@
 ?>
 
 <div>
-	<?php echo __d('webzash', 'Webzash version : %s', 2.3); ?>
+	<?php echo __d('webzash', 'Application version : %s', 2.3); ?>
 </div>
 <div>
-	<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>
+	<?php echo __d('webzash', 'Application database version : %s', 5) ; ?>
 </div>
 <div>
 	<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>

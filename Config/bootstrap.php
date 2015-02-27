@@ -27,6 +27,10 @@
 
 /**** This file contains common functions used throughout the application ****/
 
+/* Application name and url */
+Configure::write('Webzash.AppName', "Webzash");
+Configure::write('Webzash.AppURL', "http://webzash.org");
+
 /**
  * Perform a decimal level calculations on two numbers
  *
@@ -39,8 +43,6 @@
  * @op string operation to be performed
  * @return float result of the operation
 */
-
-/* TODO : Use libraries for larger calculations */
 
 function calculate($param1 = 0, $param2 = 0, $op = '') {
 	if (extension_loaded('bcmath')) {

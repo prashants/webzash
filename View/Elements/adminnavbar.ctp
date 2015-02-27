@@ -35,7 +35,11 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<?php echo $this->Html->link('Webzash', 'http://webzash.org', array('class' => 'navbar-brand', 'target' => '_blank')); ?>
+			<?php echo $this->Html->link(
+				Configure::read('Webzash.AppName'),
+				Configure::read('Webzash.AppURL'),
+				array('class' => 'navbar-brand', 'target' => '_blank')
+			); ?>
 		</div>
 		<div class="navbar-collapse collapse">
 			<?php if ($this->Session->read('Auth.User') && $this->Session->read('Auth.User.role') == 'admin'): ?>

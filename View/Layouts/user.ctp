@@ -24,7 +24,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		Webzash | <?php echo $title_for_layout; ?>
+		<?php echo Configure::read('Webzash.AppName') . ' | ' . $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('favicon.ico',
@@ -67,12 +67,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
+			Powered by
 			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
+				Configure::read('Webzash.AppName'),
+				Configure::read('Webzash.AppURL'),
+				array('class' => 'footer-power', 'target' => '_blank')
+			); ?>
 		</div>
 	</div>
 	<?php // echo $this->element('sql_dump'); ?>
