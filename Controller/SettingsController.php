@@ -551,6 +551,7 @@ class SettingsController extends WebzashAppController {
 					'id' => $accountlist->id,
 					'parent_id' => $accountlist->g_parent_id,
 					'name' => $accountlist->name,
+					'code' => $accountlist->code,
 					'affects_gross' => $accountlist->g_affects_gross,
 				)
 			);
@@ -563,6 +564,7 @@ class SettingsController extends WebzashAppController {
 					'id' => $data['id'],
 					'group_id' => $data['l_group_id'],
 					'name' => $data['name'],
+					'code' => $data['code'],
 					'type' => $data['l_type'],
 					'reconciliation' => $data['l_reconciliation'],
 					'notes' => $data['l_notes'],

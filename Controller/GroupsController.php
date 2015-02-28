@@ -71,6 +71,11 @@ class GroupsController extends WebzashAppController {
 				/* Unset ID */
 				unset($this->request->data['Group']['id']);
 
+				/* If code is empty set it as NULL */
+				if (empty($this->request->data['Group']['code'])) {
+					$this->request->data['Group']['code'] = NULL;
+				}
+
 				/* Save group */
 				$ds = $this->Group->getDataSource();
 				$ds->begin();
@@ -145,6 +150,11 @@ class GroupsController extends WebzashAppController {
 			if ($id == $this->request->data['Group']['parent_id']) {
 				$this->Session->setFlash(__d('webzash', 'Account group and parent group cannot be same.'), 'danger');
 				return;
+			}
+
+			/* If code is empty set it as NULL */
+			if (empty($this->request->data['Group']['code'])) {
+				$this->request->data['Group']['code'] = NULL;
 			}
 
 			/* Save group */

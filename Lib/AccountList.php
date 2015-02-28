@@ -32,6 +32,7 @@ class AccountList
 {
 	var $id = 0;
 	var $name = '';
+	var $code = '';
 
 	var $g_parent_id = 0;		/* Group specific */
 	var $g_affects_gross = 0;	/* Group specific */
@@ -81,6 +82,7 @@ class AccountList
 			$group = $this->Group->find('first', array('conditions' => array('Group.id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
+			$this->code = $group['Group']['code'];
 			$this->g_parent_id = $group['Group']['parent_id'];
 			$this->g_affects_gross = $group['Group']['affects_gross'];
 		}
@@ -185,6 +187,7 @@ class AccountList
 		{
 			$this->children_ledgers[$counter]['id'] = $row['Ledger']['id'];
 			$this->children_ledgers[$counter]['name'] = $row['Ledger']['name'];
+			$this->children_ledgers[$counter]['code'] = $row['Ledger']['code'];
 			$this->children_ledgers[$counter]['l_group_id'] = $row['Ledger']['group_id'];
 			$this->children_ledgers[$counter]['l_type'] = $row['Ledger']['type'];
 			$this->children_ledgers[$counter]['l_reconciliation'] = $row['Ledger']['reconciliation'];

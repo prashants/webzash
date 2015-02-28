@@ -72,6 +72,11 @@ class LedgersController extends WebzashAppController {
 				/* Unset ID */
 				unset($this->request->data['Ledger']['id']);
 
+				/* If code is empty set it as NULL */
+				if (empty($this->request->data['Ledger']['code'])) {
+					$this->request->data['Ledger']['code'] = NULL;
+				}
+
 				/* If opening balance is not set or empty make it 0 */
 				if (empty($this->request->data['Ledger']['op_balance'])) {
 					$this->request->data['Ledger']['op_balance'] = 0;
@@ -135,6 +140,11 @@ class LedgersController extends WebzashAppController {
 			if (Configure::read('Account.locked') == 1) {
 				$this->Session->setFlash(__d('webzash', 'Sorry, no changes are possible since the account is locked.'), 'danger');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show'));
+			}
+
+			/* If code is empty set it as NULL */
+			if (empty($this->request->data['Ledger']['code'])) {
+				$this->request->data['Ledger']['code'] = NULL;
 			}
 
 			/* If opening balance is not set or empty make it 0 */

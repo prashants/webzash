@@ -50,6 +50,7 @@ $(document).ready(function() {
 		));
 
 		echo $this->Form->input('name', array('label' => __d('webzash', 'Ledger name')));
+		echo $this->Form->input('code', array('label' => __d('webzash', 'Ledger code (optional)')));
 		echo $this->Form->input('group_id', array('type' => 'select', 'options' => $parents, 'escape' => false, 'label' => __d('webzash', 'Parent group')));
 
 		echo $this->Form->label(__d('webzash', 'Opening balance'));

@@ -87,6 +87,26 @@ class Ledger extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'code' => array(
+			'rule1' => array(
+				'rule' => 'isUnique',
+				'message' => 'Ledger code is already in use',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+			'rule2' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Ledger code cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+			'rule3' => array(
+				'rule' => 'isUniqueInGroup',
+				'message' => 'Ledger code is already in use by a group account',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
 		'op_balance' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
@@ -187,6 +207,27 @@ class Ledger extends WebzashAppModel {
 			return true;
 		}
 
+	}
+
+	/* Validation - Check if code is unique across groups and ledgers */
+	public function isUniqueInGroup($data) {
+		if (empty($data['code'])) {
+			return true;
+		}
+
+		/* Load the Group model */
+		App::import("Webzash.Model", "Group");
+		$Group = new Group();
+
+		$count = $Group->find('count', array(
+		    'conditions' => array('code' => $data['code']),
+		));
+
+		if ($count != 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/* Validation - Check if value is either 'D' or 'C' */
