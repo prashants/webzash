@@ -32,6 +32,7 @@ class LedgerTree
 {
 	var $id = 0;
 	var $name = '';
+	var $code = '';
 
 	var $children_groups = array();
 	var $children_ledgers = array();
@@ -41,6 +42,8 @@ class LedgerTree
 	var $current_id = -1;
 
 	var $restriction_bankcash = 1;
+
+	var $default_text = 'Please select...';
 
 	var $Group = null;
 	var $Ledger = null;
@@ -66,6 +69,7 @@ class LedgerTree
 			$group = $this->Group->find('first', array('conditions' => array('Group.id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
+			$this->code = $group['Group']['code'];
 		}
 
 		$this->add_sub_ledgers();
@@ -113,6 +117,7 @@ class LedgerTree
 		{
 			$this->children_ledgers[$counter]['id'] = $row['Ledger']['id'];
 			$this->children_ledgers[$counter]['name'] = $row['Ledger']['name'];
+			$this->children_ledgers[$counter]['code'] = $row['Ledger']['code'];
 			$this->children_ledgers[$counter]['type'] = $row['Ledger']['type'];
 			$counter++;
 		}
@@ -126,31 +131,33 @@ class LedgerTree
 		/* Add group name to list */
 		if ($tree->id != 0) {
 			/* Set the group id to negative value since we want to disable it */
-			$this->ledgerList[-$tree->id] = $this->space($c) . h($tree->name);
+			$this->ledgerList[-$tree->id] = $this->space($c) .
+				h(toCodeWithName($tree->code, $tree->name));
 		} else {
-			$this->ledgerList[0] = __d('webzash', 'Please select...');
+			$this->ledgerList[0] = __d('webzash', $this->default_text);
 		}
 
 		/* Add child ledgers */
 		if (count($tree->children_ledgers) > 0) {
 			$c++;
 			foreach ($tree->children_ledgers as $id => $data) {
+				$ledger_name = h(toCodeWithName($data['code'], $data['name']));
 				/* Add ledgers as per restrictions */
 				if ($this->restriction_bankcash == 1 ||
 					$this->restriction_bankcash == 2 ||
 					$this->restriction_bankcash == 3) {
 					/* All ledgers */
-					$this->ledgerList[$data['id']] = $this->space($c) . h($data['name']);
+					$this->ledgerList[$data['id']] = $this->space($c) . $ledger_name;
 				} else if ($this->restriction_bankcash == 4) {
 					/* Only bank or cash ledgers */
 					if ($data['type'] == 1) {
-						$this->ledgerList[$data['id']] = $this->space($c) . h($data['name']);
+						$this->ledgerList[$data['id']] = $this->space($c) . $ledger_name;
 					}
 
 				} else if ($this->restriction_bankcash == 5) {
 					/* Only NON bank or cash ledgers */
 					if ($data['type'] == 0) {
-						$this->ledgerList[$data['id']] = $this->space($c) . h($data['name']);
+						$this->ledgerList[$data['id']] = $this->space($c) . $ledger_name;
 					}
 				}
 			}

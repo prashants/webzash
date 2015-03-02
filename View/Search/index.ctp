@@ -107,6 +107,10 @@ $(document).ready(function() {
 	/* On page load initiate all triggers */
         $('#SearchEntrynumberRestriction').trigger('change');
 	$('#SearchAmountRestriction').trigger('change');
+
+	$(".ledger-dropdown").select2({width:'100%'});
+	$(".entrytype-dropdown").select2({width:'100%'});
+	$(".tag-dropdown").select2({width:'100%'});
 });
 </script>
 
@@ -122,8 +126,11 @@ $(document).ready(function() {
 
 		echo $this->Form->input('ledger_ids', array(
                         'type' => 'select',
+			'escape' => false,
                         'options' => $ledger_options,
+			'disabled' => $ledgers_disabled,
                         'multiple' => true,
+			'class' => 'ledger-dropdown form-control',
 			'default' => 0,
                         'label' => __d('webzash', 'Ledgers')
                 ));
@@ -132,6 +139,7 @@ $(document).ready(function() {
                         'type' => 'select',
                         'options' => $entrytype_options,
                         'multiple' => true,
+			'class' => 'entrytype-dropdown form-control',
 			'default' => 0,
                         'label' => __d('webzash', 'Entrytypes')
                 ));
@@ -189,6 +197,7 @@ $(document).ready(function() {
                         'type' => 'select',
                         'options' => $tag_options,
                         'multiple' => true,
+			'class' => 'tag-dropdown form-control',
 			'default' => 0,
                         'label' => __d('webzash', 'Tags')
                 ));

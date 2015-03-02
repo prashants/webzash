@@ -284,44 +284,11 @@ class Ledger extends WebzashAppModel {
 	public function getName($id) {
 		$ledger = $this->findById($id);
 		if ($ledger) {
-			return $ledger['Ledger']['name'];
+			return toCodeWithName($ledger['Ledger']['code'],
+				$ledger['Ledger']['name']);
 		} else {
 			return __d('webzash', 'ERROR');
 		}
-	}
-
-/**
- * Return the ledgers in list form
- *
- * @restriction_bankcash int restriction of ledgers
- * @return array return an array of ledger ids and names
- */
-	function listAll($restriction_bankcash) {
-
-		/* Fetch all ledgers depending on the entry type */
-		$ledgers[0] = '(Please select..)';
-
-		if ($restriction_bankcash == 4) {
-			$rawledgers = $this->find('all', array(
-				'conditions' => array('Ledger.type' => '1'),
-				'order' => 'Ledger.name'
-			));
-		} else if ($restriction_bankcash == 5) {
-			$rawledgers = $this->find('all', array(
-				'conditions' => array('Ledger.type' => '0'),
-				'order' => 'Ledger.name'
-			));
-		} else {
-			$rawledgers = $this->find('all', array(
-				'order' => 'Ledger.name'
-			));
-		}
-
-		foreach ($rawledgers as $row => $rawledger) {
-			$ledgers[$rawledger['Ledger']['id']] = h($rawledger['Ledger']['name']);
-		}
-
-		return $ledgers;
 	}
 
 /**

@@ -26,6 +26,7 @@
  */
 
 App::uses('WebzashAppController', 'Webzash.Controller');
+App::uses('LedgerTree', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Search Controller
@@ -35,8 +36,8 @@ App::uses('WebzashAppController', 'Webzash.Controller');
  */
 class SearchController extends WebzashAppController {
 
-	public $uses = array('Webzash.Ledger', 'Webzash.Entry', 'Webzash.Entryitem',
-		'Webzash.Entrytype', 'Webzash.Tag');
+	public $uses = array('Webzash.Group', 'Webzash.Ledger', 'Webzash.Entry',
+		'Webzash.Entryitem', 'Webzash.Entrytype', 'Webzash.Tag');
 
 /**
  * index method
@@ -49,16 +50,23 @@ class SearchController extends WebzashAppController {
 
 		$this->set('showEntries', false);
 
-		/* Ledgers */
-		$ledger_options = array();
-		$ledger_options[0] = '(ALL)';
-		$rawledgers = $this->Ledger->find('all', array(
-			'order' => 'Ledger.name'
-		));
-		foreach ($rawledgers as $row => $rawledger) {
-			$ledger_options[$rawledger['Ledger']['id']] = h($rawledger['Ledger']['name']);
+		/* Ledger selection */
+		$ledgers = new LedgerTree();
+		$ledgers->Group = &$this->Group;
+		$ledgers->Ledger = &$this->Ledger;
+		$ledgers->current_id = -1;
+		$ledgers->restriction_bankcash = 1;
+		$ledgers->default_text = '(ALL)';
+		$ledgers->build(0);
+		$ledgers->toList($ledgers, -1);
+		$ledgers_disabled = array();
+		foreach ($ledgers->ledgerList as $row => $data) {
+			if ($row < 0) {
+				$ledgers_disabled[] = $row;
+			}
 		}
-		$this->set('ledger_options', $ledger_options);
+		$this->set('ledger_options', $ledgers->ledgerList);
+		$this->set('ledgers_disabled', $ledgers_disabled);
 
 		/* Entrytypes */
 		$entrytype_options = array();
@@ -285,6 +293,13 @@ class SearchController extends WebzashAppController {
 		$this->set('showEntries', true);
 
 		return;
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
+		$this->Security->unlockedFields = array('ledger_ids');
 	}
 
 	/* Authorization check */

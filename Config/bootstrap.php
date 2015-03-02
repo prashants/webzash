@@ -260,6 +260,17 @@ function toEntryNumber($number, $entrytype_id) {
 }
 
 /**
+ * This function returns the ledger or group name with code if present
+ */
+function toCodeWithName($code, $name) {
+	if (empty($code)) {
+		return $name;
+	} else {
+		return '[' . $code . '] ' . $name;
+	}
+}
+
+/**
  * Read all account settings from database
  */
 function init_account() {

@@ -45,7 +45,7 @@ function print_account_chart($account, $c = 0, $THIS)
 		}
 		echo '<td class="td-group">';
 		echo print_space($counter);
-		echo h($account->name);
+		echo h(toCodeWithName($account->code, $account->name));
 		echo '</td>';
 
 		echo '<td>Group</td>';
@@ -74,7 +74,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<tr class="tr-ledger">';
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo $THIS->Html->link($data['name'], array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
+			echo $THIS->Html->link(toCodeWithName($data['code'], $data['name']), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
 

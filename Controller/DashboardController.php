@@ -122,7 +122,7 @@ class DashboardController extends WebzashAppController {
 		$ledgersCB = array();
 		foreach ($ledgers as $ledger) {
 			$ledgersCB[] = array(
-				'name' => $ledger['Ledger']['name'],
+				'name' => h(toCodeWithName($ledger['Ledger']['code'], $ledger['Ledger']['name'])),
 				'balance' => $this->Ledger->closingBalance($ledger['Ledger']['id']),
 			);
 		}

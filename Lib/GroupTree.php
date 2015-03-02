@@ -32,6 +32,7 @@ class GroupTree
 {
 	var $id = 0;
 	var $name = '';
+	var $code = '';
 
 	var $children_groups = array();
 
@@ -66,6 +67,7 @@ class GroupTree
 			$group = $this->Group->find('first', array('conditions' => array('Group.id' => $id)));
 			$this->id = $group['Group']['id'];
 			$this->name = $group['Group']['name'];
+			$this->code = $group['Group']['code'];
 		}
 
 		$this->add_sub_groups();
@@ -105,7 +107,8 @@ class GroupTree
 		$counter = $c;
 
 		if ($tree->id != 0) {
-			$this->groupList[$tree->id] = $this->space($counter) . h($tree->name);
+			$this->groupList[$tree->id] = $this->space($counter) .
+				h(toCodeWithName($tree->code, $tree->name));
 		}
 
 		/* Process child groups recursively */

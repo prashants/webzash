@@ -1091,12 +1091,17 @@ class ReportsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Ledger Reconciliation'));
 
 		/* Create list of ledgers to pass to view */
-		$ledgers = $this->Ledger->find('list', array(
-			'fields' => array('Ledger.id', 'Ledger.name'),
+		$ledgers_q = $this->Ledger->find('all', array(
+			'fields' => array('Ledger.id', 'Ledger.name', 'Ledger.code'),
 			'order' => array('Ledger.name'),
 			'conditions' => array('Ledger.reconciliation' => '1'),
 		));
-		$ledgers = array(0 => __d('webzash', 'Please select...')) + $ledgers;
+		$ledgers = array(0 => __d('webzash', 'Please select...'));
+		foreach ($ledgers_q as $row) {
+			$ledgers[$row['Ledger']['id']] = toCodeWithName(
+				$row['Ledger']['code'], $row['Ledger']['name']
+			);
+		}
 		$this->set('ledgers', $ledgers);
 
 		if ($this->request->is('post')) {
