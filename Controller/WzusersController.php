@@ -27,6 +27,7 @@
 
 App::uses('WebzashAppController', 'Webzash.Controller');
 App::uses('ConnectionManager', 'Model');
+App::uses('TPAuth', 'Webzash.Lib');
 
 /**
  * Webzash Plugin Wzusers Controller
@@ -57,14 +58,14 @@ class WzusersController extends WebzashAppController {
 			array('controller' => 'admin', 'action' => 'index', 'title' => __d('webzash', 'Back')),
 		));
 
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Wzuser' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Wzuser.username' => 'asc'),
 			)
 		);
 
-		$this->set('wzusers', $this->Paginator->paginate('Wzuser'));
+		$this->set('wzusers', $this->CustomPaginator->paginate('Wzuser'));
 
 		return;
 	}
@@ -368,6 +369,10 @@ class WzusersController extends WebzashAppController {
  */
 	public function login() {
 
+		if (Configure::read('Webzash.ThirdPartyLogin')) {
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'tplogin'));
+		}
+
 		$this->set('title_for_layout', __d('webzash', 'User Login'));
 
 		$this->layout = 'user';
@@ -525,9 +530,123 @@ class WzusersController extends WebzashAppController {
 	}
 
 /**
+ * Third party login method
+ */
+	public function tplogin() {
+
+		if (!Configure::read('Webzash.ThirdPartyLogin')) {
+			$this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
+		}
+
+		$this->set('title_for_layout', __d('webzash', 'User Login'));
+
+		$this->layout = 'user';
+
+		$view = new View($this);
+		$this->Html = $view->loadHelper('Html');
+
+		$this->Wzuser->useDbConfig = 'wz';
+		$this->Wzsetting->useDbConfig = 'wz';
+
+		/* on POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			$tpauth = new TPAuth(Configure::read('Webzash.ThirdPartyLoginSystem'));
+			$login_status = $tpauth->checkPassword(
+				$this->request->data['Wzuser']['username'],
+				$this->request->data['Wzuser']['password']);
+
+			if ($login_status) {
+
+				$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+					'username' => $this->request->data['Wzuser']['username'],
+				)));
+
+				$user_data = array();
+				if ($wzuser) {
+					$user_data = array(
+						'id' => $wzuser['Wzuser']['id'],
+						'username' => $wzuser['Wzuser']['username'],
+						'role' => $wzuser['Wzuser']['role'],
+					);
+				} else {
+					/* Disable validations for fullname and email */
+					$this->Wzuser->validate['fullname'] = array();
+					$this->Wzuser->validate['email'] = array();
+
+					/* if user not found create a account */
+					$new_user['Wzuser'] = array(
+						'username' => $this->request->data['Wzuser']['username'],
+						'password' => '*',
+						'fullname' => '',
+						'email' => '',
+						'timezone' => 'UTC',
+						'role' => 'guest',
+						'status' => 0,
+						'verification_key' => '',
+						'email_verified' => 0,
+						'admin_verified' => 0,
+						'retry_count' => 0,
+						'all_accounts' => 0,
+					);
+
+					/* Create user */
+					$this->Wzuser->create();
+					if (!$this->Wzuser->save($new_user)) {
+						$this->Session->setFlash(__d('webzash', 'Failed to create user.'), 'danger');
+						return;
+					}
+
+					$user_data = array(
+						'id' => $this->Wzuser->id,
+						'username' => $this->Wzuser->username,
+						'role' => $this->Wzuser->role,
+					);
+				}
+
+				$this->Auth->login($user_data);
+
+				$wzsetting = $this->Wzsetting->findById(1);
+
+				if (empty($wzsetting['Wzsetting']['enable_logging'])) {
+					$this->Session->write('Wzsetting.enable_logging', 0);
+				} else {
+					$this->Session->write('Wzsetting.enable_logging', 1);
+				}
+				if (empty($wzsetting['Wzsetting']['row_count'])) {
+					$this->Session->write('Wzsetting.row_count', 10);
+				} else {
+					$this->Session->write('Wzsetting.row_count', $wzsetting['Wzsetting']['row_count']);
+				}
+				if (empty($wzsetting['Wzsetting']['drcr_toby'])) {
+					$this->Session->write('Wzsetting.drcr_toby', 'drcr');
+				} else {
+					$this->Session->write('Wzsetting.drcr_toby', $wzsetting['Wzsetting']['drcr_toby']);
+				}
+
+				if ($this->Auth->user('role') == 'admin') {
+					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
+				} else {
+					return $this->redirect($this->Auth->redirectUrl());
+				}
+
+			} else {
+				$this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'danger');
+			}
+		}
+	}
+
+/**
  * logout method
  */
 	public function logout() {
+
+		if (Configure::read('Webzash.ThirdPartyLogin')) {
+			$this->Auth->logout();
+			$tpauth = new TPAuth(Configure::read('Webzash.ThirdPartyLoginSystem'));
+			return $this->redirect($tpauth->logoutURL());
+		}
+
 		$this->Session->destroy();
 		return $this->redirect($this->Auth->logout());
 	}
@@ -782,6 +901,7 @@ class WzusersController extends WebzashAppController {
  * reset user password by admin method
  */
 	public function resetpass() {
+
 		$this->set('title_for_layout', __d('webzash', 'Reset Password'));
 
 		$this->Wzuser->useDbConfig = 'wz';
@@ -849,6 +969,7 @@ class WzusersController extends WebzashAppController {
  * forgot password method
  */
 	public function forgot() {
+
 		$this->set('title_for_layout', __d('webzash', 'Forgot Password'));
 
 		$this->layout = 'user';
@@ -1190,7 +1311,23 @@ class WzusersController extends WebzashAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'verify', 'resend', 'forgot', 'register');
+
+		Configure::load('Webzash.config', 'default' , false);
+
+		/* If third party login is active then disable methods by redirecting */
+		if (Configure::read('Webzash.ThirdPartyLogin')) {
+			if ($this->action == 'add' || $this->action == 'verify' ||
+				$this->action == 'resend' || $this->action == 'profile' ||
+				$this->action == 'changepass' || $this->action == 'resetpass' ||
+				$this->action == 'forgot' || $this->action == 'register' ||
+				$this->action == 'first') {
+				$tpauth = new TPAuth(Configure::read('Webzash.ThirdPartyLoginSystem'));
+				return $this->redirect($tpauth->siteURL());
+			}
+		}
+
+		$this->Auth->allow('login', 'tplogin', 'logout', 'verify',
+			'resend', 'forgot', 'register');
 	}
 
 	/* Authorization check */

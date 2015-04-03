@@ -24,32 +24,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-?>
 
-<div>
-	<?php echo __d('webzash', 'Webzash version : %s', 2.3); ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>
-</div>
-<div>
-	<?php
-		if (extension_loaded('bcmath')) {
-			echo __d('webzash', 'PHP BC Math library : Yes');
-		} else {
-			echo '<span class="error-text">';
-			echo __d('webzash', 'PHP BC Math library : No');
-			echo '</span>';
-		}
-	?>
-</div>
-<div>
-	<?php
-		if (method_exists('SQLite3', 'version')) {
-			echo __d('webzash', 'PHP Sqlite3 library : %s', SQLite3::version());
-		}
-	?>
-</div>
+$config = '';
+
+/* Allow Webzash to authenticate with other third party systems */
+
+Configure::write('Webzash.ThirdPartyLogin', FALSE);                /* TRUE / FALSE */
+Configure::write('Webzash.ThirdPartyLoginSystem', '');      /* e.g. : 'Joomla' */

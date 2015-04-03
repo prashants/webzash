@@ -25,6 +25,20 @@
  * THE SOFTWARE.
  */
 ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#LedgerGroupId").select2({width:'100%'});
+});
+</script>
+
+<style type="text/css">
+.select2-container--default .select2-results__option {
+	font-weight: bold;
+	color: #333;
+}
+</style>
+
 <div class="ledgers edit form">
 	<?php
 		echo $this->Form->create('Ledger', array(

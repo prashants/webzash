@@ -50,7 +50,7 @@ class TagsController extends WebzashAppController {
 			array('controller' => 'tags', 'action' => 'add', 'title' => __d('webzash', 'Add Tag')),
 		));
 
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Tag' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Tag.title' => 'asc'),
@@ -60,7 +60,7 @@ class TagsController extends WebzashAppController {
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
 
-		$this->set('tags', $this->Paginator->paginate('Tag'));
+		$this->set('tags', $this->CustomPaginator->paginate('Tag'));
 		return;
 	}
 

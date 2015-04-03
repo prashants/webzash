@@ -25,31 +25,26 @@
  * THE SOFTWARE.
  */
 ?>
+<div class="wzusers login form">
+<?php
+	echo $this->Form->create('Wzuser', array(
+		'inputDefaults' => array(
+			'div' => 'form-group',
+			'wrapInput' => false,
+			'class' => 'form-control',
+		),
+	));
 
-<div>
-	<?php echo __d('webzash', 'Webzash version : %s', 2.3); ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>
-</div>
-<div>
-	<?php
-		if (extension_loaded('bcmath')) {
-			echo __d('webzash', 'PHP BC Math library : Yes');
-		} else {
-			echo '<span class="error-text">';
-			echo __d('webzash', 'PHP BC Math library : No');
-			echo '</span>';
-		}
-	?>
-</div>
-<div>
-	<?php
-		if (method_exists('SQLite3', 'version')) {
-			echo __d('webzash', 'PHP Sqlite3 library : %s', SQLite3::version());
-		}
-	?>
+	echo $this->Form->input('username', array('label' => __d('webzash', 'Username')));
+	echo $this->Form->input('password', array('label' => __d('webzash', 'Password')));
+
+	echo '<div class="form-group">';
+	echo $this->Form->submit(__d('webzash', 'Login'), array(
+	'div' => false,
+	'class' => 'btn btn-primary'
+	));
+	echo '</div>';
+
+	echo $this->Form->end();
+?>
 </div>

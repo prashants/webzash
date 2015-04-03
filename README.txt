@@ -49,9 +49,11 @@ Step 4. Edit the app/Config/bootstrap.php file and add the following lines
  CakePlugin::load('Webzash', array('routes' => true, 'bootstrap' => true));
 
 Step 5. Edit the app/Config/routes.php file and comment out the default route
-on line no. 27 by prepending two forward slashes as shown below
+on line no. 27 and 31 by prepending two forward slashes as shown below
 
  // Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+
+ // Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 Step 6. Copy the app/Config/database.php.default file to app/Config/database.php
 

@@ -774,7 +774,7 @@ class ReportsController extends WebzashAppController {
 		if (isset($this->passedArgs['downloadcsv']) ||
 			isset($this->passedArgs['downloadxls']) ||
 			isset($this->passedArgs['print'])) {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => 100000000000,	/* Max limit */
@@ -792,7 +792,7 @@ class ReportsController extends WebzashAppController {
 				),
 			);
 		} else {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
@@ -814,7 +814,7 @@ class ReportsController extends WebzashAppController {
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
 
-		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('entries', $this->CustomPaginator->paginate('Entry'));
 		$this->set('showEntries', true);
 
 		/* Download report */
@@ -1004,7 +1004,7 @@ class ReportsController extends WebzashAppController {
 		if (isset($this->passedArgs['download']) ||
 			isset($this->passedArgs['downloadxls']) ||
 			isset($this->passedArgs['print'])) {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => 100000000000,	/* Max limit */
@@ -1022,7 +1022,7 @@ class ReportsController extends WebzashAppController {
 				),
 			);
 		} else {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
@@ -1044,7 +1044,7 @@ class ReportsController extends WebzashAppController {
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
 
-		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('entries', $this->CustomPaginator->paginate('Entry'));
 		$this->set('showEntries', true);
 
 		/* Download report */
@@ -1310,7 +1310,7 @@ class ReportsController extends WebzashAppController {
 		if (isset($this->passedArgs['download']) ||
 			isset($this->passedArgs['downloadxls']) ||
 			isset($this->passedArgs['print'])) {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => 100000000000,	/* Max limit */
@@ -1328,7 +1328,7 @@ class ReportsController extends WebzashAppController {
 				),
 			);
 		} else {
-			$this->Paginator->settings = array(
+			$this->CustomPaginator->settings = array(
 				'Entry' => array(
 					'fields' => array('Entry.*', 'Entryitem.*'),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
@@ -1350,7 +1350,7 @@ class ReportsController extends WebzashAppController {
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
 
-		$this->set('entries', $this->Paginator->paginate('Entry'));
+		$this->set('entries', $this->CustomPaginator->paginate('Entry'));
 		$this->set('showEntries', true);
 
 		/* Download report */

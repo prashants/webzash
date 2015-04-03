@@ -24,32 +24,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-?>
 
-<div>
-	<?php echo __d('webzash', 'Webzash version : %s', 2.3); ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'Webzash database version : %s', 5) ; ?>
-</div>
-<div>
-	<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>
-</div>
-<div>
-	<?php
-		if (extension_loaded('bcmath')) {
-			echo __d('webzash', 'PHP BC Math library : Yes');
-		} else {
-			echo '<span class="error-text">';
-			echo __d('webzash', 'PHP BC Math library : No');
-			echo '</span>';
-		}
-	?>
-</div>
-<div>
-	<?php
-		if (method_exists('SQLite3', 'version')) {
-			echo __d('webzash', 'PHP Sqlite3 library : %s', SQLite3::version());
-		}
-	?>
-</div>
+App::uses('JoomlaAuth', 'Webzash.Lib');
+
+class TPAuth {
+
+        public function __construct($authlib) {
+                $className = $authlib . 'Auth';
+                $this->auth = new $className;
+        }
+
+        public function checkPassword($username, $password) {
+                return $this->auth->checkPassword($username, $password);
+        }
+
+        public function siteURL() {
+                return $this->auth->site_url;
+        }
+
+        public function loginURL() {
+                return $this->auth->login_url;
+        }
+
+        public function logoutURL() {
+                return $this->auth->logout_url;
+        }
+
+        public function default_email() {
+                return $this->auth->default_email;
+        }
+
+        public function admin_username() {
+                return $this->auth->admin_username;
+        }
+}

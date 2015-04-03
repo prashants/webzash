@@ -58,14 +58,14 @@ class WzaccountsController extends WebzashAppController {
 			array('controller' => 'admin', 'action' => 'index', 'title' => __d('webzash', 'Back')),
 		));
 
-		$this->Paginator->settings = array(
+		$this->CustomPaginator->settings = array(
 			'Wzaccount' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
 				'order' => array('Wzaccount.label' => 'asc'),
 			)
 		);
 
-		$this->set('wzaccounts', $this->Paginator->paginate('Wzaccount'));
+		$this->set('wzaccounts', $this->CustomPaginator->paginate('Wzaccount'));
 
 		return;
 	}

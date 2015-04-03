@@ -1,12 +1,16 @@
 Todo :
 - Use model methods where ever possible
-- Optimize
 - Backup
 - Add Postgres / MS SQL support
-- Cash flow statement
-- Tooltips
 - Ledger / Group in downloads
 - Group statement
+- Keyboard shortcuts
+- Currency format
+- Currency decimal places
+- Add reference number, name and date
+- Cheque printing
+- Update script
+- Three digit decimal
 
 Not decided :
 - Cheque number and cheque date ?
@@ -18,3 +22,6 @@ Optional :
 - Income / Expense should have no opening balance
 - Theme email entries
 - Return to correct URL
+- Cash flow statement
+- Tooltips
+- Optimize
