@@ -211,32 +211,69 @@ function dateFromSql($sqldate) {
 	return date(Configure::read('Account.dateformatPHP'), $unixTimestamp);
 }
 
+
+function makecomma($input)
+{
+    if(strlen($input)<=2){ return $input; }
+    $length=substr($input,0,strlen($input)-2);
+    $formatted_input = makecomma($length).",".substr($input,-2);
+    return $formatted_input;
+}
+
+function formatInIndianStyle($num){
+	// The Locale settings are still PITA to setup even on ubuntu
+	// so we have to work around for the native function to make sure
+	// it always works as expected.
+	
+	// if( function_exists('money_format')){
+	// 	return money_format('%!i', $num);
+	// }else{
+		$pos = strpos((string)$num, ".");
+		if ($pos === false) { $decimalpart="00";}
+		else { $decimalpart= substr($num, $pos+1, 2); $num = substr($num,0,$pos); }
+
+		if(strlen($num)>3 & strlen($num) <= 12){
+					$last3digits = substr($num, -3 );
+					$numexceptlastdigits = substr($num, 0, -3 );
+					$formatted = makecomma($numexceptlastdigits);
+					$stringtoreturn = $formatted.",".$last3digits.".".$decimalpart ;
+		}elseif(strlen($num)<=3){
+					$stringtoreturn = $num.".".$decimalpart ;
+		}elseif(strlen($num)>12){
+					$stringtoreturn = number_format($num, 2);
+		}
+		if(substr($stringtoreturn,0,2)=="-,"){$stringtoreturn = "-".substr($stringtoreturn,2 );}
+		return $stringtoreturn;	
+	//}
+}
+
+
 function toCurrency($dc, $amount) {
 	if (calculate($amount, 0, '==')) {
-		return number_format(0, 2, '.', '');
+		return formatInIndianStyle(number_format(0, 2, '.', ''));
 	}
 
 	if ($dc == 'D') {
 		if (calculate($amount, 0, '>')) {
-			return 'Dr ' . number_format($amount, 2, '.', '');
+			return 'Dr ' . formatInIndianStyle(number_format($amount, 2, '.', ''));
 		} else {
-			return 'Cr ' . number_format(calculate($amount, 0, 'n'), 2, '.', '');
+			return 'Cr ' . formatInIndianStyle(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
 		}
 	} else if ($dc == 'C') {
 		if (calculate($amount, 0, '>')) {
-			return 'Cr ' . number_format($amount, 2, '.', '');
+			return 'Cr ' . formatInIndianStyle(number_format($amount, 2, '.', ''));
 		} else {
-			return 'Dr ' . number_format(calculate($amount, 0, 'n'), 2, '.', '');
+			return 'Dr ' . formatInIndianStyle(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
 		}
 	} else if ($dc == 'X') {
 		/* Dr for positive and Cr for negative value */
 		if (calculate($amount, 0, '>')) {
-			return 'Dr ' . number_format($amount, 2, '.', '');
+			return 'Dr ' . formatInIndianStyle(number_format($amount, 2, '.', ''));
 		} else {
-			return 'Cr ' . number_format(calculate($amount, 0, 'n'), 2, '.', '');
+			return 'Cr ' . formatInIndianStyle(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
 		}
 	} else {
-		return number_format($amount, 2, '.', '');
+		return formatInIndianStyle(number_format($amount, 2, '.', ''));
 	}
 	return __d('webzash', 'ERROR');
 }

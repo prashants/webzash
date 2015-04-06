@@ -200,7 +200,7 @@ $(document).ready(function() {
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current opening balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($current_op['dc'], $current_op['amount']) . '</td>';
+		echo '<td class=\'right\'>' . toCurrency($current_op['dc'], $current_op['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>
@@ -235,17 +235,17 @@ $(document).ready(function() {
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';
 
 		if ($entry['Entryitem']['dc'] == 'D') {
-			echo '<td>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
+			echo '<td class=\'right\'>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
 			echo '<td>' . '</td>';
 		} else if ($entry['Entryitem']['dc'] == 'C') {
 			echo '<td>' . '</td>';
-			echo '<td>' . toCurrency('C', $entry['Entryitem']['amount']) . '</td>';
+			echo '<td class=\'right\'>' . toCurrency('C', $entry['Entryitem']['amount']) . '</td>';
 		} else {
 			echo '<td>' . __d('webzash', 'ERROR') . '</td>';
 			echo '<td>' . __d('webzash', 'ERROR') . '</td>';
 		}
 
-		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
+		echo '<td class=\'right\'>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 
 		echo '<td>';
 		echo $this->Html->link($this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-log-in')) . __d('webzash', ' View'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'view', h($entryTypeLabel), $entry['Entry']['id']), array('class' => 'no-hover', 'escape' => false));
@@ -264,7 +264,7 @@ $(document).ready(function() {
 		echo '<td colspan="7">';
 		echo __d('webzash', 'Current closing balance');
 		echo '</td>';
-		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
+		echo '<td class=\'right\'>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';
 	?>
