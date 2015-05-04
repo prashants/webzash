@@ -538,6 +538,93 @@ class WzusersController extends WebzashAppController {
 			$this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
 		}
 
+        //KFN Modification for Joomla auto login - keithn@kfnwebsolutions.com
+        if (Configure::read('Webzash.JoomlaAuto')) {
+        $JA = new TPAuth(Configure::read('Webzash.ThirdPartyLoginSystem'));
+        $User = $JA->checkPassword("Joomla", "Auto"); //arguments ignored
+
+            if ($User !== false) {
+
+                $wzuser = $this->Wzuser->find('first', array('conditions' => array(
+                    'username' => $User['username'],
+                )));
+
+                $user_data = array();
+                if ($wzuser) {
+                    $user_data = array(
+                        'id' => $wzuser['Wzuser']['id'],
+                        'username' => $wzuser['Wzuser']['username'],
+                        'role' => $wzuser['Wzuser']['role'],
+                    );
+                } else {
+                    /* Disable validations for fullname and email */
+                    $this->Wzuser->validate['fullname'] = array();
+                    $this->Wzuser->validate['email'] = array();
+
+                    /* if user not found create a account */
+                    $new_user['Wzuser'] = array(
+                        'username' => $User['username'],
+                        'password' => '*',
+                        'fullname' => $User['name'],
+                        'email' => $User['email'],
+                        'timezone' => JOOMLA_TZ,
+                        'role' => JOOMLA_Role,
+                        'status' => 1,
+                        'verification_key' => '',
+                        'email_verified' => 1,
+                        'admin_verified' => 0,
+                        'retry_count' => 0,
+                        'all_accounts' => JOOMLA_AllAccounts,
+                    );
+
+                    /* Create user */
+                    $this->Wzuser->create();
+                    if (!$this->Wzuser->save($new_user)) {
+                        $this->Session->setFlash(__d('webzash', 'Failed to create user.'), 'danger');
+                        return;
+                    }
+
+                    $user_data = array(
+                        'id' => $this->Wzuser->id,
+                        'username' => $this->Wzuser->username,
+                        'role' => $this->Wzuser->role,
+                    );
+                }
+
+                $this->Auth->login($user_data);
+
+                $wzsetting = $this->Wzsetting->findById(1);
+
+                if (empty($wzsetting['Wzsetting']['enable_logging'])) {
+                    $this->Session->write('Wzsetting.enable_logging', 0);
+                } else {
+                    $this->Session->write('Wzsetting.enable_logging', 1);
+                }
+                if (empty($wzsetting['Wzsetting']['row_count'])) {
+                    $this->Session->write('Wzsetting.row_count', 10);
+                } else {
+                    $this->Session->write('Wzsetting.row_count', $wzsetting['Wzsetting']['row_count']);
+                }
+                if (empty($wzsetting['Wzsetting']['drcr_toby'])) {
+                    $this->Session->write('Wzsetting.drcr_toby', 'drcr');
+                } else {
+                    $this->Session->write('Wzsetting.drcr_toby', $wzsetting['Wzsetting']['drcr_toby']);
+                }
+
+                if ($this->Auth->user('role') == 'admin') {
+                    return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
+                } else {
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
+
+            } else {
+                $this->Session->setFlash(__d('webzash', 'Login failed. Please, try again.'), 'danger');
+            }
+            die();
+        }
+        //END KFN
+
+
 		$this->set('title_for_layout', __d('webzash', 'User Login'));
 
 		$this->layout = 'user';
