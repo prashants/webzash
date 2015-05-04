@@ -2,10 +2,10 @@
 
 //JOOMLA DB SETTINGS
 define("JOOMLA_DB_HOSTNAME", "localhost");
-define("JOOMLA_DB_NAME", "kay7_geek");
-define("JOOMLA_DB_USERNAME", "kay7_geek");
-define("JOOMLA_DB_PASSWORD", "kfnsimple");
-define("JOOMLA_DB_PREFIX", "c24qb_"); /* joomla database prefix */
+define("JOOMLA_DB_NAME", "");
+define("JOOMLA_DB_USERNAME", "");
+define("JOOMLA_DB_PASSWORD", "");
+define("JOOMLA_DB_PREFIX", ""); /* joomla database prefix, INCLUDE UNDERSCORE (_) */
 
 define("JOOMLA_AllAccounts", 1); //Set to 1 to enable Joomla created accounts access to all accounts in Webzash
 define("JOOMLA_Role", "guest"); //Default user role for Joomla created accounts
