@@ -1,4 +1,29 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Webzash - Easy to use web based double entry accounting software
+ *
+ * Copyright (c) 2014 Prashant Shah <pshah.mumbai@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
 //JOOMLA DB SETTINGS
 define("JOOMLA_DB_HOSTNAME", "localhost");
@@ -12,8 +37,8 @@ define("JOOMLA_Role", "guest"); //Default user role for Joomla created accounts
 define("JOOMLA_TZ", "UTC"); //Default timezone for Joomla created accounts.
 
 //JOOMLA URLS
-define("JOOMLA_LOGOUT_URL", "http://kfnwebsolutions.com/SandBox/Geek/index.php?option=com_users&task=logout");
-define("JOOMLA_LOGIN_URL", "http://kfnwebsolutions.com/SandBox/Geek/index.php?option=com_users&task=login");
+define("JOOMLA_LOGOUT_URL", ""); //http://www.example.com/index.php?option=com_users&task=logout
+define("JOOMLA_LOGIN_URL", ""); // http://www.example.com/index.php?option=com_users&task=login
 
 
 class JoomlaAutoAuth{
@@ -48,6 +73,9 @@ public $login_url = JOOMLA_LOGIN_URL;
                 die("IMPOSSIBLE ERROR HAS OCCURRED.");
             }
         $JUser = mysqli_fetch_assoc($R_GetUser);
+            if (!$JUser){
+                die("INVALID JOOMLA USER");   
+            }
         return array('username'=>$JUsername, 'name'=>$JUser['name'], 'email'=>$JUser['email']);
         /*
         if (false) {

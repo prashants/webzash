@@ -29,8 +29,8 @@ $config = '';
 
 /* Allow Webzash to authenticate with other third party systems */
 
-Configure::write('Webzash.ThirdPartyLogin', true);                /* TRUE / FALSE */
-Configure::write('Webzash.ThirdPartyLoginSystem', 'JoomlaAuto');      /* e.g. : 'Joomla' or 'JoomlaAuto'*/
+Configure::write('Webzash.ThirdPartyLogin', false);                /* TRUE / FALSE */
+Configure::write('Webzash.ThirdPartyLoginSystem', '');      /* e.g. : 'Joomla' or 'JoomlaAuto'*/
 
 //KFN Modification for Joomla auto login - keithn@kfnwebsolutions.com
-Configure::write('Webzash.JoomlaAuto', true);                /* TRUE / FALSE */
+Configure::write('Webzash.JoomlaAuto', false);                /* TRUE / FALSE */
