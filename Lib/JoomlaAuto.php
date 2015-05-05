@@ -4,7 +4,7 @@
  *
  * Webzash - Easy to use web based double entry accounting software
  *
- * Copyright (c) 2014 Prashant Shah <pshah.mumbai@gmail.com>
+ * Copyright (c) 2015 Keith Neely <keithn@kfnwebsolutions.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +74,7 @@ public $login_url = JOOMLA_LOGIN_URL;
             }
         $JUser = mysqli_fetch_assoc($R_GetUser);
             if (!$JUser){
-                die("INVALID JOOMLA USER");   
+                die("INVALID JOOMLA USER");
             }
         return array('username'=>$JUsername, 'name'=>$JUser['name'], 'email'=>$JUser['email']);
         /*
