@@ -142,6 +142,12 @@ class Entry extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
+			'rule4' => array(
+				'rule' => 'isPositive',
+				'message' => 'Debit total cannot be less than 0.00',
+				'required' => true,
+				'allowEmpty' => false,
+			),
 		),
 		'cr_total' => array(
 			'rule1' => array(
@@ -159,6 +165,18 @@ class Entry extends WebzashAppModel {
 			'rule3' => array(
 				'rule' => array('maxLength', 28),
 				'message' => 'Credit total length cannot be more than 28',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule4' => array(
+				'rule' => 'isPositive',
+				'message' => 'Credit total cannot be less than 0.00',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule5' => array(
+				'rule' => 'isEqualDrTotal',
+				'message' => 'Credit total is not equal to debit total',
 				'required' => true,
 				'allowEmpty' => false,
 			),
@@ -262,6 +280,40 @@ class Entry extends WebzashAppModel {
 		}
 	}
 
+/**
+ * Validation - Check if value is a positive value
+ */
+	public function isPositive($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+		if ($value >= 0.00) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
+ * Validation - Check if debit total and credit total are equal
+ */
+	public function isEqualDrTotal($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+
+		$crvalue = $values[0];
+		$drvalue = $this->data['Entry']['dr_total'];
+
+		if ($drvalue == $crvalue) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 /**
  * Validation - Check if valid datetime
