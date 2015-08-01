@@ -1,31 +1,3 @@
-DROP TRIGGER IF EXISTS `bfins_%_PREFIX_%ledgers`;
-CREATE TRIGGER `bfins_%_PREFIX_%ledgers` BEFORE INSERT ON `%_PREFIX_%ledgers`
-FOR EACH ROW BEGIN
-	SET NEW.op_balance_dc = UPPER(NEW.op_balance_dc);
-	IF !(NEW.op_balance_dc <=> 'D' OR NEW.op_balance_dc <=> 'C') THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance_dc restricted to char D or C.';
-	END IF;
-	IF (NEW.op_balance < 0.0) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance cannot be less than 0.00.';
-	END IF;
-END;
-
-DROP TRIGGER IF EXISTS `bfup_%_PREFIX_%ledgers`;
-CREATE TRIGGER `bfup_%_PREFIX_%ledgers` BEFORE UPDATE ON `%_PREFIX_%ledgers`
-FOR EACH ROW BEGIN
-	IF (NEW.op_balance_dc IS NOT NULL) THEN
-		SET NEW.op_balance_dc = UPPER(NEW.op_balance_dc);
-		IF !(NEW.op_balance_dc <=> 'D' OR NEW.op_balance_dc <=> 'C') THEN
-			SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance_dc restricted to char D or C.';
-		END IF;
-	END IF;
-	IF (NEW.op_balance IS NOT NULL) THEN
-		IF (NEW.op_balance < 0.0) THEN
-			SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'op_balance cannot be less than 0.00.';
-		END IF;
-	END IF;
-END;
-
 DROP TRIGGER IF EXISTS `bfins_%_PREFIX_%entries`;
 CREATE TRIGGER `bfins_%_PREFIX_%entries` BEFORE INSERT ON `%_PREFIX_%entries`
 FOR EACH ROW BEGIN
@@ -111,56 +83,5 @@ FOR EACH ROW BEGIN
 		IF (NEW.amount < 0.0) THEN
 			SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'amount cannot be less than 0.00.';
 		END IF;
-	END IF;
-END;
-
-DROP TRIGGER IF EXISTS `bfins_%_PREFIX_%settings`;
-CREATE TRIGGER `bfins_%_PREFIX_%settings` BEFORE INSERT ON `%_PREFIX_%settings`
-FOR EACH ROW BEGIN
-	SET NEW.id = 1;
-
-	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date < NEW.fy_start) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present before fy_start.';
-	END IF;
-
-	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date > NEW.fy_end) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present after fy_end.';
-	END IF;
-
-	IF (NEW.fy_start >= NEW.fy_end) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'fy_start cannot be after fy_end.';
-	END IF;
-END;
-
-DROP TRIGGER IF EXISTS `bfup_%_PREFIX_%settings`;
-CREATE TRIGGER `bfup_%_PREFIX_%settings` BEFORE UPDATE ON `%_PREFIX_%settings`
-FOR EACH ROW BEGIN
-	DECLARE fy_start date;
-	DECLARE fy_end date;
-
-	SET NEW.id = 1;
-
-	IF (NEW.fy_start IS NULL) THEN
-		SET fy_start = OLD.fy_start;
-	ELSE
-		SET fy_start = NEW.fy_start;
-	END IF;
-
-	IF (NEW.fy_end IS NULL) THEN
-		SET fy_end = OLD.fy_end;
-	ELSE
-		SET fy_end = NEW.fy_end;
-	END IF;
-
-	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date < fy_start) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present before fy_start.';
-	END IF;
-
-	IF EXISTS (SELECT id FROM `%_PREFIX_%entries` WHERE date > fy_end) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'entries present after fy_end.';
-	END IF;
-
-	IF (fy_start >= fy_end) THEN
-		SIGNAL SQLSTATE '12345' SET MESSAGE_TEXT = 'fy_start cannot be after fy_end.';
 	END IF;
 END;

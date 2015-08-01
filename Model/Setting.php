@@ -104,6 +104,12 @@ class Setting extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
+			'rule3' => array(
+				'rule' => 'checkEntries',
+				'message' => 'Entries present beyond the financial year start and end dates',
+				'required' => true,
+				'allowEmpty' => false,
+			),
 		),
 		'currency_symbol' => array(
 			'rule1' => array(
@@ -424,6 +430,37 @@ class Setting extends WebzashAppModel {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/* Validation - Check if entries present beyond financial year start and end */
+	public function checkEntries($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+
+		$startdate = dateToSql($this->data['Setting']['fy_start']);
+		$enddate = dateToSql($value);
+
+		/* Load the Ledger model */
+		App::import("Webzash.Model", "Entry");
+		$Entry = new Entry();
+
+		$count = $Entry->find('count', array(
+			'conditions' => array(
+				'OR' => array(
+					'Entry.date <' => $startdate,
+					'Entry.date >' => $enddate,
+				),
+			),
+		));
+
+		if ($count != 0) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }

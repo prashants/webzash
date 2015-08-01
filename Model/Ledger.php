@@ -126,6 +126,12 @@ class Ledger extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
+			'rule4' => array(
+				'rule' => 'isPositive',
+				'message' => 'Opening balance cannot be less than 0.00',
+				'required' => true,
+				'allowEmpty' => false,
+			),
 		),
 		'op_balance_dc' => array(
 			'rule1' => array(
@@ -252,6 +258,20 @@ class Ledger extends WebzashAppModel {
 		}
 		$value = $values[0];
 		if (preg_match('/^[0-9]{0,23}+(\.[0-9]{0,2})?$/', $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/* Validation - Check if value is a positive value */
+	public function isPositive($data) {
+		$values = array_values($data);
+		if (!isset($values)) {
+			return false;
+		}
+		$value = $values[0];
+		if ($value >= 0.00) {
 			return true;
 		} else {
 			return false;
