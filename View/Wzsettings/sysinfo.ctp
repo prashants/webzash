@@ -27,7 +27,7 @@
 ?>
 
 <div>
-	<?php echo __d('webzash', 'Application version : %s', 2.3); ?>
+	<?php echo __d('webzash', 'Application version : %s', Configure::read('Webzash.AppVersion')); ?>
 </div>
 <div>
 	<?php echo __d('webzash', 'Application database version : %s', 5) ; ?>

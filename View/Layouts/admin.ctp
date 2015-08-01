@@ -69,7 +69,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<div id="footer">
 			Powered by
 			<?php echo $this->Html->link(
-				Configure::read('Webzash.AppName'),
+				Configure::read('Webzash.AppName') . ' v' . Configure::read('Webzash.AppVersion'),
 				Configure::read('Webzash.AppURL'),
 				array('class' => 'footer-power', 'target' => '_blank')
 			); ?>

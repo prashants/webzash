@@ -54,7 +54,7 @@
 		<div class="reports-container">
 			<div class="reports-title">
 				<?php echo $this->Html->link(__d('webzash', 'Videos'),
-					'https://webzash.org', array('target' => '_blank')); ?>
+					'http://webzash.org/help', array('target' => '_blank')); ?>
 			</div>
 			<div class="reports-desc">
 			</div>
