@@ -109,6 +109,7 @@ class Setting extends WebzashAppModel {
 				'message' => 'Entries present beyond the financial year start and end dates',
 				'required' => true,
 				'allowEmpty' => false,
+				'on' => 'update',
 			),
 		),
 		'currency_symbol' => array(

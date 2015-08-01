@@ -98,6 +98,14 @@ class SettingsController extends WebzashAppController {
 				return;
 			}
 
+			/* Check if financial year end is after financial year start */
+			$start_date = strtotime($this->request->data['Setting']['fy_start'] . ' 00:00:00');
+			$end_date = strtotime($this->request->data['Setting']['fy_end'] . ' 00:00:00');
+			if ($start_date >= $end_date) {
+				$this->Session->setFlash(__d('webzash', 'Failed to update account setting since financial year end should be after financial year start.'), 'danger');
+				return;
+			}
+
 			/* Save settings */
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();
@@ -328,22 +336,6 @@ class SettingsController extends WebzashAppController {
 					$db->rawQuery($final_schema);
 				} catch (Exception $e) {
 					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
-					return;
-				}
-
-				/* Read the database trigger from the Config folder */
-				$triggers_filepath = App::pluginPath('Webzash') . 'Config/Triggers.Mysql.sql';
-				$triggers_file = new File($triggers_filepath, false);
-				$triggers = $triggers_file->read(true, 'r');
-
-				/* Add prefix to the table names in the database triggers */
-				$final_triggers = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $triggers);
-
-				/* Add database triggers */
-				try {
-					$db->rawQuery($final_triggers);
-				} catch (Exception $e) {
-					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while adding database triggers. Please try again.'), 'danger');
 					return;
 				}
 
