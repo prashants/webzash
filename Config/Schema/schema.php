@@ -209,8 +209,8 @@ class WebzashSchema extends CakeSchema {
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false,
 			'length' => 255, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'fy_start' => array('type' => 'date', 'null' => false,
-		'fy_end' => array('type' => 'date', 'null' => false,
+		'fy_start' => array('type' => 'date', 'null' => false),
+		'fy_end' => array('type' => 'date', 'null' => false),
 		'currency_symbol' => array('type' => 'string', 'null' => false,
 			'length' => 100,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
@@ -244,17 +244,17 @@ class WebzashSchema extends CakeSchema {
 		'email_from' => array('type' => 'string', 'null' => false,
 			'length' => 255,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'print_paper_height' => array('type' => 'decimal', 'null' => false
+		'print_paper_height' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
-		'print_paper_width' => array('type' => 'decimal', 'null' => false
+		'print_paper_width' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
-		'print_margin_top' => array('type' => 'decimal', 'null' => false
+		'print_margin_top' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
-		'print_margin_bottom' => array('type' => 'decimal', 'null' => false
+		'print_margin_bottom' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
-		'print_margin_left' => array('type' => 'decimal', 'null' => false
+		'print_margin_left' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
-		'print_margin_right' => array('type' => 'decimal', 'null' => false
+		'print_margin_right' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.000', 'unsigned' => false, 'length' => '10,3'),
 		'print_orientation' => array('type' => 'string', 'null' => false,
 			'length' => 1,
