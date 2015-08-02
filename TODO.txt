@@ -1,21 +1,10 @@
-Todo :
-- Use model methods where ever possible
+TODO :
 - Backup
 - Add Postgres / MS SQL support
-- Ledger / Group in downloads
-- Group statement
-- Keyboard shortcuts
 - Currency format
-- Currency decimal places
-- Add reference number, name and date
-- Cheque printing
+- Currency three digit decimal places
+- Add reference / cheque number, name and date
 - Update script
-- Three digit decimal
-
-Not decided :
-- Cheque number and cheque date ?
-- Dr/Cr separate column in reports ?
-- Account code ?
 
 Optional :
 - Negative balance highlight
@@ -25,3 +14,8 @@ Optional :
 - Cash flow statement
 - Tooltips
 - Optimize
+- Cheque printing
+- Keyboard shortcuts
+- Ledger / Group in downloads
+- Group statement
+- Dr/Cr separate column in reports
