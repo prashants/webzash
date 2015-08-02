@@ -125,10 +125,19 @@ class AccountList
 		/* Reset is since its no longer needed below 1st level of sub-groups */
 		$this->affects_gross = -1;
 
-		$child_group_q = $this->Group->find('all', array(
-			'conditions' => $conditions,
-			'order' => array('Group.name'),
-		));
+		/* If primary group sort by id else sort by name */
+		if ($this->id == NULL) {
+			$child_group_q = $this->Group->find('all', array(
+				'conditions' => $conditions,
+				'order' => array('Group.id'),
+			));
+		} else {
+			$child_group_q = $this->Group->find('all', array(
+				'conditions' => $conditions,
+				'order' => array('Group.name'),
+			));
+		}
+
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{

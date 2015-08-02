@@ -79,10 +79,20 @@ class GroupTree
 	function add_sub_groups()
 	{
 		$conditions = array('Group.parent_id' => $this->id);
-		$child_group_q = $this->Group->find('all', array(
-			'conditions' => $conditions,
-			'order' => array('Group.name'),
-		));
+
+		/* If primary group sort by id else sort by name */
+		if ($this->id == NULL) {
+			$child_group_q = $this->Group->find('all', array(
+				'conditions' => $conditions,
+				'order' => array('Group.id'),
+			));
+		} else {
+			$child_group_q = $this->Group->find('all', array(
+				'conditions' => $conditions,
+				'order' => array('Group.name'),
+			));
+		}
+
 		$counter = 0;
 		foreach ($child_group_q as $row)
 		{
