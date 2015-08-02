@@ -136,6 +136,7 @@ class WebzashAppController extends AppController {
 		Configure::write('Account.address', $setting['Setting']['address']);
 		Configure::write('Account.email', $setting['Setting']['email']);
 		Configure::write('Account.currency_symbol', $setting['Setting']['currency_symbol']);
+		Configure::write('Account.currency_format', $setting['Setting']['currency_format']);
 		$dateFormat = explode('|', $setting['Setting']['date_format']);
 		Configure::write('Account.dateformatPHP', $dateFormat[0]);
 		Configure::write('Account.dateformatJS', $dateFormat[1]);

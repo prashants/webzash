@@ -276,4 +276,14 @@ class GenericHelper extends AppHelper {
 			'Y-M-d|yy-M-dd' => __d('webzash', 'Year-Month-Day'),
 		);
 	}
+
+/**
+ * return currency format options
+ */
+	function currency_format_options() {
+		return array(
+			'##,###.##' => '##,###.##',
+			'##,##.##' => '##,##.##',
+		);
+	}
 }

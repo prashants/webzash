@@ -308,6 +308,7 @@ class WzaccountsController extends WebzashAppController {
 					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
 					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
 					'currency_symbol' => $this->request->data['Wzaccount']['currency_symbol'],
+					'currency_format' => $this->request->data['Wzaccount']['currency_format'],
 					'date_format' => $this->request->data['Wzaccount']['date_format'],
 					'timezone' => 'UTC',
 					'manage_inventory' => 0,

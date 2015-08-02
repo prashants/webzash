@@ -110,7 +110,7 @@ class SettingsController extends WebzashAppController {
 			$ds = $this->Setting->getDataSource();
 			$ds->begin();
 
-			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'date_format'))) {
+			if ($this->Setting->save($settings, true, array('name', 'address', 'email', 'fy_start', 'fy_end', 'currency_symbol', 'currency_format', 'date_format'))) {
 				$this->Log->add('Updated account settings', 1);
 				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account settings updated.'), 'success');
@@ -457,6 +457,7 @@ class SettingsController extends WebzashAppController {
 					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
 					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
 					'currency_symbol' => $old_account_setting['Setting']['currency_symbol'],
+					'currency_format' => $old_account_setting['Setting']['currency_format'],
 					'date_format' => $this->request->data['Wzaccount']['date_format'],
 					'timezone' => 'UTC',
 					'manage_inventory' => 0,

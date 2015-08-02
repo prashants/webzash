@@ -25,9 +25,15 @@
  * THE SOFTWARE.
  */
 
-$config = '';
+/**
+ * This function formats the currency as per the account settings for currency format
+ */
+function curreny_format($input) {
+	$ouput = '';
 
-/* Allow Webzash to authenticate with other third party systems */
+	switch (Configure::read('Account.currency_format')) {
 
-Configure::write('Webzash.ThirdPartyLogin', FALSE);					/* TRUE / FALSE */
-Configure::write('Webzash.ThirdPartyLoginSystem', '');      		/* e.g. : 'Joomla' */
+	}
+
+	return $ouput;
+}

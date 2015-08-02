@@ -116,6 +116,7 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`fy_start` date NOT NULL,
 	`fy_end` date NOT NULL,
 	`currency_symbol` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	`currency_format` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`date_format` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`timezone` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`manage_inventory` int(1) NOT NULL DEFAULT '0',
