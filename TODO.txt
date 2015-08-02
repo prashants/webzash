@@ -1,10 +1,10 @@
 TODO :
 - Backup
 - Add Postgres / MS SQL support
-- Currency format
 - Currency three digit decimal places
 - Add reference / cheque number, name and date
 - Update script
+- CSS table right
 
 Optional :
 - Negative balance highlight

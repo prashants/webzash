@@ -282,6 +282,7 @@ class GenericHelper extends AppHelper {
  */
 	function currency_format_options() {
 		return array(
+			'none' => '(NONE)',
 			'##,###.##' => '##,###.##',
 			'##,##.##' => '##,##.##',
 		);
