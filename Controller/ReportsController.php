@@ -266,6 +266,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/balancesheet');
@@ -277,6 +278,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/balancesheet');
@@ -484,6 +486,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/profitloss');
@@ -495,6 +498,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/profitloss');
@@ -545,6 +549,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/trialbalance');
@@ -556,6 +561,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/trialbalance');
@@ -819,6 +825,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/ledgerstatement');
@@ -830,6 +837,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/ledgerstatement');
@@ -1049,6 +1057,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/ledgerentries');
@@ -1060,6 +1069,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/ledgerentries');
@@ -1360,6 +1370,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadcsv'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = false;
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadcsv/reconciliation');
@@ -1371,6 +1382,7 @@ class ReportsController extends WebzashAppController {
 
 		/* Download report */
 		if (isset($this->passedArgs['downloadxls'])) {
+			Configure::write('Account.currency_format', 'none');
 			$this->layout = 'xls';
 			$view = new View($this, false);
 			$response =  $view->render('Reports/downloadxls/reconciliation');
