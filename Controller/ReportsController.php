@@ -658,7 +658,7 @@ class ReportsController extends WebzashAppController {
 
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Ledger statement for %s from %s to %s',
-				h($ledger['Ledger']['name']),
+				h(toCodeWithName($ledger['Ledger']['code'], $ledger['Ledger']['name'])),
 				dateFromSql(Configure::read('Account.startdate')),
 				dateFromSql(Configure::read('Account.enddate'))
 			));
@@ -933,7 +933,7 @@ class ReportsController extends WebzashAppController {
 
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Ledger entries for %s from %s to %s',
-				h($ledger['Ledger']['name']),
+				h(toCodeWithName($ledger['Ledger']['code'], $ledger['Ledger']['name'])),
 				dateFromSql(Configure::read('Account.startdate')),
 				dateFromSql(Configure::read('Account.enddate'))
 			));
@@ -1202,7 +1202,7 @@ class ReportsController extends WebzashAppController {
 
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Reconciliation report for %s from %s to %s',
-				h($ledger['Ledger']['name']),
+				h(toCodeWithName($ledger['Ledger']['code'], $ledger['Ledger']['name'])),
 				dateFromSql(Configure::read('Account.startdate')),
 				dateFromSql(Configure::read('Account.enddate'))
 			));
