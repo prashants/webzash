@@ -1181,6 +1181,18 @@ class EntriesController extends WebzashAppController {
 			return $this->Permission->is_allowed('delete entry');
 		}
 
+		if ($this->action === 'email') {
+			return $this->Permission->is_allowed('view entry');
+		}
+
+		if ($this->action === 'download') {
+			return $this->Permission->is_allowed('view entry');
+		}
+
+		if ($this->action === 'printpreview') {
+			return $this->Permission->is_allowed('view entry');
+		}
+
 		if ($this->action === 'addrow') {
 			if ($this->Permission->is_allowed('add entry') ||
 				$this->Permission->is_allowed('edit entry')) {
