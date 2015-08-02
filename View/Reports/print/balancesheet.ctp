@@ -40,7 +40,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 
 		echo '<td class="td-group">';
 		echo print_space($counter);
-		echo h($account->name);
+		echo h(toCodeWithName($account->code, $account->name));
 		echo '</td>';
 
 		echo '<td class="text-right">';
@@ -71,7 +71,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo h($data['name']);
+			echo h(toCodeWithName($data['code'], $data['name']));
 			echo '</td>';
 
 			echo '<td class="text-right">';

@@ -43,7 +43,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 		echo $xRS;
 		echo $xCS;
 		echo print_space($counter);
-		echo h($account->name);
+		echo h(toCodeWithName($account->code, $account->name));
 		echo $xCE;
 
 		echo $xCS . toCurrency($account->cl_total_dc, $account->cl_total) . $xCE;
@@ -63,7 +63,7 @@ function account_st_short($account, $c = 0, $THIS, $dc_type)
 			echo $xRS;
 			echo $xCS;
 			echo print_space($counter);
-			echo h($data['name']);
+			echo h(toCodeWithName($data['code'], $data['name']));
 			echo $xCE;
 
 			echo $xCS . toCurrency($data['cl_total_dc'], $data['cl_total']) . $xCE;
