@@ -7,6 +7,7 @@ CREATE TABLE `%_PREFIX_%groups` (
         PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `name` (`name`),
+	UNIQUE KEY `code` (`code`),
 	KEY `id` (`id`),
 	KEY `parent_id` (`parent_id`)
 ) DEFAULT CHARSET=utf8,
@@ -27,6 +28,7 @@ CREATE TABLE `%_PREFIX_%ledgers` (
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `name` (`name`),
+	UNIQUE KEY `code` (`code`),
 	KEY `id` (`id`),
 	KEY `group_id` (`group_id`)
 ) DEFAULT CHARSET=utf8,

@@ -42,12 +42,16 @@ class WebzashSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => false,
 			'length' => 255,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'code' => array('type' => 'string', 'null' => true,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
 		'affects_gross' => array('type' => 'integer', 'null' => false,
 			'default' => 0, 'unsigned' => true, 'length' => 1),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'unique_id' => array('column' => 'id', 'unique' => 1),
 			'name' => array('column' => 'name', 'unique' => 1),
+			'code' => array('column' => 'code', 'unique' => 1),
 			'id' => array('column' => 'id', 'unique' => 0),
 			'parent_id' => array('column' => 'parent_id', 'unique' => 0)
 
@@ -65,6 +69,9 @@ class WebzashSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => false,
 			'length' => 255,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
+		'code' => array('type' => 'string', 'null' => true,
+			'length' => 255,
+			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'key' => 'unique'),
 		'op_balance' => array('type' => 'decimal', 'null' => false,
 			'default' => '0.00', 'unsigned' => true, 'length' => '25,2'),
 		'op_balance_dc' => array('type' => 'string', 'null' => false,
@@ -78,7 +85,12 @@ class WebzashSchema extends CakeSchema {
 			'length' => 500,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unique_id' => array('column' => 'id', 'unique' => 1),
+			'name' => array('column' => 'name', 'unique' => 1),
+			'code' => array('column' => 'code', 'unique' => 1),
+			'id' => array('column' => 'id', 'unique' => 0),
+			'group_id' => array('column' => 'group_id', 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8',
 			'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'
