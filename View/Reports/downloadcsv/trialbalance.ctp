@@ -40,7 +40,7 @@ function print_account_chart($account, $c = 0, $THIS)
 	if ($account->id != 0) {
 		echo '"';
 		echo print_space($counter);
-		echo h($account->name);
+		echo h(toCodeWithName($account->code, $account->name));
 		echo '",';
 
 		echo '"' . __d('webzash', 'Group') . '",';
@@ -65,7 +65,7 @@ function print_account_chart($account, $c = 0, $THIS)
 		foreach ($account->children_ledgers as $id => $data) {
 			echo '"';
 			echo print_space($counter);
-			echo h($data['name']);
+			echo h(toCodeWithName($data['code'], $data['name']));
 			echo '",';
 
 			echo '"' . __d('webzash', 'Ledger') . '",';

@@ -45,7 +45,7 @@ function print_account_chart($account, $c = 0, $THIS)
 		}
 		echo '<td class="td-group">';
 		echo print_space($counter);
-		echo h($account->name);
+		echo h(toCodeWithName($account->code, $account->name));
 		echo '</td>';
 
 		echo '<td>Group</td>';
@@ -74,7 +74,7 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo '<tr class="tr-ledger">';
 			echo '<td class="td-ledger">';
 			echo print_space($counter);
-			echo h($data['name']);
+			echo h(toCodeWithName($data['code'], $data['name']));
 			echo '</td>';
 			echo '<td>Ledger</td>';
 
