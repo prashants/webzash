@@ -273,7 +273,7 @@ class Entry extends WebzashAppModel {
 			return false;
 		}
 		$value = $values[0];
-		if (preg_match('/^[0-9]{0,23}+(\.[0-9]{0,2})?$/', $value)) {
+		if (preg_match('/^[0-9]{0,23}+(\.[0-9]{0,' . Configure::read('Account.decimal_places') . '})?$/', $value)) {
 			return true;
 		} else {
 			return false;
