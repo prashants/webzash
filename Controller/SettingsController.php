@@ -270,6 +270,14 @@ class SettingsController extends WebzashAppController {
 				return;
 			}
 
+			/* Read old settings */
+			$this->OldSetting = new $this->Setting;
+			$old_account_setting = $this->OldSetting->findById(1);
+			if (!$old_account_setting) {
+				$this->Session->setFlash(__d('webzash', 'Could not read original settings. Please, try again.'), 'danger');
+				return;
+			}
+
 			/*****************************************************/
 			/****************** MYSQL SPECIFIC *******************/
 			/*****************************************************/
@@ -329,7 +337,10 @@ class SettingsController extends WebzashAppController {
 				$schema = $schema_file->read(true, 'r');
 
 				/* Add prefix to the table names in the schema */
-				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+				$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+
+				/* Add decimal places */
+				$final_schema = str_replace('%_DECIMAL_%', $old_account_setting['Setting']['decimal_places'], $prefix_schema);
 
 				/* Create tables */
 				try {
@@ -439,13 +450,6 @@ class SettingsController extends WebzashAppController {
 				}
 
 				/* CF settings */
-				$this->OldSetting = new $this->Setting;
-				$old_account_setting = $this->OldSetting->findById(1);
-				if (!$old_account_setting) {
-					$this->Session->setFlash(__d('webzash', 'Account database created, but could not retrive original settings. Please, try again.'), 'danger');
-					return;
-				}
-
 				$this->NewSetting = new $this->Setting;
 				$this->NewSetting->useDbConfig = 'wz_newconfig';
 
@@ -458,6 +462,7 @@ class SettingsController extends WebzashAppController {
 					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
 					'currency_symbol' => $old_account_setting['Setting']['currency_symbol'],
 					'currency_format' => $old_account_setting['Setting']['currency_format'],
+					'decimal_places' => $old_account_setting['Setting']['decimal_places'],
 					'date_format' => $this->request->data['Wzaccount']['date_format'],
 					'timezone' => 'UTC',
 					'manage_inventory' => 0,

@@ -78,6 +78,12 @@ $(document).ready(function() {
 			'label' => __d('webzash', 'Currency format'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Check the wiki if you want to create a custom format for currency.') . '</span>',
 	));
+	echo $this->Form->input('decimal_places', array(
+			'type' => 'select',
+			'options' => $this->Generic->decimal_places_options(),
+			'label' => __d('webzash', 'Decimal places'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : This options cannot be changed later on.') . '</span>',
+	));
 	echo $this->Form->input('date_format', array('type' => 'select', 'options' => $this->Generic->dateformat_options(), 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Date format')));
 	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));

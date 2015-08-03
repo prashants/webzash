@@ -229,6 +229,8 @@ class WebzashSchema extends CakeSchema {
 		'currency_format' => array('type' => 'string', 'null' => false,
 			'length' => 100,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'decimal_places' => array('type' => 'integer', 'null' => false,
+			'default' => '2', 'unsigned' => true, 'length' => 2),
 		'date_format' => array('type' => 'string', 'null' => false,
 			'length' => 100,
 			'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),

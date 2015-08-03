@@ -120,6 +120,22 @@ class Setting extends WebzashAppModel {
 				'allowEmpty' => true,
 			),
 		),
+		'currency_format' => array(
+			'rule1' => array(
+				'rule' => array('maxLength', 255),
+				'message' => 'Currency format cannot be more than 255 characters',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
+		'decimal_places' => array(
+			'rule1' => array(
+				'rule' => array('inList', array('2', '3')),
+				'message' => 'Invalid value for decimal places',
+				'required' => true,
+				'allowEmpty' => true,
+			),
+		),
 		'date_format' => array(
 			'rule1' => array(
 				'rule' => array('maxLength', 13),

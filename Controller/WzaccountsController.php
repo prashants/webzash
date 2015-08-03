@@ -116,6 +116,14 @@ class WzaccountsController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Date format is required.'), 'danger');
 				return;
 			}
+			if (empty($this->request->data['Wzaccount']['currency_format'])) {
+				$this->Session->setFlash(__d('webzash', 'Currency format is required.'), 'danger');
+				return;
+			}
+			if (empty($this->request->data['Wzaccount']['decimal_places'])) {
+				$this->Session->setFlash(__d('webzash', 'Decimal places is required.'), 'danger');
+				return;
+			}
 			if (empty($this->request->data['Wzaccount']['fy_start'])) {
 				$this->Session->setFlash(__d('webzash', 'Financial year start is required.'), 'danger');
 				return;
@@ -152,6 +160,12 @@ class WzaccountsController extends WebzashAppController {
 			/* Check email */
 			if (!filter_var($this->request->data['Wzaccount']['email'], FILTER_VALIDATE_EMAIL)) {
 				$this->Session->setFlash(__d('webzash', 'Email address is invalid.'), 'danger');
+				return;
+			}
+
+			/* Check for valid decimal places */
+			if (!($this->request->data['Wzaccount']['decimal_places'] == 2 || $this->request->data['Wzaccount']['decimal_places'] == 3)) {
+				$this->Session->setFlash(__d('webzash', 'Decimal places can only be 2 or 3.'), 'danger');
 				return;
 			}
 
@@ -271,7 +285,10 @@ class WzaccountsController extends WebzashAppController {
 				$schema = $schema_file->read(true, 'r');
 
 				/* Add prefix to the table names in the schema */
-				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+				$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+
+				/* Add decimal places */
+				$final_schema = str_replace('%_DECIMAL_%', $this->request->data['Wzaccount']['decimal_places'], $prefix_schema);
 
 				/* Create tables */
 				try {
@@ -309,6 +326,7 @@ class WzaccountsController extends WebzashAppController {
 					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
 					'currency_symbol' => $this->request->data['Wzaccount']['currency_symbol'],
 					'currency_format' => $this->request->data['Wzaccount']['currency_format'],
+					'decimal_places' => $this->request->data['Wzaccount']['decimal_places'],
 					'date_format' => $this->request->data['Wzaccount']['date_format'],
 					'timezone' => 'UTC',
 					'manage_inventory' => 0,

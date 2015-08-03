@@ -278,6 +278,16 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
+ * return decimal places options
+ */
+	function decimal_places_options() {
+		return array(
+			'2' => '2',
+			'3' => '3',
+		);
+	}
+
+/**
  * return currency format options
  */
 	function currency_format_options() {
