@@ -82,6 +82,12 @@ class LedgersController extends WebzashAppController {
 					$this->request->data['Ledger']['op_balance'] = 0;
 				}
 
+				/* Count number of decimal places */
+				if (countDecimal($this->request->data['Ledger']['op_balance']) > Configure::read('Account.decimal_places')) {
+					$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
+					return;
+				}
+
 				/* Save ledger */
 				$ds = $this->Ledger->getDataSource();
 				$ds->begin();
@@ -150,6 +156,12 @@ class LedgersController extends WebzashAppController {
 			/* If opening balance is not set or empty make it 0 */
 			if (empty($this->request->data['Ledger']['op_balance'])) {
 				$this->request->data['Ledger']['op_balance'] = 0;
+			}
+
+			/* Count number of decimal places */
+			if (countDecimal($this->request->data['Ledger']['op_balance']) > Configure::read('Account.decimal_places')) {
+				$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
+				return;
 			}
 
 			/* Set ledger id */

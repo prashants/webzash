@@ -357,13 +357,21 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Amount cannot be negative or zero.'), 'danger');
+							return;
+						}
+						if (countDecimal($entryitem['dr_amount']) > Configure::read('Account.decimal_places')) {
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Amount cannot be negative or zero.'), 'danger');
+							return;
+						}
+						if (countDecimal($entryitem['cr_amount']) > Configure::read('Account.decimal_places')) {
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
@@ -416,8 +424,12 @@ class EntriesController extends WebzashAppController {
 						$itemdata['Entryitem']['entry_id'] = $this->Entry->id;
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
+							foreach ($this->Entryitem->validationErrors as $field => $msg) {
+								$errmsg = $msg[0];
+								break;
+							}
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers. Error is : %s', $errmsg), 'danger');
 							return;
 						}
 					}
@@ -661,13 +673,21 @@ class EntriesController extends WebzashAppController {
 
 					if ($entryitem['dc'] == 'D') {
 						if ($entryitem['dr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Amount cannot be negative or zero.'), 'danger');
+							return;
+						}
+						if (countDecimal($entryitem['dr_amount']) > Configure::read('Account.decimal_places')) {
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
 							return;
 						}
 						$dr_total = calculate($dr_total, $entryitem['dr_amount'], '+');
 					} else if ($entryitem['dc'] == 'C') {
 						if ($entryitem['cr_amount'] <= 0) {
-							$this->Session->setFlash(__d('webzash', 'Invalid amount specified.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Amount cannot be negative or zero.'), 'danger');
+							return;
+						}
+						if (countDecimal($entryitem['cr_amount']) > Configure::read('Account.decimal_places')) {
+							$this->Session->setFlash(__d('webzash', 'Invalid amount specified. Maximum %s decimal places allowed.', Configure::read('Account.decimal_places')), 'danger');
 							return;
 						}
 						$cr_total = calculate($cr_total, $entryitem['cr_amount'], '+');
@@ -727,8 +747,12 @@ class EntriesController extends WebzashAppController {
 						$itemdata['Entryitem']['entry_id'] = $this->Entry->id;
 						$this->Entryitem->create();
 						if (!$this->Entryitem->save($itemdata)) {
+							foreach ($this->Entryitem->validationErrors as $field => $msg) {
+								$errmsg = $msg[0];
+								break;
+							}
 							$ds->rollback();
-							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers.'), 'danger');
+							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers. Error is : %s', $errmsg), 'danger');
 							return;
 						}
 					}

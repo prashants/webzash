@@ -249,6 +249,13 @@ function toCurrency($dc, $amount) {
 }
 
 /**
+ * This function counts the number of decimal places in a given amount
+ */
+function countDecimal($amount) {
+	return strlen(substr(strrchr($amount, "."), 1));
+}
+
+/**
  * This function formats the the entry number as per prefix, suffix and zero
  * padding for that entry type
  */
