@@ -49,7 +49,9 @@ require_once('currency.php');
 */
 
 function calculate($param1 = 0, $param2 = 0, $op = '') {
+
 	$decimal_places = Configure::read('Account.decimal_places');
+
 	if (extension_loaded('bcmath')) {
 		switch ($op)
 		{
@@ -233,31 +235,33 @@ function dateFromSql($sqldate) {
 
 function toCurrency($dc, $amount) {
 
+	$decimal_places = Configure::read('Account.decimal_places');
+
 	if (calculate($amount, 0, '==')) {
-		return curreny_format(number_format(0, 2, '.', ''));
+		return curreny_format(number_format(0, $decimal_places, '.', ''));
 	}
 
 	if ($dc == 'D') {
 		if (calculate($amount, 0, '>')) {
-			return 'Dr ' . curreny_format(number_format($amount, 2, '.', ''));
+			return 'Dr ' . curreny_format(number_format($amount, $decimal_places, '.', ''));
 		} else {
-			return 'Cr ' . curreny_format(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
+			return 'Cr ' . curreny_format(number_format(calculate($amount, 0, 'n'), $decimal_places, '.', ''));
 		}
 	} else if ($dc == 'C') {
 		if (calculate($amount, 0, '>')) {
-			return 'Cr ' . curreny_format(number_format($amount, 2, '.', ''));
+			return 'Cr ' . curreny_format(number_format($amount, $decimal_places, '.', ''));
 		} else {
-			return 'Dr ' . curreny_format(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
+			return 'Dr ' . curreny_format(number_format(calculate($amount, 0, 'n'), $decimal_places, '.', ''));
 		}
 	} else if ($dc == 'X') {
 		/* Dr for positive and Cr for negative value */
 		if (calculate($amount, 0, '>')) {
-			return 'Dr ' . curreny_format(number_format($amount, 2, '.', ''));
+			return 'Dr ' . curreny_format(number_format($amount, $decimal_places, '.', ''));
 		} else {
-			return 'Cr ' . curreny_format(number_format(calculate($amount, 0, 'n'), 2, '.', ''));
+			return 'Cr ' . curreny_format(number_format(calculate($amount, 0, 'n'), $decimal_places, '.', ''));
 		}
 	} else {
-		return curreny_format(number_format($amount, 2, '.', ''));
+		return curreny_format(number_format($amount, $decimal_places, '.', ''));
 	}
 	return __d('webzash', 'ERROR');
 }
