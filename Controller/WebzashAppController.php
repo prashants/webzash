@@ -132,6 +132,14 @@ class WebzashAppController extends AppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 
+		/* Validate settings */
+		if (!($setting['Setting']['decimal_places'] == 2 || $setting['Setting']['decimal_places'] == 3)) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'Decimal places should be set to 2 or 3 in account settings.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
 		Configure::write('Account.name', $setting['Setting']['name']);
 		Configure::write('Account.address', $setting['Setting']['address']);
 		Configure::write('Account.email', $setting['Setting']['email']);
