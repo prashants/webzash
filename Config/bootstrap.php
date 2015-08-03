@@ -49,45 +49,46 @@ require_once('currency.php');
 */
 
 function calculate($param1 = 0, $param2 = 0, $op = '') {
+	$decimal_places = Configure::read('Account.decimal_places');
 	if (extension_loaded('bcmath')) {
 		switch ($op)
 		{
 			case '+':
-				return bcadd($param1, $param2, 2);
+				return bcadd($param1, $param2, $decimal_places);
 				break;
 			case '-':
-				return bcsub($param1, $param2, 2);
+				return bcsub($param1, $param2, $decimal_places);
 				break;
 			case '==':
-				if (bccomp($param1, $param2, 2) == 0) {
+				if (bccomp($param1, $param2, $decimal_places) == 0) {
 					return TRUE;
 				} else {
 					return FALSE;
 				}
 				break;
 			case '!=':
-				if (bccomp($param1, $param2, 2) == 0) {
+				if (bccomp($param1, $param2, $decimal_places) == 0) {
 					return FALSE;
 				} else {
 					return TRUE;
 				}
 				break;
 			case '<':
-				if (bccomp($param1, $param2, 2) == -1) {
+				if (bccomp($param1, $param2, $decimal_places) == -1) {
 					return TRUE;
 				} else {
 					return FALSE;
 				}
 				break;
 			case '>':
-				if (bccomp($param1, $param2, 2) == 1) {
+				if (bccomp($param1, $param2, $decimal_places) == 1) {
 					return TRUE;
 				} else {
 					return FALSE;
 				}
 				break;
 			case '>=':
-				$temp = bccomp($param1, $param2, 2);
+				$temp = bccomp($param1, $param2, $decimal_places);
 				if ($temp == 1 || $temp == 0) {
 					return TRUE;
 				} else {
@@ -95,7 +96,7 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 				}
 				break;
 			case 'n':
-				return bcmul($param1, -1, 2);
+				return bcmul($param1, -1, $decimal_places);
 				break;
 			default:
 				die();
@@ -103,8 +104,15 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 		}
 	} else {
 		$result = 0;
-		$param1 = $param1 * 100;
-		$param2 = $param2 * 100;
+
+		if ($decimal_places == 2) {
+			$param1 = $param1 * 100;
+			$param2 = $param2 * 100;
+		} else if ($decimal_places == 3) {
+			$param1 = $param1 * 1000;
+			$param2 = $param2 * 1000;
+		}
+
 		$param1 = (int)round($param1, 0);
 		$param2 = (int)round($param2, 0);
 		switch ($op)
@@ -157,7 +165,13 @@ function calculate($param1 = 0, $param2 = 0, $op = '') {
 				die();
 				break;
 		}
-		$result = $result/100;
+
+		if ($decimal_places == 2) {
+			$result = $result/100;
+		} else if ($decimal_places == 3) {
+			$result = $result/100;
+		}
+
 		return $result;
 	}
 }
