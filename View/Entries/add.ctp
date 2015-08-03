@@ -32,8 +32,13 @@ $(document).ready(function() {
 
 	/* javascript floating point operations */
 	var jsFloatOps = function(param1, param2, op) {
-		param1 = param1 * 100;
-		param2 = param2 * 100;
+		<?php if (Configure::read('Account.decimal_places') == 2) { ?>
+			param1 = param1 * 100;
+			param2 = param2 * 100;
+		<?php } else if (Configure::read('Account.decimal_places') == 3) { ?>
+			param1 = param1 * 1000;
+			param2 = param2 * 1000;
+		<?php } ?>
 		param1 = param1.toFixed(0);
 		param2 = param2.toFixed(0);
 		param1 = Math.floor(param1);
@@ -41,12 +46,20 @@ $(document).ready(function() {
 		var result = 0;
 		if (op == '+') {
 			result = param1 + param2;
-			result = result/100;
+			<?php if (Configure::read('Account.decimal_places') == 2) { ?>
+				result = result/100;
+			<?php } else if (Configure::read('Account.decimal_places') == 3) { ?>
+				result = result/1000;
+			<?php } ?>
 			return result;
 		}
 		if (op == '-') {
 			result = param1 - param2;
-			result = result/100;
+			<?php if (Configure::read('Account.decimal_places') == 2) { ?>
+				result = result/100;
+			<?php } else if (Configure::read('Account.decimal_places') == 3) { ?>
+				result = result/1000;
+			<?php } ?>
 			return result;
 		}
 		if (op == '!=') {
