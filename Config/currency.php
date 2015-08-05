@@ -48,11 +48,17 @@ function curreny_format($input) {
 /*********************** ##,###.## FORMAT ***********************/
 function _currency_2_3_style($num)
 {
+	$decimal_places = Configure::read('Account.decimal_places');
+
 	$pos = strpos((string)$num, ".");
 	if ($pos === false) {
-		$decimalpart = "00";
+		if ($decimal_places == 2) {
+			$decimalpart = "00";
+		} else {
+			$decimalpart = "000";
+		}
 	} else {
-		$decimalpart = substr($num, $pos + 1, 2);
+		$decimalpart = substr($num, $pos + 1, $decimal_places);
 		$num = substr($num, 0, $pos);
 	}
 
@@ -84,11 +90,17 @@ function _currency_2_3_style_makecomma($input)
 /*********************** ##,##.## FORMAT ***********************/
 function _currency_2_2_style($num)
 {
+	$decimal_places = Configure::read('Account.decimal_places');
+
 	$pos = strpos((string)$num, ".");
 	if ($pos === false) {
-		$decimalpart = "00";
+		if ($decimal_places == 2) {
+			$decimalpart = "00";
+		} else {
+			$decimalpart = "000";
+		}
 	} else {
-		$decimalpart = substr($num, $pos + 1, 2);
+		$decimalpart = substr($num, $pos + 1, $decimal_places);
 		$num = substr($num, 0, $pos);
 	}
 
