@@ -149,10 +149,6 @@ class SettingsController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
-				return;
-			}
 
 			/* Check if label already exists */
 			$count = $this->Wzaccount->find('count', array('conditions' => array(
@@ -223,7 +219,7 @@ class SettingsController extends WebzashAppController {
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
 				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
-				'db_schema' => '',
+				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
 			));
@@ -250,6 +246,7 @@ class SettingsController extends WebzashAppController {
 			$wz_newconfig['login'] = $this->request->data['Wzaccount']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzaccount']['db_password'];
 			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzaccount']['db_prefix']);
+			$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
 			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
@@ -278,14 +275,10 @@ class SettingsController extends WebzashAppController {
 				return;
 			}
 
-			/*****************************************************/
-			/****************** MYSQL SPECIFIC *******************/
-			/*****************************************************/
+			/* Connection successfull, next check if any table names clash */
+			$db = ConnectionManager::getDataSource('wz_newconfig');
+
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
-
-
-				/* Connection successfull, next check if any table names clash */
-				$db = ConnectionManager::getDataSource('wz_newconfig');
 				$existing_tables = $db->query("show tables");
 				/*
 				Format of $existing_tables is
@@ -324,213 +317,216 @@ class SettingsController extends WebzashAppController {
 				if ($table_exisits == TRUE) {
 					return;
 				}
+			}
 
-				/**
-				 * At this point the connection is successfull and there are no table clashes,
-				 * we can create the application specific tables.
-				 */
+			/**
+			 * At this point the connection is successfull and there are no table clashes,
+			 * we can create the application specific tables.
+			 */
 
-				/* Read the MySQL database creation schema from the Config folder */
-				App::uses('File', 'Utility');
+			/* Read the MySQL database creation schema from the Config folder */
+			App::uses('File', 'Utility');
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/Schema.Mysql.sql';
-				$schema_file = new File($schema_filepath, false);
-				$schema = $schema_file->read(true, 'r');
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$schema_filepath = App::pluginPath('Webzash') . 'Config/Schema.Postgres.sql';
+			}
+			$schema_file = new File($schema_filepath, false);
+			$schema = $schema_file->read(true, 'r');
 
-				/* Add prefix to the table names in the schema */
-				$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+			/* Add prefix to the table names in the schema */
+			$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 
-				/* Add decimal places */
-				$final_schema = str_replace('%_DECIMAL_%', $old_account_setting['Setting']['decimal_places'], $prefix_schema);
+			/* Add decimal places */
+			$final_schema = str_replace('%_DECIMAL_%', $old_account_setting['Setting']['decimal_places'], $prefix_schema);
 
-				/* Create tables */
-				try {
-					$db->rawQuery($final_schema);
-				} catch (Exception $e) {
-					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
+			/* Create tables */
+			try {
+				$db->rawQuery($final_schema);
+			} catch (Exception $e) {
+				$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
+				return;
+			}
+
+			/******* Add initial data ********/
+
+			/* CF groups and ledgers */
+			$assetsList = new AccountList();
+			$assetsList->Group = &$this->Group;
+			$assetsList->Ledger = &$this->Ledger;
+			$assetsList->only_opening = false;
+			$assetsList->start_date = null;
+			$assetsList->end_date = null;
+			$assetsList->affects_gross = -1;
+			$assetsList->start(1);
+
+			$this->_extract_groups_ledgers($assetsList, true);
+
+			$liabilitiesList = new AccountList();
+			$liabilitiesList->Group = &$this->Group;
+			$liabilitiesList->Ledger = &$this->Ledger;
+			$liabilitiesList->only_opening = false;
+			$liabilitiesList->start_date = null;
+			$liabilitiesList->end_date = null;
+			$liabilitiesList->affects_gross = -1;
+			$liabilitiesList->start(2);
+
+			$this->_extract_groups_ledgers($liabilitiesList, true);
+
+			$incomesList = new AccountList();
+			$incomesList->Group = &$this->Group;
+			$incomesList->Ledger = &$this->Ledger;
+			$incomesList->only_opening = false;
+			$incomesList->start_date = null;
+			$incomesList->end_date = null;
+			$incomesList->affects_gross = -1;
+			$incomesList->start(3);
+
+			$this->_extract_groups_ledgers($incomesList, false);
+
+			$expenseList = new AccountList();
+			$expenseList->Group = &$this->Group;
+			$expenseList->Ledger = &$this->Ledger;
+			$expenseList->only_opening = false;
+			$expenseList->start_date = null;
+			$expenseList->end_date = null;
+			$expenseList->affects_gross = -1;
+			$expenseList->start(4);
+
+			$this->_extract_groups_ledgers($expenseList, false);
+
+			$this->NewGroup = new $this->Group;
+			$this->NewGroup->useDbConfig = 'wz_newconfig';
+
+			foreach ($this->groups_list as $row => $group) {
+				$this->NewGroup->create();
+				if (!$this->NewGroup->save($group, false)) {
+					$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward account groups. Please, try again.'), 'danger');
 					return;
 				}
+			}
 
-				/******* Add initial data ********/
+			$this->NewLedger = new $this->Ledger;
+			$this->NewLedger->useDbConfig = 'wz_newconfig';
 
-				/* CF groups and ledgers */
-				$assetsList = new AccountList();
-				$assetsList->Group = &$this->Group;
-				$assetsList->Ledger = &$this->Ledger;
-				$assetsList->only_opening = false;
-				$assetsList->start_date = null;
-				$assetsList->end_date = null;
-				$assetsList->affects_gross = -1;
-				$assetsList->start(1);
-
-				$this->_extract_groups_ledgers($assetsList, true);
-
-				$liabilitiesList = new AccountList();
-				$liabilitiesList->Group = &$this->Group;
-				$liabilitiesList->Ledger = &$this->Ledger;
-				$liabilitiesList->only_opening = false;
-				$liabilitiesList->start_date = null;
-				$liabilitiesList->end_date = null;
-				$liabilitiesList->affects_gross = -1;
-				$liabilitiesList->start(2);
-
-				$this->_extract_groups_ledgers($liabilitiesList, true);
-
-				$incomesList = new AccountList();
-				$incomesList->Group = &$this->Group;
-				$incomesList->Ledger = &$this->Ledger;
-				$incomesList->only_opening = false;
-				$incomesList->start_date = null;
-				$incomesList->end_date = null;
-				$incomesList->affects_gross = -1;
-				$incomesList->start(3);
-
-				$this->_extract_groups_ledgers($incomesList, false);
-
-				$expenseList = new AccountList();
-				$expenseList->Group = &$this->Group;
-				$expenseList->Ledger = &$this->Ledger;
-				$expenseList->only_opening = false;
-				$expenseList->start_date = null;
-				$expenseList->end_date = null;
-				$expenseList->affects_gross = -1;
-				$expenseList->start(4);
-
-				$this->_extract_groups_ledgers($expenseList, false);
-
-				$this->NewGroup = new $this->Group;
-				$this->NewGroup->useDbConfig = 'wz_newconfig';
-
-				foreach ($this->groups_list as $row => $group) {
-					$this->NewGroup->create();
-					if (!$this->NewGroup->save($group, false)) {
-						$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward account groups. Please, try again.'), 'danger');
-						return;
-					}
-				}
-
-				$this->NewLedger = new $this->Ledger;
-				$this->NewLedger->useDbConfig = 'wz_newconfig';
-
-				foreach ($this->ledgers_list as $row => $ledger) {
-					$this->NewLedger->create();
-					if (!$this->NewLedger->save($ledger, false)) {
-						$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward account ledgers. Please, try again.'), 'danger');
-						return;
-					}
-				}
-
-				/* CF Entrytypes */
-				$this->OldEntrytype = new $this->Entrytype;
-				$old_entrytypes = $this->OldEntrytype->find('all');
-
-				$this->NewEntrytype = new $this->Entrytype;
-				$this->NewEntrytype->useDbConfig = 'wz_newconfig';
-
-				foreach ($old_entrytypes as $row => $entrytype) {
-					$this->NewEntrytype->create();
-					if (!$this->NewEntrytype->save($entrytype)) {
-						$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward entrytypes. Please, try again.'), 'danger');
-						return;
-					}
-				}
-
-				/* CF Tags */
-				$this->OldTag = new $this->Tag;
-				$old_tags = $this->OldTag->find('all');
-
-				$this->NewTag = new $this->Tag;
-				$this->NewTag->useDbConfig = 'wz_newconfig';
-
-				foreach ($old_tags as $row => $tag) {
-					$this->NewTag->create();
-					if (!$this->NewTag->save($tag)) {
-						$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward tags. Please, try again.'), 'danger');
-						return;
-					}
-				}
-
-				/* CF settings */
-				$this->NewSetting = new $this->Setting;
-				$this->NewSetting->useDbConfig = 'wz_newconfig';
-
-				$new_account_setting = array('Setting' => array(
-					'id' => '1',
-					'name' => $this->request->data['Wzaccount']['name'],
-					'address' => $old_account_setting['Setting']['address'],
-					'email' => $old_account_setting['Setting']['email'],
-					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
-					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
-					'currency_symbol' => $old_account_setting['Setting']['currency_symbol'],
-					'currency_format' => $old_account_setting['Setting']['currency_format'],
-					'decimal_places' => $old_account_setting['Setting']['decimal_places'],
-					'date_format' => $this->request->data['Wzaccount']['date_format'],
-					'timezone' => 'UTC',
-					'manage_inventory' => 0,
-					'account_locked' => 0,
-					'email_use_default' => $old_account_setting['Setting']['email_use_default'],
-					'email_protocol' => $old_account_setting['Setting']['email_protocol'],
-					'email_host' => $old_account_setting['Setting']['email_host'],
-					'email_port' => $old_account_setting['Setting']['email_port'],
-					'email_tls' => $old_account_setting['Setting']['email_tls'],
-					'email_username' => $old_account_setting['Setting']['email_username'],
-					'email_password' => $old_account_setting['Setting']['email_password'],
-					'email_from' => $old_account_setting['Setting']['email_from'],
-					'print_paper_height' => $old_account_setting['Setting']['print_paper_height'],
-					'print_paper_width' => $old_account_setting['Setting']['print_paper_width'],
-					'print_margin_top' => $old_account_setting['Setting']['print_margin_top'],
-					'print_margin_bottom' => $old_account_setting['Setting']['print_margin_bottom'],
-					'print_margin_left' => $old_account_setting['Setting']['print_margin_left'],
-					'print_margin_right' => $old_account_setting['Setting']['print_margin_right'],
-					'print_orientation' => $old_account_setting['Setting']['print_orientation'],
-					'print_page_format' => $old_account_setting['Setting']['print_page_format'],
-					'database_version' => '5',
-				));
-				$this->NewSetting->create();
-				if (!$this->NewSetting->save($new_account_setting)) {
-					foreach ($this->NewSetting->validationErrors as $field => $msg) {
-						$errmsg = $msg[0];
-						break;
-					}
-
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+			foreach ($this->ledgers_list as $row => $ledger) {
+				$this->NewLedger->create();
+				if (!$this->NewLedger->save($ledger, false)) {
+					$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward account ledgers. Please, try again.'), 'danger');
 					return;
 				}
+			}
 
-				/******* Add to wzaccount table *******/
-				$account_config = array('Wzaccount' => array(
-					'label' => $this->request->data['Wzaccount']['label'],
-					'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],
-					'db_database' => $this->request->data['Wzaccount']['db_database'],
-					'db_host' => $this->request->data['Wzaccount']['db_host'],
-					'db_port' => $this->request->data['Wzaccount']['db_port'],
-					'db_login' => $this->request->data['Wzaccount']['db_login'],
-					'db_password' => $this->request->data['Wzaccount']['db_password'],
-					'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
-					'db_schema' => '',
-					'db_unixsocket' => '',
-					'db_settings' => $this->request->data['Wzaccount']['db_settings'],
-				));
-				if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
-					$account_config['Wzaccount']['db_persistent'] = 1;
-				} else {
-					$account_config['Wzaccount']['db_persistent'] = 0;
-				}
+			/* CF Entrytypes */
+			$this->OldEntrytype = new $this->Entrytype;
+			$old_entrytypes = $this->OldEntrytype->find('all');
 
-				/* Save database configuration */
-				$this->Wzaccount->create();
-				if ($this->Wzaccount->save($account_config)) {
-					$this->Session->setFlash(__d('webzash', 'Account created.'), 'success');
-					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
-				} else {
-					foreach ($this->Wzaccount->validationErrors as $field => $msg) {
-						$errmsg = $msg[0];
-						break;
-					}
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+			$this->NewEntrytype = new $this->Entrytype;
+			$this->NewEntrytype->useDbConfig = 'wz_newconfig';
+
+			foreach ($old_entrytypes as $row => $entrytype) {
+				$this->NewEntrytype->create();
+				if (!$this->NewEntrytype->save($entrytype)) {
+					$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward entrytypes. Please, try again.'), 'danger');
 					return;
 				}
+			}
 
-			} /* END MySQL Specific */
+			/* CF Tags */
+			$this->OldTag = new $this->Tag;
+			$old_tags = $this->OldTag->find('all');
+
+			$this->NewTag = new $this->Tag;
+			$this->NewTag->useDbConfig = 'wz_newconfig';
+
+			foreach ($old_tags as $row => $tag) {
+				$this->NewTag->create();
+				if (!$this->NewTag->save($tag)) {
+					$this->Session->setFlash(__d('webzash', 'Account database created, but could not carry forward tags. Please, try again.'), 'danger');
+					return;
+				}
+			}
+
+			/* CF settings */
+			$this->NewSetting = new $this->Setting;
+			$this->NewSetting->useDbConfig = 'wz_newconfig';
+
+			$new_account_setting = array('Setting' => array(
+				'id' => '1',
+				'name' => $this->request->data['Wzaccount']['name'],
+				'address' => $old_account_setting['Setting']['address'],
+				'email' => $old_account_setting['Setting']['email'],
+				'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
+				'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
+				'currency_symbol' => $old_account_setting['Setting']['currency_symbol'],
+				'currency_format' => $old_account_setting['Setting']['currency_format'],
+				'decimal_places' => $old_account_setting['Setting']['decimal_places'],
+				'date_format' => $this->request->data['Wzaccount']['date_format'],
+				'timezone' => 'UTC',
+				'manage_inventory' => 0,
+				'account_locked' => 0,
+				'email_use_default' => $old_account_setting['Setting']['email_use_default'],
+				'email_protocol' => $old_account_setting['Setting']['email_protocol'],
+				'email_host' => $old_account_setting['Setting']['email_host'],
+				'email_port' => $old_account_setting['Setting']['email_port'],
+				'email_tls' => $old_account_setting['Setting']['email_tls'],
+				'email_username' => $old_account_setting['Setting']['email_username'],
+				'email_password' => $old_account_setting['Setting']['email_password'],
+				'email_from' => $old_account_setting['Setting']['email_from'],
+				'print_paper_height' => $old_account_setting['Setting']['print_paper_height'],
+				'print_paper_width' => $old_account_setting['Setting']['print_paper_width'],
+				'print_margin_top' => $old_account_setting['Setting']['print_margin_top'],
+				'print_margin_bottom' => $old_account_setting['Setting']['print_margin_bottom'],
+				'print_margin_left' => $old_account_setting['Setting']['print_margin_left'],
+				'print_margin_right' => $old_account_setting['Setting']['print_margin_right'],
+				'print_orientation' => $old_account_setting['Setting']['print_orientation'],
+				'print_page_format' => $old_account_setting['Setting']['print_page_format'],
+				'database_version' => '5',
+			));
+			$this->NewSetting->create();
+			if (!$this->NewSetting->save($new_account_setting)) {
+				foreach ($this->NewSetting->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
+				}
+
+				$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+				return;
+			}
+
+			/******* Add to wzaccount table *******/
+			$account_config = array('Wzaccount' => array(
+				'label' => $this->request->data['Wzaccount']['label'],
+				'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],
+				'db_database' => $this->request->data['Wzaccount']['db_database'],
+				'db_host' => $this->request->data['Wzaccount']['db_host'],
+				'db_port' => $this->request->data['Wzaccount']['db_port'],
+				'db_login' => $this->request->data['Wzaccount']['db_login'],
+				'db_password' => $this->request->data['Wzaccount']['db_password'],
+				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
+				'db_unixsocket' => '',
+				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
+			));
+			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
+				$account_config['Wzaccount']['db_persistent'] = 1;
+			} else {
+				$account_config['Wzaccount']['db_persistent'] = 0;
+			}
+
+			/* Save database configuration */
+			$this->Wzaccount->create();
+			if ($this->Wzaccount->save($account_config)) {
+				$this->Session->setFlash(__d('webzash', 'Account created.'), 'success');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
+			} else {
+				foreach ($this->Wzaccount->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
+				}
+				$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+				return;
+			}
 		}
 	}
 

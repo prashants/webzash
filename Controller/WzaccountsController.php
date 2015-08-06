@@ -225,6 +225,7 @@ class WzaccountsController extends WebzashAppController {
 
 			/* Connection successfull, next check if any table names clash */
 			$db = ConnectionManager::getDataSource('wz_newconfig');
+
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
 				$existing_tables = $db->query("show tables");
 				/*

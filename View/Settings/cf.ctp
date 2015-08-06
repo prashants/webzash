@@ -114,6 +114,10 @@ $(document).ready(function() {
 	// TODO echo $this->Form->input('create_db', array('type' => 'checkbox', 'label' => __d('webzash', 'Create database if it does not exists')));
 	echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 	echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
+	echo $this->Form->input('db_schema', array(
+		'label' => __d('webzash', 'Database schema'),
+		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database schema is required for Postgres database connection. Leave it blank for MySQL connections.') . '</span>',
+	));
 	echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host')));
 	echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port')));
 	echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
