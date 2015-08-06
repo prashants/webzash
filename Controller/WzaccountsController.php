@@ -90,6 +90,11 @@ class WzaccountsController extends WebzashAppController {
 				return;
 			}
 
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
+				return;
+			}
+
 			/* Check if label already exists */
 			$count = $this->Wzaccount->find('count', array('conditions' => array(
 				'Wzaccount.label' => $this->request->data['Wzaccount']['label'],
