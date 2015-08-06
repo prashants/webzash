@@ -89,10 +89,6 @@ class WzaccountsController extends WebzashAppController {
 				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
-				return;
-			}
 
 			/* Check if label already exists */
 			$count = $this->Wzaccount->find('count', array('conditions' => array(
@@ -179,7 +175,7 @@ class WzaccountsController extends WebzashAppController {
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
 				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
-				'db_schema' => '',
+				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
 			));
@@ -206,6 +202,7 @@ class WzaccountsController extends WebzashAppController {
 			$wz_newconfig['login'] = $this->request->data['Wzaccount']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzaccount']['db_password'];
 			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzaccount']['db_prefix']);
+			$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
 			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
@@ -226,14 +223,9 @@ class WzaccountsController extends WebzashAppController {
 				return;
 			}
 
-			/*****************************************************/
-			/****************** MYSQL SPECIFIC *******************/
-			/*****************************************************/
+			/* Connection successfull, next check if any table names clash */
+			$db = ConnectionManager::getDataSource('wz_newconfig');
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
-
-
-				/* Connection successfull, next check if any table names clash */
-				$db = ConnectionManager::getDataSource('wz_newconfig');
 				$existing_tables = $db->query("show tables");
 				/*
 				Format of $existing_tables is
@@ -272,129 +264,153 @@ class WzaccountsController extends WebzashAppController {
 				if ($table_exisits == TRUE) {
 					return;
 				}
+			}
 
-				/**
-				 * At this point the connection is successfull and there are no table clashes,
-				 * we can create the application specific tables.
-				 */
+			/**
+			 * At this point the connection is successfull and there are no table clashes,
+			 * we can create the application specific tables.
+			 */
 
-				/* Read the MySQL database creation schema from the Config folder */
-				App::uses('File', 'Utility');
+			/* Read the database creation schema from the Config folder */
+			App::uses('File', 'Utility');
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/Schema.Mysql.sql';
-				$schema_file = new File($schema_filepath, false);
-				$schema = $schema_file->read(true, 'r');
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$schema_filepath = App::pluginPath('Webzash') . 'Config/Schema.Postgres.sql';
+			}
+			$schema_file = new File($schema_filepath, false);
+			$schema = $schema_file->read(true, 'r');
 
-				/* Add prefix to the table names in the schema */
-				$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+			/* Add prefix to the table names in the schema */
+			$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 
-				/* Add decimal places */
-				$final_schema = str_replace('%_DECIMAL_%', $this->request->data['Wzaccount']['decimal_places'], $prefix_schema);
+			/* Add decimal places */
+			$final_schema = str_replace('%_DECIMAL_%', $this->request->data['Wzaccount']['decimal_places'], $prefix_schema);
 
-				/* Create tables */
-				try {
-					$db->rawQuery($final_schema);
-				} catch (Exception $e) {
-					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
-					return;
-				}
+			/* Create tables */
+			try {
+				$db->rawQuery($final_schema);
+			} catch (Exception $e) {
+				$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
+				return;
+			}
 
-				/* Read the intial data from the Config folder */
+			/* Read the intial data from the Config folder */
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
 				$initdata_filepath = App::pluginPath('Webzash') . 'Config/InitialData.Mysql.sql';
-				$initdata_file = new File($initdata_filepath, false);
-				$initdata = $initdata_file->read(true, 'r');
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$initdata_filepath = App::pluginPath('Webzash') . 'Config/InitialData.Postgres.sql';
+			}
 
-				/* Add prefix to the table names in the intial data */
-				$final_initdata = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $initdata);
+			$initdata_file = new File($initdata_filepath, false);
+			$initdata = $initdata_file->read(true, 'r');
 
-				/* Add initial data */
+			/* Add prefix to the table names in the intial data */
+			$final_initdata = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $initdata);
+
+			/* Add initial data */
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
 				try {
 					$db->rawQuery($final_initdata);
 				} catch (Exception $e) {
 					$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while adding initial data. Please try again.'), 'danger');
 					return;
 				}
-
-				/******* Create settings *******/
-				$this->Setting->useDbConfig = 'wz_newconfig';
-
-				$account_setting = array('Setting' => array(
-					'id' => '1',
-					'name' => $this->request->data['Wzaccount']['name'],
-					'address' => $this->request->data['Wzaccount']['address'],
-					'email' => $this->request->data['Wzaccount']['email'],
-					'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
-					'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
-					'currency_symbol' => $this->request->data['Wzaccount']['currency_symbol'],
-					'currency_format' => $this->request->data['Wzaccount']['currency_format'],
-					'decimal_places' => $this->request->data['Wzaccount']['decimal_places'],
-					'date_format' => $this->request->data['Wzaccount']['date_format'],
-					'timezone' => 'UTC',
-					'manage_inventory' => 0,
-					'account_locked' => 0,
-					'email_use_default' => 1,
-					'email_protocol' => 'Smtp',
-					'email_host' => '',
-					'email_port' => 0,
-					'email_tls' => 0,
-					'email_username' => '',
-					'email_password' => '',
-					'email_from' => '',
-					'print_paper_height' => 0.0,
-					'print_paper_width' => 0.0,
-					'print_margin_top' => 0.0,
-					'print_margin_bottom' => 0.0,
-					'print_margin_left' => 0.0,
-					'print_margin_right' => 0.0,
-					'print_orientation' => 'P',
-					'print_page_format' => 'H',
-					'database_version' => '5',
-				));
-				$this->Setting->create();
-				if (!$this->Setting->save($account_setting)) {
-					foreach ($this->Setting->validationErrors as $field => $msg) {
-						$errmsg = $msg[0];
-						break;
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				/* Execute each individual querry one at a time as per Postgres limitations */
+				$final_querries = explode(PHP_EOL, $final_initdata);
+				foreach ($final_querries as $init_query) {
+					if (strlen($init_query) < 5) {
+						continue;
 					}
-
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
-					return;
-				}
-
-				/******* Add to wzaccount table *******/
-				$account_config = array('Wzaccount' => array(
-					'label' => $this->request->data['Wzaccount']['label'],
-					'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],
-					'db_database' => $this->request->data['Wzaccount']['db_database'],
-					'db_host' => $this->request->data['Wzaccount']['db_host'],
-					'db_port' => $this->request->data['Wzaccount']['db_port'],
-					'db_login' => $this->request->data['Wzaccount']['db_login'],
-					'db_password' => $this->request->data['Wzaccount']['db_password'],
-					'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
-					'db_schema' => '',
-					'db_unixsocket' => '',
-					'db_settings' => $this->request->data['Wzaccount']['db_settings'],
-				));
-				if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
-					$account_config['Wzaccount']['db_persistent'] = 1;
-				} else {
-					$account_config['Wzaccount']['db_persistent'] = 0;
-				}
-
-				/* Save database configuration */
-				$this->Wzaccount->create();
-				if ($this->Wzaccount->save($account_config)) {
-					$this->Session->setFlash(__d('webzash', 'Account created.'), 'success');
-					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
-				} else {
-					foreach ($this->Wzaccount->validationErrors as $field => $msg) {
-						$errmsg = $msg[0];
-						break;
+					try {
+						$db->rawQuery($init_query);
+					} catch (Exception $e) {
+						$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while adding initial data. Please try again.'), 'danger');
+						return;
 					}
-					$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
-					return;
+				}
+			}
+
+			/******* Create settings *******/
+			$this->Setting->useDbConfig = 'wz_newconfig';
+
+			$account_setting = array('Setting' => array(
+				'id' => '1',
+				'name' => $this->request->data['Wzaccount']['name'],
+				'address' => $this->request->data['Wzaccount']['address'],
+				'email' => $this->request->data['Wzaccount']['email'],
+				'fy_start' => dateToSql($this->request->data['Wzaccount']['fy_start']),
+				'fy_end' => dateToSql($this->request->data['Wzaccount']['fy_end']),
+				'currency_symbol' => $this->request->data['Wzaccount']['currency_symbol'],
+				'currency_format' => $this->request->data['Wzaccount']['currency_format'],
+				'decimal_places' => $this->request->data['Wzaccount']['decimal_places'],
+				'date_format' => $this->request->data['Wzaccount']['date_format'],
+				'timezone' => 'UTC',
+				'manage_inventory' => 0,
+				'account_locked' => 0,
+				'email_use_default' => 1,
+				'email_protocol' => 'Smtp',
+				'email_host' => '',
+				'email_port' => 0,
+				'email_tls' => 0,
+				'email_username' => '',
+				'email_password' => '',
+				'email_from' => '',
+				'print_paper_height' => 0.0,
+				'print_paper_width' => 0.0,
+				'print_margin_top' => 0.0,
+				'print_margin_bottom' => 0.0,
+				'print_margin_left' => 0.0,
+				'print_margin_right' => 0.0,
+				'print_orientation' => 'P',
+				'print_page_format' => 'H',
+				'database_version' => '5',
+			));
+			$this->Setting->create();
+			if (!$this->Setting->save($account_setting)) {
+				foreach ($this->Setting->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
 				}
 
-			} /* END MySQL Specific */
+				$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+				return;
+			}
+
+			/******* Add to wzaccount table *******/
+			$account_config = array('Wzaccount' => array(
+				'label' => $this->request->data['Wzaccount']['label'],
+				'db_datasource' => $this->request->data['Wzaccount']['db_datasource'],
+				'db_database' => $this->request->data['Wzaccount']['db_database'],
+				'db_host' => $this->request->data['Wzaccount']['db_host'],
+				'db_port' => $this->request->data['Wzaccount']['db_port'],
+				'db_login' => $this->request->data['Wzaccount']['db_login'],
+				'db_password' => $this->request->data['Wzaccount']['db_password'],
+				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
+				'db_unixsocket' => '',
+				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
+			));
+			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
+				$account_config['Wzaccount']['db_persistent'] = 1;
+			} else {
+				$account_config['Wzaccount']['db_persistent'] = 0;
+			}
+
+			/* Save database configuration */
+			$this->Wzaccount->create();
+			if ($this->Wzaccount->save($account_config)) {
+				$this->Session->setFlash(__d('webzash', 'Account created.'), 'success');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccounts', 'action' => 'index'));
+			} else {
+				foreach ($this->Wzaccount->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
+				}
+				$this->Session->setFlash(__d('webzash', 'Account database created, but account config could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
+				return;
+			}
 		}
 	}
 
