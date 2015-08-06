@@ -300,14 +300,6 @@ $(document).ready(function() {
 		numberOfMonths: 1,
 	});
 
-	/* Setup jQuery datepicker ui */
-	$('#EntryChequeDate').datepicker({
-		minDate: startDate,
-		maxDate: endDate,
-		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
-		numberOfMonths: 1,
-	});
-
 	$(".ledger-dropdown").select2({width:'100%'});
 });
 
@@ -364,20 +356,6 @@ $(document).ready(function() {
 	));
 
 	echo $this->Form->input('date', array('type' => 'text', 'label' => __d('webzash', 'Date')));
-
-	/* Cheque number and date panel */
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-body">';
-	echo '<div class="row">';
-	echo '<div class="col-md-6">';
-	echo $this->Form->input('cheque_number', array('type' => 'text', 'label' => __d('webzash', 'Cheque  Number')));
-	echo '</div>';
-	echo '<div class="col-md-6">';
-	echo $this->Form->input('cheque_date', array('type' => 'text', 'label' => __d('webzash', 'Cheque Date')));
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';
 
 	echo '<table class="stripped extra">';
 
