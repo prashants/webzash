@@ -1,8 +1,6 @@
 TODO :
 - Backup
 - Add Postgres / MS SQL support
-- Currency three digit decimal places
-- Add reference / cheque number, name and date
 - Update script
 - Full account name in download ledger statements, etc
 
@@ -14,6 +12,7 @@ Optional :
 - Cash flow statement
 - Tooltips
 - Optimize
+- Reference/Cheque number, name and date
 - Cheque printing
 - Keyboard shortcuts
 - Ledger / Group in downloads
