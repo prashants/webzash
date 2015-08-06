@@ -1,5 +1,5 @@
 CREATE TABLE "%_PREFIX_%groups" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"parent_id" bigint DEFAULT '0',
 	"name" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	"code" varchar(255) COLLATE "en_US.utf8" DEFAULT NULL,
@@ -12,7 +12,7 @@ CREATE INDEX "%_PREFIX_%groups_id" ON groups ("id");
 CREATE INDEX "%_PREFIX_%groups_parent_id" ON groups ("parent_id");
 
 CREATE TABLE "%_PREFIX_%ledgers" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"group_id" bigint NOT NULL,
 	"name" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	"code" varchar(255) COLLATE "en_US.utf8" DEFAULT NULL,
@@ -29,7 +29,7 @@ CREATE INDEX "%_PREFIX_%ledgers_id" ON ledgers ("id");
 CREATE INDEX "%_PREFIX_%ledgers_group_id" ON ledgers ("group_id");
 
 CREATE TABLE "%_PREFIX_%entrytypes" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"label" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	"name" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	"description" varchar(255) COLLATE "en_US.utf8" NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE "%_PREFIX_%entrytypes" (
 CREATE INDEX "%_PREFIX_%entrytypes_id" ON entrytypes ("id");
 
 CREATE TABLE "%_PREFIX_%tags" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"title" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	"color" char(6) COLLATE "en_US.utf8" NOT NULL,
 	"background" char(6) COLLATE "en_US.utf8" NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE "%_PREFIX_%tags" (
 CREATE INDEX "%_PREFIX_%tags_id" ON tags ("id");
 
 CREATE TABLE "%_PREFIX_%entries" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"tag_id" bigint DEFAULT NULL,
 	"entrytype_id" bigint NOT NULL,
 	"number" bigint DEFAULT NULL,
@@ -70,7 +70,7 @@ CREATE INDEX "%_PREFIX_%entries_tag_id" ON entries ("tag_id");
 CREATE INDEX "%_PREFIX_%entries_entrytype_id" ON entries ("entrytype_id");
 
 CREATE TABLE "%_PREFIX_%entryitems" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"entry_id" bigint NOT NULL,
 	"ledger_id" bigint NOT NULL,
 	"amount" numeric(25,%_DECIMAL_%) NOT NULL DEFAULT '0.00',
@@ -118,7 +118,7 @@ CREATE TABLE "%_PREFIX_%settings" (
 CREATE INDEX "%_PREFIX_%settings_id" ON settings ("id");
 
 CREATE TABLE "%_PREFIX_%logs" (
-	"id" bigint NOT NULL PRIMARY KEY,
+	"id" bigserial NOT NULL PRIMARY KEY,
 	"date" timestamp NOT NULL,
 	"level" int NOT NULL,
 	"host_ip" varchar(25) COLLATE "en_US.utf8" NOT NULL,
