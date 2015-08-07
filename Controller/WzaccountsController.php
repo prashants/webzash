@@ -524,6 +524,51 @@ class WzaccountsController extends WebzashAppController {
 	}
 
 /**
+ * update method
+ *
+ * @return void
+ */
+	public function update() {
+
+		$this->set('title_for_layout', __d('webzash', 'Update Account'));
+
+		$this->Setting->useDbConfig = 'wz_accconfig';
+
+		/* Read settings */
+		$setting = '';
+		try {
+			$setting = $this->Setting->findById(1);
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'Failed to connect to account database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
+		/* Check database version */
+		if ($setting['Setting']['database_version'] < '5') {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'You are using very old version of database. Please check Wiki on how to update database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+		if ($setting['Setting']['database_version'] == '6') {
+			$this->Session->setFlash(__d('webzash', 'Account database is already updated.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+
+		/* on POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($setting['Setting']['database_version'] == '5') {
+				/* Update database */
+			}
+		} else {
+			$this->set('settings', $setting);
+			return;
+		}
+	}
+
+/**
  * delete method
  *
  * @throws MethodNotAllowedException
@@ -591,6 +636,10 @@ class WzaccountsController extends WebzashAppController {
 		}
 
 		if ($this->action === 'edit') {
+			return $this->Permission->is_admin_allowed();
+		}
+
+		if ($this->action === 'update') {
 			return $this->Permission->is_admin_allowed();
 		}
 
