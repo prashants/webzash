@@ -128,13 +128,13 @@ class WebzashAppController extends AppController {
 		if ($setting['Setting']['database_version'] == 5) {
 			/* If user has admin role then redirect to update page */
 			if (CakeSession::read('ActiveAccount.account_role') == "admin") {
-				$this->Session->setFlash(__d('webzash', 'You need to update the database before activating this account.'), 'danger');
-				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'update', 'id' => CakeSession::read('ActiveAccount.id')));
+				$this->Session->setFlash(__d('webzash', 'You need to update the account database before activating this account.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzaccount', 'action' => 'update', 'id' => CakeSession::read('ActiveAccount.id')));
 			}
 			/* If user does not belong to admin role then show message to contact administrator */
 			CakeSession::delete('ActiveAccount.id');
 			CakeSession::delete('ActiveAccount.account_role');
-			$this->Session->setFlash(__d('webzash', 'You need to update the database before activating this account. Kindly contact the site administrator to update the database.'), 'danger');
+			$this->Session->setFlash(__d('webzash', 'You need to update the account database before activating this account. Kindly contact the site administrator to update the account database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 		if ($setting['Setting']['database_version'] > 6) {
