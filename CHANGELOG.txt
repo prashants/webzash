@@ -1,3 +1,12 @@
+Webzash version 2.4 - 07 August 2015
+------------------------------------
+
+- Add user interface for database update
+- Add custom decimal places
+- Add currency format option
+- Add account code to group and ledger accounts
+- Remove all database triggers
+
 Webzash version 2.3 - 25 January 2015
 -------------------------------------
 
