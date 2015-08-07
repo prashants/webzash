@@ -371,7 +371,7 @@ class WzaccountsController extends WebzashAppController {
 				'print_margin_right' => 0.0,
 				'print_orientation' => 'P',
 				'print_page_format' => 'H',
-				'database_version' => '5',
+				'database_version' => Configure::read('Webzash.AppDatabaseVersion'),
 			));
 			$this->Setting->create();
 			if (!$this->Setting->save($account_setting)) {

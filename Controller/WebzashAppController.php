@@ -125,7 +125,19 @@ class WebzashAppController extends AppController {
 			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to older version of this application. Please check the Wiki in the help section on how to upgrade your database.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
-		if ($setting['Setting']['database_version'] > 5) {
+		if ($setting['Setting']['database_version'] == 5) {
+			/* If user has admin role then redirect to update page */
+			if (CakeSession::read('ActiveAccount.account_role') == "admin") {
+				$this->Session->setFlash(__d('webzash', 'You need to update the database before activating this account.'), 'danger');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'update', 'id' => CakeSession::read('ActiveAccount.id')));
+			}
+			/* If user does not belong to admin role then show message to contact administrator */
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'You need to update the database before activating this account. Kindly contact the site administrator to update the database.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
+		}
+		if ($setting['Setting']['database_version'] > 6) {
 			CakeSession::delete('ActiveAccount.id');
 			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'You are connecting to a database which belongs to newer version of this application. Please upgrade this application before you can connect to the database.'), 'danger');
@@ -153,6 +165,8 @@ class WebzashAppController extends AppController {
 		Configure::write('Account.enddate', $setting['Setting']['fy_end']);
 		Configure::write('Account.locked', $setting['Setting']['account_locked']);
 		Configure::write('Account.email_use_default', $setting['Setting']['email_use_default']);
+
+		Configure::write('Account.CurrentDatabaseVersion', $setting['Setting']['database_version']);
 
 		/* Write entry types */
 		App::import("Webzash.Model", "Entrytype");
