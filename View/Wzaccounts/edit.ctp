@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 ?>
-<div class="wzaccont edit form">
+<div class="wzaccount edit form">
 	<?php
 		echo $this->Form->create('Wzaccount', array(
 			'inputDefaults' => array(

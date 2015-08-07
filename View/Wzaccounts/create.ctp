@@ -53,7 +53,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="wzaccont create form">
+<div class="wzaccount create form">
 	<?php
 
 	echo $this->Form->create('Wzaccount', array(
