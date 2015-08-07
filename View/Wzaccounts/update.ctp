@@ -42,6 +42,10 @@
 		echo $this->Form->label('update', __d('webzash', 'Click the "Udpate" button below to update the database.'));
 
 		echo '<br />';
+
+		echo $this->Form->label('update', __d('webzash', 'Please do keep a backup of the account database incase the update process fails.'));
+
+		echo '<br />';
 		echo '<br />';
 
 		echo '<div class="form-group">';
