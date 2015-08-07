@@ -557,15 +557,49 @@ class WzaccountsController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
 
+		$this->set('settings', $setting);
+
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($setting['Setting']['database_version'] == '5') {
 				/* Update database */
+				$db = ConnectionManager::getDataSource('wz_accconfig');
+
+				$database_prefix = $db->config['prefix'];
+
+				$update_querries = array();
+
+				/* Update database querries */
+				$update_querries[0] = "ALTER TABLE `" . $database_prefix . "groups` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL AFTER `name`, ADD UNIQUE `code` (`code`)";
+				$update_querries[1] = "ALTER TABLE `" . $database_prefix . "ledgers` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL AFTER `name`, ADD UNIQUE `code` (`code`)";
+				$update_querries[2] = "ALTER TABLE `" . $database_prefix . "settings` ADD `currency_format` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `currency_symbol`";
+				$update_querries[3] = "ALTER TABLE `" . $database_prefix . "settings` ADD `decimal_places` INT(2) NOT NULL DEFAULT '2' AFTER `currency_format`";
+				$update_querries[4] = "ALTER TABLE `" . $database_prefix . "settings` ADD `settings` BLOB NULL AFTER `database_version`";
+				$update_querries[5] = "UPDATE `" . $database_prefix . "settings` SET `currency_format` = 'none' WHERE `id` = 1";
+				$update_querries[6] = "UPDATE `" . $database_prefix . "settings` SET `decimal_places` = '2' WHERE `id` = 1";
+				$update_querries[7] = "UPDATE `" . $database_prefix . "settings` SET `database_version` = '6' WHERE `id` = 1";
+
+				$ds = $this->Wzaccount->getDataSource();
+				$ds->begin();
+
+				foreach ($update_querries as $update_q) {
+					try {
+						$db->rawQuery($update_q);
+					} catch (Exception $e) {
+						$ds->rollback();
+						$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while updating the database tables.<br />Error is : %s.', $e), 'danger');
+						return;
+					}
+				}
+
+				$ds->commit();
+
+				$this->Session->setFlash(__d('webzash', 'Account database updated successfully.'), 'success');
+				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 			}
-		} else {
-			$this->set('settings', $setting);
-			return;
 		}
+
+		return;
 	}
 
 /**
