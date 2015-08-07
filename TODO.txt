@@ -1,7 +1,6 @@
 TODO :
 - Backup
 - Add Postgres / MS SQL support
-- Update script
 - Full account name in download ledger statements, etc
 
 Optional :
