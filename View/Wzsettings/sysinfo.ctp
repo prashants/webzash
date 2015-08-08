@@ -30,7 +30,7 @@
 	<?php echo __d('webzash', 'Application version : %s', Configure::read('Webzash.AppVersion')); ?>
 </div>
 <div>
-	<?php echo __d('webzash', 'Application database version : %s', Configure::read('Webzash.CurrentDatabaseVersion')) ; ?>
+	<?php echo __d('webzash', 'Application database version : %s', Configure::read('Webzash.AppDatabaseVersion')) ; ?>
 </div>
 <div>
 	<?php echo __d('webzash', 'PHP version : %s', phpversion()) ; ?>

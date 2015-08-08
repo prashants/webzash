@@ -1,3 +1,8 @@
+Webzash version 2.5 - 08 August 2015
+------------------------------------
+
+- Add experimental support for Postgres SQL database
+
 Webzash version 2.4 - 07 August 2015
 ------------------------------------
 
