@@ -742,7 +742,10 @@ class ReportsController extends WebzashAppController {
 
 			/* Find all previous entryitems */
 			$prev_entries = $this->Entry->find('all', array(
-				'fields' => array('Entry.*', 'Entryitem.*'),
+				'fields' => array(
+					'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+					'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+				),
 				'limit' => $cur_limit,
 				'order' => array('Entry.date' => 'asc'),
 				'conditions' => $conditions,
@@ -782,7 +785,10 @@ class ReportsController extends WebzashAppController {
 			isset($this->passedArgs['print'])) {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'asc'),
 					'conditions' => $conditions,
@@ -800,7 +806,10 @@ class ReportsController extends WebzashAppController {
 		} else {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
 					'order' => array('Entry.date' => 'asc'),
 					'conditions' => $conditions,
@@ -1014,7 +1023,10 @@ class ReportsController extends WebzashAppController {
 			isset($this->passedArgs['print'])) {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
@@ -1032,7 +1044,10 @@ class ReportsController extends WebzashAppController {
 		} else {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
@@ -1327,7 +1342,10 @@ class ReportsController extends WebzashAppController {
 			isset($this->passedArgs['print'])) {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
@@ -1345,7 +1363,10 @@ class ReportsController extends WebzashAppController {
 		} else {
 			$this->CustomPaginator->settings = array(
 				'Entry' => array(
-					'fields' => array('Entry.*', 'Entryitem.*'),
+					'fields' => array(
+						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
+						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
+					),
 					'limit' => $this->Session->read('Wzsetting.row_count'),
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
