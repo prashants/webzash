@@ -144,13 +144,9 @@ class SettingsController extends WebzashAppController {
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 
-			/* Check is database if anything else other than MySQL */
+			/* Check if database engine is supported */
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Sqlserver') {
 				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
-				return;
-			}
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
 
@@ -485,7 +481,8 @@ class SettingsController extends WebzashAppController {
 				'print_margin_right' => $old_account_setting['Setting']['print_margin_right'],
 				'print_orientation' => $old_account_setting['Setting']['print_orientation'],
 				'print_page_format' => $old_account_setting['Setting']['print_page_format'],
-				'database_version' => '5',
+				'database_version' => $old_account_setting['Setting']['database_version'],
+				'settings' => $old_account_setting['Setting']['settings'],
 			));
 			$this->NewSetting->create();
 			if (!$this->NewSetting->save($new_account_setting)) {

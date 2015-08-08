@@ -84,14 +84,9 @@ class WzaccountsController extends WebzashAppController {
 		/* on POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 
-			/* Check is database if anything else other than MySQL */
+			/* Check if database engine is supported */
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Sqlserver') {
 				$this->Session->setFlash(__d('webzash', 'Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
-				return;
-			}
-
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				$this->Session->setFlash(__d('webzash', 'Sorry, currently Postgres SQL Server is not supported. We might add it soon, if you want to help let us know.'), 'danger');
 				return;
 			}
 
@@ -372,6 +367,7 @@ class WzaccountsController extends WebzashAppController {
 				'print_orientation' => 'P',
 				'print_page_format' => 'H',
 				'database_version' => Configure::read('Webzash.AppDatabaseVersion'),
+				'settings' => NULL,
 			));
 			$this->Setting->create();
 			if (!$this->Setting->save($account_setting)) {
@@ -574,7 +570,7 @@ class WzaccountsController extends WebzashAppController {
 				$update_querries[1] = "ALTER TABLE `" . $database_prefix . "ledgers` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL AFTER `name`, ADD UNIQUE `code` (`code`)";
 				$update_querries[2] = "ALTER TABLE `" . $database_prefix . "settings` ADD `currency_format` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `currency_symbol`";
 				$update_querries[3] = "ALTER TABLE `" . $database_prefix . "settings` ADD `decimal_places` INT(2) NOT NULL DEFAULT '2' AFTER `currency_format`";
-				$update_querries[4] = "ALTER TABLE `" . $database_prefix . "settings` ADD `settings` BLOB NULL AFTER `database_version`";
+				$update_querries[4] = "ALTER TABLE `" . $database_prefix . "settings` ADD `settings` BLOB NULL DEFAULT NULL AFTER `database_version`";
 				$update_querries[5] = "UPDATE `" . $database_prefix . "settings` SET `currency_format` = 'none' WHERE `id` = 1";
 				$update_querries[6] = "UPDATE `" . $database_prefix . "settings` SET `decimal_places` = '2' WHERE `id` = 1";
 				$update_querries[7] = "UPDATE `" . $database_prefix . "settings` SET `database_version` = '6' WHERE `id` = 1";
