@@ -110,4 +110,8 @@ class JoomlaAuth {
 
                 return $status;
         }
+
+		public function getUserDetails() {
+			return array('status' => FALSE);
+		}
 }

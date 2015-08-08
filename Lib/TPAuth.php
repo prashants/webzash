@@ -26,6 +26,7 @@
  */
 
 App::uses('JoomlaAuth', 'Webzash.Lib');
+App::uses('JoomlaAutoAuth', 'Webzash.Lib');
 
 class TPAuth {
 
@@ -36,6 +37,10 @@ class TPAuth {
 
         public function checkPassword($username, $password) {
                 return $this->auth->checkPassword($username, $password);
+        }
+
+        public function getUserDetails() {
+                return $this->auth->getUserDetails();
         }
 
         public function siteURL() {
