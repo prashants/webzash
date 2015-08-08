@@ -113,6 +113,7 @@ CREATE TABLE "%_PREFIX_%settings" (
 	"print_orientation" char(1) COLLATE "en_US.utf8" NOT NULL,
 	"print_page_format" char(1) COLLATE "en_US.utf8" NOT NULL,
 	"database_version" int NOT NULL,
+	"settings" bytea NULL DEFAULT NULL,
 	UNIQUE("id")
 );
 CREATE INDEX "%_PREFIX_%settings_id" ON settings ("id");

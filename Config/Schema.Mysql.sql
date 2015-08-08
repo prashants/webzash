@@ -137,6 +137,7 @@ CREATE TABLE `%_PREFIX_%settings` (
 	`print_orientation` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`print_page_format` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`database_version` int(10) NOT NULL,
+	`settings` BLOB NULL DEFAULT NULL,
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	KEY `id` (`id`)
