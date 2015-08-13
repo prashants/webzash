@@ -301,6 +301,79 @@ $(document).ready(function() {
 	});
 
 	$(".ledger-dropdown").select2({width:'100%'});
+
+	/**************** References ***************/
+
+	/* Setup jQuery datepicker ui */
+	$('#reference-date').datepicker({
+		minDate: startDate,
+		maxDate: endDate,
+		dateFormat: '<?php echo Configure::read('Account.dateformatJS'); ?>',
+		numberOfMonths: 1,
+	});
+
+	/* Handle model show */
+	$('#referenceModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) /* Button that triggered the modal */
+
+		/* Set the entryitem row id in the reference-id field */
+		var rowID = button.data('id');
+		$('#reference-id').val(rowID);
+		$('#reference-text').val($('#Entryitem' + rowID + 'ReferenceText').val());
+		$('#reference-number').val($('#Entryitem' + rowID + 'ReferenceNumber').val());
+		$('#reference-date').val($('#Entryitem' + rowID + 'ReferenceDate').val());
+	})
+
+	/* Handle "Submit" button clicked */
+	$('#reference-submit').click(function(e) {
+		e.preventDefault();
+
+		/* Fetch values */
+		var rowID = $('#reference-id').val();
+		var referenceText = $('#reference-text').val();
+		var referenceNumber = $('#reference-number').val();
+		var referenceDate = $('#reference-date').val();
+
+		/* Save the values to hidden parent form fields */
+		$('#Entryitem' + rowID + 'ReferenceText').val(referenceText);
+		$('#Entryitem' + rowID + 'ReferenceNumber').val(referenceNumber);
+		$('#Entryitem' + rowID + 'ReferenceDate').val(referenceDate);
+
+		/* Generate reference string to show to user */
+		htmlRefStr = '';
+		if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
+			htmlRefStr = '';
+		} else if (referenceText.length > 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
+			htmlRefStr = referenceText;
+		} else if (referenceText.length < 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+			htmlRefStr = referenceNumber;
+		} else if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceDate;
+		} else if (referenceText.length > 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+			htmlRefStr = referenceText + ' / ' + referenceNumber;
+		} else if (referenceText.length < 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceNumber + ' / ' + referenceDate;
+		} else if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceText + ' / ' + referenceDate;
+		} else if (referenceText.length > 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceText + ' / ' + referenceNumber + ' / ' + referenceDate;
+		}
+
+		/* Reset the modal form data */
+		$('#reference-data-' + rowID).html(htmlRefStr);
+		$('#reference-text').val("");
+		$('#reference-number').val("");
+		$('#reference-date').val("");
+		$('#referenceModal').modal('hide');
+	});
+
+	/* Handle "Close" button clicked */
+	$('#reference-close').click(function(e) {
+		/* Reset the modal form data */
+		$('#reference-text').val("");
+		$('#reference-number').val("");
+		$('#reference-date').val("");
+	});
 });
 
 </script>
@@ -384,9 +457,9 @@ $(document).ready(function() {
 		}
 
 		if (empty($entryitem['ledger_id'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'escape' => false, 'disabled' => $ledgers_disabled, 'class' => 'ledger-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'escape' => false, 'disabled' => $ledgers_disabled, 'class' => 'ledger-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '<span id="reference-data-' . $row . '"></span></td>';
 		} else {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'default' => $entryitem['ledger_id'], 'escape' => false, 'disabled' => $ledgers_disabled, 'class' => 'ledger-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.ledger_id', array('type' => 'select', 'options' => $ledger_options, 'default' => $entryitem['ledger_id'], 'escape' => false, 'disabled' => $ledgers_disabled, 'class' => 'ledger-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '<span id="reference-data-' . $row . '"></span></td>';
 		}
 
 		if (empty($entryitem['dr_amount'])) {
@@ -405,6 +478,12 @@ $(document).ready(function() {
 		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false));
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
+		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-flash')) . __d('webzash', ' Reference'), array('class' => 'referencerow', 'escape' => false, 'data-id' => $row, 'data-toggle' => 'modal', 'data-target' => '#referenceModal'));
+		/* Hidden elements */
+		echo $this->Form->input('Entryitem.' . $row . '.reference_text', array('type' => 'hidden', 'class' => 'ref-text'));
+		echo $this->Form->input('Entryitem.' . $row . '.reference_number', array('type' => 'hidden', 'class' => 'ref-number'));
+		echo $this->Form->input('Entryitem.' . $row . '.reference_date', array('type' => 'hidden', 'class' => 'ref-date'));
 		echo '</td>';
 
 		echo '<td class="ledger-balance"><div></div></td>';
@@ -433,4 +512,32 @@ $(document).ready(function() {
 
 	echo $this->Form->end();
 ?>
+
+	<!-- Reference Modal -->
+	<div class="modal fade" id="referenceModal" tabindex="-1" role="dialog" aria-labelledby="References">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Manage References</h4>
+				</div>
+				<div class="modal-body">
+					<form id="reference-form">
+						Text<br />
+						<input type="text" id="reference-text" name="reference-text" value="" class="form-control" /><br />
+						Number<br />
+						<input type="text" id="reference-number" name="reference-number" value="" class="form-control" /><br />
+						Date<br />
+						<input type="text" id="reference-date" name="reference-date" value="" class="form-control" /><br />
+						<input type="hidden" id="reference-id" name="reference-id" value="" /><br />
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="reference-close" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="reference-submit">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>

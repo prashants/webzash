@@ -119,12 +119,12 @@ a.no-hover:hover {
 	text-decoration: none;
 }
 
-.addrow, .deleterow, .recalculate {
+.addrow, .deleterow, .recalculate, .referencerow {
 	color: #428BCA;
 	cursor: pointer;
 }
 
-.addrow:hover, .deleterow:hover, .recalculate:hover {
+.addrow:hover, .deleterow:hover, .referencerow:hover, .recalculate:hover {
 	color: #2A6496;
 }
 
