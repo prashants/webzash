@@ -319,7 +319,7 @@ $(document).ready(function() {
 		/* Set the entryitem row id in the reference-id field */
 		var rowID = button.data('id');
 		$('#reference-id').val(rowID);
-		$('#reference-text').val($('#Entryitem' + rowID + 'ReferenceText').val());
+		$('#reference-narration').val($('#Entryitem' + rowID + 'ReferenceNarration').val());
 		$('#reference-number').val($('#Entryitem' + rowID + 'ReferenceNumber').val());
 		$('#reference-date').val($('#Entryitem' + rowID + 'ReferenceDate').val());
 	})
@@ -330,12 +330,12 @@ $(document).ready(function() {
 
 		/* Fetch values */
 		var rowID = $('#reference-id').val();
-		var referenceText = $('#reference-text').val();
+		var referenceNarration = $('#reference-narration').val();
 		var referenceNumber = $('#reference-number').val();
 		var referenceDate = $('#reference-date').val();
 
 		/* Save the values to hidden parent form fields */
-		$('#Entryitem' + rowID + 'ReferenceText').val(referenceText);
+		$('#Entryitem' + rowID + 'ReferenceNarration').val(referenceNarration);
 		$('#Entryitem' + rowID + 'ReferenceNumber').val(referenceNumber);
 		$('#Entryitem' + rowID + 'ReferenceDate').val(referenceDate);
 
@@ -353,28 +353,28 @@ $(document).ready(function() {
 
 	/* Generate reference string based on text, number and date below the ledger selector */
 	function genReferenceStr(rowID) {
-		var referenceText = $('#Entryitem' + rowID + 'ReferenceText').val();
+		var referenceNarration = $('#Entryitem' + rowID + 'ReferenceNarration').val();
 		var referenceNumber = $('#Entryitem' + rowID + 'ReferenceNumber').val();
 		var referenceDate = $('#Entryitem' + rowID + 'ReferenceDate').val();
 
 		/* Generate reference string to show to user */
 		htmlRefStr = '';
-		if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
+		if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
 			htmlRefStr = '';
-		} else if (referenceText.length > 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
-			htmlRefStr = referenceText;
-		} else if (referenceText.length < 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+		} else if (referenceNarration.length > 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
+			htmlRefStr = referenceNarration;
+		} else if (referenceNarration.length < 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
 			htmlRefStr = referenceNumber;
-		} else if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
 			htmlRefStr = referenceDate;
-		} else if (referenceText.length > 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
-			htmlRefStr = referenceText + ' / ' + referenceNumber;
-		} else if (referenceText.length < 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length > 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+			htmlRefStr = referenceNarration + ' / ' + referenceNumber;
+		} else if (referenceNarration.length < 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
 			htmlRefStr = referenceNumber + ' / ' + referenceDate;
-		} else if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
-			htmlRefStr = referenceText + ' / ' + referenceDate;
-		} else if (referenceText.length > 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
-			htmlRefStr = referenceText + ' / ' + referenceNumber + ' / ' + referenceDate;
+		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceNarration + ' / ' + referenceDate;
+		} else if (referenceNarration.length > 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+			htmlRefStr = referenceNarration + ' / ' + referenceNumber + ' / ' + referenceDate;
 		}
 
 		$('#reference-data-' + rowID).html(htmlRefStr);
@@ -384,7 +384,7 @@ $(document).ready(function() {
 
 	/* Reset the modal form data */
 	function resetModalFormData() {
-		$('#reference-text').val("");
+		$('#reference-narration').val("");
 		$('#reference-number').val("");
 		$('#reference-date').val("");
 	}
@@ -392,7 +392,7 @@ $(document).ready(function() {
 	/* Initialize the reference values */
 	function initReferecenValues() {
 		var extractNumRegexp = /\d/;
-		$("table tr .ref-text").each(function() {
+		$("table tr .ref-narration").each(function() {
 			var elementID = $(this).attr('id');
 			var rowID = extractNumRegexp.exec(elementID)[0];
 			genReferenceStr(rowID);
@@ -507,7 +507,7 @@ $(document).ready(function() {
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-flash')) . __d('webzash', ' Reference'), array('class' => 'referencerow', 'escape' => false, 'data-id' => $row, 'data-toggle' => 'modal', 'data-target' => '#referenceModal'));
 		/* Hidden elements */
-		echo $this->Form->input('Entryitem.' . $row . '.reference_text', array('type' => 'hidden', 'class' => 'ref-text'));
+		echo $this->Form->input('Entryitem.' . $row . '.reference_narration', array('type' => 'hidden', 'class' => 'ref-narration'));
 		echo $this->Form->input('Entryitem.' . $row . '.reference_number', array('type' => 'hidden', 'class' => 'ref-number'));
 		echo $this->Form->input('Entryitem.' . $row . '.reference_date', array('type' => 'hidden', 'class' => 'ref-date'));
 		echo '</td>';
@@ -549,8 +549,8 @@ $(document).ready(function() {
 				</div>
 				<div class="modal-body">
 					<form id="reference-form">
-						Text<br />
-						<input type="text" id="reference-text" name="reference-text" value="" class="form-control" /><br />
+						Narration<br />
+						<input type="text" id="reference-narration" name="reference-narration" value="" class="form-control" /><br />
 						Number<br />
 						<input type="text" id="reference-number" name="reference-number" value="" class="form-control" /><br />
 						Date<br />
