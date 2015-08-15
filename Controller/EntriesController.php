@@ -545,6 +545,9 @@ class EntriesController extends WebzashAppController {
 					'ledger_id' => $entryitem['ledger_id'],
 					'dr_amount' => isset($entryitem['dr_amount']) ? $entryitem['dr_amount'] : '',
 					'cr_amount' => isset($entryitem['cr_amount']) ? $entryitem['cr_amount'] : '',
+					'reference_narration' => isset($entryitem['reference_narration']) ? $entryitem['reference_narration'] : '',
+					'reference_number' => isset($entryitem['reference_number']) ? $entryitem['reference_number'] : '',
+					'reference_date' => isset($entryitem['reference_date']) ? $entryitem['reference_date'] : '',
 				);
 			}
 			$this->set('curEntryitems', $curEntryitems);
@@ -560,6 +563,9 @@ class EntriesController extends WebzashAppController {
 						'ledger_id' => $data['Entryitem']['ledger_id'],
 						'dr_amount' => $data['Entryitem']['amount'],
 						'cr_amount' => '',
+						'reference_narration' => $data['Entryitem']['reference_narration'],
+						'reference_number' => $data['Entryitem']['reference_number'],
+						'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateToSql($data['Entryitem']['reference_date']),
 					);
 				} else {
 					$curEntryitems[$row] = array(
@@ -567,6 +573,9 @@ class EntriesController extends WebzashAppController {
 						'ledger_id' => $data['Entryitem']['ledger_id'],
 						'dr_amount' => '',
 						'cr_amount' => $data['Entryitem']['amount'],
+						'reference_narration' => $data['Entryitem']['reference_narration'],
+						'reference_number' => $data['Entryitem']['reference_number'],
+						'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateToSql($data['Entryitem']['reference_date']),
 					);
 				}
 			}
@@ -672,6 +681,19 @@ class EntriesController extends WebzashAppController {
 					}
 				}
 
+				/* Check references */
+				foreach ($this->request->data['Entryitem'] as $row => $entryitem) {
+					if (strlen(trim($entryitem['reference_narration'])) < 1) {
+						$this->request->data['Entryitem'][$row]['reference_narration'] = NULL;
+					}
+					if (strlen(trim($entryitem['reference_number'])) < 1) {
+						$this->request->data['Entryitem'][$row]['reference_number'] = NULL;
+					}
+					if (strlen(trim($entryitem['reference_date'])) < 1) {
+						$this->request->data['Entryitem'][$row]['reference_date'] = NULL;
+					}
+				}
+
 				$dr_total = 0;
 				$cr_total = 0;
 
@@ -726,6 +748,9 @@ class EntriesController extends WebzashAppController {
 								'dc' => $entryitem['dc'],
 								'ledger_id' => $entryitem['ledger_id'],
 								'amount' => $entryitem['dr_amount'],
+								'reference_narration' => $entryitem['reference_narration'],
+								'reference_number' => $entryitem['reference_number'],
+								'reference_date' => is_null($entryitem['reference_date']) ? NULL : dateToSql($entryitem['reference_date']),
 							)
 						);
 					} else {
@@ -734,6 +759,9 @@ class EntriesController extends WebzashAppController {
 								'dc' => $entryitem['dc'],
 								'ledger_id' => $entryitem['ledger_id'],
 								'amount' => $entryitem['cr_amount'],
+								'reference_narration' => $entryitem['reference_narration'],
+								'reference_number' => $entryitem['reference_number'],
+								'reference_date' => is_null($entryitem['reference_date']) ? NULL : dateToSql($entryitem['reference_date']),
 							)
 						);
 					}

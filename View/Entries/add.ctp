@@ -275,7 +275,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$(cur_obj).parent().parent().after(data);
 				/* Trigger ledger item change */
-					$(cur_obj).parent().parent().next().children().first().next().children().children().children().trigger('change');
+				$(cur_obj).parent().parent().next().children().first().next().children().children().children().trigger('change');
 
 				$("tr.ajax-add .ledger-dropdown").select2({width:'100%'});
 			}
@@ -477,7 +477,7 @@ $(document).ready(function() {
 		echo '<tr>';
 
 		if (empty($entryitem['dc'])) {
-			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'options' => array('D' => 'Dr', 'C' => 'Cr'), 'class' => 'dc-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
+			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'options' => $drcr_options, 'class' => 'dc-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		} else {
 			echo '<td>' . $this->Form->input('Entryitem.' . $row . '.dc', array('type' => 'select', 'options' => $drcr_options, 'default' => $entryitem['dc'], 'class' => 'dc-dropdown form-control', 'label' => false, 'div' => array('class' => 'form-group-entryitem'))) . '</td>';
 		}
@@ -506,10 +506,26 @@ $(document).ready(function() {
 		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 		echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-flash')) . __d('webzash', ' Reference'), array('class' => 'referencerow', 'escape' => false, 'data-id' => $row, 'data-toggle' => 'modal', 'data-target' => '#referenceModal'));
-		/* Hidden elements */
-		echo $this->Form->input('Entryitem.' . $row . '.reference_narration', array('type' => 'hidden', 'class' => 'ref-narration'));
-		echo $this->Form->input('Entryitem.' . $row . '.reference_number', array('type' => 'hidden', 'class' => 'ref-number'));
-		echo $this->Form->input('Entryitem.' . $row . '.reference_date', array('type' => 'hidden', 'class' => 'ref-date'));
+
+		/* Hidden reference elements */
+		if (empty($entryitem['reference_narration'])) {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_narration', array('type' => 'hidden', 'class' => 'ref-narration'));
+		} else {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_narration', array('type' => 'hidden', 'default' => $entryitem['reference_narration'], 'class' => 'ref-narration'));
+		}
+
+		if (empty($entryitem['reference_number'])) {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_number', array('type' => 'hidden', 'class' => 'ref-number'));
+		} else {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_number', array('type' => 'hidden', 'default' => $entryitem['reference_number'], 'class' => 'ref-number'));
+		}
+
+		if (empty($entryitem['reference_date'])) {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_date', array('type' => 'hidden', 'class' => 'ref-date'));
+		} else {
+			echo $this->Form->input('Entryitem.' . $row . '.reference_date', array('type' => 'hidden', 'default' => $entryitem['reference_date'], 'class' => 'ref-date'));
+		}
+
 		echo '</td>';
 
 		echo '<td class="ledger-balance"><div></div></td>';
