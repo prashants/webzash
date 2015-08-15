@@ -339,6 +339,24 @@ $(document).ready(function() {
 		$('#Entryitem' + rowID + 'ReferenceNumber').val(referenceNumber);
 		$('#Entryitem' + rowID + 'ReferenceDate').val(referenceDate);
 
+		genReferenceStr(rowID);
+
+		resetModalFormData();
+
+		$('#referenceModal').modal('hide');
+	});
+
+	/* Handle "Close" button clicked */
+	$('#reference-close').click(function(e) {
+		resetModalFormData();
+	});
+
+	/* Generate reference string based on text, number and date below the ledger selector */
+	function genReferenceStr(rowID) {
+		var referenceText = $('#Entryitem' + rowID + 'ReferenceText').val();
+		var referenceNumber = $('#Entryitem' + rowID + 'ReferenceNumber').val();
+		var referenceDate = $('#Entryitem' + rowID + 'ReferenceDate').val();
+
 		/* Generate reference string to show to user */
 		htmlRefStr = '';
 		if (referenceText.length < 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
@@ -359,21 +377,29 @@ $(document).ready(function() {
 			htmlRefStr = referenceText + ' / ' + referenceNumber + ' / ' + referenceDate;
 		}
 
-		/* Reset the modal form data */
 		$('#reference-data-' + rowID).html(htmlRefStr);
-		$('#reference-text').val("");
-		$('#reference-number').val("");
-		$('#reference-date').val("");
-		$('#referenceModal').modal('hide');
-	});
 
-	/* Handle "Close" button clicked */
-	$('#reference-close').click(function(e) {
-		/* Reset the modal form data */
+		resetModalFormData();
+	}
+
+	/* Reset the modal form data */
+	function resetModalFormData() {
 		$('#reference-text').val("");
 		$('#reference-number').val("");
 		$('#reference-date').val("");
-	});
+	}
+
+	/* Initialize the reference values */
+	function initReferecenValues() {
+		var extractNumRegexp = /\d/;
+		$("table tr .ref-text").each(function() {
+			var elementID = $(this).attr('id');
+			var rowID = extractNumRegexp.exec(elementID)[0];
+			genReferenceStr(rowID);
+		});
+	}
+
+	initReferecenValues();
 });
 
 </script>
