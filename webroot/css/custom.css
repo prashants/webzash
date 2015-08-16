@@ -344,6 +344,11 @@ a.footer-power {
 	text-decoration: none;
 }
 
+.ref-str {
+	font-size: 90%;
+	color: #888;
+}
+
 /* Select2 */
 .select2 {
 	min-width: 200px;

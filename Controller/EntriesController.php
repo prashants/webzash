@@ -143,6 +143,9 @@ class EntriesController extends WebzashAppController {
 					'ledger_name' => $this->Ledger->getName($data['Entryitem']['ledger_id']),
 					'dr_amount' => $data['Entryitem']['amount'],
 					'cr_amount' => '',
+					'reference_narration' => $data['Entryitem']['reference_narration'],
+					'reference_number' => $data['Entryitem']['reference_number'],
+					'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateFromSql($data['Entryitem']['reference_date']),
 				);
 			} else {
 				$curEntryitems[$row] = array(
@@ -151,6 +154,9 @@ class EntriesController extends WebzashAppController {
 					'ledger_name' => $this->Ledger->getName($data['Entryitem']['ledger_id']),
 					'dr_amount' => '',
 					'cr_amount' => $data['Entryitem']['amount'],
+					'reference_narration' => $data['Entryitem']['reference_narration'],
+					'reference_number' => $data['Entryitem']['reference_number'],
+					'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateFromSql($data['Entryitem']['reference_date']),
 				);
 			}
 		}
