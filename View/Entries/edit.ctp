@@ -361,19 +361,19 @@ $(document).ready(function() {
 		htmlRefStr = '';
 		if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
 			htmlRefStr = '';
-		} else if (referenceNarration.length > 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
+		} else if (referenceNarration.length >= 1 && referenceNumber.length < 1 && referenceDate.length < 1) {
 			htmlRefStr = referenceNarration;
-		} else if (referenceNarration.length < 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+		} else if (referenceNarration.length < 1 && referenceNumber.length >= 1 && referenceDate.length < 1) {
 			htmlRefStr = referenceNumber;
-		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length >= 1) {
 			htmlRefStr = referenceDate;
-		} else if (referenceNarration.length > 1 && referenceNumber.length > 1 && referenceDate.length < 1) {
+		} else if (referenceNarration.length >= 1 && referenceNumber.length >= 1 && referenceDate.length < 1) {
 			htmlRefStr = referenceNarration + ' / ' + referenceNumber;
-		} else if (referenceNarration.length < 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length < 1 && referenceNumber.length >= 1 && referenceDate.length >= 1) {
 			htmlRefStr = referenceNumber + ' / ' + referenceDate;
-		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length < 1 && referenceNumber.length < 1 && referenceDate.length >= 1) {
 			htmlRefStr = referenceNarration + ' / ' + referenceDate;
-		} else if (referenceNarration.length > 1 && referenceNumber.length > 1 && referenceDate.length > 1) {
+		} else if (referenceNarration.length >= 1 && referenceNumber.length >= 1 && referenceDate.length >= 1) {
 			htmlRefStr = referenceNarration + ' / ' + referenceNumber + ' / ' + referenceDate;
 		}
 

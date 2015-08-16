@@ -565,7 +565,7 @@ class EntriesController extends WebzashAppController {
 						'cr_amount' => '',
 						'reference_narration' => $data['Entryitem']['reference_narration'],
 						'reference_number' => $data['Entryitem']['reference_number'],
-						'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateToSql($data['Entryitem']['reference_date']),
+						'reference_date' => is_null($data['Entryitem']['reference_date']) ? NULL : dateFromSql($data['Entryitem']['reference_date']),
 					);
 				} else {
 					$curEntryitems[$row] = array(
