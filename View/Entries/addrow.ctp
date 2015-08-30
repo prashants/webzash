@@ -45,7 +45,7 @@
 			echo '<option value="' . $row . '" disabled="disabled">' . $data . '</option>';
 		}
 	}
-	echo '</select></div>' . '</td>';
+	echo '</select></div>' . '<span id="reference-data-' . $i . '"></span>' . '</td>';
 
 	echo '<td>' . '<div class="form-group-entryitem"><input type="text" id="Entryitem' . $i . 'DrAmount" class="dr-item form-control" name="data[Entryitem][' . $i . '][dr_amount]" disabled=""></div>' . '</td>';
 
@@ -55,6 +55,14 @@
 	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-plus')) . __d('webzash', ' Add'), array('class' => 'addrow', 'escape' => false));
 	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-trash')) . __d('webzash', ' Delete'), array('class' => 'deleterow', 'escape' => false));
+	echo $this->Html->tag('span', '', array('class' => 'link-pad'));
+	echo $this->Html->tag('span', $this->Html->tag('i', '', array('class' => 'glyphicon glyphicon-flash')) . __d('webzash', ' Reference'), array('class' => 'referencerow', 'escape' => false, 'data-id' => $i, 'data-toggle' => 'modal', 'data-target' => '#referenceModal'));
+
+	/* Hidden reference elements */
+	echo '<input id="Entryitem' . $i . 'ReferenceNarration" class="ref-narration" type="hidden" name="data[Entryitem][' . $i . '][reference_narration]"></input>';
+	echo '<input id="Entryitem' . $i . 'ReferenceNumber" class="ref-number" type="hidden" name="data[Entryitem][' . $i . '][reference_number]"></input>';
+	echo '<input id="Entryitem' . $i . 'ReferenceDate" class="ref-date" type="hidden" name="data[Entryitem][' . $i . '][reference_date]"></input>';
+
 	echo '</td>';
 
 	echo '<td class="ledger-balance"><div></div></td>';
