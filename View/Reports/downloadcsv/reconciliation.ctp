@@ -49,8 +49,8 @@
 	echo '"' . __d('webzash', 'Number') . '",';
 	echo '"' . __d('webzash', 'Ledger') . '",';
 	echo '"' . __d('webzash', 'Type') . '",';
-	echo '"' . __d('webzash', 'Debit Amount') . '",';
-	echo '"' . __d('webzash', 'Credit Amount') . '",';
+	echo '"' . __d('webzash', 'Debit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '",';
+	echo '"' . __d('webzash', 'Credit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '",';
 	echo '"' . __d('webzash', 'Reconciliation Date') . '"';
 	echo "\n";
 

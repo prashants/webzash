@@ -123,10 +123,10 @@ function print_space($count)
 echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
 	echo '<th>' . __d('webzash', 'Type') . '</th>';
-	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
-	echo '<th>' . __d('webzash', 'Debit Total') . '</th>';
-	echo '<th>' . __d('webzash', 'Credit Total') . '</th>';
-	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
+	echo '<th>' . __d('webzash', 'O/P Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
+	echo '<th>' . __d('webzash', 'Debit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
+	echo '<th>' . __d('webzash', 'Credit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
+	echo '<th>' . __d('webzash', 'C/L Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
 
 	print_account_chart($accountlist, -1, $this);
 

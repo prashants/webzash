@@ -123,8 +123,8 @@ if (calculate($opdiff['opdiff_balance'], 0, '!=')) {
 echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
 	echo '<th>' . __d('webzash', 'Type') . '</th>';
-	echo '<th>' . __d('webzash', 'O/P Balance') . '</th>';
-	echo '<th>' . __d('webzash', 'C/L Balance') . '</th>';
+	echo '<th>' . __d('webzash', 'O/P Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
+	echo '<th>' . __d('webzash', 'C/L Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
 	echo '<th>' . __d('webzash', 'Actions') . '</th>';
 	print_account_chart($accountlist, -1, $this);
 echo '</table>';

@@ -109,8 +109,8 @@ function print_space($count)
 
 	/**************** Assets ****************/
 	echo $xRS;
-	echo $xCS . __d('webzash', 'Assets') . $xCE;
-	echo $xCS . __d('webzash', '(Dr) Amount') . $xCE;
+	echo $xCS . __d('webzash', 'Assets (Dr)') . $xCE;
+	echo $xCS . __d('webzash', 'Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
 	echo $xRE;
 	echo account_st_short($bsheet['assets'], $c = -1, $this, 'D');
 	echo $xRS . $xRE;
@@ -151,8 +151,8 @@ function print_space($count)
 
 	/**************** Liabilities ****************/
 	echo $xRS;
-	echo $xCS . __d('webzash', 'Liabilities and Owners Equity') . $xCE;
-	echo $xCS . __d('webzash', '(Cr) Amount') . $xCE;
+	echo $xCS . __d('webzash', 'Liabilities and Owners Equity (Cr)') . $xCE;
+	echo $xCS . __d('webzash', 'Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
 	echo $xRE;
 	echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C');
 	echo $xRS . $xRE;

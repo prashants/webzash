@@ -61,8 +61,8 @@
 	echo $xCS . __d('webzash', 'Number') . $xCE;
 	echo $xCS . __d('webzash', 'Ledger') . $xCE;
 	echo $xCS . __d('webzash', 'Type') . $xCE;
-	echo $xCS . __d('webzash', 'Debit Amount') . $xCE;
-	echo $xCS . __d('webzash', 'Credit Amount') . $xCE;
+	echo $xCS . __d('webzash', 'Debit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
+	echo $xCS . __d('webzash', 'Credit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
 	echo $xCS . __d('webzash', 'Reconciliation Date') . $xCE;
 	echo $xRE;
 

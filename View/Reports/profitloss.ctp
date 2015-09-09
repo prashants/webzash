@@ -243,8 +243,8 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Gross Expenses'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Gross Expenses (Dr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($pandl['gross_expenses'], $c = -1, $this, 'D'); ?>
 			</table>
@@ -254,8 +254,8 @@ $(document).ready(function() {
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Gross Incomes'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Gross Incomes (Cr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($pandl['gross_incomes'], $c = -1, $this, 'C'); ?>
 			</table>
@@ -347,8 +347,8 @@ $(document).ready(function() {
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Net Expenses'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Net Expenses (Dr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($pandl['net_expenses'], $c = -1, $this, 'D'); ?>
 			</table>
@@ -358,8 +358,8 @@ $(document).ready(function() {
 			<div class="report-tb-pad"></div>
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Net Incomes'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Net Incomes (Cr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($pandl['net_incomes'], $c = -1, $this, 'C'); ?>
 			</table>

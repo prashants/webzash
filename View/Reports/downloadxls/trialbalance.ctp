@@ -121,10 +121,10 @@ echo $xRS . $xRE;
 echo $xRS;
 echo $xCS . __d('webzash', 'Account Name') . $xCE;
 echo $xCS . __d('webzash', 'Type') . $xCE;
-echo $xCS . __d('webzash', 'O/P Balance') . $xCE;
-echo $xCS . __d('webzash', 'Debit Total') . $xCE;
-echo $xCS . __d('webzash', 'Credit Total') . $xCE;
-echo $xCS . __d('webzash', 'C/L Balance') . $xCE;
+echo $xCS . __d('webzash', 'O/P Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
+echo $xCS . __d('webzash', 'Debit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
+echo $xCS . __d('webzash', 'Credit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
+echo $xCS . __d('webzash', 'C/L Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . $xCE;
 echo $xRE;
 
 print_account_chart($accountlist, -1, $this);

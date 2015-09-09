@@ -99,8 +99,8 @@ function print_space($count)
 	echo "\n";
 
 	/**************** Assets ****************/
-	echo '"' . __d('webzash', 'Assets') . '",';
-	echo '"' . __d('webzash', '(Dr) Amount') . '"';
+	echo '"' . __d('webzash', 'Assets (Dr)') . '",';
+	echo '"' . __d('webzash', 'Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '"';
 	echo "\n";
 	echo account_st_short($bsheet['assets'], $c = -1, $this, 'D');
 	echo "\n";
@@ -136,8 +136,8 @@ function print_space($count)
 	echo "\n";
 
 	/**************** Liabilities ****************/
-	echo '"' . __d('webzash', 'Liabilities and Owners Equity') . '",';
-	echo '"' . __d('webzash', '(Cr) Amount') . '"';
+	echo '"' . __d('webzash', 'Liabilities and Owners Equity (Cr)') . '",';
+	echo '"' . __d('webzash', 'Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '"';
 	echo "\n";
 	echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C');
 	echo "\n";

@@ -110,10 +110,10 @@ echo "\n";
 
 echo '"' . __d('webzash', 'Account Name') . '",';
 echo '"' . __d('webzash', 'Type') . '",';
-echo '"' . __d('webzash', 'O/P Balance') . '",';
-echo '"' . __d('webzash', 'Debit Total') . '",';
-echo '"' . __d('webzash', 'Credit Total') . '",';
-echo '"' . __d('webzash', 'C/L Balance') . '"';
+echo '"' . __d('webzash', 'O/P Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '",';
+echo '"' . __d('webzash', 'Debit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . '",';
+echo '"' . __d('webzash', 'Credit Total') . ' (' . Configure::read('Account.currency_symbol') . ')' . '",';
+echo '"' . __d('webzash', 'C/L Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '"';
 echo "\n";
 
 print_account_chart($accountlist, -1, $this);

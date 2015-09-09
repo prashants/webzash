@@ -53,8 +53,8 @@
 		echo '<th>' . __d('webzash', 'Dr/Cr') . '</th>';
 	}
 	echo '<th>' . __d('webzash', 'Ledger') . '</th>';
-	echo '<th>' . __d('webzash', 'Dr Amount') . '</th>';
-	echo '<th>' . __d('webzash', 'Cr Amount') . '</th>';
+	echo '<th>' . __d('webzash', 'Dr Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
+	echo '<th>' . __d('webzash', 'Cr Amount') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
 	echo '</tr>';
 
 	/* Intial rows */

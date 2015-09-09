@@ -128,8 +128,8 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Assets'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Dr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Assets (Dr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($bsheet['assets'], $c = -1, $this, 'D'); ?>
 			</table>
@@ -139,8 +139,8 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 		<td class="table-top width-50">
 			<table class="stripped">
 				<tr>
-					<th><?php echo __d('webzash', 'Liabilities and Owners Equity'); ?></th>
-					<th class="text-right"><?php echo __d('webzash', '(Cr) Amount'); ?></th>
+					<th><?php echo __d('webzash', 'Liabilities and Owners Equity (Cr)'); ?></th>
+					<th class="text-right"><?php echo __d('webzash', 'Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 				</tr>
 				<?php echo account_st_short($bsheet['liabilities'], $c = -1, $this, 'C'); ?>
 			</table>
