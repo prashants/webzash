@@ -282,9 +282,9 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Profit C/F */
+					/* Gross Profit C/D */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
-						echo '<td>' . __d('webzash', 'Gross Profit C/F') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Profit C/D') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $pandl['gross_pl']) . '</td>';
 						$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 					} else {
@@ -320,12 +320,12 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Loss C/F */
+					/* Gross Loss C/D */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						echo '<td>&nbsp</td>';
 						echo '<td>&nbsp</td>';
 					} else {
-						echo '<td>' . __d('webzash', 'Gross Loss C/F') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Loss C/D') . '</td>';
 						$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 						echo '<td class="text-right">' . toCurrency('', $positive_gross_pl) . '</td>';
 						$gross_total = calculate($gross_total, $positive_gross_pl, '+');
@@ -386,13 +386,13 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Loss B/F */
+					/* Gross Loss B/D */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						echo '<td>&nbsp</td>';
 						echo '<td>&nbsp</td>';
 					} else {
 						$net_total = calculate($net_total, $positive_gross_pl, '+');
-						echo '<td>' . __d('webzash', 'Gross Loss B/F') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Loss B/D') . '</td>';
 						echo '<td class="text-right">' . toCurrency('', $positive_gross_pl) . '</td>';
 					}
 					?>
@@ -437,10 +437,10 @@ $(document).ready(function() {
 				?>
 				<tr class="bold-text">
 					<?php
-					/* Gross Profit B/F */
+					/* Gross Profit B/D */
 					if (calculate($pandl['gross_pl'], 0, '>=')) {
 						$net_total = calculate($net_total, $pandl['gross_pl'], '+');
-						echo '<td>' . __d('webzash', 'Gross Profit B/F') . '</td>';
+						echo '<td>' . __d('webzash', 'Gross Profit B/D') . '</td>';
 						echo '<td class="text-right">' .  toCurrency('', $pandl['gross_pl']) . '</td>';
 					} else {
 						echo '<td>&nbsp</td>';

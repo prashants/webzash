@@ -95,9 +95,9 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('D', $pandl['gross_expense_total']) . '"';
 	echo "\n";
 
-	/* Gross Profit C/F */
+	/* Gross Profit C/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
-		echo '"' . __d('webzash', 'Gross Profit C/F') . '",';
+		echo '"' . __d('webzash', 'Gross Profit C/D') . '",';
 		echo '"' . toCurrency('', $pandl['gross_pl']) . '"';
 		$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 		echo "\n";
@@ -121,11 +121,11 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('C', $pandl['gross_income_total']) . '"';
 	echo "\n";
 
-	/* Gross Loss C/F */
+	/* Gross Loss C/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
-		echo '"' . __d('webzash', 'Gross Loss C/F') . '",';
+		echo '"' . __d('webzash', 'Gross Loss C/D') . '",';
 		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 		echo '"' . toCurrency('', $positive_gross_pl) . '"';
 		$gross_total = calculate($gross_total, $positive_gross_pl, '+');
@@ -150,12 +150,12 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('D', $pandl['net_expense_total']) . '"';
 	echo "\n";
 
-	/* Gross Loss B/F */
+	/* Gross Loss B/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
 		$net_total = calculate($net_total, $positive_gross_pl, '+');
-		echo '"' . __d('webzash', 'Gross Loss B/F') . '",';
+		echo '"' . __d('webzash', 'Gross Loss B/D') . '",';
 		echo '"' . toCurrency('', $positive_gross_pl) . '"';
 		echo "\n";
 	}
@@ -186,10 +186,10 @@ $positive_net_pl = 0;
 	echo '"' . toCurrency('C', $pandl['net_income_total']) . '"';
 	echo "\n";
 
-	/* Gross Profit B/F */
+	/* Gross Profit B/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		$net_total = calculate($net_total, $pandl['gross_pl'], '+');
-		echo '"' . __d('webzash', 'Gross Profit B/F') . '",';
+		echo '"' . __d('webzash', 'Gross Profit B/D') . '",';
 		echo '"' .  toCurrency('', $pandl['gross_pl']) . '"';
 		echo "\n";
 	}

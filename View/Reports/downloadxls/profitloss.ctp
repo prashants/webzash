@@ -108,10 +108,10 @@ $positive_net_pl = 0;
 	echo $xCS . toCurrency('D', $pandl['gross_expense_total']) . $xCE;
 	echo $xRE;
 
-	/* Gross Profit C/F */
+	/* Gross Profit C/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		echo $xRS;
-		echo $xCS . __d('webzash', 'Gross Profit C/F') . $xCE;
+		echo $xCS . __d('webzash', 'Gross Profit C/D') . $xCE;
 		echo $xCS . toCurrency('', $pandl['gross_pl']) . $xCE;
 		$gross_total = calculate($gross_total, $pandl['gross_pl'], '+');
 		echo $xRE;
@@ -138,12 +138,12 @@ $positive_net_pl = 0;
 	echo $xCS . toCurrency('C', $pandl['gross_income_total']) . $xCE;
 	echo $xRE;
 
-	/* Gross Loss C/F */
+	/* Gross Loss C/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
 		echo $xRS;
-		echo $xCS . __d('webzash', 'Gross Loss C/F') . $xCE;
+		echo $xCS . __d('webzash', 'Gross Loss C/D') . $xCE;
 		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
 		$gross_total = calculate($gross_total, $positive_gross_pl, '+');
@@ -171,13 +171,13 @@ $positive_net_pl = 0;
 	echo $xCS . toCurrency('D', $pandl['net_expense_total']) . $xCE;
 	echo $xRE;
 
-	/* Gross Loss B/F */
+	/* Gross Loss B/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
 		echo $xRS;
 		$net_total = calculate($net_total, $positive_gross_pl, '+');
-		echo $xCS . __d('webzash', 'Gross Loss B/F') . $xCE;
+		echo $xCS . __d('webzash', 'Gross Loss B/D') . $xCE;
 		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
 		echo $xRE;
 	}
@@ -212,11 +212,11 @@ $positive_net_pl = 0;
 	echo $xCS . toCurrency('C', $pandl['net_income_total']) . $xCE;
 	echo $xRE;
 
-	/* Gross Profit B/F */
+	/* Gross Profit B/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		echo $xRS;
 		$net_total = calculate($net_total, $pandl['gross_pl'], '+');
-		echo $xCS . __d('webzash', 'Gross Profit B/F') . $xCE;
+		echo $xCS . __d('webzash', 'Gross Profit B/D') . $xCE;
 		echo $xCS .  toCurrency('', $pandl['gross_pl']) . $xCE;
 		echo $xRE;
 	}
