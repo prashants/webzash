@@ -190,7 +190,8 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 
 		echo $this->Form->input('opening', array(
 			'type' => 'checkbox',
-			'label' => __d('webzash', 'Show Opening Balance Sheet')
+			'label' => __d('webzash', 'Show Opening Balance Sheet'),
+			'class' => 'checkbox',
 		));
 
 		echo $this->Form->input('startdate', array(

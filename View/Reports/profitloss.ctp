@@ -179,6 +179,7 @@ $(document).ready(function() {
 			'type' => 'checkbox',
 			'label' => __d('webzash', 'Show Opening Profit and Loss Statement'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : In opening Profit and Loss Statement all ledgers and groups balance must be zero.') . '</span>',
+			'class' => 'checkbox',
 		));
 
 		echo $this->Form->input('startdate', array(
