@@ -40,6 +40,9 @@ function curreny_format($input) {
 		case '##,##.##':
 			return _currency_2_2_style($input);
 			break;
+		case "###,###.##":
+			return _currency_3_3_style($input);
+			break;
 		default:
 			die("Invalid curreny format selected.");
 	}
@@ -127,4 +130,11 @@ function _currency_2_2_style_makecomma($input)
 	$length = substr($input, 0, strlen($input) - 2);
 	$formatted_input = _currency_2_2_style_makecomma($length) . "," . substr($input, -2);
 	return $formatted_input;
+}
+
+/*********************** ###,###.## FORMAT ***********************/
+function _currency_3_3_style($num)
+{
+	$decimal_places = Configure::read('Account.decimal_places');
+	return number_format($num,$decimal_places,'.',',');
 }
