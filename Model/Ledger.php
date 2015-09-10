@@ -342,15 +342,15 @@ class Ledger extends WebzashAppModel {
 		}
 
 		$op_total = 0;
+		if (empty($op['Ledger']['op_balance'])) {
+			$op_total = 0;
+		} else {
+			$op_total = $op['Ledger']['op_balance'];
+		}
 		$op_total_dc = $op['Ledger']['op_balance_dc'];
-		if (is_null($start_date)) {
-			if (empty($op['Ledger']['op_balance'])) {
-				$op_total = 0;
-			} else {
-				$op_total = $op['Ledger']['op_balance'];
-			}
 
-			/* If start date is not specified then return here */
+		/* If start date is not specified then return here */
+		if (is_null($start_date)) {
 			return array('dc' => $op_total_dc, 'amount' => $op_total);
 		}
 
