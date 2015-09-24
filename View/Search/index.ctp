@@ -227,8 +227,8 @@ $(document).ready(function() {
 	<th><?php echo __d('webzash', 'Ledger'); ?></th>
 	<th><?php echo $this->Paginator->sort('entrytype_id', __d('webzash', 'Type')); ?></th>
 	<th><?php echo $this->Paginator->sort('tag_id', __d('webzash', 'Tag')); ?></th>
-	<th><?php echo __d('webzash', 'Debit Amount'); ?></th>
-	<th><?php echo __d('webzash', 'Credit Amount'); ?></th>
+	<th><?php echo __d('webzash', 'Debit Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
+	<th><?php echo __d('webzash', 'Credit Amount'); ?><?php echo ' (' . Configure::read('Account.currency_symbol') . ')'; ?></th>
 	<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 
