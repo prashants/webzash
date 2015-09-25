@@ -84,7 +84,8 @@ function print_space($count)
 
 $gross_total = 0;
 $positive_gross_pl = 0;
-$net_total = 0;
+$net_expense_total = 0;
+$net_income_total = 0;
 $positive_net_pl = 0;
 
 ?>
@@ -166,7 +167,7 @@ $positive_net_pl = 0;
 
 	/* Net Expense Total */
 	echo $xRS;
-	$net_total = $pandl['net_expense_total'];
+	$net_expense_total = $pandl['net_expense_total'];
 	echo $xCS . __d('webzash', 'Total Expenses') . $xCE;
 	echo $xCS . toCurrency('D', $pandl['net_expense_total']) . $xCE;
 	echo $xRE;
@@ -176,7 +177,7 @@ $positive_net_pl = 0;
 		/* Do nothing */
 	} else {
 		echo $xRS;
-		$net_total = calculate($net_total, $positive_gross_pl, '+');
+		$net_expense_total = calculate($net_expense_total, $positive_gross_pl, '+');
 		echo $xCS . __d('webzash', 'Gross Loss B/D') . $xCE;
 		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
 		echo $xRE;
@@ -187,13 +188,13 @@ $positive_net_pl = 0;
 		echo $xRS;
 		echo $xCS . __d('webzash', 'Net Profit') . $xCE;
 		echo $xCS . toCurrency('', $pandl['net_pl']) . $xCE;
-		$net_total = calculate($net_total, $pandl['net_pl'], '+');
+		$net_expense_total = calculate($net_expense_total, $pandl['net_pl'], '+');
 		echo $xRE;
 	}
 
 	echo $xRS;
 	echo $xCS . __d('webzash', 'Total') . $xCE;
-	echo $xCS . toCurrency('D', $net_total) . $xCE;
+	echo $xCS . toCurrency('D', $net_expense_total) . $xCE;
 	echo $xRE;
 	echo $xRS . $xRE;
 
@@ -207,7 +208,7 @@ $positive_net_pl = 0;
 
 	/* Net Income Total */
 	echo $xRS;
-	$net_total = $pandl['net_income_total'];
+	$net_income_total = $pandl['net_income_total'];
 	echo $xCS . __d('webzash', 'Total Incomes') . $xCE;
 	echo $xCS . toCurrency('C', $pandl['net_income_total']) . $xCE;
 	echo $xRE;
@@ -215,7 +216,7 @@ $positive_net_pl = 0;
 	/* Gross Profit B/D */
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		echo $xRS;
-		$net_total = calculate($net_total, $pandl['gross_pl'], '+');
+		$net_income_total = calculate($net_income_total, $pandl['gross_pl'], '+');
 		echo $xCS . __d('webzash', 'Gross Profit B/D') . $xCE;
 		echo $xCS .  toCurrency('', $pandl['gross_pl']) . $xCE;
 		echo $xRE;
@@ -229,12 +230,12 @@ $positive_net_pl = 0;
 		echo $xCS . __d('webzash', 'Net Loss') . $xCE;
 		$positive_net_pl = calculate($pandl['net_pl'], 0, 'n');
 		echo $xCS . toCurrency('', $positive_net_pl) . $xCE;
-		$net_total = calculate($net_total, $positive_net_pl, '+');
+		$net_income_total = calculate($net_income_total, $positive_net_pl, '+');
 		echo $xRE;
 	}
 
 	echo $xRS;
 	echo $xCS . __d('webzash', 'Total') . $xCE;
-	echo $xCS . toCurrency('C', $net_total) . $xCE;
+	echo $xCS . toCurrency('C', $net_income_total) . $xCE;
 	echo $xRE;
 	echo $xRS . $xRE;
