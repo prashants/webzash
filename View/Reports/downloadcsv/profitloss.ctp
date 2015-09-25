@@ -155,9 +155,10 @@ $positive_net_pl = 0;
 	if (calculate($pandl['gross_pl'], 0, '>=')) {
 		/* Do nothing */
 	} else {
-		$net_expense_total = calculate($net_expense_total, $positive_gross_pl, '+');
 		echo '"' . __d('webzash', 'Gross Loss B/D') . '",';
+		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 		echo '"' . toCurrency('', $positive_gross_pl) . '"';
+		$net_expense_total = calculate($net_expense_total, $positive_gross_pl, '+');
 		echo "\n";
 	}
 

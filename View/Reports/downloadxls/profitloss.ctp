@@ -177,9 +177,10 @@ $positive_net_pl = 0;
 		/* Do nothing */
 	} else {
 		echo $xRS;
-		$net_expense_total = calculate($net_expense_total, $positive_gross_pl, '+');
 		echo $xCS . __d('webzash', 'Gross Loss B/D') . $xCE;
+		$positive_gross_pl = calculate($pandl['gross_pl'], 0, 'n');
 		echo $xCS . toCurrency('', $positive_gross_pl) . $xCE;
+		$net_expense_total = calculate($net_expense_total, $positive_gross_pl, '+');
 		echo $xRE;
 	}
 
