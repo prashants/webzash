@@ -294,7 +294,7 @@ function toEntryNumber($number, $entrytype_id) {
  * This function returns the ledger or group name with code if present
  */
 function toCodeWithName($code, $name) {
-	if (empty($code)) {
+	if (strlen($code) <= 0) {
 		return $name;
 	} else {
 		return '[' . $code . '] ' . $name;

@@ -73,7 +73,7 @@ class LedgersController extends WebzashAppController {
 				unset($this->request->data['Ledger']['id']);
 
 				/* If code is empty set it as NULL */
-				if (empty($this->request->data['Ledger']['code'])) {
+				if (strlen($this->request->data['Ledger']['code']) <= 0) {
 					$this->request->data['Ledger']['code'] = NULL;
 				}
 
@@ -149,7 +149,7 @@ class LedgersController extends WebzashAppController {
 			}
 
 			/* If code is empty set it as NULL */
-			if (empty($this->request->data['Ledger']['code'])) {
+			if (strlen($this->request->data['Ledger']['code']) <= 0) {
 				$this->request->data['Ledger']['code'] = NULL;
 			}
 
