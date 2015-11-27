@@ -5,11 +5,11 @@ The following terms are used throughout this agreement:
 
 You - the person or legal entity including its affiliates asked to accept this agreement. An affiliate is any entity that controls or is controlled by the legal entity, or is under common control with it.
 
-Contribution - any type of work that is submitted to a Project, including any modifications or additions to existing work.
+Contribution - any type of work that is submitted to Webzash project, including any modifications or additions to existing work.
 
-Submitted - conveyed to a Project via a pull request, commit, issue, or any form of electronic, written, or verbal communication with developers, contributors or maintainers.
+Submitted - conveyed to Webzash project via a pull request, commit, issue, or any form of electronic, written, or verbal communication with developers, contributors or maintainers.
 
-When You provide a Contribution to a Project You certify that:
+When You provide a Contribution to Webzash project You certify that:
 
 (a) Your Contributions are created in whole or in part by You and You have the right to submit it under the MIT open source license; or
 
