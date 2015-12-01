@@ -19,4 +19,4 @@ When You provide a Contribution to Webzash project You certify that:
 
 (d) You understand and agree that the Webzash project and Your Contributions are public and that a record of the Contributions (including all metadata and personal information You submit with them) is maintained indefinitely and may be redistributed consistent with the requirements of the MIT open source license where they are relevant.
 
-(e) You are granting Your Contributions to the Webzash project under the terms of the MIT open source license license as noted in the project's repository.
+(e) You are granting Your Contributions to the Webzash project under the terms of the MIT open source license as noted in the project's repository.
