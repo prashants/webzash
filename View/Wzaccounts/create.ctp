@@ -96,13 +96,12 @@ $(document).ready(function() {
 		'label' => __d('webzash', 'Database schema'),
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database schema is required for Postgres database connection. Leave it blank for MySQL connections.') . '</span>',
 	));
-	echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host'), 'value' => 'localhost'));
-	echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port'), 'value' => '3306' ));
-	echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login'), 'value' => 'root'));
+	echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host'), 'default' => 'localhost'));
+	echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port'), 'default' => '3306' ));
+	echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 	echo $this->Form->input('db_password', array('label' => __d('webzash', 'Database password')));
 	echo $this->Form->input('db_prefix', array(
 		'label' => __d('webzash', 'Database prefix'),
-		'value' => 'wz_',
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts.') . '</span>',
 	));
 	echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
