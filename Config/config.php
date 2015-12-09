@@ -31,3 +31,9 @@ $config = '';
 
 Configure::write('Webzash.ThirdPartyLogin', FALSE);			/* TRUE / FALSE */
 Configure::write('Webzash.ThirdPartyLoginSystem', '');			/* e.g. : 'Joomla' or 'JoomlalAuto' */
+
+/**************************** DANGEROUS !!!! ****************************/
+/* Uncomment the below line to reset the admin password to default */
+/* NOTE : Use this for emergency purposes only and comment it out as soon as you have changed the admin password */
+
+// Configure::write('Webzash.ResetAdminPassword', 'YES PLEASE');		/* DANGEROUS !!!! Uncomment to reset admin password to default */

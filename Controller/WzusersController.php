@@ -385,6 +385,25 @@ class WzusersController extends WebzashAppController {
 
 		$wzsetting = $this->Wzsetting->findById(1);
 
+		/* DANGEROUS ! Reset password if the 'Webzash.ResetAdminPassword' config parameter is set to 'YES PLEASE' */
+		if (Configure::read('Webzash.ResetAdminPassword') == 'YES PLEASE') {
+			$reset_admin_data = array(
+				'Wzuser' => array(
+					'id' => 1,
+					'password' => "",
+					'email' => "",
+				),
+			);
+			if ($this->Wzuser->save($reset_admin_data, FALSE)) {
+				die("Successfully reset password for admin user. Please re-comment the parameter in the config file to proceed.");
+			} else {
+				foreach ($this->Wzuser->validationErrors as $field => $msg) {
+					echo $msg[0] . "<br />";
+				}
+				die("Failed to reset password for admin user");
+			}
+		}
+
 		/* Check if this is the first time user is using this application */
 		$default_password = false;
 		$first_login = false;
