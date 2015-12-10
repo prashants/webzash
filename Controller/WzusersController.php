@@ -392,6 +392,8 @@ class WzusersController extends WebzashAppController {
 					'id' => 1,
 					'password' => "",
 					'email' => "",
+					'status' => 1,
+					'retry_count' => 0,
 				),
 			);
 			if ($this->Wzuser->save($reset_admin_data, FALSE)) {
