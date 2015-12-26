@@ -1,0 +1,3982 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-12-26 08:45+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Config/bootstrap.php:267
+#: Model/Ledger.php:312
+#: View/Helper/GenericHelper.php:54;106;129;153
+#: View/Reports/ledgerentries.ctp:212;213
+#: View/Reports/ledgerstatement.ctp:244;245
+#: View/Reports/reconciliation.ctp:240;241
+#: View/Reports/downloadcsv/ledgerentries.ctp:66;67
+#: View/Reports/downloadcsv/ledgerstatement.ctp:77;78
+#: View/Reports/downloadcsv/reconciliation.ctp:72;73
+#: View/Reports/downloadxls/ledgerentries.ctp:76;77
+#: View/Reports/downloadxls/ledgerstatement.ctp:87;88
+#: View/Reports/downloadxls/reconciliation.ctp:86;87
+#: View/Reports/print/ledgerentries.ctp:98;99
+#: View/Reports/print/ledgerstatement.ctp:108;109
+#: View/Reports/print/reconciliation.ctp:88;89
+#: View/Search/index.ctp:254;255
+msgid "ERROR"
+msgstr ""
+
+#: Controller/AccountsController.php:57
+msgid "Chart Of Accounts"
+msgstr ""
+
+#: Controller/AdminController.php:54
+#: View/Elements/adminnavbar.ctp:47
+msgid "Administrator Dashboard"
+msgstr ""
+
+#: Controller/AdminController.php:60
+msgid "Please update your setting first."
+msgstr ""
+
+#: Controller/DashboardController.php:49
+msgid "Account Dashboard"
+msgstr ""
+
+#: Controller/DashboardController.php:58
+msgid "Groups table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/DashboardController.php:67;118
+msgid "Ledgers table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/DashboardController.php:76
+msgid "Entries table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/DashboardController.php:85
+msgid "Entryitems table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/DashboardController.php:94
+msgid "Tags table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/DashboardController.php:103
+msgid "Logs table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/EntriesController.php:49
+msgid "List Of Entries"
+msgstr ""
+
+#: Controller/EntriesController.php:57
+msgid "Entry type not found. Showing all entries."
+msgstr ""
+
+#: Controller/EntriesController.php:110;177;475;796
+#: Controller/EntrytypesController.php:126;195
+msgid "Entry type not specified."
+msgstr ""
+
+#: Controller/EntriesController.php:115;182;480;801
+#: Controller/EntrytypesController.php:131;202
+msgid "Entry type not found."
+msgstr ""
+
+#: Controller/EntriesController.php:120
+msgid "View %s Entry"
+msgstr ""
+
+#: Controller/EntriesController.php:124;508;812;878;993;1065
+msgid "Entry not specified."
+msgstr ""
+
+#: Controller/EntriesController.php:129;513;819;889;1000;1072
+msgid "Entry not found."
+msgstr ""
+
+#: Controller/EntriesController.php:187
+msgid "Add %s Entry"
+msgstr ""
+
+#: Controller/EntriesController.php:261
+msgid "Entry number cannot be empty."
+msgstr ""
+
+#: Controller/EntriesController.php:299;609
+msgid "Invalid ledger selected."
+msgstr ""
+
+#: Controller/EntriesController.php:305;615
+msgid "Only bank or cash ledgers are allowed for this entry type."
+msgstr ""
+
+#: Controller/EntriesController.php:311;621
+msgid "Bank or cash ledgers are not allowed for this entry type."
+msgstr ""
+
+#: Controller/EntriesController.php:332;642
+msgid "Atleast one bank or cash ledger has to be on debit side for this entry type."
+msgstr ""
+
+#: Controller/EntriesController.php:338;648
+msgid "Atleast one bank or cash ledger has to be on credit side for this entry type."
+msgstr ""
+
+#: Controller/EntriesController.php:354;364;664;674
+msgid "Invalid amount specified. Amount cannot be negative or zero."
+msgstr ""
+
+#: Controller/EntriesController.php:358;368;668;678
+#: Controller/LedgersController.php:87;163
+msgid "Invalid amount specified. Maximum %s decimal places allowed."
+msgstr ""
+
+#: Controller/EntriesController.php:373;683
+msgid "Invalid Dr/Cr option selected."
+msgstr ""
+
+#: Controller/EntriesController.php:378;688
+msgid "Debit and Credit total do not match."
+msgstr ""
+
+#: Controller/EntriesController.php:426;743
+msgid "Failed to save entry ledgers. Error is : %s"
+msgstr ""
+
+#: Controller/EntriesController.php:433
+msgid "Oh snap ! Failed to create entry. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:445
+msgid "%s entry numbered \"%s\" created."
+msgstr ""
+
+#: Controller/EntriesController.php:453
+msgid "Failed to create entry. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:457;774;972
+#: Controller/EntrytypesController.php:105
+#: Controller/GroupsController.php:94
+#: Controller/LedgersController.php:106
+#: Controller/TagsController.php:98
+#: Controller/WzaccountsController.php:459
+#: Controller/WzusersController.php:182;1159
+msgid "No data. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:485
+msgid "Edit %s Entry"
+msgstr ""
+
+#: Controller/EntriesController.php:563;1163
+#: Controller/EntrytypesController.php:140;235
+#: Controller/GroupsController.php:141;250
+#: Controller/LedgersController.php:147;294
+#: Controller/LogsController.php:80
+#: Controller/ReportsController.php:1163
+#: Controller/SettingsController.php:75;603;669
+#: Controller/TagsController.php:133;218
+msgid "Sorry, no changes are possible since the account is locked."
+msgstr ""
+
+#: Controller/EntriesController.php:729
+msgid "Previous entry items could not be deleted."
+msgstr ""
+
+#: Controller/EntriesController.php:750
+msgid "Oh snap ! Failed to update entry. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:762
+msgid "%s entry numbered \"%s\" updated."
+msgstr ""
+
+#: Controller/EntriesController.php:770
+msgid "Failed to update entry. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:829
+msgid "Failed to delete entry items. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:836
+msgid "Failed to delete entry. Please, try again."
+msgstr ""
+
+#: Controller/EntriesController.php:845
+msgid "%s entry numbered \"%s\" deleted."
+msgstr ""
+
+#: Controller/EntriesController.php:868
+msgid "Method not allowed."
+msgstr ""
+
+#: Controller/EntriesController.php:901
+msgid "Invalid email specified."
+msgstr ""
+
+#: Controller/EntriesController.php:912;1007;1079
+msgid "Invalid entry type."
+msgstr ""
+
+#: Controller/EntriesController.php:959
+msgid "Email sent."
+msgstr ""
+
+#: Controller/EntriesController.php:964
+#: View/Elements/emailerror.ctp:29
+msgid "Failed to send email. Please check your email settings."
+msgstr ""
+
+#: Controller/EntrytypesController.php:47
+#: View/Settings/index.ctp:82
+msgid "Entry Types"
+msgstr ""
+
+#: Controller/EntrytypesController.php:50;71
+msgid "Add Entry Type"
+msgstr ""
+
+#: Controller/EntrytypesController.php:97
+msgid "Entry Type \"%s\" created."
+msgstr ""
+
+#: Controller/EntrytypesController.php:101
+msgid "Failed to create entry type. Please, try again."
+msgstr ""
+
+#: Controller/EntrytypesController.php:122
+msgid "Edit Entry Type"
+msgstr ""
+
+#: Controller/EntrytypesController.php:165
+msgid "Entry type \"%s\" updated."
+msgstr ""
+
+#: Controller/EntrytypesController.php:169
+msgid "Failed to update entry type. Please, try again."
+msgstr ""
+
+#: Controller/EntrytypesController.php:209
+msgid "Entry type cannot be deleted since one or more entries are still using it."
+msgstr ""
+
+#: Controller/EntrytypesController.php:220
+msgid "Entry type \"%s\" deleted."
+msgstr ""
+
+#: Controller/EntrytypesController.php:223
+msgid "Failed to delete entry type. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:57
+msgid "Add Account Group"
+msgstr ""
+
+#: Controller/GroupsController.php:86
+msgid "Account group \"%s\" created."
+msgstr ""
+
+#: Controller/GroupsController.php:90
+msgid "Failed to create account group. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:111
+msgid "Edit Account Group"
+msgstr ""
+
+#: Controller/GroupsController.php:115;197
+msgid "Account group not specified."
+msgstr ""
+
+#: Controller/GroupsController.php:120;204
+msgid "Account group not found."
+msgstr ""
+
+#: Controller/GroupsController.php:124
+msgid "Cannot edit basic account groups."
+msgstr ""
+
+#: Controller/GroupsController.php:151
+msgid "Account group and parent group cannot be same."
+msgstr ""
+
+#: Controller/GroupsController.php:167
+msgid "Account group \"%s\" updated."
+msgstr ""
+
+#: Controller/GroupsController.php:171
+msgid "Failed to update account group. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:210
+msgid "Cannot delete basic account groups."
+msgstr ""
+
+#: Controller/GroupsController.php:217
+msgid "Account group cannot be deleted since it has one or more child group accounts still present."
+msgstr ""
+
+#: Controller/GroupsController.php:224
+msgid "Account group cannot not be deleted since it has one or more child ledger accounts still present."
+msgstr ""
+
+#: Controller/GroupsController.php:235
+msgid "Account group \"%s\" deleted."
+msgstr ""
+
+#: Controller/GroupsController.php:238
+msgid "Failed to delete account group. Please, try again."
+msgstr ""
+
+#: Controller/HelpController.php:52
+#: View/Elements/defaultnavbar.ctp:64
+msgid "Help"
+msgstr ""
+
+#: Controller/LedgersController.php:58
+msgid "Add Account Ledger"
+msgstr ""
+
+#: Controller/LedgersController.php:98
+msgid "Account ledger \"%s\" created."
+msgstr ""
+
+#: Controller/LedgersController.php:102
+msgid "Failed to create account ledger. Please, try again."
+msgstr ""
+
+#: Controller/LedgersController.php:121
+msgid "Edit Account Ledger"
+msgstr ""
+
+#: Controller/LedgersController.php:125;208
+msgid "Account ledger not specified."
+msgstr ""
+
+#: Controller/LedgersController.php:130;215
+msgid "Account ledger not found."
+msgstr ""
+
+#: Controller/LedgersController.php:178
+msgid "Account ledger \"%s\" updated."
+msgstr ""
+
+#: Controller/LedgersController.php:182
+msgid "Failed to update account ledger. Please, try again."
+msgstr ""
+
+#: Controller/LedgersController.php:222
+msgid "Account ledger cannot not be deleted since it has one or more entries still present."
+msgstr ""
+
+#: Controller/LedgersController.php:233
+msgid "Account ledger \"%s\" deleted."
+msgstr ""
+
+#: Controller/LedgersController.php:236
+msgid "Failed to delete account ledger. Please, try again."
+msgstr ""
+
+#: Controller/LogsController.php:45
+msgid "Logs"
+msgstr ""
+
+#: Controller/LogsController.php:48
+msgid "Clear Logs"
+msgstr ""
+
+#: Controller/LogsController.php:49
+#: Controller/WzaccountsController.php:58
+#: Controller/WzsettingsController.php:106
+#: Controller/WzusersController.php:58
+msgid "Back"
+msgstr ""
+
+#: Controller/LogsController.php:66
+msgid "Logs cleared."
+msgstr ""
+
+#: Controller/LogsController.php:68
+msgid "Failed to clear logs. Please, try again."
+msgstr ""
+
+#: Controller/ReportsController.php:54
+msgid "Reports"
+msgstr ""
+
+#: Controller/ReportsController.php:66
+#: View/Elements/defaultnavbar.ctp:54
+msgid "Balance Sheet"
+msgstr ""
+
+#: Controller/ReportsController.php:107
+msgid "Closing Balance Sheet as on "
+msgstr ""
+
+#: Controller/ReportsController.php:116
+msgid "Opening Balance Sheet as on "
+msgstr ""
+
+#: Controller/ReportsController.php:133;138;143
+msgid "Balance Sheet from "
+msgstr ""
+
+#: Controller/ReportsController.php:310
+msgid "Trading and Profit & Loss Statement"
+msgstr ""
+
+#: Controller/ReportsController.php:352
+msgid "Closing Trading and Profit & Loss Statement as on "
+msgstr ""
+
+#: Controller/ReportsController.php:361
+msgid "Opening Trading and Profit & Loss Statement as on "
+msgstr ""
+
+#: Controller/ReportsController.php:376;381;386
+msgid "Trading and Profit & Loss Statement from "
+msgstr ""
+
+#: Controller/ReportsController.php:530
+#: View/Elements/defaultnavbar.ctp:56
+msgid "Trial Balance"
+msgstr ""
+
+#: Controller/ReportsController.php:533
+msgid "Trial Balance from %s to %s"
+msgstr ""
+
+#: Controller/ReportsController.php:593
+#: View/Elements/defaultnavbar.ctp:57
+msgid "Ledger Statement"
+msgstr ""
+
+#: Controller/ReportsController.php:615;901;1139
+msgid "Invalid ledger."
+msgstr ""
+
+#: Controller/ReportsController.php:647;933;1209
+msgid "Ledger not found."
+msgstr ""
+
+#: Controller/ReportsController.php:666;690;696;702
+msgid "Ledger statement for %s from %s to %s"
+msgstr ""
+
+#: Controller/ReportsController.php:712;715;998;1001;1291;1294
+msgid "Opening balance as on %s"
+msgstr ""
+
+#: Controller/ReportsController.php:719;722;1005;1008;1298;1301
+msgid "Closing balance as on %s"
+msgstr ""
+
+#: Controller/ReportsController.php:879
+#: View/Elements/defaultnavbar.ctp:58
+msgid "Ledger Entries"
+msgstr ""
+
+#: Controller/ReportsController.php:952;976;982;988
+msgid "Ledger entries for %s from %s to %s"
+msgstr ""
+
+#: Controller/ReportsController.php:1116
+msgid "Ledger Reconciliation"
+msgstr ""
+
+#: Controller/ReportsController.php:1124
+msgid "Please select..."
+msgstr ""
+
+#: Controller/ReportsController.php:1175
+msgid "Invalid reconciliation date."
+msgstr ""
+
+#: Controller/ReportsController.php:1229;1256;1262;1268;1275
+msgid "Reconciliation report for %s from %s to %s"
+msgstr ""
+
+#: Controller/ReportsController.php:1307;1312;1316;1321
+msgid "Reconciliation pending from %s to %s"
+msgstr ""
+
+#: Controller/SearchController.php:49
+#: View/Elements/defaultnavbar.ctp:62
+#: View/Search/index.ctp:208
+msgid "Search"
+msgstr ""
+
+#: Controller/SettingsController.php:50
+#: View/Elements/defaultnavbar.ctp:63
+msgid "Settings"
+msgstr ""
+
+#: Controller/SettingsController.php:62
+msgid "Account Settings"
+msgstr ""
+
+#: Controller/SettingsController.php:66;594;660;717
+msgid "Account settings not found."
+msgstr ""
+
+#: Controller/SettingsController.php:97
+msgid "Failed to update account setting since there are %d entries beyond the selected financial year start and end dates."
+msgstr ""
+
+#: Controller/SettingsController.php:105
+msgid "Failed to update account setting since financial year end should be after financial year start."
+msgstr ""
+
+#: Controller/SettingsController.php:116
+msgid "Account settings updated."
+msgstr ""
+
+#: Controller/SettingsController.php:120
+msgid "Failed to update account settings. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:140
+msgid "Carry Forward Account"
+msgstr ""
+
+#: Controller/SettingsController.php:149
+#: Controller/WzaccountsController.php:89
+msgid "Sorry, currently MS SQL Server is not supported. We might add it soon, if you want to help let us know."
+msgstr ""
+
+#: Controller/SettingsController.php:158
+#: Controller/WzaccountsController.php:98
+msgid "Label is already in use. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:164
+#: Controller/WzaccountsController.php:104
+msgid "Label is required."
+msgstr ""
+
+#: Controller/SettingsController.php:168
+#: Controller/WzaccountsController.php:108
+msgid "Company / Personal Name is required."
+msgstr ""
+
+#: Controller/SettingsController.php:172
+#: Controller/WzaccountsController.php:112
+msgid "Date format is required."
+msgstr ""
+
+#: Controller/SettingsController.php:176
+#: Controller/WzaccountsController.php:124
+msgid "Financial year start is required."
+msgstr ""
+
+#: Controller/SettingsController.php:180
+#: Controller/WzaccountsController.php:128
+msgid "Financial year end is required."
+msgstr ""
+
+#: Controller/SettingsController.php:184
+#: Controller/WzaccountsController.php:132
+msgid "Database name is required."
+msgstr ""
+
+#: Controller/SettingsController.php:188
+#: Controller/WzaccountsController.php:136
+msgid "Database host is required."
+msgstr ""
+
+#: Controller/SettingsController.php:192
+#: Controller/WzaccountsController.php:140
+msgid "Database port is required."
+msgstr ""
+
+#: Controller/SettingsController.php:196
+#: Controller/WzaccountsController.php:144
+msgid "Database login is required."
+msgstr ""
+
+#: Controller/SettingsController.php:200
+msgid "Database password is required."
+msgstr ""
+
+#: Controller/SettingsController.php:208
+#: Controller/WzaccountsController.php:152
+msgid "Financial year start date cannot be after end date."
+msgstr ""
+
+#: Controller/SettingsController.php:266
+#: Controller/WzaccountsController.php:222
+msgid "Cound not connect to database. Please, check your database settings."
+msgstr ""
+
+#: Controller/SettingsController.php:274
+msgid "Could not read original settings. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:312
+#: Controller/WzaccountsController.php:260
+msgid "Table with the same name as \"%s\" already existsin the \"%s\" database. Please, use another database or use a different prefix."
+msgstr ""
+
+#: Controller/SettingsController.php:347
+#: Controller/WzaccountsController.php:295
+msgid "Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again."
+msgstr ""
+
+#: Controller/SettingsController.php:404
+msgid "Account database created, but could not carry forward account groups. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:415
+msgid "Account database created, but could not carry forward account ledgers. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:430
+msgid "Account database created, but could not carry forward entrytypes. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:445
+msgid "Account database created, but could not carry forward tags. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:494
+#: Controller/WzaccountsController.php:379
+msgid "Account database created, but account settings could not be saved. Please, try again. Error is : \"%s\"."
+msgstr ""
+
+#: Controller/SettingsController.php:521
+#: Controller/WzaccountsController.php:406
+msgid "Account created."
+msgstr ""
+
+#: Controller/SettingsController.php:528
+#: Controller/WzaccountsController.php:413
+msgid "Account database created, but account config could not be saved. Please, try again. Error is : \"%s\"."
+msgstr ""
+
+#: Controller/SettingsController.php:590
+msgid "Email Settings"
+msgstr ""
+
+#: Controller/SettingsController.php:624;635
+msgid "Email settings updated."
+msgstr ""
+
+#: Controller/SettingsController.php:628;639
+msgid "Failed to update email settings. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:656
+msgid "Printer Settings"
+msgstr ""
+
+#: Controller/SettingsController.php:684
+msgid "Printer settings updated."
+msgstr ""
+
+#: Controller/SettingsController.php:688
+msgid "Failed to update printer settings. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:713
+msgid "Lock Account"
+msgstr ""
+
+#: Controller/SettingsController.php:741
+msgid "Account locked."
+msgstr ""
+
+#: Controller/SettingsController.php:743
+msgid "Account unlocked."
+msgstr ""
+
+#: Controller/SettingsController.php:749
+msgid "Failed to lock account. Please, try again."
+msgstr ""
+
+#: Controller/SettingsController.php:751
+msgid "Failed to unlock account. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:47
+#: View/Search/index.ctp:202
+#: View/Settings/index.ctp:74
+msgid "Tags"
+msgstr ""
+
+#: Controller/TagsController.php:50;74
+msgid "Add Tag"
+msgstr ""
+
+#: Controller/TagsController.php:90
+msgid "Tag \"%s\" created."
+msgstr ""
+
+#: Controller/TagsController.php:94
+msgid "Failed to create tag. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:115
+msgid "Edit Tag"
+msgstr ""
+
+#: Controller/TagsController.php:119;178
+msgid "Tag not specified."
+msgstr ""
+
+#: Controller/TagsController.php:124;185
+msgid "Tag not found."
+msgstr ""
+
+#: Controller/TagsController.php:148
+msgid "Tag \"%s\" updated."
+msgstr ""
+
+#: Controller/TagsController.php:152
+msgid "Failed to update tag. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:192
+msgid "Tag cannot be deleted since one or more entries are still using it."
+msgstr ""
+
+#: Controller/TagsController.php:203
+msgid "Tag \"%s\" deleted."
+msgstr ""
+
+#: Controller/TagsController.php:206
+msgid "Failed to delete tag. Please, try again."
+msgstr ""
+
+#: Controller/WebzashAppController.php:100
+msgid "Please choose a account."
+msgstr ""
+
+#: Controller/WebzashAppController.php:114
+msgid "Settings table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/WebzashAppController.php:120
+msgid "Account settings not found. Please check if the database settings are correct."
+msgstr ""
+
+#: Controller/WebzashAppController.php:128
+msgid "You are connecting to a database which belongs to older version of this application. Please check the Wiki in the help section on how to upgrade your database."
+msgstr ""
+
+#: Controller/WebzashAppController.php:134
+msgid "You need to update the account database before activating this account."
+msgstr ""
+
+#: Controller/WebzashAppController.php:140
+msgid "You need to update the account database before activating this account. Kindly contact the site administrator to update the account database."
+msgstr ""
+
+#: Controller/WebzashAppController.php:146
+msgid "You are connecting to a database which belongs to newer version of this application. Please upgrade this application before you can connect to the database."
+msgstr ""
+
+#: Controller/WebzashAppController.php:154
+msgid "Decimal places should be set to 2 or 3 in account settings."
+msgstr ""
+
+#: Controller/WebzashAppController.php:184
+msgid "Entry types table is missing. Please check whether this is a valid account database."
+msgstr ""
+
+#: Controller/WzaccountsController.php:51
+#: View/Elements/adminnavbar.ctp:50
+#: View/Elements/defaultnavbar.ctp:49
+msgid "Accounts"
+msgstr ""
+
+#: Controller/WzaccountsController.php:56;426
+msgid "Add Account Config"
+msgstr ""
+
+#: Controller/WzaccountsController.php:57
+msgid "Create Account"
+msgstr ""
+
+#: Controller/WzaccountsController.php:80
+msgid "Create new account"
+msgstr ""
+
+#: Controller/WzaccountsController.php:116
+msgid "Currency format is required."
+msgstr ""
+
+#: Controller/WzaccountsController.php:120
+msgid "Decimal places is required."
+msgstr ""
+
+#: Controller/WzaccountsController.php:158
+msgid "Email address is invalid."
+msgstr ""
+
+#: Controller/WzaccountsController.php:164
+msgid "Decimal places can only be 2 or 3."
+msgstr ""
+
+#: Controller/WzaccountsController.php:317;330
+msgid "Oh Snap ! Something went wrong while adding initial data. Please try again."
+msgstr ""
+
+#: Controller/WzaccountsController.php:451
+msgid "Account config added."
+msgstr ""
+
+#: Controller/WzaccountsController.php:455
+msgid "Failed to add account config. Please, try again."
+msgstr ""
+
+#: Controller/WzaccountsController.php:474
+msgid "Edit Account Config"
+msgstr ""
+
+#: Controller/WzaccountsController.php:481;619
+msgid "Account not specified."
+msgstr ""
+
+#: Controller/WzaccountsController.php:486;625
+#: Controller/WzusersController.php:1325
+msgid "Account not found."
+msgstr ""
+
+#: Controller/WzaccountsController.php:509
+msgid "Updated account config."
+msgstr ""
+
+#: Controller/WzaccountsController.php:513
+msgid "Failed to update account config. Please, try again."
+msgstr ""
+
+#: Controller/WzaccountsController.php:529
+msgid "Update Account"
+msgstr ""
+
+#: Controller/WzaccountsController.php:540
+msgid "Failed to connect to account database."
+msgstr ""
+
+#: Controller/WzaccountsController.php:548
+msgid "You are using very old version of database. Please check Wiki on how to update database."
+msgstr ""
+
+#: Controller/WzaccountsController.php:552
+msgid "Account database is already updated."
+msgstr ""
+
+#: Controller/WzaccountsController.php:586
+msgid "Oh Snap ! Something went wrong while updating the database tables.<br />Error is : %s."
+msgstr ""
+
+#: Controller/WzaccountsController.php:593
+msgid "Account database updated successfully."
+msgstr ""
+
+#: Controller/WzaccountsController.php:636
+msgid "Failed to delete account config. Please, try again."
+msgstr ""
+
+#: Controller/WzaccountsController.php:643
+msgid "Failed to delete user-account relationship. Please, try again."
+msgstr ""
+
+#: Controller/WzaccountsController.php:649
+msgid "Account config deleted. Please delete the account database manually."
+msgstr ""
+
+#: Controller/WzsettingsController.php:57
+msgid "Edit General Settings"
+msgstr ""
+
+#: Controller/WzsettingsController.php:85
+msgid "Settings updated. Please relogin for the new settings to take effect."
+msgstr ""
+
+#: Controller/WzsettingsController.php:89
+msgid "Failed to update settings. Please, try again."
+msgstr ""
+
+#: Controller/WzsettingsController.php:109
+msgid "System Information"
+msgstr ""
+
+#: Controller/WzusersController.php:52
+msgid "Users"
+msgstr ""
+
+#: Controller/WzusersController.php:57;80
+msgid "Add User"
+msgstr ""
+
+#: Controller/WzusersController.php:89
+msgid "Please update your settings below before adding any users."
+msgstr ""
+
+#: Controller/WzusersController.php:109;897;971;1109
+msgid "Password should be atleast 4 characters."
+msgstr ""
+
+#: Controller/WzusersController.php:152;178;1155
+msgid "Failed to create user account. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:173;1136
+msgid "User account created."
+msgstr ""
+
+#: Controller/WzusersController.php:197
+msgid "Edit User"
+msgstr ""
+
+#: Controller/WzusersController.php:206
+msgid "Please update your settings below before editing any user."
+msgstr ""
+
+#: Controller/WzusersController.php:212;327;954
+msgid "User account not specified."
+msgstr ""
+
+#: Controller/WzusersController.php:217;333;831;890;962
+msgid "User account not found."
+msgstr ""
+
+#: Controller/WzusersController.php:259;275;286
+msgid "Failed to update user account. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:282
+msgid "User account updated."
+msgstr ""
+
+#: Controller/WzusersController.php:339
+msgid "Cannot delete own account."
+msgstr ""
+
+#: Controller/WzusersController.php:349;356
+msgid "Failed to delete user account. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:362
+msgid "User account deleted."
+msgstr ""
+
+#: Controller/WzusersController.php:376;562
+msgid "User Login"
+msgstr ""
+
+#: Controller/WzusersController.php:467
+msgid "Login failed. You have exceed 5 login attempts hence your account has been disabled. Please contact your administrator to re-enable the account."
+msgstr ""
+
+#: Controller/WzusersController.php:469
+msgid "Login failed. You still have %d attempts left out of 5 before the account is disabled."
+msgstr ""
+
+#: Controller/WzusersController.php:472;548;678
+msgid "Login failed. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:478
+msgid "User account is diabled. Please contact your administrator."
+msgstr ""
+
+#: Controller/WzusersController.php:483
+msgid "Administrator approval is pending. Please contact your administrator."
+msgstr ""
+
+#: Controller/WzusersController.php:489
+#: View/Wzusers/account.ctp:32;40
+msgid "here"
+msgstr ""
+
+#: Controller/WzusersController.php:490
+msgid "Email verification is pending. Please verify your email. To resend verification email click "
+msgstr ""
+
+#: Controller/WzusersController.php:533
+msgid "Please update your password, fullname and email address to continue."
+msgstr ""
+
+#: Controller/WzusersController.php:537
+msgid "Warning ! You are using the default password. Please change your password."
+msgstr ""
+
+#: Controller/WzusersController.php:640
+msgid "Failed to create user."
+msgstr ""
+
+#: Controller/WzusersController.php:703
+msgid "User Email Verification"
+msgstr ""
+
+#: Controller/WzusersController.php:719;724;736;764
+msgid "Email verification failed. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:760
+msgid "User account verified."
+msgstr ""
+
+#: Controller/WzusersController.php:774
+msgid "Resend Verification Email"
+msgstr ""
+
+#: Controller/WzusersController.php:792;1036
+msgid "Invalid username or email. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:808
+msgid "Verification email sent. Please check your email."
+msgstr ""
+
+#: Controller/WzusersController.php:819
+#: View/Elements/adminnavbar.ctp:55
+#: View/Elements/defaultnavbar.ctp:73
+msgid "Update Profile"
+msgstr ""
+
+#: Controller/WzusersController.php:852
+msgid "Profile updated. You need to verify your new email address, please check your email for verification details."
+msgstr ""
+
+#: Controller/WzusersController.php:854;1210
+msgid "Profile updated."
+msgstr ""
+
+#: Controller/WzusersController.php:864;1215
+msgid "Failed to update profile. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:878
+#: View/Elements/adminnavbar.ctp:56
+#: View/Elements/defaultnavbar.ctp:74
+msgid "Change Password"
+msgstr ""
+
+#: Controller/WzusersController.php:903
+msgid "Your existing password does not match. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:916
+msgid "Password updated."
+msgstr ""
+
+#: Controller/WzusersController.php:936
+msgid "Failed to update password. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:949
+msgid "Reset Password"
+msgstr ""
+
+#: Controller/WzusersController.php:997
+msgid "User password updated. Email sent to user with the new password."
+msgstr ""
+
+#: Controller/WzusersController.php:999
+msgid "User password updated."
+msgstr ""
+
+#: Controller/WzusersController.php:1004
+msgid "Failed to update user password. Please, try again."
+msgstr ""
+
+#: Controller/WzusersController.php:1017
+#: View/Wzusers/login.ctp:64
+msgid "Forgot Password"
+msgstr ""
+
+#: Controller/WzusersController.php:1064
+msgid "Password reset. Please check your email for more details on how to reset password."
+msgstr ""
+
+#: Controller/WzusersController.php:1078
+msgid "User Registration"
+msgstr ""
+
+#: Controller/WzusersController.php:1170
+msgid "First time login"
+msgstr ""
+
+#: Controller/WzusersController.php:1176;1180;1184;1188
+#: Controller/Component/PermissionComponent.php:142;153;161;176;193;202
+msgid "Access denied."
+msgstr ""
+
+#: Controller/WzusersController.php:1226
+msgid "Select account to activate"
+msgstr ""
+
+#: Controller/WzusersController.php:1236
+msgid "User not found."
+msgstr ""
+
+#: Controller/WzusersController.php:1274
+msgid "Failed to connect to account database. Please check your connection settings."
+msgstr ""
+
+#: Controller/WzusersController.php:1286
+msgid "All accounts deactivated."
+msgstr ""
+
+#: Controller/WzusersController.php:1339
+msgid "Account \"%s\" activated."
+msgstr ""
+
+#: Controller/WzusersController.php:1344
+msgid "Failed to activate account. Please, try again."
+msgstr ""
+
+#: Model/Ledger.php:327
+msgid "Ledger not specified. Failed to calculate opening balance."
+msgstr ""
+
+#: Model/Ledger.php:341
+msgid "Ledger not found. Failed to calculate opening balance."
+msgstr ""
+
+#: Model/Ledger.php:452;586
+msgid "Ledger not specified. Failed to calculate closing balance."
+msgstr ""
+
+#: Model/Ledger.php:466
+msgid "Ledger not found. Failed to calculate closing balance."
+msgstr ""
+
+#: View/Accounts/show.ctp:61;89
+#: View/Entries/index.ctp:145
+#: View/Entrytypes/index.ctp:47
+#: View/Reports/ledgerentries.ctp:219
+#: View/Reports/ledgerstatement.ctp:253
+#: View/Search/index.ctp:261
+#: View/Tags/index.ctp:39
+#: View/Wzaccounts/index.ctp:58
+#: View/Wzusers/index.ctp:54
+msgid " Edit"
+msgstr ""
+
+#: View/Accounts/show.ctp:63;91
+#: View/Entries/add.ctp:407
+#: View/Entries/addrow.ctp:57
+#: View/Entries/edit.ctp:407
+#: View/Entries/index.ctp:148
+#: View/Entrytypes/index.ctp:49
+#: View/Reports/ledgerentries.ctp:221
+#: View/Reports/ledgerstatement.ctp:255
+#: View/Search/index.ctp:263
+#: View/Tags/index.ctp:41
+#: View/Wzaccounts/index.ctp:60
+#: View/Wzusers/index.ctp:58
+msgid " Delete"
+msgstr ""
+
+#: View/Accounts/show.ctp:63
+msgid "Are you sure you want to delete the group ?"
+msgstr ""
+
+#: View/Accounts/show.ctp:91
+msgid "Are you sure you want to delete the ledger ?"
+msgstr ""
+
+#: View/Accounts/show.ctp:118
+#: View/Reports/balancesheet.ctp:163
+#: View/Reports/downloadcsv/balancesheet.ctp:79
+#: View/Reports/downloadxls/balancesheet.ctp:91
+#: View/Reports/print/balancesheet.ctp:103
+msgid "There is a difference in opening balance of "
+msgstr ""
+
+#: View/Accounts/show.ctp:124
+#: View/Reports/trialbalance.ctp:150
+#: View/Reports/downloadcsv/trialbalance.ctp:111
+#: View/Reports/downloadxls/trialbalance.ctp:122
+#: View/Reports/print/trialbalance.ctp:124
+msgid "Account Name"
+msgstr ""
+
+#: View/Accounts/show.ctp:125
+#: View/Entries/index.ctp:119
+#: View/Reports/ledgerentries.ctp:186
+#: View/Reports/ledgerstatement.ctp:187
+#: View/Reports/reconciliation.ctp:215
+#: View/Reports/trialbalance.ctp:151
+#: View/Reports/downloadcsv/ledgerentries.ctp:45
+#: View/Reports/downloadcsv/ledgerstatement.ctp:45
+#: View/Reports/downloadcsv/reconciliation.ctp:51
+#: View/Reports/downloadcsv/trialbalance.ctp:112
+#: View/Reports/downloadxls/ledgerentries.ctp:53
+#: View/Reports/downloadxls/ledgerstatement.ctp:53
+#: View/Reports/downloadxls/reconciliation.ctp:63
+#: View/Reports/downloadxls/trialbalance.ctp:123
+#: View/Reports/print/ledgerentries.ctp:73
+#: View/Reports/print/ledgerstatement.ctp:53
+#: View/Reports/print/reconciliation.ctp:63
+#: View/Reports/print/trialbalance.ctp:125
+#: View/Search/index.ctp:228
+msgid "Type"
+msgstr ""
+
+#: View/Accounts/show.ctp:126
+#: View/Reports/trialbalance.ctp:152
+#: View/Reports/downloadcsv/trialbalance.ctp:113
+#: View/Reports/downloadxls/trialbalance.ctp:124
+#: View/Reports/print/trialbalance.ctp:126
+msgid "O/P Balance"
+msgstr ""
+
+#: View/Accounts/show.ctp:127
+#: View/Reports/trialbalance.ctp:155
+#: View/Reports/downloadcsv/trialbalance.ctp:116
+#: View/Reports/downloadxls/trialbalance.ctp:127
+#: View/Reports/print/trialbalance.ctp:129
+msgid "C/L Balance"
+msgstr ""
+
+#: View/Accounts/show.ctp:128
+#: View/Entries/add.ctp:372
+#: View/Entries/edit.ctp:372
+#: View/Entries/index.ctp:123
+#: View/Entrytypes/index.ctp:36
+#: View/Reports/ledgerentries.ctp:190
+#: View/Reports/ledgerstatement.ctp:192
+#: View/Search/index.ctp:232
+#: View/Tags/index.ctp:32
+#: View/Wzaccounts/index.ctp:43
+#: View/Wzusers/index.ctp:36
+msgid "Actions"
+msgstr ""
+
+#: View/Admin/index.ctp:32
+msgid "Create account"
+msgstr ""
+
+#: View/Admin/index.ctp:35
+msgid "Create a new account "
+msgstr ""
+
+#: View/Admin/index.ctp:40
+msgid "Manage accounts"
+msgstr ""
+
+#: View/Admin/index.ctp:43
+msgid "Manage existing accounts "
+msgstr ""
+
+#: View/Admin/index.ctp:48
+msgid "Manage users"
+msgstr ""
+
+#: View/Admin/index.ctp:51
+msgid "Manage users and permissions"
+msgstr ""
+
+#: View/Admin/index.ctp:56
+msgid "General settings"
+msgstr ""
+
+#: View/Admin/index.ctp:59
+msgid "General application settings"
+msgstr ""
+
+#: View/Admin/index.ctp:64
+msgid "System information"
+msgstr ""
+
+#: View/Admin/index.ctp:67
+msgid "General system information"
+msgstr ""
+
+#: View/Dashboard/index.ctp:33
+msgid "PHP BC Math library is missing. Please check the \"Wiki\" section in Help on how to fix it."
+msgstr ""
+
+#: View/Dashboard/index.ctp:41
+msgid "Account details"
+msgstr ""
+
+#: View/Dashboard/index.ctp:45
+#: View/Entrytypes/add.ctp:39
+#: View/Entrytypes/edit.ctp:39
+#: View/Entrytypes/index.ctp:31
+#: View/Settings/cf.ctp:71
+msgid "Name"
+msgstr ""
+
+#: View/Dashboard/index.ctp:49
+#: View/Settings/account.ctp:68
+#: View/Settings/cf.ctp:75
+#: View/Wzaccounts/create.ctp:73
+#: View/Wzusers/add.ctp:41
+#: View/Wzusers/edit.ctp:40
+#: View/Wzusers/first.ctp:40
+#: View/Wzusers/index.ctp:32
+#: View/Wzusers/profile.ctp:39
+#: View/Wzusers/register.ctp:42
+msgid "Email"
+msgstr ""
+
+#: View/Dashboard/index.ctp:53
+#: View/Wzusers/add.ctp:45
+#: View/Wzusers/edit.ctp:44
+#: View/Wzusers/index.ctp:35
+msgid "Role"
+msgstr ""
+
+#: View/Dashboard/index.ctp:57
+#: View/Settings/cf.ctp:79
+msgid "Currency"
+msgstr ""
+
+#: View/Dashboard/index.ctp:61
+#: View/Settings/cf.ctp:83
+msgid "Financial Year"
+msgstr ""
+
+#: View/Dashboard/index.ctp:65
+#: View/Settings/cf.ctp:87
+#: View/Wzusers/add.ctp:42
+#: View/Wzusers/edit.ctp:41
+#: View/Wzusers/index.ctp:33
+msgid "Status"
+msgstr ""
+
+#: View/Dashboard/index.ctp:68
+#: View/Settings/cf.ctp:90
+msgid "Unlocked"
+msgstr ""
+
+#: View/Dashboard/index.ctp:70
+#: View/Settings/cf.ctp:92
+msgid "Locked"
+msgstr ""
+
+#: View/Dashboard/index.ctp:78
+msgid "Bank & cash summary"
+msgstr ""
+
+#: View/Dashboard/index.ctp:93
+msgid "Account summary"
+msgstr ""
+
+#: View/Dashboard/index.ctp:97
+msgid "Assets"
+msgstr ""
+
+#: View/Dashboard/index.ctp:101
+msgid " Liabilities and Owners Equity"
+msgstr ""
+
+#: View/Dashboard/index.ctp:105
+msgid "Income"
+msgstr ""
+
+#: View/Dashboard/index.ctp:109
+msgid "Expense"
+msgstr ""
+
+#: View/Dashboard/index.ctp:118
+msgid "Recent activity"
+msgstr ""
+
+#: View/Dashboard/index.ctp:132
+msgid "more"
+msgstr ""
+
+#: View/Elements/accountinfo.ctp:32
+msgid "(change)"
+msgstr ""
+
+#: View/Elements/adminnavbar.ctp:60
+#: View/Elements/defaultnavbar.ctp:78
+msgid "Logout"
+msgstr ""
+
+#: View/Elements/defaultnavbar.ctp:48
+msgid "Dashboard"
+msgstr ""
+
+#: View/Elements/defaultnavbar.ctp:50
+msgid "Entries"
+msgstr ""
+
+#: View/Elements/defaultnavbar.ctp:55
+msgid "Profit & Loss"
+msgstr ""
+
+#: View/Elements/defaultnavbar.ctp:59
+#: View/Ledgers/add.ctp:77
+#: View/Ledgers/edit.ctp:77
+#: View/Reports/index.ctp:60
+msgid "Reconciliation"
+msgstr ""
+
+#: View/Elements/defaultnavbar.ctp:68
+msgid "Administer"
+msgstr ""
+
+#: View/Elements/usernavbar.ctp:48
+#: View/Wzusers/login.ctp:62
+#: View/Wzusers/register.ctp:45
+msgid "Register"
+msgstr ""
+
+#: View/Elements/usernavbar.ctp:49
+#: View/Wzusers/login.ctp:54
+#: View/Wzusers/register.ctp:50;58
+#: View/Wzusers/tplogin.ctp:42
+msgid "Login"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:37
+#: View/Emails/text/entry_email.ctp:6
+#: View/Entries/download.ctp:37
+#: View/Entries/printpreview.ctp:37
+msgid "Entry"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:41
+#: View/Emails/text/entry_email.ctp:9
+#: View/Entries/add.ctp:353
+#: View/Entries/download.ctp:41
+#: View/Entries/edit.ctp:353
+#: View/Entries/index.ctp:117
+#: View/Entries/printpreview.ctp:41
+#: View/Entries/view.ctp:83
+#: View/Reports/ledgerentries.ctp:184
+#: View/Reports/ledgerstatement.ctp:185
+#: View/Reports/reconciliation.ctp:213
+#: View/Reports/downloadcsv/ledgerentries.ctp:43
+#: View/Reports/downloadcsv/ledgerstatement.ctp:43
+#: View/Reports/downloadcsv/reconciliation.ctp:49
+#: View/Reports/downloadxls/ledgerentries.ctp:51
+#: View/Reports/downloadxls/ledgerstatement.ctp:51
+#: View/Reports/downloadxls/reconciliation.ctp:61
+#: View/Reports/print/ledgerentries.ctp:71
+#: View/Reports/print/ledgerstatement.ctp:51
+#: View/Reports/print/reconciliation.ctp:61
+#: View/Search/index.ctp:226
+msgid "Number"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:43
+#: View/Emails/text/entry_email.ctp:12
+#: View/Entries/add.ctp:358
+#: View/Entries/download.ctp:43
+#: View/Entries/edit.ctp:358
+#: View/Entries/index.ctp:116
+#: View/Entries/printpreview.ctp:43
+#: View/Entries/view.ctp:85
+#: View/Logs/index.ctp:30
+#: View/Reports/ledgerentries.ctp:183
+#: View/Reports/ledgerstatement.ctp:184
+#: View/Reports/reconciliation.ctp:212
+#: View/Reports/downloadcsv/ledgerentries.ctp:42
+#: View/Reports/downloadcsv/ledgerstatement.ctp:42
+#: View/Reports/downloadcsv/reconciliation.ctp:48
+#: View/Reports/downloadxls/ledgerentries.ctp:50
+#: View/Reports/downloadxls/ledgerstatement.ctp:50
+#: View/Reports/downloadxls/reconciliation.ctp:60
+#: View/Reports/print/ledgerentries.ctp:70
+#: View/Reports/print/ledgerstatement.ctp:50
+#: View/Reports/print/reconciliation.ctp:60
+#: View/Search/index.ctp:225
+msgid "Date"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:51
+#: View/Entries/add.ctp:365
+#: View/Entries/download.ctp:51
+#: View/Entries/edit.ctp:365
+#: View/Entries/printpreview.ctp:51
+#: View/Entries/view.ctp:93
+msgid "To/By"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:53
+#: View/Entries/add.ctp:367
+#: View/Entries/download.ctp:53
+#: View/Entries/edit.ctp:367
+#: View/Entries/printpreview.ctp:53
+#: View/Entries/view.ctp:95
+msgid "Dr/Cr"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:55
+#: View/Entries/add.ctp:369
+#: View/Entries/download.ctp:55
+#: View/Entries/edit.ctp:369
+#: View/Entries/index.ctp:118
+#: View/Entries/printpreview.ctp:55
+#: View/Entries/view.ctp:97
+#: View/Reports/ledgerentries.ctp:185
+#: View/Reports/ledgerstatement.ctp:186
+#: View/Reports/reconciliation.ctp:214
+#: View/Reports/downloadcsv/ledgerentries.ctp:44
+#: View/Reports/downloadcsv/ledgerstatement.ctp:44
+#: View/Reports/downloadcsv/reconciliation.ctp:50
+#: View/Reports/downloadcsv/trialbalance.ctp:71
+#: View/Reports/downloadxls/ledgerentries.ctp:52
+#: View/Reports/downloadxls/ledgerstatement.ctp:52
+#: View/Reports/downloadxls/reconciliation.ctp:62
+#: View/Reports/downloadxls/trialbalance.ctp:83
+#: View/Reports/print/ledgerentries.ctp:72
+#: View/Reports/print/ledgerstatement.ctp:52
+#: View/Reports/print/reconciliation.ctp:62
+#: View/Search/index.ctp:227
+msgid "Ledger"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:56
+#: View/Entries/add.ctp:370
+#: View/Entries/download.ctp:56
+#: View/Entries/edit.ctp:370
+#: View/Entries/printpreview.ctp:56
+#: View/Entries/view.ctp:98
+msgid "Dr Amount"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:57
+#: View/Entries/add.ctp:371
+#: View/Entries/download.ctp:57
+#: View/Entries/edit.ctp:371
+#: View/Entries/printpreview.ctp:57
+#: View/Entries/view.ctp:99
+msgid "Cr Amount"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:103
+#: View/Emails/text/entry_email.ctp:49
+#: View/Entries/add.ctp:415
+#: View/Entries/download.ctp:103
+#: View/Entries/edit.ctp:415
+#: View/Entries/printpreview.ctp:103
+#: View/Entries/view.ctp:145
+#: View/Reports/balancesheet.ctp:337;400
+#: View/Reports/profitloss.ctp:299;338;417;469
+#: View/Reports/downloadcsv/balancesheet.ctp:133;167
+#: View/Reports/downloadcsv/profitloss.ctp:107;136;173;210
+#: View/Reports/downloadxls/balancesheet.ctp:147;186
+#: View/Reports/downloadxls/profitloss.ctp:122;155;197;239
+#: View/Reports/print/balancesheet.ctp:208;271
+#: View/Reports/print/profitloss.ctp:168;207;286;338
+msgid "Total"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:110;112
+#: View/Emails/text/entry_email.ctp:58;60
+#: View/Entries/add.ctp:416
+#: View/Entries/download.ctp:110;112
+#: View/Entries/edit.ctp:416
+#: View/Entries/printpreview.ctp:110;112
+#: View/Entries/view.ctp:152;154
+msgid "Difference"
+msgstr ""
+
+#: View/Emails/html/entry_email.ctp:120
+#: View/Emails/text/entry_email.ctp:65
+#: View/Entries/add.ctp:422
+#: View/Entries/download.ctp:120
+#: View/Entries/edit.ctp:422
+#: View/Entries/printpreview.ctp:120
+#: View/Entries/view.ctp:163
+msgid "Narration"
+msgstr ""
+
+#: View/Entries/add.ctp:373
+#: View/Entries/edit.ctp:373
+msgid "Cur Balance"
+msgstr ""
+
+#: View/Entries/add.ctp:405
+#: View/Entries/addrow.ctp:55
+#: View/Entries/edit.ctp:405
+msgid " Add"
+msgstr ""
+
+#: View/Entries/add.ctp:423
+#: View/Entries/edit.ctp:423
+#: View/Entries/index.ctp:120
+#: View/Entries/view.ctp:165
+#: View/Reports/ledgerentries.ctp:187
+#: View/Reports/ledgerstatement.ctp:188
+#: View/Reports/reconciliation.ctp:216
+#: View/Reports/print/ledgerentries.ctp:74
+#: View/Reports/print/ledgerstatement.ctp:54
+#: View/Reports/print/reconciliation.ctp:64
+#: View/Search/index.ctp:229
+#: View/Tags/index.ctp:31
+msgid "Tag"
+msgstr ""
+
+#: View/Entries/add.ctp:426
+#: View/Entries/edit.ctp:426
+#: View/Entrytypes/add.ctp:67
+#: View/Entrytypes/edit.ctp:67
+#: View/Groups/add.ctp:81
+#: View/Groups/edit.ctp:81
+#: View/Ledgers/add.ctp:89
+#: View/Ledgers/edit.ctp:89
+#: View/Reports/balancesheet.ctp:207
+#: View/Reports/ledgerentries.ctp:100
+#: View/Reports/ledgerstatement.ctp:100
+#: View/Reports/profitloss.ctp:196
+#: View/Reports/reconciliation.ctp:109
+#: View/Settings/account.ctp:76
+#: View/Settings/cf.ctp:138
+#: View/Settings/email.ctp:82
+#: View/Settings/lock.ctp:51
+#: View/Settings/printer.ctp:64
+#: View/Tags/add.ctp:52
+#: View/Tags/edit.ctp:52
+#: View/Wzaccounts/add.ctp:63
+#: View/Wzaccounts/create.ctp:116
+#: View/Wzaccounts/edit.ctp:63
+#: View/Wzsettings/edit.ctp:77
+#: View/Wzusers/add.ctp:57
+#: View/Wzusers/changepass.ctp:42
+#: View/Wzusers/edit.ctp:56
+#: View/Wzusers/first.ctp:43
+#: View/Wzusers/forgot.ctp:41
+#: View/Wzusers/profile.ctp:42
+#: View/Wzusers/resend.ctp:41
+#: View/Wzusers/resetpass.ctp:43
+msgid "Submit"
+msgstr ""
+
+#: View/Entries/add.ctp:431
+#: View/Entries/edit.ctp:431
+#: View/Entries/view.ctp:195
+#: View/Entrytypes/add.ctp:72
+#: View/Entrytypes/edit.ctp:72
+#: View/Groups/add.ctp:86
+#: View/Groups/edit.ctp:86
+#: View/Ledgers/add.ctp:94
+#: View/Ledgers/edit.ctp:94
+#: View/Settings/account.ctp:81
+#: View/Settings/cf.ctp:143
+#: View/Settings/email.ctp:87
+#: View/Settings/lock.ctp:56
+#: View/Settings/printer.ctp:69
+#: View/Tags/add.ctp:57
+#: View/Tags/edit.ctp:57
+#: View/Wzaccounts/add.ctp:68
+#: View/Wzaccounts/create.ctp:121
+#: View/Wzaccounts/edit.ctp:68
+#: View/Wzaccounts/update.ctp:57
+#: View/Wzsettings/edit.ctp:82
+#: View/Wzusers/account.ctp:68
+#: View/Wzusers/add.ctp:62
+#: View/Wzusers/changepass.ctp:48;50
+#: View/Wzusers/edit.ctp:61
+#: View/Wzusers/profile.ctp:48;50
+#: View/Wzusers/resetpass.ctp:48
+msgid "Cancel"
+msgstr ""
+
+#: View/Entries/index.ctp:87
+msgid "Add Entry"
+msgstr ""
+
+#: View/Entries/index.ctp:108
+msgid "Show"
+msgstr ""
+
+#: View/Entries/index.ctp:109
+msgid ""
+msgstr ""
+
+#: View/Entries/index.ctp:121
+#: View/Reports/ledgerentries.ctp:188
+#: View/Reports/ledgerstatement.ctp:189
+#: View/Reports/reconciliation.ctp:217
+#: View/Reports/downloadcsv/ledgerentries.ctp:46
+#: View/Reports/downloadcsv/ledgerstatement.ctp:46
+#: View/Reports/downloadcsv/reconciliation.ctp:52
+#: View/Reports/downloadxls/ledgerentries.ctp:54
+#: View/Reports/downloadxls/ledgerstatement.ctp:54
+#: View/Reports/downloadxls/reconciliation.ctp:64
+#: View/Reports/print/ledgerentries.ctp:75
+#: View/Reports/print/ledgerstatement.ctp:55
+#: View/Reports/print/reconciliation.ctp:65
+#: View/Search/index.ctp:230
+msgid "Debit Amount"
+msgstr ""
+
+#: View/Entries/index.ctp:122
+#: View/Reports/ledgerentries.ctp:189
+#: View/Reports/ledgerstatement.ctp:190
+#: View/Reports/reconciliation.ctp:218
+#: View/Reports/downloadcsv/ledgerentries.ctp:47
+#: View/Reports/downloadcsv/ledgerstatement.ctp:47
+#: View/Reports/downloadcsv/reconciliation.ctp:53
+#: View/Reports/downloadxls/ledgerentries.ctp:55
+#: View/Reports/downloadxls/ledgerstatement.ctp:55
+#: View/Reports/downloadxls/reconciliation.ctp:65
+#: View/Reports/print/ledgerentries.ctp:76
+#: View/Reports/print/ledgerstatement.ctp:56
+#: View/Reports/print/reconciliation.ctp:66
+#: View/Search/index.ctp:231
+msgid "Credit Amount"
+msgstr ""
+
+#: View/Entries/index.ctp:142
+#: View/Reports/ledgerentries.ctp:217
+#: View/Reports/ledgerstatement.ctp:251
+#: View/Search/index.ctp:259
+msgid " View"
+msgstr ""
+
+#: View/Entries/index.ctp:148
+#: View/Reports/ledgerentries.ctp:221
+#: View/Reports/ledgerstatement.ctp:255
+#: View/Search/index.ctp:263
+msgid "Are you sure you want to delete the entry ?"
+msgstr ""
+
+#: View/Entries/index.ctp:169
+#: View/Entrytypes/index.ctp:58
+#: View/Logs/index.ctp:50
+#: View/Reports/ledgerentries.ctp:231
+#: View/Reports/ledgerstatement.ctp:277
+#: View/Reports/reconciliation.ctp:280
+#: View/Search/index.ctp:274
+#: View/Tags/index.ctp:50
+#: View/Wzaccounts/index.ctp:71
+#: View/Wzusers/index.ctp:67
+msgid "first"
+msgstr ""
+
+#: View/Entries/index.ctp:170
+#: View/Entrytypes/index.ctp:59
+#: View/Logs/index.ctp:51
+#: View/Reports/ledgerentries.ctp:232
+#: View/Reports/ledgerstatement.ctp:278
+#: View/Reports/reconciliation.ctp:281
+#: View/Search/index.ctp:275
+#: View/Tags/index.ctp:51
+#: View/Wzaccounts/index.ctp:72
+#: View/Wzusers/index.ctp:68
+msgid "prev"
+msgstr ""
+
+#: View/Entries/index.ctp:172
+#: View/Entrytypes/index.ctp:61
+#: View/Logs/index.ctp:53
+#: View/Reports/ledgerentries.ctp:234
+#: View/Reports/ledgerstatement.ctp:280
+#: View/Reports/reconciliation.ctp:283
+#: View/Search/index.ctp:277
+#: View/Tags/index.ctp:53
+#: View/Wzaccounts/index.ctp:74
+#: View/Wzusers/index.ctp:70
+msgid "next"
+msgstr ""
+
+#: View/Entries/index.ctp:173
+#: View/Entrytypes/index.ctp:62
+#: View/Logs/index.ctp:54
+#: View/Reports/ledgerentries.ctp:235
+#: View/Reports/ledgerstatement.ctp:281
+#: View/Reports/reconciliation.ctp:284
+#: View/Search/index.ctp:278
+#: View/Tags/index.ctp:54
+#: View/Wzaccounts/index.ctp:75
+#: View/Wzusers/index.ctp:71
+msgid "last"
+msgstr ""
+
+#: View/Entries/index.ctp:189
+#: View/Entries/view.ctp:210
+msgid "Email to"
+msgstr ""
+
+#: View/Entries/view.ctp:170
+msgid "Edit"
+msgstr ""
+
+#: View/Entries/view.ctp:175
+msgid "Delete"
+msgstr ""
+
+#: View/Entries/view.ctp:175
+msgid "Are you sure ?"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:38
+#: View/Entrytypes/edit.ctp:38
+#: View/Entrytypes/index.ctp:30
+#: View/Settings/cf.ctp:105
+#: View/Wzaccounts/add.ctp:39
+#: View/Wzaccounts/create.ctp:68
+#: View/Wzaccounts/edit.ctp:39
+#: View/Wzaccounts/index.ctp:37
+msgid "Label"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:40
+#: View/Entrytypes/edit.ctp:40
+#: View/Entrytypes/index.ctp:32
+msgid "Description"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:44
+#: View/Entrytypes/edit.ctp:44
+msgid "Numbering"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:45
+#: View/Entrytypes/edit.ctp:45
+msgid "Note : How the entry numbering is handled."
+msgstr ""
+
+#: View/Entrytypes/add.ctp:48
+#: View/Entrytypes/edit.ctp:48
+#: View/Entrytypes/index.ctp:33
+msgid "Prefix"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:49
+#: View/Entrytypes/edit.ctp:49
+msgid "Note : Prefix to add before entry numbers."
+msgstr ""
+
+#: View/Entrytypes/add.ctp:52
+#: View/Entrytypes/edit.ctp:52
+#: View/Entrytypes/index.ctp:34
+msgid "Suffix"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:53
+#: View/Entrytypes/edit.ctp:53
+msgid "Note : Suffix to add after entry numbers."
+msgstr ""
+
+#: View/Entrytypes/add.ctp:56
+#: View/Entrytypes/edit.ctp:56
+#: View/Entrytypes/index.ctp:35
+msgid "Zero Padding"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:57
+#: View/Entrytypes/edit.ctp:57
+msgid "Note : Number of zeros to pad before entry numbers."
+msgstr ""
+
+#: View/Entrytypes/add.ctp:62
+#: View/Entrytypes/edit.ctp:62
+msgid "Restrictions"
+msgstr ""
+
+#: View/Entrytypes/add.ctp:63
+#: View/Entrytypes/edit.ctp:63
+msgid "Note : Restrictions to be placed on the ledgers selected in entry."
+msgstr ""
+
+#: View/Entrytypes/index.ctp:49
+msgid "Are you sure you want to delete the entry type?"
+msgstr ""
+
+#: View/Groups/add.ctp:65
+#: View/Groups/edit.ctp:65
+msgid "Group name"
+msgstr ""
+
+#: View/Groups/add.ctp:66
+#: View/Groups/edit.ctp:66
+msgid "Group code (optional)"
+msgstr ""
+
+#: View/Groups/add.ctp:67
+#: View/Groups/edit.ctp:67
+#: View/Ledgers/add.ctp:54
+#: View/Ledgers/edit.ctp:54
+msgid "Parent group"
+msgstr ""
+
+#: View/Groups/add.ctp:73
+#: View/Groups/edit.ctp:73
+msgid "Affects"
+msgstr ""
+
+#: View/Groups/add.ctp:77
+#: View/Groups/edit.ctp:77
+msgid "Note : Changes to whether it affects Gross or Net Profit & Loss is reflected in final Profit & Loss statement."
+msgstr ""
+
+#: View/Help/index.ctp:32
+msgid "Wiki"
+msgstr ""
+
+#: View/Help/index.ctp:40
+msgid "Report Bugs"
+msgstr ""
+
+#: View/Help/index.ctp:48
+msgid "Discussion Groups"
+msgstr ""
+
+#: View/Help/index.ctp:56
+msgid "Videos"
+msgstr ""
+
+#: View/Help/index.ctp:64
+msgid "Contact"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:104;114
+msgid "Disabled"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:105;115
+msgid "Enabled"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:124;137
+msgid "Administrator"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:125;138
+msgid "Manager"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:126;139
+msgid "Accountant"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:127;140
+msgid "Data entry operator"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:128;141
+msgid "Guest"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:150;162
+msgid "MySQL"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:151;163
+msgid "MS SQL Server"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:152;164
+msgid "Postgres SQL (BETA)"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:186
+msgid "Dr / Cr"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:187
+msgid "To / By"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:196
+msgid "Gross Profit & Loss"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:197
+msgid "Net Profit & Loss"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:206
+msgid "Auto"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:207
+msgid "Manual (required)"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:208
+msgid "Manual (optional)"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:217
+msgid "Unrestricted"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:218
+msgid "Atleast one Bank or Cash account must be present on Debit side"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:219
+msgid "Atleast one Bank or Cash account must be present on Credit side"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:220
+msgid "Only Bank or Cash account can be present on both Debit and Credit side"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:221
+msgid "Only NON Bank or Cash account can be present on both Debit and Credit side"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:230
+msgid "Equal to"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:231
+msgid "Less than or Equal to"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:232
+msgid "Greater than or equal to"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:233
+msgid "In between"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:242
+msgid "Potrait"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:243
+msgid "Landscape"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:252
+msgid "HTML"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:253
+msgid "Text"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:262
+msgid "smtp"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:263
+msgid "mail"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:274
+msgid "Day-Month-Year"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:275
+msgid "Month-Day-Year"
+msgstr ""
+
+#: View/Helper/GenericHelper.php:276
+msgid "Year-Month-Day"
+msgstr ""
+
+#: View/Ledgers/add.ctp:52
+#: View/Ledgers/edit.ctp:52
+msgid "Ledger name"
+msgstr ""
+
+#: View/Ledgers/add.ctp:53
+#: View/Ledgers/edit.ctp:53
+msgid "Ledger code (optional)"
+msgstr ""
+
+#: View/Ledgers/add.ctp:56
+#: View/Ledgers/edit.ctp:56
+msgid "Opening balance"
+msgstr ""
+
+#: View/Ledgers/add.ctp:63
+#: View/Ledgers/edit.ctp:63
+msgid "Note : Assets / Expenses always have Dr balance and Liabilities / Incomes always have Cr balance."
+msgstr ""
+
+#: View/Ledgers/add.ctp:70
+#: View/Ledgers/edit.ctp:70
+#: View/Reports/ledgerentries.ctp:150
+#: View/Reports/ledgerstatement.ctp:151
+#: View/Reports/reconciliation.ctp:159
+#: View/Reports/print/ledgerentries.ctp:37
+msgid "Bank or cash account"
+msgstr ""
+
+#: View/Ledgers/add.ctp:72
+#: View/Ledgers/edit.ctp:72
+msgid "Note : Select if the ledger account is a bank or a cash account."
+msgstr ""
+
+#: View/Ledgers/add.ctp:79
+#: View/Ledgers/edit.ctp:79
+msgid "Note : If selected the ledger account can be reconciled from Reports > Reconciliation."
+msgstr ""
+
+#: View/Ledgers/add.ctp:84
+#: View/Ledgers/edit.ctp:84
+#: View/Reports/ledgerentries.ctp:162
+#: View/Reports/ledgerstatement.ctp:163
+#: View/Reports/reconciliation.ctp:171
+#: View/Reports/print/ledgerentries.ctp:49
+msgid "Notes"
+msgstr ""
+
+#: View/Logs/index.ctp:31
+msgid "Host IP"
+msgstr ""
+
+#: View/Logs/index.ctp:32
+#: View/Settings/email.ctp:77
+#: View/Wzsettings/edit.ctp:71
+#: View/Wzusers/add.ctp:38
+#: View/Wzusers/edit.ctp:38
+#: View/Wzusers/index.ctp:30
+#: View/Wzusers/login.ctp:50
+#: View/Wzusers/register.ctp:39
+#: View/Wzusers/tplogin.ctp:38
+msgid "Username"
+msgstr ""
+
+#: View/Logs/index.ctp:33
+msgid "URL"
+msgstr ""
+
+#: View/Logs/index.ctp:34
+msgid "Message"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:172
+#: View/Reports/downloadcsv/balancesheet.ctp:90
+#: View/Reports/downloadxls/balancesheet.ctp:101
+#: View/Reports/print/balancesheet.ctp:112
+msgid "There is a difference in Total Liabilities and Total Assets of "
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:193
+msgid "Show Opening Balance Sheet"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:198
+#: View/Reports/ledgerentries.ctp:93
+#: View/Reports/ledgerstatement.ctp:93
+#: View/Reports/profitloss.ctp:187
+#: View/Reports/reconciliation.ctp:101
+msgid "Start date"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:199
+#: View/Reports/profitloss.ctp:188
+msgid "Note : Leave start date as empty if you want statement from the start of the financial year."
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:202
+#: View/Reports/ledgerentries.ctp:94
+#: View/Reports/ledgerstatement.ctp:94
+#: View/Reports/profitloss.ctp:191
+#: View/Reports/reconciliation.ctp:102
+msgid "End date"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:203
+#: View/Reports/profitloss.ctp:192
+msgid "Note : Leave end date as empty if you want statement till the end of the financial year."
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:212
+#: View/Reports/ledgerentries.ctp:105
+#: View/Reports/ledgerstatement.ctp:105
+#: View/Reports/profitloss.ctp:201
+#: View/Reports/reconciliation.ctp:114
+#: View/Search/index.ctp:213
+msgid "Clear"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:225
+#: View/Reports/ledgerentries.ctp:122
+#: View/Reports/ledgerstatement.ctp:122
+#: View/Reports/profitloss.ctp:214
+#: View/Reports/reconciliation.ctp:131
+#: View/Reports/trialbalance.ctp:122
+msgid "DOWNLOAD .CSV"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:231
+#: View/Reports/ledgerentries.ctp:128
+#: View/Reports/ledgerstatement.ctp:128
+#: View/Reports/profitloss.ctp:220
+#: View/Reports/reconciliation.ctp:137
+#: View/Reports/trialbalance.ctp:128
+msgid "DOWNLOAD .XLS"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:236
+#: View/Reports/ledgerentries.ctp:133
+#: View/Reports/ledgerstatement.ctp:133
+#: View/Reports/profitloss.ctp:225
+#: View/Reports/reconciliation.ctp:142
+#: View/Reports/trialbalance.ctp:133
+msgid "PRINT"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:260
+#: View/Reports/downloadcsv/balancesheet.ctp:102
+#: View/Reports/downloadxls/balancesheet.ctp:112
+#: View/Reports/print/balancesheet.ctp:131
+msgid "Assets (Dr)"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:261;272
+#: View/Reports/profitloss.ctp:248;259;352;363
+#: View/Reports/downloadcsv/balancesheet.ctp:103;140
+#: View/Reports/downloadxls/balancesheet.ctp:113;155
+#: View/Reports/print/balancesheet.ctp:132;143
+#: View/Search/index.ctp:173
+msgid "Amount"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:271
+#: View/Reports/downloadcsv/balancesheet.ctp:139
+#: View/Reports/downloadxls/balancesheet.ctp:154
+#: View/Reports/print/balancesheet.ctp:142
+msgid "Liabilities and Owners Equity (Cr)"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:290;295
+#: View/Reports/downloadcsv/balancesheet.ctp:109
+#: View/Reports/downloadxls/balancesheet.ctp:120
+#: View/Reports/print/balancesheet.ctp:161;166
+msgid "Total Assets"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:307
+#: View/Reports/downloadcsv/balancesheet.ctp:117
+#: View/Reports/downloadxls/balancesheet.ctp:129
+#: View/Reports/print/balancesheet.ctp:178
+msgid "Profit & Loss Account (Net Loss)"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:319;382
+#: View/Reports/downloadcsv/balancesheet.ctp:126;160
+#: View/Reports/downloadxls/balancesheet.ctp:139;178
+#: View/Reports/print/balancesheet.ctp:190;253
+msgid "Diff in O/P Balance"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:354;359
+#: View/Reports/downloadcsv/balancesheet.ctp:146
+#: View/Reports/downloadxls/balancesheet.ctp:162
+#: View/Reports/print/balancesheet.ctp:225;230
+msgid "Total Liability and Owners Equity"
+msgstr ""
+
+#: View/Reports/balancesheet.ctp:368
+#: View/Reports/downloadcsv/balancesheet.ctp:152
+#: View/Reports/print/balancesheet.ctp:239
+msgid "Profit & Loss Account (Net Profit)"
+msgstr ""
+
+#: View/Reports/index.ctp:32
+msgid "Balance sheet"
+msgstr ""
+
+#: View/Reports/index.ctp:39
+msgid "Profit and Loss statement"
+msgstr ""
+
+#: View/Reports/index.ctp:46
+msgid "Trial balance"
+msgstr ""
+
+#: View/Reports/index.ctp:53
+msgid "Ledger statement"
+msgstr ""
+
+#: View/Reports/ledgerentries.ctp:87
+#: View/Reports/ledgerstatement.ctp:87
+#: View/Reports/reconciliation.ctp:94
+msgid "Ledger account"
+msgstr ""
+
+#: View/Reports/ledgerentries.ctp:154
+#: View/Reports/ledgerstatement.ctp:155
+#: View/Reports/reconciliation.ctp:163
+#: View/Reports/print/ledgerentries.ctp:41
+#: View/Wzusers/index.ctp:46
+msgid "Yes"
+msgstr ""
+
+#: View/Reports/ledgerentries.ctp:156
+#: View/Reports/ledgerstatement.ctp:157
+#: View/Reports/reconciliation.ctp:165
+#: View/Reports/print/ledgerentries.ctp:43
+#: View/Wzusers/index.ctp:48
+msgid "No"
+msgstr ""
+
+#: View/Reports/ledgerstatement.ctp:191
+#: View/Reports/downloadcsv/ledgerstatement.ctp:48
+#: View/Reports/downloadxls/ledgerstatement.ctp:56
+#: View/Reports/print/ledgerstatement.ctp:57
+msgid "Balance"
+msgstr ""
+
+#: View/Reports/ledgerstatement.ctp:201
+#: View/Reports/downloadcsv/ledgerstatement.ctp:55
+#: View/Reports/downloadxls/ledgerstatement.ctp:64
+#: View/Reports/print/ledgerstatement.ctp:66
+msgid "Current opening balance"
+msgstr ""
+
+#: View/Reports/ledgerstatement.ctp:265
+#: View/Reports/downloadcsv/ledgerstatement.ctp:93
+#: View/Reports/downloadxls/ledgerstatement.ctp:104
+#: View/Reports/print/ledgerstatement.ctp:121
+msgid "Current closing balance"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:181
+msgid "Show Opening Profit and Loss Statement"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:182
+msgid "Note : In opening Profit and Loss Statement all ledgers and groups balance must be zero."
+msgstr ""
+
+#: View/Reports/profitloss.ctp:247
+msgid "Gross Expenses (Dr)"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:258
+msgid "Gross Incomes (Cr)"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:275;280
+#: View/Reports/downloadcsv/profitloss.ctp:95
+#: View/Reports/downloadxls/profitloss.ctp:108
+#: View/Reports/print/profitloss.ctp:144;149
+msgid "Total Gross Expenses"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:289
+#: View/Reports/downloadcsv/profitloss.ctp:101
+#: View/Reports/downloadxls/profitloss.ctp:115
+#: View/Reports/print/profitloss.ctp:158
+msgid "Gross Profit C/D"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:313;318
+#: View/Reports/downloadcsv/profitloss.ctp:121
+#: View/Reports/downloadxls/profitloss.ctp:138
+#: View/Reports/print/profitloss.ctp:182;187
+msgid "Total Gross Incomes"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:330
+#: View/Reports/downloadcsv/profitloss.ctp:129
+#: View/Reports/downloadxls/profitloss.ctp:147
+#: View/Reports/print/profitloss.ctp:199
+msgid "Gross Loss C/D"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:351
+msgid "Net Expenses (Dr)"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:362
+msgid "Net Incomes (Cr)"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:379;384
+#: View/Reports/downloadcsv/profitloss.ctp:150
+#: View/Reports/downloadxls/profitloss.ctp:171
+#: View/Reports/print/profitloss.ctp:248;253
+msgid "Total Expenses"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:396
+#: View/Reports/downloadcsv/profitloss.ctp:158
+#: View/Reports/downloadxls/profitloss.ctp:180
+#: View/Reports/print/profitloss.ctp:265
+msgid "Gross Loss B/D"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:407
+#: View/Reports/downloadcsv/profitloss.ctp:167
+#: View/Reports/downloadxls/profitloss.ctp:190
+#: View/Reports/print/profitloss.ctp:276
+msgid "Net Profit"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:431;436
+#: View/Reports/downloadcsv/profitloss.ctp:187
+#: View/Reports/downloadxls/profitloss.ctp:213
+#: View/Reports/print/profitloss.ctp:300;305
+msgid "Total Incomes"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:446
+#: View/Reports/downloadcsv/profitloss.ctp:194
+#: View/Reports/downloadxls/profitloss.ctp:221
+#: View/Reports/print/profitloss.ctp:315
+msgid "Gross Profit B/D"
+msgstr ""
+
+#: View/Reports/profitloss.ctp:461
+#: View/Reports/downloadcsv/profitloss.ctp:203
+#: View/Reports/downloadxls/profitloss.ctp:231
+#: View/Reports/print/profitloss.ctp:330
+msgid "Net Loss"
+msgstr ""
+
+#: View/Reports/reconciliation.ctp:100
+msgid "Show all entries"
+msgstr ""
+
+#: View/Reports/reconciliation.ctp:187
+#: View/Reports/downloadcsv/reconciliation.ctp:40
+#: View/Reports/downloadxls/reconciliation.ctp:49
+#: View/Reports/print/reconciliation.ctp:45
+msgid "Debit "
+msgstr ""
+
+#: View/Reports/reconciliation.ctp:191
+#: View/Reports/downloadcsv/reconciliation.ctp:43
+#: View/Reports/downloadxls/reconciliation.ctp:54
+#: View/Reports/print/reconciliation.ctp:49
+msgid "Credit "
+msgstr ""
+
+#: View/Reports/reconciliation.ctp:219
+#: View/Reports/downloadcsv/reconciliation.ctp:54
+#: View/Reports/downloadxls/reconciliation.ctp:66
+#: View/Reports/print/reconciliation.ctp:67
+msgid "Reconciliation Date"
+msgstr ""
+
+#: View/Reports/reconciliation.ctp:268
+msgid "Reconile"
+msgstr ""
+
+#: View/Reports/trialbalance.ctp:153
+#: View/Reports/downloadcsv/trialbalance.ctp:114
+#: View/Reports/downloadxls/trialbalance.ctp:125
+#: View/Reports/print/trialbalance.ctp:127
+msgid "Debit Total"
+msgstr ""
+
+#: View/Reports/trialbalance.ctp:154
+#: View/Reports/downloadcsv/trialbalance.ctp:115
+#: View/Reports/downloadxls/trialbalance.ctp:126
+#: View/Reports/print/trialbalance.ctp:128
+msgid "Credit Total"
+msgstr ""
+
+#: View/Reports/trialbalance.ctp:164
+#: View/Reports/downloadcsv/trialbalance.ctp:121
+#: View/Reports/downloadxls/trialbalance.ctp:133
+#: View/Reports/print/trialbalance.ctp:138
+msgid "TOTAL"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:87
+#: View/Reports/downloadxls/profitloss.ctp:99
+#: View/Reports/print/profitloss.ctp:116
+msgid "Gross Expenses"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:88;143
+#: View/Reports/downloadxls/profitloss.ctp:100;163
+#: View/Reports/print/profitloss.ctp:117;221
+msgid "(Dr) Amount"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:113
+#: View/Reports/downloadxls/profitloss.ctp:129
+#: View/Reports/print/profitloss.ctp:127
+msgid "Gross Incomes"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:114;180
+#: View/Reports/downloadxls/profitloss.ctp:130;205
+#: View/Reports/print/profitloss.ctp:128;232
+msgid "(Cr) Amount"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:142
+#: View/Reports/downloadxls/profitloss.ctp:162
+#: View/Reports/print/profitloss.ctp:220
+msgid "Net Expenses"
+msgstr ""
+
+#: View/Reports/downloadcsv/profitloss.ctp:179
+#: View/Reports/downloadxls/profitloss.ctp:204
+#: View/Reports/print/profitloss.ctp:231
+msgid "Net Incomes"
+msgstr ""
+
+#: View/Reports/downloadcsv/trialbalance.ctp:46
+#: View/Reports/downloadxls/trialbalance.ctp:57
+msgid "Group"
+msgstr ""
+
+#: View/Reports/downloadxls/balancesheet.ctp:169
+msgid "Profit &amp; Loss Account (Net Profit)"
+msgstr ""
+
+#: View/Search/index.ctp:135
+msgid "Ledgers"
+msgstr ""
+
+#: View/Search/index.ctp:144
+msgid "Entrytypes"
+msgstr ""
+
+#: View/Search/index.ctp:147
+msgid "Entry number"
+msgstr ""
+
+#: View/Search/index.ctp:159;185
+msgid "and"
+msgstr ""
+
+#: View/Search/index.ctp:170
+msgid "Dr or Cr"
+msgstr ""
+
+#: View/Search/index.ctp:193
+msgid "From date"
+msgstr ""
+
+#: View/Search/index.ctp:194
+msgid "To date"
+msgstr ""
+
+#: View/Search/index.ctp:205
+msgid "Narration contains"
+msgstr ""
+
+#: View/Settings/account.ctp:66
+#: View/Settings/cf.ctp:108
+#: View/Wzaccounts/create.ctp:71
+msgid "Company / Personal Name"
+msgstr ""
+
+#: View/Settings/account.ctp:67
+#: View/Wzaccounts/create.ctp:72
+msgid "Address"
+msgstr ""
+
+#: View/Settings/account.ctp:69
+#: View/Wzaccounts/create.ctp:74
+msgid "Currency symbol"
+msgstr ""
+
+#: View/Settings/account.ctp:70
+#: View/Wzaccounts/create.ctp:78
+msgid "Currency format"
+msgstr ""
+
+#: View/Settings/account.ctp:71
+#: View/Settings/cf.ctp:109
+#: View/Wzaccounts/create.ctp:87
+msgid "Date format"
+msgstr ""
+
+#: View/Settings/account.ctp:72
+#: View/Settings/cf.ctp:110
+#: View/Wzaccounts/create.ctp:88
+msgid "Financial year start"
+msgstr ""
+
+#: View/Settings/account.ctp:73
+#: View/Settings/cf.ctp:111
+#: View/Wzaccounts/create.ctp:89
+msgid "Financial year end"
+msgstr ""
+
+#: View/Settings/cf.ctp:68
+msgid "Active account details :"
+msgstr ""
+
+#: View/Settings/cf.ctp:99
+msgid "Important Note : Please manually carry forward the profit and loss balance for the current year to a ledger account like capital account for the next year, otherwise the opening balance sheet for the next year will not tally."
+msgstr ""
+
+#: View/Settings/cf.ctp:106
+#: View/Wzaccounts/add.ctp:40
+#: View/Wzaccounts/create.ctp:69
+#: View/Wzaccounts/edit.ctp:40
+msgid "Note : It is recommended to use a descriptive label like \"sample20142105\" which includes both a short name and the accounting year."
+msgstr ""
+
+#: View/Settings/cf.ctp:115
+#: View/Wzaccounts/add.ctp:42
+#: View/Wzaccounts/create.ctp:93
+#: View/Wzaccounts/edit.ctp:42
+msgid "Database type"
+msgstr ""
+
+#: View/Settings/cf.ctp:116
+#: View/Wzaccounts/add.ctp:43
+#: View/Wzaccounts/create.ctp:94
+#: View/Wzaccounts/edit.ctp:43
+msgid "Database name"
+msgstr ""
+
+#: View/Settings/cf.ctp:118
+#: View/Wzaccounts/add.ctp:45
+#: View/Wzaccounts/create.ctp:96
+#: View/Wzaccounts/edit.ctp:45
+msgid "Database schema"
+msgstr ""
+
+#: View/Settings/cf.ctp:119
+#: View/Wzaccounts/add.ctp:46
+#: View/Wzaccounts/create.ctp:97
+#: View/Wzaccounts/edit.ctp:46
+msgid "Note : Database schema is required for Postgres database connection. Leave it blank for MySQL connections."
+msgstr ""
+
+#: View/Settings/cf.ctp:121
+#: View/Wzaccounts/add.ctp:48
+#: View/Wzaccounts/create.ctp:99
+#: View/Wzaccounts/edit.ctp:48
+msgid "Database host"
+msgstr ""
+
+#: View/Settings/cf.ctp:122
+#: View/Wzaccounts/add.ctp:49
+#: View/Wzaccounts/create.ctp:100
+#: View/Wzaccounts/edit.ctp:49
+msgid "Database port"
+msgstr ""
+
+#: View/Settings/cf.ctp:123
+#: View/Wzaccounts/add.ctp:50
+#: View/Wzaccounts/create.ctp:101
+#: View/Wzaccounts/edit.ctp:50
+msgid "Database login"
+msgstr ""
+
+#: View/Settings/cf.ctp:124
+#: View/Wzaccounts/add.ctp:51
+#: View/Wzaccounts/create.ctp:102
+#: View/Wzaccounts/edit.ctp:51
+msgid "Database password"
+msgstr ""
+
+#: View/Settings/cf.ctp:126
+#: View/Wzaccounts/add.ctp:53
+#: View/Wzaccounts/create.ctp:104
+#: View/Wzaccounts/edit.ctp:53
+msgid "Database prefix"
+msgstr ""
+
+#: View/Settings/cf.ctp:127
+#: View/Wzaccounts/add.ctp:54
+#: View/Wzaccounts/create.ctp:105
+#: View/Wzaccounts/edit.ctp:54
+msgid "Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts."
+msgstr ""
+
+#: View/Settings/cf.ctp:129
+#: View/Wzaccounts/add.ctp:56
+#: View/Wzaccounts/create.ctp:107
+#: View/Wzaccounts/edit.ctp:56
+msgid "Use persistent connection"
+msgstr ""
+
+#: View/Settings/cf.ctp:131
+#: View/Wzaccounts/add.ctp:58
+#: View/Wzaccounts/create.ctp:109
+#: View/Wzaccounts/edit.ctp:58
+msgid "Database settings"
+msgstr ""
+
+#: View/Settings/cf.ctp:132
+#: View/Wzaccounts/add.ctp:59
+#: View/Wzaccounts/create.ctp:110
+#: View/Wzaccounts/edit.ctp:59
+msgid "Note : Any additional settings to pass on to the database connection."
+msgstr ""
+
+#: View/Settings/email.ctp:69
+msgid "Use default email settings"
+msgstr ""
+
+#: View/Settings/email.ctp:71
+msgid "Note : If selected the default email settings in the Administer > General Settings will be used."
+msgstr ""
+
+#: View/Settings/email.ctp:73
+#: View/Wzsettings/edit.ctp:67
+msgid "Protocol"
+msgstr ""
+
+#: View/Settings/email.ctp:74
+#: View/Wzsettings/edit.ctp:68
+msgid "Hostname"
+msgstr ""
+
+#: View/Settings/email.ctp:75
+#: View/Wzsettings/edit.ctp:69
+msgid "Port"
+msgstr ""
+
+#: View/Settings/email.ctp:76
+#: View/Wzsettings/edit.ctp:70
+msgid "Use TLS"
+msgstr ""
+
+#: View/Settings/email.ctp:78
+#: View/Wzsettings/edit.ctp:72
+#: View/Wzusers/add.ctp:39
+#: View/Wzusers/login.ctp:51
+#: View/Wzusers/register.ctp:40
+#: View/Wzusers/tplogin.ctp:39
+msgid "Password"
+msgstr ""
+
+#: View/Settings/email.ctp:79
+#: View/Wzsettings/edit.ctp:73
+msgid "From"
+msgstr ""
+
+#: View/Settings/index.ctp:32
+msgid "Account settings"
+msgstr ""
+
+#: View/Settings/index.ctp:35
+msgid "Setup account details, currency, time, etc."
+msgstr ""
+
+#: View/Settings/index.ctp:40
+msgid "Carry forward"
+msgstr ""
+
+#: View/Settings/index.ctp:43
+msgid "Carry forward account to next financial year"
+msgstr ""
+
+#: View/Settings/index.ctp:48
+msgid "Email settings"
+msgstr ""
+
+#: View/Settings/index.ctp:51
+msgid "Setup outgoing email"
+msgstr ""
+
+#: View/Settings/index.ctp:56
+msgid "Printer settings"
+msgstr ""
+
+#: View/Settings/index.ctp:59
+msgid "Setup printing options for entries, reports, etc."
+msgstr ""
+
+#: View/Settings/index.ctp:64
+msgid "Download backup"
+msgstr ""
+
+#: View/Settings/index.ctp:67
+msgid "Download backup of current accounts data"
+msgstr ""
+
+#: View/Settings/index.ctp:77
+msgid "Manage tags"
+msgstr ""
+
+#: View/Settings/index.ctp:85
+msgid "Manage entry types"
+msgstr ""
+
+#: View/Settings/index.ctp:90
+#: View/Settings/lock.ctp:46
+msgid "Lock account"
+msgstr ""
+
+#: View/Settings/index.ctp:93
+msgid "Lock account to prevent further changes"
+msgstr ""
+
+#: View/Settings/lock.ctp:39
+msgid "Currently this account is locked"
+msgstr ""
+
+#: View/Settings/lock.ctp:41
+msgid "Currently this account is unlocked"
+msgstr ""
+
+#: View/Settings/lock.ctp:47
+msgid "Note : Once a account is locked no further changes will be permitted. You will have to unlock it to make changes."
+msgstr ""
+
+#: View/Settings/printer.ctp:31
+msgid "inches"
+msgstr ""
+
+#: View/Settings/printer.ctp:42
+msgid "Paper Size"
+msgstr ""
+
+#: View/Settings/printer.ctp:43
+msgid "Height"
+msgstr ""
+
+#: View/Settings/printer.ctp:44
+msgid "Width"
+msgstr ""
+
+#: View/Settings/printer.ctp:47
+msgid "Paper Margin"
+msgstr ""
+
+#: View/Settings/printer.ctp:48
+msgid "Top"
+msgstr ""
+
+#: View/Settings/printer.ctp:49
+msgid "Bottom"
+msgstr ""
+
+#: View/Settings/printer.ctp:50
+msgid "Left"
+msgstr ""
+
+#: View/Settings/printer.ctp:51
+msgid "Right"
+msgstr ""
+
+#: View/Settings/printer.ctp:54
+msgid "Orientation"
+msgstr ""
+
+#: View/Settings/printer.ctp:58
+msgid "Output Format"
+msgstr ""
+
+#: View/Tags/add.ctp:47
+#: View/Tags/edit.ctp:47
+#: View/Tags/index.ctp:30
+msgid "Title"
+msgstr ""
+
+#: View/Tags/add.ctp:48
+#: View/Tags/edit.ctp:48
+msgid "Color"
+msgstr ""
+
+#: View/Tags/add.ctp:49
+#: View/Tags/edit.ctp:49
+msgid "Background"
+msgstr ""
+
+#: View/Tags/index.ctp:41
+msgid "Are you sure you want to delete the tag ?"
+msgstr ""
+
+#: View/Wzaccounts/create.ctp:79
+msgid "Note : Check the wiki if you want to create a custom format for currency."
+msgstr ""
+
+#: View/Wzaccounts/create.ctp:84
+msgid "Decimal places"
+msgstr ""
+
+#: View/Wzaccounts/create.ctp:85
+msgid "Note : This options cannot be changed later on."
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:31
+msgid "Please make sure no user is actively using any account before editing or deleting it."
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:38
+msgid "DB Type"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:39
+msgid "DB Name"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:40
+msgid "DB Host"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:41
+msgid "DB Port"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:42
+msgid "DB Prefix"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:56
+msgid "Active"
+msgstr ""
+
+#: View/Wzaccounts/index.ctp:60
+msgid "Are you sure you want to delete the account config ?"
+msgstr ""
+
+#: View/Wzaccounts/update.ctp:38
+msgid "Account name : %s"
+msgstr ""
+
+#: View/Wzaccounts/update.ctp:42
+msgid "Click the \"Udpate\" button below to update the database."
+msgstr ""
+
+#: View/Wzaccounts/update.ctp:46
+msgid "Please do keep a backup of the account database incase the update process fails."
+msgstr ""
+
+#: View/Wzaccounts/update.ctp:52
+msgid "Update"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:40
+msgid "Sitename"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:41
+msgid "Note : Sitename to use in all user registration related emails."
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:46
+msgid "In entries use"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:47
+msgid "Note : Whether to use Dr/Cr or To/By in entries."
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:51
+msgid "Enable logging"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:53
+msgid "Note : Log changes to the accounts which can be seen in the account dashboard."
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:58
+msgid "Row count"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:59
+msgid "Note : Number of rows to show at a time."
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:62
+msgid "User can create accounts"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:63
+msgid "Administrator approval is required for activating user accounts"
+msgstr ""
+
+#: View/Wzsettings/edit.ctp:64
+msgid "Email verification required for activating user accounts"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:30
+msgid "Application version : %s"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:33
+msgid "Application database version : %s"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:36
+msgid "PHP version : %s"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:41
+msgid "PHP BC Math library : Yes"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:44
+msgid "PHP BC Math library : No"
+msgstr ""
+
+#: View/Wzsettings/sysinfo.ctp:52
+msgid "PHP Sqlite3 library : %s"
+msgstr ""
+
+#: View/Wzusers/account.ctp:32
+msgid "Sorry, no accounts are available. Please create a new account "
+msgstr ""
+
+#: View/Wzusers/account.ctp:34;37
+msgid "Sorry, no accounts are available. Please contact your administrator."
+msgstr ""
+
+#: View/Wzusers/account.ctp:40
+msgid "Sorry, you do not have access to any accounts. You can manage your accounts "
+msgstr ""
+
+#: View/Wzusers/account.ctp:42
+msgid "Sorry, you do not have access to any accounts. Please contact your administrator."
+msgstr ""
+
+#: View/Wzusers/account.ctp:53
+msgid "Currently active account : \"%s\""
+msgstr ""
+
+#: View/Wzusers/account.ctp:57
+msgid "Select account"
+msgstr ""
+
+#: View/Wzusers/account.ctp:59
+msgid "Note : If you wish to use multiple accounts simultaneously, please use different browsers for each. Also, please select (NONE) if you wish to deactivate all accounts."
+msgstr ""
+
+#: View/Wzusers/account.ctp:63
+msgid "Activate"
+msgstr ""
+
+#: View/Wzusers/add.ctp:40
+#: View/Wzusers/edit.ctp:39
+#: View/Wzusers/first.ctp:39
+#: View/Wzusers/index.ctp:31
+#: View/Wzusers/profile.ctp:38
+#: View/Wzusers/register.ctp:41
+msgid "Fullname"
+msgstr ""
+
+#: View/Wzusers/add.ctp:43
+#: View/Wzusers/edit.ctp:42
+msgid "Email verified"
+msgstr ""
+
+#: View/Wzusers/add.ctp:44
+#: View/Wzusers/edit.ctp:43
+msgid "Administrator approved"
+msgstr ""
+
+#: View/Wzusers/add.ctp:51
+#: View/Wzusers/edit.ctp:50
+msgid "Account access"
+msgstr ""
+
+#: View/Wzusers/add.ctp:53
+#: View/Wzusers/edit.ctp:52
+msgid "Note : Select which accounts a user can access. Selecting \"ALL ACCOUNTS\" will grant them access to all accounts."
+msgstr ""
+
+#: View/Wzusers/changepass.ctp:38
+msgid "Existing password"
+msgstr ""
+
+#: View/Wzusers/changepass.ctp:39
+#: View/Wzusers/resetpass.ctp:40
+msgid "New password"
+msgstr ""
+
+#: View/Wzusers/first.ctp:38
+msgid "New Password"
+msgstr ""
+
+#: View/Wzusers/forgot.ctp:38
+#: View/Wzusers/resend.ctp:38
+msgid "Registered username or email address"
+msgstr ""
+
+#: View/Wzusers/index.ctp:34
+msgid "Approved"
+msgstr ""
+
+#: View/Wzusers/index.ctp:56
+msgid " Password"
+msgstr ""
+
+#: View/Wzusers/index.ctp:58
+msgid "Are you sure you want to delete the user ?"
+msgstr ""
+
+#: View/Wzusers/login.ctp:33
+msgid "Since this is your first time, you can login with username as \"admin\" and password as \"admin\". Please change your password after login."
+msgstr ""
+
+#: View/Wzusers/login.ctp:38
+msgid "Warning ! Password still not updated for \"admin\" user. Please change your password after login."
+msgstr ""
+
+#: View/Wzusers/register.ctp:55
+msgid "Sorry, user registration is disabled."
+msgstr ""
+
+#: View/Wzusers/resetpass.ctp:38
+msgid "Reset password for user \"%s\""
+msgstr ""
+
+#: View/Wzusers/verify.ctp:31
+msgid "Click here to Login"
+msgstr ""
+
+#: View/Wzusers/verify.ctp:33
+msgid "Click here to resend verification email"
+msgstr ""
+
+#: Model/Entry.php:validation for field tag_id
+msgid "Tag id is not a valid number"
+msgstr ""
+
+#: Model/Entry.php:validation for field tag_id
+msgid "Tag id length cannot be more than 18"
+msgstr ""
+
+#: Model/Entry.php:validation for field tag_id
+msgid "Tag id is not valid"
+msgstr ""
+
+#: Model/Entry.php:validation for field entrytype_id
+msgid "Entry type cannot be empty"
+msgstr ""
+
+#: Model/Entry.php:validation for field entrytype_id
+msgid "Entry type is not a valid number"
+msgstr ""
+
+#: Model/Entry.php:validation for field entrytype_id
+msgid "Entry type length cannot be more than 18"
+msgstr ""
+
+#: Model/Entry.php:validation for field entrytype_id
+msgid "Entry type is not valid"
+msgstr ""
+
+#: Model/Entry.php:validation for field number
+msgid "Entry number is not a valid number"
+msgstr ""
+
+#: Model/Entry.php:validation for field number
+msgid "Entry number length cannot be more than 18"
+msgstr ""
+
+#: Model/Entry.php:validation for field number
+msgid "Entry number already exists"
+msgstr ""
+
+#: Model/Entry.php:validation for field date
+msgid "Invalid value for entry date"
+msgstr ""
+
+#: Model/Entry.php:validation for field date
+msgid "Entry date should be after financial year start"
+msgstr ""
+
+#: Model/Entry.php:validation for field date
+msgid "Entry date should be before financial year end"
+msgstr ""
+
+#: Model/Entry.php:validation for field dr_total
+msgid "Debit total cannot be empty"
+msgstr ""
+
+#: Model/Entry.php:validation for field dr_total
+msgid "Debit total is not a valid amount"
+msgstr ""
+
+#: Model/Entry.php:validation for field dr_total
+msgid "Debit total length cannot be more than 28"
+msgstr ""
+
+#: Model/Entry.php:validation for field dr_total
+msgid "Debit total cannot be less than 0.00"
+msgstr ""
+
+#: Model/Entry.php:validation for field cr_total
+msgid "Credit total cannot be empty"
+msgstr ""
+
+#: Model/Entry.php:validation for field cr_total
+msgid "Credit total is not a valid amount"
+msgstr ""
+
+#: Model/Entry.php:validation for field cr_total
+msgid "Credit total length cannot be more than 28"
+msgstr ""
+
+#: Model/Entry.php:validation for field cr_total
+msgid "Credit total cannot be less than 0.00"
+msgstr ""
+
+#: Model/Entry.php:validation for field cr_total
+msgid "Credit total is not equal to debit total"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field entry_id
+msgid "Entry id cannot be empty"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field entry_id
+msgid "Entry id is not a valid number"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field entry_id
+msgid "Entry id length cannot be more than 18"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field entry_id
+msgid "Entry id is not valid"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field ledger_id
+msgid "Ledger id cannot be empty"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field ledger_id
+msgid "Ledger id is not a valid number"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field ledger_id
+msgid "Ledger id length cannot be more than 18"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field ledger_id
+msgid "Ledger id is not valid"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field amount
+msgid "Amount cannot be empty"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field amount
+msgid "Amount is not a valid amount"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field amount
+msgid "Amount total length cannot be more than 28"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field amount
+msgid "Amount cannot be less than 0.00"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field dc
+msgid "Dr/Cr cannot be empty"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field dc
+msgid "Invalid value for Dr/Cr"
+msgstr ""
+
+#: Model/Entryitem.php:validation for field reconciliation_date
+msgid "Invalid value for reconciliation date"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field label
+msgid "Label cannot be empty"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field label
+msgid "Label is already in use"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field label
+msgid "Label cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field label
+msgid "Label can contain only letter and digits"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field label
+msgid "Label cannot be \"0\""
+msgstr ""
+
+#: Model/Entrytype.php:validation for field name
+msgid "Name cannot be empty"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field name
+msgid "Name is already in use"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field name
+msgid "Name cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field description
+msgid "Description cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field base_type
+msgid "Invalid option for base type"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field numbering
+msgid "Invalid option for numbering"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field prefix
+msgid "Prefix cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field suffix
+msgid "Suffix cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field zero_padding
+msgid "Zero padding is not valid number"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field zero_padding
+msgid "Zero padding should be more than 0"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field zero_padding
+msgid "Zero padding should be less than 99"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field zero_padding
+msgid "Zero padding cannot contain a decimal point"
+msgstr ""
+
+#: Model/Entrytype.php:validation for field restriction_bankcash
+msgid "Invalid option for restrictions"
+msgstr ""
+
+#: Model/Group.php:validation for field parent_id
+#: Model/Ledger.php:validation for field group_id
+msgid "Parent group cannot be empty"
+msgstr ""
+
+#: Model/Group.php:validation for field parent_id
+#: Model/Ledger.php:validation for field group_id
+msgid "Parent group is not a valid number"
+msgstr ""
+
+#: Model/Group.php:validation for field parent_id
+#: Model/Ledger.php:validation for field group_id
+msgid "Parent group is not valid"
+msgstr ""
+
+#: Model/Group.php:validation for field parent_id
+#: Model/Ledger.php:validation for field group_id
+msgid "Parent group id length cannot be more than 18"
+msgstr ""
+
+#: Model/Group.php:validation for field name
+msgid "Group name cannot be empty"
+msgstr ""
+
+#: Model/Group.php:validation for field name
+msgid "Group name is already in use"
+msgstr ""
+
+#: Model/Group.php:validation for field name
+msgid "Group name cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Group.php:validation for field code
+msgid "Group code is already in use"
+msgstr ""
+
+#: Model/Group.php:validation for field code
+msgid "Group code cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Group.php:validation for field code
+msgid "Group code is already in use by a ledger account"
+msgstr ""
+
+#: Model/Group.php:validation for field affects_gross
+msgid "Affects Gross or Net Profit & Loss cannot be empty"
+msgstr ""
+
+#: Model/Group.php:validation for field affects_gross
+msgid "Invalid value for whether the account group affects Gross or Net Profit & Loss"
+msgstr ""
+
+#: Model/Ledger.php:validation for field name
+msgid "Ledger name cannot be empty"
+msgstr ""
+
+#: Model/Ledger.php:validation for field name
+msgid "Ledger name is already in use"
+msgstr ""
+
+#: Model/Ledger.php:validation for field name
+msgid "Ledger name cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Ledger.php:validation for field code
+msgid "Ledger code is already in use"
+msgstr ""
+
+#: Model/Ledger.php:validation for field code
+msgid "Ledger code cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Ledger.php:validation for field code
+msgid "Ledger code is already in use by a group account"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance
+msgid "Opening balance cannot be empty"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance
+msgid "Opening balance is not a valid amount"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance
+msgid "Opening balance length cannot be more than 28"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance
+msgid "Opening balance cannot be less than 0.00"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance_dc
+msgid "Opening balance Dr/Cr cannot be empty"
+msgstr ""
+
+#: Model/Ledger.php:validation for field op_balance_dc
+msgid "Invalid value for opening balance Dr/Cr"
+msgstr ""
+
+#: Model/Ledger.php:validation for field type
+msgid "Bank or cash account cannot be empty"
+msgstr ""
+
+#: Model/Ledger.php:validation for field type
+msgid "Invalid value for bank or cash account"
+msgstr ""
+
+#: Model/Ledger.php:validation for field type
+msgid "Bank or cash account cannot be more than 2 integers"
+msgstr ""
+
+#: Model/Ledger.php:validation for field reconciliation
+msgid "Reconciliation cannot be empty"
+msgstr ""
+
+#: Model/Ledger.php:validation for field reconciliation
+msgid "Invalid value for reconciliation"
+msgstr ""
+
+#: Model/Ledger.php:validation for field notes
+msgid "Notes length cannot be more than 500"
+msgstr ""
+
+#: Model/Log.php:validation for field level
+msgid "Level cannot be empty"
+msgstr ""
+
+#: Model/Log.php:validation for field level
+msgid "Invalid value for level"
+msgstr ""
+
+#: Model/Log.php:validation for field date
+msgid "Date cannot be empty"
+msgstr ""
+
+#: Model/Log.php:validation for field host_ip
+msgid "Invalid IP address"
+msgstr ""
+
+#: Model/Log.php:validation for field user
+msgid "Username cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Log.php:validation for field url
+msgid "Invalid URL"
+msgstr ""
+
+#: Model/Log.php:validation for field user_agent
+msgid "User agent cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Log.php:validation for field message
+msgid "Message cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field id
+msgid "Settings id cannot be empty"
+msgstr ""
+
+#: Model/Setting.php:validation for field id
+msgid "Invalid value for settings id"
+msgstr ""
+
+#: Model/Setting.php:validation for field name
+msgid "Company / Personal Name name cannot be empty"
+msgstr ""
+
+#: Model/Setting.php:validation for field name
+msgid "Company / Personal Name name cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field address
+msgid "Account address cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field email
+msgid "Invalid email address"
+msgstr ""
+
+#: Model/Setting.php:validation for field fy_start
+msgid "Invalid value for financial year start"
+msgstr ""
+
+#: Model/Setting.php:validation for field fy_end
+msgid "Invalid value for financial year end"
+msgstr ""
+
+#: Model/Setting.php:validation for field fy_end
+msgid "Financial year end should be after financial year start"
+msgstr ""
+
+#: Model/Setting.php:validation for field fy_end
+msgid "Entries present beyond the financial year start and end dates"
+msgstr ""
+
+#: Model/Setting.php:validation for field currency_symbol
+msgid "Currency symbol cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field currency_format
+msgid "Currency format cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field decimal_places
+msgid "Invalid value for decimal places"
+msgstr ""
+
+#: Model/Setting.php:validation for field date_format
+msgid "Date format cannot be more than 13 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field date_format
+msgid "Invalid option for date format"
+msgstr ""
+
+#: Model/Setting.php:validation for field timezone
+msgid "Timezone cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field timezone
+msgid "Invalid timezone format"
+msgstr ""
+
+#: Model/Setting.php:validation for field manage_inventory
+msgid "Invalid value for manage inventory"
+msgstr ""
+
+#: Model/Setting.php:validation for field account_locked
+msgid "Invalid value for lock"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_use_default
+msgid "Invalid value for use default email settings"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_protocol
+#: Model/Wzsetting.php:validation for field email_protocol
+msgid "Invalid value for email protocol"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_host
+#: Model/Wzsetting.php:validation for field email_host
+msgid "Hostname cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_port
+#: Model/Wzaccount.php:validation for field db_port
+#: Model/Wzsetting.php:validation for field email_port
+msgid "Port is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_port
+#: Model/Wzsetting.php:validation for field email_port
+msgid "Port should be greater than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_port
+#: Model/Wzaccount.php:validation for field db_port
+#: Model/Wzsetting.php:validation for field email_port
+msgid "Port should be less than 65000"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_port
+#: Model/Wzaccount.php:validation for field db_port
+#: Model/Wzsetting.php:validation for field email_port
+msgid "Port cannot contain a decimal point"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_tls
+#: Model/Wzsetting.php:validation for field email_tls
+msgid "Invalid value for Use TLS"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_username
+#: Model/Wzsetting.php:validation for field email_username
+#: Model/Wzuser.php:validation for field username
+msgid "Username cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_password
+#: Model/Wzsetting.php:validation for field email_password
+msgid "Password cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field email_from
+#: Model/Wzsetting.php:validation for field email_from
+msgid "From cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_height
+msgid "Height is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_height
+msgid "Height should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_height
+msgid "Height should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_width
+msgid "Width is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_width
+msgid "Width should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_paper_width
+msgid "Width should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_top
+msgid "Top margin is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_top
+msgid "Top margin should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_top
+msgid "Top margin should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_bottom
+msgid "Bottom margin is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_bottom
+msgid "Bottom margin should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_bottom
+msgid "Bottom margin should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_left
+msgid "Left margin is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_left
+msgid "Left margin should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_left
+msgid "Left margin should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_right
+msgid "Right margin is not a valid number"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_right
+msgid "Right margin should be more than 0"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_margin_right
+msgid "Right margin should be less than 1000"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_orientation
+msgid "Invalid option for orientation"
+msgstr ""
+
+#: Model/Setting.php:validation for field print_page_format
+msgid "Invalid option for page format"
+msgstr ""
+
+#: Model/Tag.php:validation for field title
+msgid "Title cannot be empty"
+msgstr ""
+
+#: Model/Tag.php:validation for field title
+msgid "Title is already in use"
+msgstr ""
+
+#: Model/Tag.php:validation for field title
+msgid "Title cannot be more than 100 characters"
+msgstr ""
+
+#: Model/Tag.php:validation for field color
+msgid "Color cannot be empty"
+msgstr ""
+
+#: Model/Tag.php:validation for field color
+msgid "Color has to be exactly 6 characters"
+msgstr ""
+
+#: Model/Tag.php:validation for field color
+msgid "Color is not a valid hexadecimal color value"
+msgstr ""
+
+#: Model/Tag.php:validation for field background
+msgid "Background cannot be empty"
+msgstr ""
+
+#: Model/Tag.php:validation for field background
+msgid "Background has to be exactly 6 characters"
+msgstr ""
+
+#: Model/Tag.php:validation for field background
+msgid "Background is not a valid hexadecimal color value"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field label
+msgid "Account label cannot be empty"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field label
+msgid "Account label is already in use"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field label
+msgid "Account label cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field label
+msgid "Account label can only be alpha-numeric"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_datasource
+msgid "Database type cannot be empty"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_datasource
+msgid "Invalid value for database type"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_database
+msgid "Database name cannot be empty"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_database;validation for field db_prefix
+msgid "Database name cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_host
+msgid "Database host cannot be empty"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_host
+msgid "Database host cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_port
+msgid "Port should be more than 0"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_login
+msgid "Database login cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_password
+msgid "Database password cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_persistent
+msgid "Database persistent connection cannot be empty"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_persistent
+msgid "Invalid value for database persistent connection"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_schema
+msgid "Database schema cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_unixsocket
+msgid "Database unixsocket cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzaccount.php:validation for field db_settings
+msgid "Database settings cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field sitename
+msgid "Sitename cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field drcr_toby
+msgid "For entry use cannot be empty"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field drcr_toby
+msgid "For entry use is not valid"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field enable_logging
+msgid "Enable logging cannot be empty"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field enable_logging
+msgid "Invalid value for enable logging"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field row_count
+msgid "Row count is not a valid number"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field row_count
+msgid "Row count should be greater than 0"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field row_count
+msgid "Row count should be less than 1000"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field row_count
+msgid "Row count cannot contain a decimal point"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field user_registration
+msgid "User registration cannot be empty"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field user_registration
+msgid "Invalid value for user registration"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field admin_verification
+msgid "Admin verification cannot be empty"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field admin_verification
+msgid "Invalid value for admin verification"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field email_verification
+msgid "Email verification cannot be empty"
+msgstr ""
+
+#: Model/Wzsetting.php:validation for field email_verification
+msgid "Invalid value for email verification"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field username
+msgid "Username cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field username
+msgid "Username is already in use"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field fullname
+msgid "Fullname cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field fullname
+msgid "Fullname cannot be more than 255 characters"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field password
+msgid "Password cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field email
+msgid "Email cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field email
+msgid "Email is not a valid email address"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field email
+msgid "Email is already in use"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field timezone
+msgid "Timezone cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field role
+msgid "Role cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field role
+msgid "Invalid value for role"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field status
+msgid "Status cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field status
+msgid "Invalid value for status"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field email_verified
+msgid "Email verified cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field email_verified
+msgid "Invalid value for email verified"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field admin_verified
+msgid "Administrator approved cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field admin_verified
+msgid "Invalid value for administrator approved"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field retry_count
+msgid "Retry count is not a valid number"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field retry_count
+msgid "Retry count cannot contain a decimal point"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field all_accounts
+msgid "All accounts access cannot be empty"
+msgstr ""
+
+#: Model/Wzuser.php:validation for field all_accounts
+msgid "Invalid value for all accounts access"
+msgstr ""
+
+#: Model/Wzuseraccount.php:validation for field wzuser_id
+msgid "User id cannot be empty"
+msgstr ""
+
+#: Model/Wzuseraccount.php:validation for field wzuser_id
+msgid "User id cannot be more than 11 characters"
+msgstr ""
+
+#: Model/Wzuseraccount.php:validation for field wzaccount_id
+msgid "Account id cannot be empty"
+msgstr ""
+
+#: Model/Wzuseraccount.php:validation for field wzaccount_id
+msgid "Account id cannot be more than 11 characters"
+msgstr ""
+
