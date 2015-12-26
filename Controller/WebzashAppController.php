@@ -77,6 +77,11 @@ class WebzashAppController extends AppController {
 	);
 
 	function beforeFilter() {
+		parent::beforeFilter();
+
+		/* Uncomment ANY of the below line to enable translation of the application in your langauge */
+		// Configure::write('Config.language', 'fra');
+		// CakeSession::write('Config.language', 'fra');
 
 		/* Read URL to get the controller name */
 		$url_params = Router::getParams();
