@@ -35,6 +35,8 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Group extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
 	/* Validation rules for the Group table */
 	public $validate = array(
 		'parent_id' => array(

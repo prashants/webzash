@@ -38,6 +38,8 @@ App::uses('Entryitem', 'Webzash.Model');
 */
 class Ledger extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
 	/* Validation rules for the Ledger table */
 	public $validate = array(
 

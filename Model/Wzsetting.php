@@ -35,6 +35,8 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Wzsetting extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
 	/* Validation rules for the Wzsetting table */
 	public $validate = array(
 

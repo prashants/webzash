@@ -35,6 +35,8 @@ App::uses('WebzashAppModel', 'Webzash.Model');
  */
 class Log extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
         /* Validation rules for the Log table */
         public $validate = array(
                 'level' => array(

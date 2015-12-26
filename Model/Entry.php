@@ -35,6 +35,8 @@ App::uses('WebzashAppModel', 'Webzash.Model');
  */
 class Entry extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
 	/* Validation rules for the Entry table */
 	public $validate = array(
 		'tag_id' => array(

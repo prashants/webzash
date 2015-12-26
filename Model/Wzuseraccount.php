@@ -35,6 +35,8 @@ App::uses('WebzashAppModel', 'Webzash.Model');
 */
 class Wzuseraccount extends WebzashAppModel {
 
+	public $validationDomain = 'webzash';
+
 	/* Validation rules for the Wzuseraccount table */
 	public $validate = array(
 		'wzuser_id' => array(
