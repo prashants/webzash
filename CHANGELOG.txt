@@ -1,3 +1,9 @@
+Webzash version 2.7 - TO BE ANNOUNCED
+-------------------------------------
+
+- Add ability to reset admin password
+- Add language support
+
 Webzash version 2.6 - 25 September 2015
 ---------------------------------------
 
