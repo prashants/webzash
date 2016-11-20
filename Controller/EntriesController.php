@@ -27,6 +27,8 @@
 
 App::uses('WebzashAppController', 'Webzash.Controller');
 App::uses('LedgerTree', 'Webzash.Lib');
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
 
 /**
  * Webzash Plugin Entries Controller
@@ -171,7 +173,6 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function add($entrytypeLabel = null) {
-
 		/* Check for valid entry type */
 		if (!$entrytypeLabel) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -425,6 +426,27 @@ class EntriesController extends WebzashAppController {
 							$ds->rollback();
 							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers. Error is : %s', $errmsg), 'danger');
 							return;
+						}
+					}
+
+					/* Upload files */
+					foreach ($this->request->data['Attachment'] as $entryattachment) {
+						if ($entryattachment['size'] > 0 && $entryattachment['error'] == 0) {
+							$upload_dir_prefix = ROOT . '/' . Configure::read('Webzash.UploadFolder') . '/';
+							$upload_dir = $this->Session->read('ActiveAccount.id') . '/' . $this->Entry->id;
+							if (new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
+								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . '/'. $entryattachment['name'])) {
+									// add entry to database
+								} else {
+									$ds->rollback();
+									$this->Session->setFlash(__d('webzash', 'Failed to create entry since upload file failed. Please, try again.'), 'danger');
+									return;
+								}
+							} else {
+								$ds->rollback();
+								$this->Session->setFlash(__d('webzash', 'Failed to create entry since upload file failed. Please, try again.'), 'danger');
+								return;
+							}
 						}
 					}
 
@@ -1151,6 +1173,8 @@ class EntriesController extends WebzashAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
+
+		Configure::load('Webzash.config', 'default' , false);
 
 		/* Skip the ajax/javascript fields from Security component to prevent request being blackholed */
 		$this->Security->unlockedFields = array('Entryitem');

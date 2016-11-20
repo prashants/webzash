@@ -320,6 +320,7 @@ $(document).ready(function() {
 	}
 
 	echo $this->Form->create('Entry', array(
+		'type' => 'file',
 		'inputDefaults' => array(
 			'div' => 'form-group',
 			'wrapInput' => false,
@@ -421,6 +422,10 @@ $(document).ready(function() {
 
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
 	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $tag_options, 'label' => __d('webzash', 'Tag')));
+
+	for ($file_counter = 0; $file_counter < 3; $file_counter++) {
+		echo $this->Form->input('Attachment.' . $file_counter, array('type' => 'file', 'label' => __d('webzash', 'Attachment ' . ($file_counter + 1)), 'required' => false));
+	}
 
 	echo '<div class="form-group">';
 	echo $this->Form->submit(__d('webzash', 'Submit'), array(

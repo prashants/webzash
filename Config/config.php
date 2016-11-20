@@ -31,3 +31,4 @@ $config = '';
 
 Configure::write('Webzash.ThirdPartyLogin', FALSE);			/* TRUE / FALSE */
 Configure::write('Webzash.ThirdPartyLoginSystem', '');			/* e.g. : 'Joomla' or 'JoomlalAuto' */
+Configure::write('Webzash.UploadFolder', 'attachments');
