@@ -163,7 +163,17 @@ $(document).ready(function() {
 	echo __d('webzash', 'Narration') . ' : ' . h($entry['Entry']['narration']);
 	echo '<br /><br />';
 	echo __d('webzash', 'Tag') . ' : ' . $this->Generic->showTag($entry['Entry']['tag_id']);
+	echo '<br /><br />';
 
+	echo __d('webzash', 'Attachments') . ' : ';
+	$tmp_counter = 1;
+	foreach ($curAttachments as $row => $attachment) {
+		$attachment_path = '/' . Configure::read('Webzash.UploadFolder') . '/' . $attachment['Attachment']['relative_path'] . '/' . $attachment['Attachment']['filename'];
+		echo '<br />';
+		echo $tmp_counter . ') ';
+		echo $this->Html->link($attachment['Attachment']['filename'], $attachment_path, array('class' => ''));
+		$tmp_counter++;
+	}
 	echo '<br /><br />';
 
 	/* Edit */

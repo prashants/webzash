@@ -39,7 +39,7 @@ App::uses('File', 'Utility');
 class EntriesController extends WebzashAppController {
 
 	public $uses = array('Webzash.Entry', 'Webzash.Group', 'Webzash.Ledger',
-		'Webzash.Entrytype', 'Webzash.Entryitem', 'Webzash.Tag', 'Webzash.Log');
+		'Webzash.Entrytype', 'Webzash.Entryitem', 'Webzash.Tag', 'Webzash.Log', 'Webzash.Attachment');
 
 /**
  * index method
@@ -157,6 +157,11 @@ class EntriesController extends WebzashAppController {
 			}
 		}
 		$this->set('curEntryitems', $curEntryitems);
+
+		$curAttachments = $this->Attachment->find('all', array(
+			'conditions' => array('Attachment.entry_id' => $id),
+		));
+		$this->set('curAttachments', $curAttachments);
 
 		/* Pass varaibles to view which are used in Helpers */
 		$this->set('allTags', $this->Tag->fetchAll());
@@ -434,9 +439,21 @@ class EntriesController extends WebzashAppController {
 						if ($entryattachment['size'] > 0 && $entryattachment['error'] == 0) {
 							$upload_dir_prefix = ROOT . '/' . Configure::read('Webzash.UploadFolder') . '/';
 							$upload_dir = $this->Session->read('ActiveAccount.id') . '/' . $this->Entry->id;
-							if (new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
+							if ($upload_folder = new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
 								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . '/'. $entryattachment['name'])) {
-									// add entry to database
+									/* Add uploaded file entry to database */
+									$attachment_data['Attachment']['entry_id'] = $this->Entry->id;
+									$attachment_data['Attachment']['filename'] = $entryattachment['name'];
+									$attachment_data['Attachment']['filesize'] = $entryattachment['size'];
+									$attachment_data['Attachment']['relative_path'] = $upload_dir;
+									$attachment_data['Attachment']['filetype'] = $entryattachment['type'];
+									$this->Attachment->create();
+									if (!$this->Attachment->save($attachment_data)) {
+										$ds->rollback();
+										$upload_folder->delete();
+										$this->Session->setFlash(__d('webzash', 'Failed to create entry since upload file database entry failed. Please, try again.'), 'danger');
+										return;
+									}
 								} else {
 									$ds->rollback();
 									$this->Session->setFlash(__d('webzash', 'Failed to create entry since upload file failed. Please, try again.'), 'danger');
