@@ -162,6 +162,20 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
+CREATE TABLE `%_PREFIX_%attachments` (
+	`id` BIGINT(18) NOT NULL AUTO_INCREMENT,
+	`entry_id` BIGINT(18) NOT NULL,
+	`filename` VARCHAR(255) NOT NULL,
+	`filesize` BIGINT(18) NOT NULL,
+	`relative_path` VARCHAR(255) NOT NULL,
+	`filetype` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `id` (`id`)
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE = InnoDB;
+
 ALTER TABLE `%_PREFIX_%groups`
 	ADD CONSTRAINT `%_PREFIX_%groups_fk_check_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `%_PREFIX_%groups` (`id`);
 
