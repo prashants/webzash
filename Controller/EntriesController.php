@@ -437,7 +437,7 @@ class EntriesController extends WebzashAppController {
 					/* Upload files */
 					foreach ($this->request->data['Attachment'] as $entryattachment) {
 						if ($entryattachment['size'] > 0 && $entryattachment['error'] == 0) {
-							$upload_dir_prefix = ROOT . '/' . Configure::read('Webzash.UploadFolder') . '/';
+							$upload_dir_prefix = APP . '/' . Configure::read('Webzash.UploadFolder') . '/';
 							$upload_dir = $this->Session->read('ActiveAccount.id') . '/' . $this->Entry->id;
 							if ($upload_folder = new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
 								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . '/'. $entryattachment['name'])) {
@@ -1154,6 +1154,36 @@ class EntriesController extends WebzashAppController {
 	}
 
 /**
+ * download attachment method
+ *
+ * @param string $attachment_id
+ * @return void
+ */
+	public function attachdownload($attachment_id) {
+
+		/* Check for valid attachment id */
+		if (empty($attachment_id)) {
+			$this->Session->setFlash(__d('webzash', 'Attachment file not specified.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+		$attachment = $this->Attachment->findById($attachment_id);
+		if (!$attachment) {
+			$this->Session->setFlash(__d('webzash', 'Attachment file not found.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		}
+
+		$filename = $attachment['Attachment']['filename'];
+		$upload_dir = Configure::read('Webzash.UploadFolder') . '/' . $attachment['Attachment']['relative_path'] . '/';
+
+		$this->response->file(
+			$upload_dir . $filename,
+			array('download' => true, 'name' => $filename)
+		);
+
+		return $this->response;
+	}
+
+/**
  * Return full entry number with padding, prefix and suffix
  *
  * @param string $number Entry number
@@ -1242,6 +1272,10 @@ class EntriesController extends WebzashAppController {
 		}
 
 		if ($this->action === 'printpreview') {
+			return $this->Permission->is_allowed('view entry');
+		}
+
+		if ($this->action === 'attachdownload') {
 			return $this->Permission->is_allowed('view entry');
 		}
 
