@@ -79,6 +79,34 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
+ * Helper method to return the entry attachements download html string
+ */
+	function showAttachments($id) {
+
+		if (empty($id)) {
+			return '';
+		}
+
+		/* Load the Attachment model */
+		App::import("Webzash.Model", "Attachment");
+		$Attachment = new Attachment();
+
+		$attachments = $Attachment->find('all', array(
+			'conditions' => array('Attachment.entry_id' => $id),
+		));
+
+		$attachment_html = '';
+		foreach ($attachments as $row => $data) {
+			$attachment_html .= $this->Html->link($this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-paperclip')),
+				array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'attachdownload', $data['Attachment']['id']),
+				array('class' => 'no-hover', 'escape' => false)
+			) . '&nbsp;&nbsp;';
+		}
+
+		return $attachment_html;
+	}
+
+/**
  * Add a row to excel sheet
  */
 	function xlsAddRow($row)

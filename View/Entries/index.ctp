@@ -121,6 +121,7 @@ $(document).ready(function() {
 <th><?php echo $this->Paginator->sort('tag_id', __d('webzash', 'Tag')); ?></th>
 <th><?php echo $this->Paginator->sort('dr_total', __d('webzash', 'Debit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')'); ?></th>
 <th><?php echo $this->Paginator->sort('cr_total', __d('webzash', 'Credit Amount') . ' (' . Configure::read('Account.currency_symbol') . ')'); ?></th>
+<th></th>
 <th><?php echo __d('webzash', 'Actions'); ?></th>
 </tr>
 
@@ -136,6 +137,8 @@ foreach ($entries as $entry) {
 	echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id']) . '</td>';
 	echo '<td>' . toCurrency('D', $entry['Entry']['dr_total']) . '</td>';
 	echo '<td>' . toCurrency('C', $entry['Entry']['cr_total']) . '</td>';
+
+	echo '<td>' . $this->Generic->showAttachments($entry['Entry']['id']) . '</td>';
 
 	echo '<td>';
 
