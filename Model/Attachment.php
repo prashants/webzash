@@ -71,14 +71,6 @@ class Attachment extends WebzashAppModel {
 							'allowEmpty' => false,
 					),
 			),
-			'filesize' => array(
-					'rule1' => array(
-							'rule' => array('fileSize', '<=', '100MB'),
-							'message' => 'File size must be less than 100 MB',
-							'required' => true,
-							'allowEmpty' => false,
-					),
-			),
 			'relative_path' => array(
 					'rule1' => array(
 							'rule' => array('maxLength', 255),
@@ -105,6 +97,7 @@ class Attachment extends WebzashAppModel {
 		if (!isset($values)) {
 			return false;
 		}
+
 		$value = $values[0];
 
 		/* Load the Entry model */
