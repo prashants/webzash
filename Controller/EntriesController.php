@@ -869,11 +869,28 @@ class EntriesController extends WebzashAppController {
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
 		}
 
+		/* Delete attachments */
+		if (!$this->Attachment->deleteAll(array('Attachment.entry_id' => $id))) {
+			$ds->rollback();
+			$this->Session->setFlash(__d('webzash', 'Failed to delete entry. Please, try again.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+		}
+
 		/* Delete entry */
 		if (!$this->Entry->delete($id)) {
 			$ds->rollback();
 			$this->Session->setFlash(__d('webzash', 'Failed to delete entry. Please, try again.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'show', $entrytype['Entrytype']['label']));
+		}
+
+		/* Delete attachment folder */
+		$upload_dir_prefix = APP . DS . Configure::read('Webzash.UploadFolder') . DS;
+		$upload_dir = $this->Session->read('ActiveAccount.id') . DS . $id;
+		$attachment_folder = new Folder($upload_dir_prefix . $upload_dir);
+		if ($attachment_folder) {
+			if ($attachment_folder->delete()) {
+				// Successfully deleted attachment folder
+			}
 		}
 
 		$entryNumber = h(toEntryNumber($entry['Entry']['number'], $entrytype['Entrytype']['id']));
