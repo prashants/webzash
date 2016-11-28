@@ -437,10 +437,10 @@ class EntriesController extends WebzashAppController {
 					/* Upload files */
 					foreach ($this->request->data['Attachment'] as $entryattachment) {
 						if ($entryattachment['size'] > 0 && $entryattachment['error'] == 0) {
-							$upload_dir_prefix = APP . '/' . Configure::read('Webzash.UploadFolder') . '/';
-							$upload_dir = $this->Session->read('ActiveAccount.id') . '/' . $this->Entry->id;
+							$upload_dir_prefix = APP . DS . Configure::read('Webzash.UploadFolder') . DS;
+							$upload_dir = $this->Session->read('ActiveAccount.id') . DS . $this->Entry->id;
 							if ($upload_folder = new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
-								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . '/'. $entryattachment['name'])) {
+								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . DS . $entryattachment['name'])) {
 									/* Add uploaded file entry to database */
 									$attachment_data['Attachment']['entry_id'] = $this->Entry->id;
 									$attachment_data['Attachment']['filename'] = $entryattachment['name'];
@@ -1173,7 +1173,7 @@ class EntriesController extends WebzashAppController {
 		}
 
 		$filename = $attachment['Attachment']['filename'];
-		$upload_dir = Configure::read('Webzash.UploadFolder') . '/' . $attachment['Attachment']['relative_path'] . '/';
+		$upload_dir = Configure::read('Webzash.UploadFolder') . '/' . $attachment['Attachment']['relative_path'] . DS;
 
 		$this->response->file(
 			$upload_dir . $filename,
