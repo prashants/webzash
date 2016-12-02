@@ -320,6 +320,7 @@ $(document).ready(function() {
 	}
 
 	echo $this->Form->create('Entry', array(
+		'type' => 'file',
 		'inputDefaults' => array(
 			'div' => 'form-group',
 			'wrapInput' => false,
@@ -421,6 +422,23 @@ $(document).ready(function() {
 
 	echo $this->Form->input('narration', array('type' => 'textarea', 'label' => __d('webzash', 'Narration'), 'rows' => '3'));
 	echo $this->Form->input('tag_id', array('type' => 'select', 'options' => $tag_options, 'label' => __d('webzash', 'Tag')));
+
+	echo __d('webzash', 'Attachments') . ' : ';
+	$tmp_counter = 1;
+	foreach ($curAttachments as $row => $attachment) {
+		echo '<br />';
+		echo $tmp_counter . ') ';
+		echo $this->Html->link($attachment['Attachment']['filename'], array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'attachdownload', $attachment['Attachment']['id']), array('class' => ''));
+		echo '&nbsp;&nbsp;&nbsp;';
+		echo $this->Form->checkbox('AttachmentDelete.' . $attachment['Attachment']['id'], array('value' => 'YES'));
+		echo ' Delete';
+		$tmp_counter++;
+	}
+	echo '<br /><br />';
+	for ($file_counter = 0; $file_counter < 3; $file_counter++) {
+		echo $this->Form->input('Attachment.' . $file_counter, array('type' => 'file', 'label' => __d('webzash', 'Attachment ' . ($file_counter + 1)), 'required' => false));
+	}
+	echo '<br /><br />';
 
 	echo '<div class="form-group">';
 	echo $this->Form->submit(__d('webzash', 'Submit'), array(

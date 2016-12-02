@@ -756,6 +756,41 @@ class EntriesController extends WebzashAppController {
 					}
 				}
 
+				/* Delete attachments if required */
+				foreach ($this->request->data['AttachmentDelete'] as $attachid => $delstatus) {
+					if ($delstatus == 'YES') {
+						$delattachment = $this->Attachment->findById($attachid);
+						if (!$delattachment) {
+							$this->Session->setFlash(__d('webzash', 'Invalid attachment selected for delete.'), 'danger');
+							return;
+						}
+						if ($delattachment['Attachment']['entry_id'] != $id) {
+							$this->Session->setFlash(__d('webzash', 'Invalid attachment selected for delete.'), 'danger');
+							return;
+						}
+
+						/* Delete attachment folder */
+						$upload_dir_prefix = APP . DS . Configure::read('Webzash.UploadFolder') . DS;
+						$upload_dir = $this->Session->read('ActiveAccount.id') . DS . $id;
+						$attachment_file = new File($upload_dir_prefix . $upload_dir . DS . $delattachment['Attachment']['filename']);
+						if (!$attachment_file) {
+							$this->Session->setFlash(__d('webzash', 'Failed to locate attachment file to delete.'), 'danger');
+							return;
+						}
+						if (!$attachment_file->delete()) {
+							$this->Session->setFlash(__d('webzash', 'Failed to delete attachment file.'), 'danger');
+							return;
+						}
+
+						/* Delete attachment database entry */
+						if (!$this->Attachment->delete($delattachment['Attachment']['id'])) {
+							$ds->rollback();
+							$this->Session->setFlash(__d('webzash', 'Failed to delete attachment entry. Please, try again.'), 'danger');
+							return;
+						}
+					}
+				}
+
 				/* Save entry */
 				$ds = $this->Entry->getDataSource();
 				$ds->begin();
@@ -781,6 +816,39 @@ class EntriesController extends WebzashAppController {
 							$ds->rollback();
 							$this->Session->setFlash(__d('webzash', 'Failed to save entry ledgers. Error is : %s', $errmsg), 'danger');
 							return;
+						}
+					}
+
+					/* Upload files */
+					foreach ($this->request->data['Attachment'] as $entryattachment) {
+						if ($entryattachment['size'] > 0 && $entryattachment['error'] == 0) {
+							$upload_dir_prefix = APP . DS . Configure::read('Webzash.UploadFolder') . DS;
+							$upload_dir = $this->Session->read('ActiveAccount.id') . DS . $this->Entry->id;
+							if ($upload_folder = new Folder($upload_dir_prefix . $upload_dir, true, 0755)) {
+								if (move_uploaded_file($entryattachment['tmp_name'], $upload_dir_prefix . $upload_dir . DS . $entryattachment['name'])) {
+									/* Add uploaded file entry to database */
+									$attachment_data['Attachment']['entry_id'] = $this->Entry->id;
+									$attachment_data['Attachment']['filename'] = $entryattachment['name'];
+									$attachment_data['Attachment']['filesize'] = $entryattachment['size'];
+									$attachment_data['Attachment']['relative_path'] = $upload_dir;
+									$attachment_data['Attachment']['filetype'] = $entryattachment['type'];
+									$this->Attachment->create();
+									if (!$this->Attachment->save($attachment_data)) {
+										$ds->rollback();
+										$upload_folder->delete();
+										$this->Session->setFlash(__d('webzash', 'Failed to edit entry since upload file database entry failed. Please, try again.'), 'danger');
+										return;
+									}
+								} else {
+									$ds->rollback();
+									$this->Session->setFlash(__d('webzash', 'Failed to edit entry since upload file failed. Please, try again.'), 'danger');
+									return;
+								}
+							} else {
+								$ds->rollback();
+								$this->Session->setFlash(__d('webzash', 'Failed to edit entry since upload file failed. Please, try again.'), 'danger');
+								return;
+							}
 						}
 					}
 
@@ -816,6 +884,12 @@ class EntriesController extends WebzashAppController {
 		} else {
 			$entry['Entry']['date'] = dateFromSql($entry['Entry']['date']);
 			$this->request->data = $entry;
+
+			$curAttachments = $this->Attachment->find('all', array(
+				'conditions' => array('Attachment.entry_id' => $id),
+			));
+			$this->set('curAttachments', $curAttachments);
+
 			return;
 		}
 	}
