@@ -1,3 +1,8 @@
+Webzash version 2.6 - 25 September 2015
+---------------------------------------
+
+- Miscellaneous bug fixes
+
 Webzash version 2.5 - 08 August 2015
 ------------------------------------
 
