@@ -63,7 +63,7 @@
 			<?php echo $this->element('accountinfo'); ?>
 		</div>
 		<div id="page-title">
-			<?php echo $title_for_layout; ?>
+			<?php echo h($title_for_layout); ?>
 		</div>
 		<div id="content">
 			<?php echo $this->element('actionlinks'); ?>

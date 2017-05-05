@@ -26,5 +26,5 @@
  */
 ?>
 <div class="alert alert-danger" role="alert">
-	<?php echo $message; ?>
+	<?php echo h($message); ?>
 </div>

@@ -26,5 +26,5 @@
  */
 ?>
 <div class="alert alert-success" role="alert">
-	<?php echo $message; ?>
+	<?php echo h($message); ?>
 </div>
