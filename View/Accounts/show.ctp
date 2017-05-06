@@ -50,8 +50,13 @@ function print_account_chart($account, $c = 0, $THIS)
 
 		echo '<td>Group</td>';
 
-		echo '<td>-</td>';
-		echo '<td>-</td>';
+		echo '<td>';
+		echo toCurrency($account->op_total_dc, $account->op_total);
+		echo '</td>';
+
+		echo '<td>';
+		echo toCurrency($account->cl_total_dc, $account->cl_total);
+		echo '</td>';
 
 		/* If group id less than 4 dont show edit and delete links */
 		if ($account->id <= 4) {
