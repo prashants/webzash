@@ -248,8 +248,12 @@ form .error-message {
 }
 
 #footer {
-	margin-top: 60px;
-	border-top: 1px solid #BBBBBB;
+    margin-top: 60px;
+    border-top: 1px solid #BBBBBB;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    z-index: 999999;
+    bottom: 0;
 }
 
 .table-top {
@@ -352,4 +356,43 @@ a.footer-power {
 .select2-container--default .select2-results__option[aria-disabled="true"] {
 	font-weight: bold;
 	color: #000;
+}
+div.kb-shorcuts:hover{
+	opacity:.999999;
+}
+.kb-shorcuts {
+    padding: 15px 10px;
+    background-color: #F8F8F8;
+    border-color: #e7e7e7;
+    opacity: .2;
+    position: fixed;
+    bottom: 0;
+    float: left;
+}
+
+.kb-shorcuts ul {
+    float: right;
+    margin: -3px 10px;
+}
+
+.kb-shorcuts ul:hover {
+    
+}
+.kb-shorcuts ul li:hover {
+    
+}
+.kb-shorcuts ul li:first-letter {
+	text-transform:uppercase;
+}
+.kb-shorcuts ul li {
+    display: inline-block;
+    margin: 0 3px;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    padding: 2px;
+    background: #fff;
+}
+.kb-shorcuts ul li span {
+    color: red;
+    margin-left: 10px;
 }
