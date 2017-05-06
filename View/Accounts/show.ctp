@@ -48,8 +48,6 @@ function print_account_chart($account, $c = 0, $THIS)
 		echo h(toCodeWithName($account->code, $account->name));
 		echo '</td>';
 
-		echo '<td>Group</td>';
-
 		echo '<td>-</td>';
 		echo '<td>-</td>';
 
@@ -75,7 +73,6 @@ function print_account_chart($account, $c = 0, $THIS)
 			echo print_space($counter);
 			echo $THIS->Html->link(toCodeWithName($data['code'], $data['name']), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'ledgerstatement', 'ledgerid' => $data['id']));
 			echo '</td>';
-			echo '<td>Ledger</td>';
 
 			echo '<td>';
 			echo toCurrency($data['op_total_dc'], $data['op_total']);
@@ -122,7 +119,6 @@ if (calculate($opdiff['opdiff_balance'], 0, '!=')) {
 
 echo '<table class="stripped">';
 	echo '<th>' . __d('webzash', 'Account Name') . '</th>';
-	echo '<th>' . __d('webzash', 'Type') . '</th>';
 	echo '<th>' . __d('webzash', 'O/P Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
 	echo '<th>' . __d('webzash', 'C/L Balance') . ' (' . Configure::read('Account.currency_symbol') . ')' . '</th>';
 	echo '<th>' . __d('webzash', 'Actions') . '</th>';
