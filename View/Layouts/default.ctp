@@ -75,15 +75,14 @@
 		</div>
 		<div id="footer">
 			<div class="kb-shorcuts">
-				Key Board Shortcuts
 				<ul>
-					<li>alt+a<span>Chart of Accounts</span></li>
-					<li>alt+e<span>All Entries</span></li>
-					<li>alt+l<span>All Ledgers</span></li>
-					<li>alt+r<span>Add Receipt</span></li>
-					<li>alt+p<span>Add Payment</span></li>
-					<li>alt+c<span>Add Contra</span></li>
-					<li>alt+j<span>Add Journel</span></li>
+					<li>alt + a<span>Chart of Accounts</span></li>
+					<li>alt + e<span>All Entries</span></li>
+					<li>alt + l<span>Add Ledger</span></li>
+					<li>alt + r<span>Add Receipt</span></li>
+					<li>alt + p<span>Add Payment</span></li>
+					<li>alt + c<span>Add Contra</span></li>
+					<li>alt + j<span>Add Journal</span></li>
 				</ul>
 			</div>
 			<div class="credits">

@@ -69,7 +69,7 @@ Mousetrap.bind(['alt+e'], function(e) {
                 "<?php echo $this->Html->url(array(
                         'plugin' => 'webzash',
                         'controller' => 'entries',
-                        'action' => 'intex'
+                        'action' => 'index'
                 )); ?>";
         return false;
 });

@@ -37,7 +37,7 @@ p {
 
 #footer {
 	clear: both;
-	padding: 15px 15px 15px 0;
+	padding: 15px 15px 20px 15px;
 	text-align: right;
 	background-color: #FFFFFF;
 }
@@ -357,33 +357,21 @@ a.footer-power {
 	font-weight: bold;
 	color: #000;
 }
-div.kb-shorcuts:hover{
+
+div.kb-shorcuts:hover {
 	opacity:.999999;
 }
+
 .kb-shorcuts {
-    padding: 15px 10px;
-    background-color: #F8F8F8;
     border-color: #e7e7e7;
     opacity: .2;
-    position: fixed;
-    bottom: 0;
     float: left;
 }
 
-.kb-shorcuts ul {
-    float: right;
-    margin: -3px 10px;
-}
-
-.kb-shorcuts ul:hover {
-    
-}
-.kb-shorcuts ul li:hover {
-    
-}
 .kb-shorcuts ul li:first-letter {
 	text-transform:uppercase;
 }
+
 .kb-shorcuts ul li {
     display: inline-block;
     margin: 0 3px;
@@ -392,7 +380,9 @@ div.kb-shorcuts:hover{
     padding: 2px;
     background: #fff;
 }
+
 .kb-shorcuts ul li span {
-    color: red;
-    margin-left: 10px;
+    color: #428bca;
+    margin-left: 5px;
+    margin-right: 5px;
 }
