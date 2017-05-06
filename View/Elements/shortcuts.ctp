@@ -64,5 +64,32 @@ Mousetrap.bind(['alt+j'], function(e) {
                 )); ?>";
         return false;
 });
+Mousetrap.bind(['alt+e'], function(e) {
+        location.href =
+                "<?php echo $this->Html->url(array(
+                        'plugin' => 'webzash',
+                        'controller' => 'entries',
+                        'action' => 'index'
+                )); ?>";
+        return false;
+});
+Mousetrap.bind(['alt+a'], function(e) {
+        location.href =
+                "<?php echo $this->Html->url(array(
+                        'plugin' => 'webzash',
+                        'controller' => 'accounts',
+                        'action' => 'show'
+                )); ?>";
+        return false;
+});
+Mousetrap.bind(['alt+l'], function(e) {
+        location.href =
+                "<?php echo $this->Html->url(array(
+                        'plugin' => 'webzash',
+                        'controller' => 'ledgers',
+                        'action' => 'add'
+                )); ?>";
+        return false;
+});
 
 </script>

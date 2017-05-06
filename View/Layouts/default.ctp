@@ -74,12 +74,25 @@
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			Powered by
-			<?php echo $this->Html->link(
-				Configure::read('Webzash.AppName') . ' v' . Configure::read('Webzash.AppVersion'),
-				Configure::read('Webzash.AppURL'),
-				array('class' => 'footer-power', 'target' => '_blank')
-			); ?>
+			<div class="kb-shorcuts">
+				<ul>
+					<li>alt + a<span>Chart of Accounts</span></li>
+					<li>alt + e<span>All Entries</span></li>
+					<li>alt + l<span>Add Ledger</span></li>
+					<li>alt + r<span>Add Receipt</span></li>
+					<li>alt + p<span>Add Payment</span></li>
+					<li>alt + c<span>Add Contra</span></li>
+					<li>alt + j<span>Add Journal</span></li>
+				</ul>
+			</div>
+			<div class="credits">
+					Powered by
+				<?php echo $this->Html->link(
+					Configure::read('Webzash.AppName') . ' v' . Configure::read('Webzash.AppVersion'),
+					Configure::read('Webzash.AppURL'),
+					array('class' => 'footer-power', 'target' => '_blank')
+				); ?>
+			</div>
 		</div>
 	</div>
 	<?php //echo $this->element('sql_dump'); ?>
