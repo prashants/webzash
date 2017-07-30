@@ -2,12 +2,12 @@ TODO :
 - Backup
 - Add Postgres / MS SQL support
 - Full account name in download ledger statements, etc
-- Change the black hole error to be more user-friendly or remove it altogether
 - Guide on translations
 - Save logged in user and selected account
 - Correctly order the main groups
 - Pre-write A/C
 - Balance sheet should not have Dr and Cr
+- Store wzuser in MySQL and remove the dependency on sqlite.
 
 Optional :
 - Negative balance highlight

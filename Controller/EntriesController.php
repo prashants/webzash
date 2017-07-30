@@ -790,7 +790,6 @@ class EntriesController extends WebzashAppController {
  * @return void
  */
 	public function delete($entrytypeLabel = null, $id = null) {
-
 		/* Check for valid entry type */
 		if (empty($entrytypeLabel)) {
 			$this->Session->setFlash(__d('webzash', 'Entry type not specified.'), 'danger');
@@ -845,7 +844,15 @@ class EntriesController extends WebzashAppController {
 		$this->Session->setFlash(__d('webzash', '%s entry numbered "%s" deleted.',
 			$entrytype['Entrytype']['name'], $entryNumber), 'success');
 
-		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		/* Return to the original URL from where the delete method was called */
+		$orig_return_url = $this->referer();
+		if (strpos($orig_return_url, '/entries/view') !== false) {
+			/* If delete called within entry view, then return to entires index page */
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index'));
+		} else {
+			$return_url = preg_replace('/\/page:(\d+)/', '', $orig_return_url, -1);
+			return $this->redirect($return_url);
+		}
 	}
 
 /**
