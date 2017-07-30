@@ -19,7 +19,6 @@ Optional :
 - Optimize
 - Reference/Cheque number, name and date
 - Cheque printing
-- Keyboard shortcuts
 - Ledger / Group in downloads
 - Group statement
 - Dr/Cr separate column in reports

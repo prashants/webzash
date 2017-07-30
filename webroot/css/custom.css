@@ -386,3 +386,9 @@ div.kb-shorcuts:hover {
     margin-left: 5px;
     margin-right: 5px;
 }
+
+.text-small {
+	font-size:12px;
+	font-style: italic;
+	color: #666;
+}
