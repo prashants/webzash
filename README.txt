@@ -27,15 +27,15 @@ Following step describes how to setup Webzash with CakePHP from scratch,
 remmember these steps are only needed if you wish to develop or contribute
 back to Webzash :
 
-Step 1. Download CakePHP version 2.5.6 from the below link
-https://github.com/cakephp/cakephp/zipball/2.5.6
+Step 1. Download CakePHP version 2.10.0 from the below link
+https://github.com/cakephp/cakephp/zipball/2.10.0
 
 Step 2. Extract CakePHP into your web server directory and rename the folder
 to "webzash"
 
 Step 3. Edit the app/Config/core.php file and change the following lines
 
- Configure::write('debug', 0);
+ Configure::write('debug', 2);
  Configure::write('Security.salt', 'IMPORTANT_CHANGE_THIS_VALUE');
  Configure::write('Security.cipherSeed', 'IMPORTANT_CHANGE_THIS_VALUE');
  date_default_timezone_set('UTC');

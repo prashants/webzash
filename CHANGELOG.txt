@@ -1,8 +1,11 @@
-Webzash version 2.7 - TO BE ANNOUNCED
--------------------------------------
+Webzash version 2.7 - 19 August 2017
+------------------------------------
 
+- Update to CakePHP 2.10.0
+- Added support for PHP 7
 - Add ability to reset admin password
 - Add language support
+- Many bug fixes and enhancements
 
 Webzash version 2.6 - 25 September 2015
 ---------------------------------------

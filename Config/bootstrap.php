@@ -29,7 +29,7 @@
 
 /* Application name and url */
 Configure::write('Webzash.AppName', "Webzash");
-Configure::write('Webzash.AppVersion', "2.6");
+Configure::write('Webzash.AppVersion', "2.7");
 Configure::write('Webzash.AppDatabaseVersion', "6");
 Configure::write('Webzash.AppURL', "http://webzash.org");
 
