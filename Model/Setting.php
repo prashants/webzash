@@ -42,7 +42,7 @@ class Setting extends WebzashAppModel {
 
 		'id' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Settings id cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -57,7 +57,7 @@ class Setting extends WebzashAppModel {
 
 		'name' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Company / Personal Name name cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,

@@ -41,7 +41,7 @@ class Log extends WebzashAppModel {
         public $validate = array(
                 'level' => array(
                         'rule1' => array(
-                                'rule' => 'notEmpty',
+                                'rule' => 'notBlank',
                                 'message' => 'Level cannot be empty',
                                 'required' => true,
                                 'allowEmpty' => false,
@@ -56,7 +56,7 @@ class Log extends WebzashAppModel {
                 ),
                 'date' => array(
                         'rule1' => array(
-                                'rule' => 'notEmpty',
+                                'rule' => 'notBlank',
                                 'message' => 'Date cannot be empty',
                                 'required' => true,
                                 'allowEmpty' => false,

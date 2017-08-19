@@ -41,7 +41,7 @@ class Entryitem extends WebzashAppModel {
 	public $validate = array(
 		'entry_id' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Entry id cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -67,7 +67,7 @@ class Entryitem extends WebzashAppModel {
 		),
 		'ledger_id' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Ledger id cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -93,7 +93,7 @@ class Entryitem extends WebzashAppModel {
 		),
 		'amount' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Amount cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -119,7 +119,7 @@ class Entryitem extends WebzashAppModel {
 		),
 		'dc' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Dr/Cr cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,

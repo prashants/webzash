@@ -41,7 +41,7 @@ class Wzaccount extends WebzashAppModel {
 	public $validate = array(
 		'label' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Account label cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -67,7 +67,7 @@ class Wzaccount extends WebzashAppModel {
 		),
 		'db_datasource' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Database type cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -81,7 +81,7 @@ class Wzaccount extends WebzashAppModel {
 		),
 		'db_database' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Database name cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -95,7 +95,7 @@ class Wzaccount extends WebzashAppModel {
 		),
 		'db_host' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Database host cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -159,7 +159,7 @@ class Wzaccount extends WebzashAppModel {
 		),
 		'db_persistent' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Database persistent connection cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,

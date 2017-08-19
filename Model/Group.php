@@ -41,7 +41,7 @@ class Group extends WebzashAppModel {
 	public $validate = array(
 		'parent_id' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Parent group cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -67,7 +67,7 @@ class Group extends WebzashAppModel {
 		),
 		'name' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Group name cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
@@ -107,7 +107,7 @@ class Group extends WebzashAppModel {
 		),
 		'affects_gross' => array(
 			'rule1' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'message' => 'Affects Gross or Net Profit & Loss cannot be empty',
 				'required' => true,
 				'allowEmpty' => false,
