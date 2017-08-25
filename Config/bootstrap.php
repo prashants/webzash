@@ -302,6 +302,36 @@ function toCodeWithName($code, $name) {
 }
 
 /**
+ * This function returns the reference string
+ */
+function showReferenceStr($narration, $number, $date) {
+	$narrationLen = strlen($narration);
+	$numberLen = strlen($number);
+	$dateLen = strlen($date);
+
+	$htmlRefStr = '';
+	if ($narrationLen < 1 && $numberLen < 1 && $dateLen < 1) {
+		$htmlRefStr = '';
+	} else if ($narrationLen >= 1 && $numberLen < 1 && $dateLen < 1) {
+		$htmlRefStr = $narration;
+	} else if ($narrationLen < 1 && $numberLen >= 1 && $dateLen < 1) {
+		$htmlRefStr = $number;
+	} else if ($narrationLen < 1 && $numberLen < 1 && $dateLen >= 1) {
+		$htmlRefStr = $date;
+	} else if ($narrationLen >= 1 && $numberLen >= 1 && $dateLen < 1) {
+		$htmlRefStr = $narration . ' / ' . $number;
+	} else if ($narrationLen < 1 && $numberLen >= 1 && $dateLen >= 1) {
+		$htmlRefStr = $number . ' / ' . $date;
+	} else if ($narrationLen < 1 && $numberLen < 1 && $dateLen >= 1) {
+		$htmlRefStr = $narration . ' / ' . $date;
+	} else if ($narrationLen >= 1 && $numberLen >= 1 && $dateLen >= 1) {
+		$htmlRefStr = $narration . ' / ' . $number . ' / ' . $date;
+	}
+
+	return $htmlRefStr;
+}
+
+/**
  * Read all account settings from database
  */
 function init_account() {

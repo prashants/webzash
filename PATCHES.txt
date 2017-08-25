@@ -1,0 +1,14 @@
+1. Reference narration / number / date
+======================================
+
+a) Alter database by running the following sql commands :
+
+MYSQL :
+ALTER TABLE `entryitems` ADD `reference_narration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL AFTER `reconciliation_date`;
+ALTER TABLE `entryitems` ADD `reference_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL AFTER `reference_narration`;
+ALTER TABLE `entryitems` ADD `reference_date` date DEFAULT NULL AFTER `reference_number`;
+
+POSTGRES SQL :
+ALTER TABLE "entryitems" ADD COLUMN "reference_narration" varchar(500) COLLATE "en_US.utf8" DEFAULT NULL;
+ALTER TABLE "entryitems" ADD COLUMN "reference_number" varchar(500) COLLATE "en_US.utf8" DEFAULT NULL;
+ALTER TABLE "entryitems" ADD COLUMN "reference_date" date DEFAULT NULL;

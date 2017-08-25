@@ -121,6 +121,8 @@ $(document).ready(function() {
 
 		echo '<td>';
 		echo h($entryitem['ledger_name']);
+		echo '<br />';
+		echo '<span class="ref-str">' . h(showReferenceStr($entryitem['reference_narration'], $entryitem['reference_number'], $entryitem['reference_date'])) . '</div>';
 		echo '</td>';
 
 		echo '<td>';
