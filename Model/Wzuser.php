@@ -193,5 +193,19 @@ class Wzuser extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 		),
+		'active_account' => array(
+			'rule1' => array(
+				'rule' => 'numeric',
+				'message' => 'Active Account is not a valid number',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+			'rule2' => array(
+				'rule' => array('naturalNumber', true),
+				'message' => 'Active Account cannot contain a decimal point',
+				'required' => true,
+				'allowEmpty' => false,
+			),
+		),		
 	);
 }
