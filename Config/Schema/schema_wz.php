@@ -189,6 +189,8 @@ class WebzashSchema extends CakeSchema {
 			'unsigned' => true, 'default' => '0', 'length' => 1),
 		'all_accounts' => array('type' => 'integer', 'null' => false,
 			'unsigned' => true, 'default' => '0', 'length' => 1),
+		'active_accounts' => array('type' => 'integer', 'null' => false,
+			'unsigned' => true, 'default' => '0', 'length' => 11),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
