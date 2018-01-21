@@ -306,6 +306,12 @@ function toCodeWithName($code, $name) {
  */
 function init_account() {
 
+	$used_sqlite_db = __dir__ . '/../Database/' . 'webzash.sqlite';
+	if(!file_exists($used_sqlite_db)){
+		$original_sqlite_db = __dir__ . '/../Database/' . 'webzash.original.sqlite';
+		copy($original_sqlite_db,$used_sqlite_db);
+	}
+
 	/* Setup master database path inside the Plugin 'Database' folder */
 	$root_path = App::pluginPath('Webzash');
 	if (empty($root_path)) {
@@ -317,6 +323,7 @@ function init_account() {
 
 	/* Load the master database configuration in $wz */
 	require_once($root_path . './Config/' . 'MasterConfig.php');
+
 
 	/* Create master database config and try to connect to it */
 	App::uses('ConnectionManager', 'Model');
