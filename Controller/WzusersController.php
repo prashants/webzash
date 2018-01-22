@@ -505,6 +505,8 @@ class WzusersController extends WebzashAppController {
 				$this->Wzuser->read(null, $this->Auth->user('id'));
 				$this->Wzuser->saveField('retry_count', 0);
 
+
+
 				if (empty($wzsetting['Wzsetting']['enable_logging'])) {
 					$this->Session->write('Wzsetting.enable_logging', 0);
 				} else {
@@ -538,6 +540,14 @@ class WzusersController extends WebzashAppController {
 						return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'changepass'));
 					}
 				}
+				
+				
+				$wzuser = $this->Wzuser->find('first', array('conditions' => array(
+					'id' => $this->Auth->user('id'),
+				)));
+				$this->request->data['Wzuser']['wzaccount_id'] = $wzuser['Wzuser']['active_account'];
+				$this->account();
+				
 
 				if ($this->Auth->user('role') == 'admin') {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
@@ -1279,8 +1289,16 @@ class WzusersController extends WebzashAppController {
 		/* On POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 
+			$this->Wzuser->id = $this->Auth->user('id');
+
+			/* Update profile user */
+			$ds = $this->Wzuser->getDataSource();
+			$ds->begin();
+
 			/* Check if NONE selected */
 			if ($this->request->data['Wzuser']['wzaccount_id'] == 0) {
+				$this->Wzuser->saveField('active_account', 0);
+				$ds->commit();
 				$this->Session->delete('ActiveAccount.id');
 				$this->Session->delete('ActiveAccount.account_role');
 				$this->Session->setFlash(__d('webzash', 'All accounts deactivated.'), 'success');
@@ -1320,6 +1338,8 @@ class WzusersController extends WebzashAppController {
 			if ($activateAccount) {
 				$temp = $this->Wzaccount->findById($this->request->data['Wzuser']['wzaccount_id']);
 				if (!$temp) {
+					$this->Wzuser->saveField('active_account', 0);
+					$ds->commit();
 					$this->Session->delete('ActiveAccount.id');
 					$this->Session->delete('ActiveAccount.account_role');
 					$this->Session->setFlash(__d('webzash', 'Account not found.'), 'danger');
@@ -1336,9 +1356,13 @@ class WzusersController extends WebzashAppController {
 				}
 
 				$this->Session->write('ActiveAccount.id', $temp['Wzaccount']['id']);
+				$this->Wzuser->saveField('active_account', $temp['Wzaccount']['id']);
+				$ds->commit();
 				$this->Session->setFlash(__d('webzash', 'Account "%s" activated.', $temp['Wzaccount']['label']), 'success');
 				return $this->redirect(array('plugin' => 'webzash', 'controller' => 'dashboard', 'action' => 'index'));
 			} else {
+				$this->Wzuser->saveField('active_account', 0);
+				$ds->commit();
 				$this->Session->delete('ActiveAccount.id');
 				$this->Session->delete('ActiveAccount.account_role');
 				$this->Session->setFlash(__d('webzash', 'Failed to activate account. Please, try again.'), 'danger');

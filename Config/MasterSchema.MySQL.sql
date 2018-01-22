@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `wzusers` (
         `admin_verified` int(1) NOT NULL DEFAULT '0',
         `retry_count` int(1) NOT NULL DEFAULT '0',
         `all_accounts` int(1) NOT NULL DEFAULT '0',
+        `active_account` int(11) DEFAULT '0',
         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2;
 

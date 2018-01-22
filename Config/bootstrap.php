@@ -302,9 +302,38 @@ function toCodeWithName($code, $name) {
 }
 
 /**
+ * wzusers_has_active_account_col
+ */
+function wzusers_has_active_account_col(){
+	$db = ConnectionManager::getDataSource('wz');
+	$cols = $db->describe("wzusers"); 
+	if(isset($cols['active_account'])){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+/**
+ * wzusers_add_active_account_col
+ */
+function wzusers_add_active_account_col(){
+	$db = ConnectionManager::getDataSource('wz');
+	$db->rawQuery("ALTER TABLE wzusers ADD COLUMN active_account INTEGER NOT NULL DEFAULT (0);");
+}
+
+
+/**
  * Read all account settings from database
  */
 function init_account() {
+
+	$used_sqlite_db = __dir__ . '/../Database/' . 'webzash.sqlite';
+	if(!file_exists($used_sqlite_db)){
+		$original_sqlite_db = __dir__ . '/../Database/' . 'webzash.original.sqlite';
+		copy($original_sqlite_db,$used_sqlite_db);
+	}
 
 	/* Setup master database path inside the Plugin 'Database' folder */
 	$root_path = App::pluginPath('Webzash');
@@ -318,6 +347,7 @@ function init_account() {
 	/* Load the master database configuration in $wz */
 	require_once($root_path . './Config/' . 'MasterConfig.php');
 
+
 	/* Create master database config and try to connect to it */
 	App::uses('ConnectionManager', 'Model');
 	try {
@@ -327,6 +357,10 @@ function init_account() {
 		CakeSession::delete('ActiveAccount.id');
 		CakeSession::delete('ActiveAccount.account_role');
 		return;
+	}
+	/* check wzusers for active account column, if not there, add it */
+	if(!wzusers_has_active_account_col()){
+		wzusers_add_active_account_col();
 	}
 
 	/* Check if account is active */
