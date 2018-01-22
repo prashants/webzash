@@ -230,7 +230,11 @@ $(document).ready(function() {
 
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
-		echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '</td>';
+		echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id']));
+		if (strlen($entry['Entry']['narration']) > 0) {
+			echo '<br/>' . $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
+		}		
+		echo '</td>';
 		echo '<td>' . h($entryTypeName) . '</td>';
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';
 
