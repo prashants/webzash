@@ -8,8 +8,8 @@ CREATE TABLE "%_PREFIX_%groups" (
 	UNIQUE(name),
 	UNIQUE(code)
 );
-CREATE INDEX "%_PREFIX_%groups_id" ON groups ("id");
-CREATE INDEX "%_PREFIX_%groups_parent_id" ON groups ("parent_id");
+CREATE INDEX "%_PREFIX_%groups_id" ON %_PREFIX_%groups ("id");
+CREATE INDEX "%_PREFIX_%groups_parent_id" ON %_PREFIX_%groups ("parent_id");
 
 CREATE TABLE "%_PREFIX_%ledgers" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -25,8 +25,8 @@ CREATE TABLE "%_PREFIX_%ledgers" (
 	UNIQUE("name"),
 	UNIQUE("code")
 );
-CREATE INDEX "%_PREFIX_%ledgers_id" ON ledgers ("id");
-CREATE INDEX "%_PREFIX_%ledgers_group_id" ON ledgers ("group_id");
+CREATE INDEX "%_PREFIX_%ledgers_id" ON %_PREFIX_%ledgers ("id");
+CREATE INDEX "%_PREFIX_%ledgers_group_id" ON %_PREFIX_%ledgers ("group_id");
 
 CREATE TABLE "%_PREFIX_%entrytypes" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -42,7 +42,7 @@ CREATE TABLE "%_PREFIX_%entrytypes" (
 	UNIQUE("id"),
 	UNIQUE("label")
 );
-CREATE INDEX "%_PREFIX_%entrytypes_id" ON entrytypes ("id");
+CREATE INDEX "%_PREFIX_%entrytypes_id" ON %_PREFIX_%entrytypes ("id");
 
 CREATE TABLE "%_PREFIX_%tags" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -52,7 +52,7 @@ CREATE TABLE "%_PREFIX_%tags" (
 	UNIQUE("id"),
 	UNIQUE("title")
 );
-CREATE INDEX "%_PREFIX_%tags_id" ON tags ("id");
+CREATE INDEX "%_PREFIX_%tags_id" ON %_PREFIX_%tags ("id");
 
 CREATE TABLE "%_PREFIX_%entries" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -65,9 +65,9 @@ CREATE TABLE "%_PREFIX_%entries" (
 	"narration" varchar(500) COLLATE "en_US.utf8" NOT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX "%_PREFIX_%entries_id" ON entries ("id");
-CREATE INDEX "%_PREFIX_%entries_tag_id" ON entries ("tag_id");
-CREATE INDEX "%_PREFIX_%entries_entrytype_id" ON entries ("entrytype_id");
+CREATE INDEX "%_PREFIX_%entries_id" ON %_PREFIX_%entries ("id");
+CREATE INDEX "%_PREFIX_%entries_tag_id" ON %_PREFIX_%entries ("tag_id");
+CREATE INDEX "%_PREFIX_%entries_entrytype_id" ON %_PREFIX_%entries ("entrytype_id");
 
 CREATE TABLE "%_PREFIX_%entryitems" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -78,9 +78,9 @@ CREATE TABLE "%_PREFIX_%entryitems" (
 	"reconciliation_date" date DEFAULT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX "%_PREFIX_%entryitems_id" ON entryitems ("id");
-CREATE INDEX "%_PREFIX_%entryitems_entry_id" ON entryitems ("entry_id");
-CREATE INDEX "%_PREFIX_%entryitems_ledger_id" ON entryitems ("ledger_id");
+CREATE INDEX "%_PREFIX_%entryitems_id" ON %_PREFIX_%entryitems ("id");
+CREATE INDEX "%_PREFIX_%entryitems_entry_id" ON %_PREFIX_%entryitems ("entry_id");
+CREATE INDEX "%_PREFIX_%entryitems_ledger_id" ON %_PREFIX_%entryitems ("ledger_id");
 
 CREATE TABLE "%_PREFIX_%settings" (
 	"id" int NOT NULL PRIMARY KEY,
@@ -116,7 +116,7 @@ CREATE TABLE "%_PREFIX_%settings" (
 	"settings" bytea NULL DEFAULT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX "%_PREFIX_%settings_id" ON settings ("id");
+CREATE INDEX "%_PREFIX_%settings_id" ON %_PREFIX_%settings ("id");
 
 CREATE TABLE "%_PREFIX_%logs" (
 	"id" bigserial NOT NULL PRIMARY KEY,
@@ -129,11 +129,11 @@ CREATE TABLE "%_PREFIX_%logs" (
 	"message" varchar(255) COLLATE "en_US.utf8" NOT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX "%_PREFIX_%logs_id" ON logs ("id");
+CREATE INDEX "%_PREFIX_%logs_id" ON %_PREFIX_%logs ("id");
 
-ALTER TABLE "groups" ADD CONSTRAINT "groups_fk_check_parent_id" FOREIGN KEY ("parent_id") REFERENCES "groups" ("id");
-ALTER TABLE "ledgers" ADD CONSTRAINT "ledgers_fk_check_group_id" FOREIGN KEY ("group_id") REFERENCES "groups" ("id");
-ALTER TABLE "entries" ADD CONSTRAINT "entries_fk_check_entrytype_id" FOREIGN KEY ("entrytype_id") REFERENCES "entrytypes" ("id");
-ALTER TABLE "entries" ADD CONSTRAINT "entries_fk_check_tag_id" FOREIGN KEY ("tag_id") REFERENCES "tags" ("id");
-ALTER TABLE "entryitems" ADD CONSTRAINT "entryitems_fk_check_entry_id" FOREIGN KEY ("entry_id") REFERENCES "entries" ("id");
-ALTER TABLE "entryitems" ADD CONSTRAINT "entryitems_fk_check_ledger_id" FOREIGN KEY ("ledger_id") REFERENCES "ledgers" ("id");
+ALTER TABLE "%_PREFIX_%groups" ADD CONSTRAINT "%_PREFIX_%groups_fk_check_parent_id" FOREIGN KEY ("parent_id") REFERENCES "%_PREFIX_%groups" ("id");
+ALTER TABLE "%_PREFIX_%ledgers" ADD CONSTRAINT "%_PREFIX_%ledgers_fk_check_group_id" FOREIGN KEY ("group_id") REFERENCES "%_PREFIX_%groups" ("id");
+ALTER TABLE "%_PREFIX_%entries" ADD CONSTRAINT "%_PREFIX_%entries_fk_check_entrytype_id" FOREIGN KEY ("entrytype_id") REFERENCES "%_PREFIX_%entrytypes" ("id");
+ALTER TABLE "%_PREFIX_%entries" ADD CONSTRAINT "%_PREFIX_%entries_fk_check_tag_id" FOREIGN KEY ("tag_id") REFERENCES "%_PREFIX_%tags" ("id");
+ALTER TABLE "%_PREFIX_%entryitems" ADD CONSTRAINT "%_PREFIX_%entryitems_fk_check_entry_id" FOREIGN KEY ("entry_id") REFERENCES "%_PREFIX_%entries" ("id");
+ALTER TABLE "%_PREFIX_%entryitems" ADD CONSTRAINT "%_PREFIX_%entryitems_fk_check_ledger_id" FOREIGN KEY ("ledger_id") REFERENCES "%_PREFIX_%ledgers" ("id");
