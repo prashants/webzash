@@ -35,7 +35,7 @@
 	</tr>
 	<?php foreach ($logs as $log) { ?>
 		<tr>
-			<td><?php echo dateFromSql($log['Log']['date']); ?></td>
+			<td><?php echo datetimeFromSqlDateTime($log['Log']['date']); ?></td>
 			<td><?php echo h($log['Log']['host_ip']); ?></td>
 			<td><?php echo h($log['Log']['user']); ?></td>
 			<td><?php echo h($log['Log']['url']); ?></td>

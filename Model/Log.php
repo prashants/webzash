@@ -116,8 +116,8 @@ class Log extends WebzashAppModel {
                         'host_ip' => $_SERVER['REMOTE_ADDR'],
                         'user' => CakeSession::read('Auth.User.username'),
                         'url' => Router::url(null, TRUE),
-                        'user_agent' => env('HTTP_USER_AGENT'),
-                        'message' => $message,
+                        'user_agent' => substr(env('HTTP_USER_AGENT'), 0 , 100),
+                        'message' => substr($message, 0, 255),
                 ));
                 $this->create();
                 if (!$this->save($logentry)) {

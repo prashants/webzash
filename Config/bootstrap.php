@@ -234,6 +234,17 @@ function dateFromSql($sqldate) {
 	return date(Configure::read('Account.dateformatPHP'), $unixTimestamp);
 }
 
+/**
+ * This function converts the SQL datetime value to PHP date and time string
+ */
+function datetimeFromSqlDateTime($sqldatetime) {
+	$unixTimestamp = strtotime($sqldatetime);
+	if (!$unixTimestamp) {
+		return false;
+	}
+	return date(Configure::read('Account.dateformatPHP') . ' h:i:s A', $unixTimestamp);
+}
+
 function toCurrency($dc, $amount) {
 
 	$decimal_places = Configure::read('Account.decimal_places');
