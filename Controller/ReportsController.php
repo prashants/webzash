@@ -789,6 +789,7 @@ class ReportsController extends WebzashAppController {
 						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
 						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
 					),
+					'maxLimit' => 100000000000,	/* Max limit */
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'asc'),
 					'conditions' => $conditions,
@@ -1027,6 +1028,7 @@ class ReportsController extends WebzashAppController {
 						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
 						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
 					),
+					'maxLimit' => 100000000000,	/* Max limit */
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
@@ -1346,6 +1348,7 @@ class ReportsController extends WebzashAppController {
 						'Entry.id', 'Entry.tag_id', 'Entry.entrytype_id', 'Entry.number', 'Entry.date', 'Entry.dr_total', 'Entry.cr_total', 'Entry.narration',
 						'Entryitem.id', 'Entryitem.entry_id', 'Entryitem.ledger_id', 'Entryitem.amount', 'Entryitem.dc', 'Entryitem.reconciliation_date',
 					),
+					'maxLimit' => 100000000000,	/* Max limit */
 					'limit' => 100000000000,	/* Max limit */
 					'order' => array('Entry.date' => 'desc'),
 					'conditions' => $conditions,
