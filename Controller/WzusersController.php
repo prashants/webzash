@@ -514,6 +514,10 @@ class WzusersController extends WebzashAppController {
 					$this->Session->write('Wzsetting.row_count', 10);
 				} else {
 					$this->Session->write('Wzsetting.row_count', $wzsetting['Wzsetting']['row_count']);
+					/* Since CakePHP puts a limit of 100 to the max row count field, we manually reset it if greater than 100 */
+					if ($wzsetting['Wzsetting']['row_count'] > 100) {
+						$this->Session->write('Wzsetting.row_count', 100);
+					}
 				}
 				if (empty($wzsetting['Wzsetting']['drcr_toby'])) {
 					$this->Session->write('Wzsetting.drcr_toby', 'drcr');

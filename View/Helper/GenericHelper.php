@@ -174,7 +174,6 @@ class GenericHelper extends AppHelper {
 			'25' => '25',
 			'50' => '50',
 			'100' => '100',
-			'200' => '200',
 		);
 	}
 

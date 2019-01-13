@@ -90,8 +90,8 @@ class Wzsetting extends WebzashAppModel {
 				'allowEmpty' => false,
 			),
 			'rule3' => array(
-				'rule' => array('comparison', '<=', 1000),
-				'message' => 'Row count should be less than 1000',
+				'rule' => array('comparison', '<=', 100),
+				'message' => 'Row count should be less than or equal to 100',
 				'required'   => true,
 				'allowEmpty' => false,
 			),
