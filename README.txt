@@ -27,8 +27,8 @@ Following step describes how to setup Webzash with CakePHP from scratch,
 remmember these steps are only needed if you wish to develop or contribute
 back to Webzash :
 
-Step 1. Download CakePHP version 2.10.0 from the below link
-https://github.com/cakephp/cakephp/zipball/2.10.0
+Step 1. Download CakePHP version 2.10.14 from the below link
+https://github.com/cakephp/cakephp/archive/2.10.14.tar.gz
 
 Step 2. Extract CakePHP into your web server directory and rename the folder
 to "webzash"
