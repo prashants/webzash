@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xml:base="http://webzash.org"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>Webzash</title>
+ <link>http://webzash.org</link>
+ <description></description>
+ <language>en</language>
+<item>
+ <title>Version 2.8 Available</title>
+ <link>http://webzash.org/node/61</link>
+ <description>&lt;p&gt;Webzash version 2.8 is now available for download.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/61#comments</comments>
+ <pubDate>Tue, 15 Jan 2019 07:33:12 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">61 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.7 Available</title>
+ <link>http://webzash.org/node/60</link>
+ <description>&lt;p&gt;Webzash version 2.7 is now available for download.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/60#comments</comments>
+ <pubDate>Sun, 30 Jul 2017 08:32:57 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">60 at http://webzash.org</guid>
+</item>
+<item>
+ <title> Webzash in Docker and nginx</title>
+ <link>http://webzash.org/node/59</link>
+ <description>&lt;p&gt;Good article on running webzash in docker and nginx&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.burgundywall.com/post/webzash-in-docker-and-nginx&quot; title=&quot;https://www.burgundywall.com/post/webzash-in-docker-and-nginx&quot;&gt;https://www.burgundywall.com/post/webzash-in-docker-and-nginx&lt;/a&gt;&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/59#comments</comments>
+ <pubDate>Tue, 29 Mar 2016 08:42:09 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">59 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.6 Available</title>
+ <link>http://webzash.org/node/57</link>
+ <description>&lt;p&gt;Webzash version 2.6 is now available for download.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/57#comments</comments>
+ <pubDate>Fri, 25 Sep 2015 10:39:05 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">57 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.5 Available</title>
+ <link>http://webzash.org/node/56</link>
+ <description>&lt;p&gt;Webzash version 2.5 is now available for download.&lt;/p&gt;
+&lt;p&gt;CHANGELOG :&lt;/p&gt;
+&lt;p&gt;- Add experimental support for Postgres SQL Database&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/56#comments</comments>
+ <pubDate>Sat, 08 Aug 2015 13:39:54 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">56 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.4 Available</title>
+ <link>http://webzash.org/node/55</link>
+ <description>&lt;p&gt;Webzash version 2.4 is now available for download.&lt;/p&gt;
+&lt;p&gt;CHANGELOG :&lt;/p&gt;
+&lt;p&gt;- Add custom decimal places&lt;br /&gt;
+- Add currency format option&lt;br /&gt;
+- Add account code to group and ledger accounts&lt;/p&gt;
+&lt;p&gt;It supports automatic updating from previous version of webzash.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/55#comments</comments>
+ <pubDate>Fri, 07 Aug 2015 15:54:14 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">55 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.3 Available</title>
+ <link>http://webzash.org/node/54</link>
+ <description>&lt;p&gt;Webzash version 2.3 is now available for download.&lt;/p&gt;
+&lt;p&gt;CHANGELOG :&lt;/p&gt;
+&lt;p&gt;- Support third party login (Joomla)&lt;br /&gt;
+- Support hotkeys&lt;br /&gt;
+- Use select2 for selecting ledgers in entires and reports&lt;br /&gt;
+- Fix pagination bug&lt;/p&gt;
+&lt;p&gt;If you want to update from previous 2.x version read &lt;a href=&quot;https://github.com/prashants/webzash/wiki/Webzash-upgrade-v2.x&quot;&gt;this guide&lt;/a&gt;.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/54#comments</comments>
+ <pubDate>Sun, 25 Jan 2015 10:22:08 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">54 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.2 Available</title>
+ <link>http://webzash.org/node/53</link>
+ <description>&lt;p&gt;Webzash version 2.2 is now available for download.&lt;/p&gt;
+&lt;p&gt;CHANGELOG :&lt;/p&gt;
+&lt;p&gt;- Show ledgers and groups in tree format&lt;br /&gt;
+- Add support for printing and downloading xml reports&lt;br /&gt;
+- Swap assets and liabilities sides in balance sheet&lt;br /&gt;
+- Load the application as root url&lt;br /&gt;
+- Add system information page&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/53#comments</comments>
+ <pubDate>Fri, 19 Dec 2014 09:48:23 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">53 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.1 Available</title>
+ <link>http://webzash.org/node/52</link>
+ <description>&lt;p&gt;Webzash version 2.1 is now available for download.&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/52#comments</comments>
+ <pubDate>Sat, 13 Dec 2014 16:52:12 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">52 at http://webzash.org</guid>
+</item>
+<item>
+ <title>Version 2.0 Available</title>
+ <link>http://webzash.org/node/51</link>
+ <description>&lt;p&gt;Webzash version 2.0 is now available for download.&lt;/p&gt;
+&lt;p&gt;- Switched to CakePHP&lt;br /&gt;
+- Switched to sqlite3 for master data&lt;br /&gt;
+- Add notes to ledger account&lt;br /&gt;
+- Use database reference keys and trigger to maintain data integrity&lt;br /&gt;
+- All primary id are bigint(64) from int(32)&lt;br /&gt;
+- Add date range to all reports&lt;br /&gt;
+- Support large numbers upto 23 places&lt;/p&gt;
+</description>
+ <comments>http://webzash.org/node/51#comments</comments>
+ <pubDate>Wed, 10 Dec 2014 15:26:16 +0000</pubDate>
+ <dc:creator>admin</dc:creator>
+ <guid isPermaLink="false">51 at http://webzash.org</guid>
+</item>
+</channel>
+</rss>

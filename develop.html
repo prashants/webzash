@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Develop | Webzash - Free And Open Source Web Based Accounting Software</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="free, open source, gpl, accounting, accounts, software, free accounting software, free software, free accounting, download free accounting software, download" />
+<meta name="copyright" content="Prashant P Shah" />
+<meta name="description" content="Free And Open Source Accounting Software - Free Download! Powerfull community driven multiuser web based free accounting software with groups, ledgers, draft vouchers, tags, reporting and much more" />
+<link rel="alternate" type="application/rss+xml" title="Webzash RSS" href="rss.xml" />
+<link rel="shortcut icon" href="sites/default/files/simply_modern_favicon_0.ico" type="image/x-icon" />
+<link type="text/css" rel="stylesheet" media="all" href="sites/default/files/css/css_ee409958c469950d3b1d582146095687.css" />
+<script type="text/javascript" src="sites/default/files/js/js_767f3c98decb76200d258f18c4525ab1.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	// Code for extending suckerfish rollovers
+	$("#suckerfishmenu .content ul.menu:first > li").hover(function(event){
+	  $(this).children("> a").css("background",$("#footer a").css("color"));
+	},function(event){
+	  $(this).children("> a").css("background","#3f3f3f");
+	});
+	});  
+</script>
+<style type="text/css">
+    #page, #top-center {
+      width: 95%;
+    }
+    body.sidebar-left #main {
+      margin-left: -210px;
+    }
+    body.sidebars #main {
+      margin-left: -210px;
+    }
+    body.sidebar-left #squeeze {
+      margin-left: 210px;
+    }
+    body.sidebars #squeeze {
+      margin-left: 210px;
+    }
+    #sidebar-left {
+      width: 210px;
+    }
+    body.sidebar-right #main {
+      margin-right: -210px;
+    }
+    body.sidebars #main {
+      margin-right: -210px;
+    }
+    body.sidebar-right #squeeze {
+      margin-right: 210px;
+    }
+    body.sidebars #squeeze {
+      margin-right: 210px;
+    }
+    #sidebar-right {
+      width: 210px;
+    }
+	#footer-region {
+	  padding: 20px;
+	  color: #DDDDDD;
+	}
+	.sticky {
+	  padding:20px;
+	}
+    body {
+      font-family : Arial, Verdana, sans-serif;
+    }
+    body {
+    }
+    #header {
+      min-height:184pxpx;
+    }
+	#banner {
+	  background-color:transparent;
+	}
+  </style>
+<!--[if IE]>
+	<style type="text/css" media="all">@import "/sites/all/themes/simply_modern/css/ie.css";</style>
+<![endif]-->
+<!--[if lte IE 6]>
+	<script type="text/javascript" src="http://webzash.org/sites/all/themes/simply_modern/js/suckerfish.js"></script>
+<![endif]-->
+<!-- <script type="text/javascript" src="http://webzash.org/sites/all/themes/simply_modern/js/pickstyle.js"></script> -->
+</head>
+
+<body class="sidebar-right">
+  <div id="simplemenu_container"></div>
+  <div id="simplemenu_closing-div" style="clear:both;"></div>
+  <div id="page" class="node">
+  <div id="shadow-right">
+  <div id="page-bg">
+    <div id="header" class="clear-block">
+      <div id="name-and-slogan">
+        <h1 class='site-name'><img src="webzash.png" width="25px" alt="Webzash logo" /><a href="index.html" title="Home"> Webzash </a> </h1>
+        <div class='site-slogan'> Easy to use free and open source web based double entry accounting software </div>
+      </div><!-- /name-and-slogan -->
+    </div><!-- /header -->
+    <div style="clear:both"></div>
+    <div id="suckerfishmenu" class="clear-block">
+	  <div class="block block-menu" id="block-menu-primary-links">
+      <h2 class="title">Primary links</h2>
+	  <div class="content">
+        <ul class="menu">
+          <li class="leaf first active-trail"><a href="index.html" title="" class="active">Home</a></li>
+          <li class="leaf"><a href="demo.html" title="Demo">Demo</a></li>
+          <li class="leaf"><a href="download.html" title="Download">Download</a></li>
+          <li class="leaf"><a href="screenshots.html" title="">Screenshots</a></li>
+          <li class="leaf"><a href="help.html" title="Forums">Help</a></li>
+          <li class="leaf"><a href="develop.html" title="Develop">Develop</a></li>
+          <li class="leaf"><a href="license.html" title="License">License</a></li>
+          <li class="leaf"><a href="donate.html" title="Donate">Donate</a></li>
+          <li class="leaf last"><a href="contact.html" title="Contact">Contact</a></li>
+        </ul>
+      </div>
+	  </div>
+    </div>
+    <div id="middlecontainer">
+      <div id="main">
+        <div id="squeeze">
+          <div id="squeeze-content">
+            <div id="inner-content"  class="node">
+              <h1 class="title">Develop</h1>
+              <div class="tabs"></div>
+              <div class="node">
+                <div class="content">
+			      <p>Webzash is built using PHP + <a href="http://cakephp.org/" target="_blank">CakePHP</a> (PHP Framework) + MySQL and is licensed under <a href="license" target="_blank">MIT License</a>.</p>
+                  <p>All your contributions to Webzash has to be under the same 'MIT License' to be accepted by us.</p>
+                  <p>Webzash is developed as a standalone CakePHP plugin and uses <a href="http://git-scm.com/" target="_blank">Git</a> for source control. To setup your development environment you need to do the following steps :</p>
+                  <p>Step 1. Download CakePHP version 2.5.6 from the below link</p>
+                  <div class="source-code">https://github.com/cakephp/cakephp/zipball/2.5.6</div>
+                  <p>Step 2. Extract CakePHP into your web server directory and rename the folder to <b>"webzash"</b></p>
+                  <p>Step 3. Edit the app/Config/core.php file and change the following lines</p>
+                <div class="source-code">
+                  Configure::write('debug', 0);<br />
+                  Configure::write('Security.salt', 'IMPORTANT_CHANGE_THIS_VALUE');<br />
+                  Configure::write('Security.cipherSeed', 'IMPORTANT_CHANGE_THIS_VALUE');<br />
+                  date_default_timezone_set('UTC');
+                </div>
+                <p><i>Note : Please change the above security salts before changing your password or creating any new user.</i></p>
+                <p>Step 4. Edit the app/Config/bootstrap.php file and add the following lines</p>
+                <div class="source-code">
+                  CakePlugin::load('BoostCake');<br />
+                  CakePlugin::load('Webzash', array('routes' => true, 'bootstrap' => true));
+                </div>
+                <p>Step 5. Edit the app/Config/routes.php file and comment out the default route on line no. 27 by prepending two forward slashes as shown below</p>
+                <div class="source-code">
+                  // Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+                </div>
+                <p>Step 6. Copy the app/Config/database.php.default file to app/Config/database.php</p>
+                <p>Step 7. Install BoostCake plugin</p>
+                <div class="source-code">
+                  $git clone <a href="https://github.com/slywalker/cakephp-plugin-boost_cake.git" title="https://github.com/slywalker/cakephp-plugin-boost_cake.git">https://github.com/slywalker/cakephp-plugin-boost_cake.git</a> app/Plugin/BoostCake
+                </div>
+                <p>Step 8. Install Webzash plugin</p>
+                <div class="source-code">
+                  $git clone <a href="https://github.com/prashants/webzash.git" title="https://github.com/prashants/webzash.git">https://github.com/prashants/webzash.git</a> app/Plugin/Webzash
+                </div>
+                <p>Thats it ! You are done :)</p>
+                <p><i>The full source code for Webzash is in the app/Plugin/Webzash folder.</i></p>
+                <p><img src="sites/default/files/cake-logo.png" height="50px" /><img width="20" src="sites/default/files/padding.png" /><img src="sites/default/files/php.jpg" height="70px" /><img width="20" src="sites/default/files/padding.png" /><img src="sites/default/files/mysql.png" height="50px" /></p>
+              </div>
+              <div class="clear-block clear"></div>
+              </div>
+		    </div><!-- /inner-content -->
+          </div><!-- /squeeze-content -->
+        </div><!-- /squeeze -->
+      </div><!-- /main -->
+      <div id="sidebar-right">
+	    <div class="block block-block" id="block-block-1">
+          <div class="content"><div style="height: 1px;"></div>
+            <p>Quick Links</p>
+            <ul>
+              <li><a href="download">Download</a></li>
+              <li><a href="https://github.com/prashants/webzash" target="_blank">Source code</a></li>
+              <li><a href="https://github.com/prashants/webzash/issues" target="_blank">Report bugs</a></li>
+              <li><a href="license" target="_blank">MIT License</a></li>
+            </ul>
+          </div>
+	    </div>
+      </div>
+    </div><!-- /middle-container -->
+    <div style="clear:both"></div>
+    <div id="footer">
+      <div id="footer-region">
+	    <div class="block block-system" id="block-system-0">
+          <div class="content">Prashant Shah (c) 2012 - 2019</div>
+		  <p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a></p>
+	    </div>
+      </div>
+    </div><!-- /footer -->
+    <div style="clear:both"></div>
+  </div>
+  </div>
+  </div> <!-- /page -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20777044-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>
