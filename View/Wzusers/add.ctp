@@ -49,7 +49,7 @@
 			'type' => 'select',
 			'options' => $wzaccounts,
 			'label' => __d('webzash', 'Account access'),
-			'multiple' => true,
+			'multiple' => 'checkbox',
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Select which accounts a user can access. Selecting "ALL ACCOUNTS" will grant them access to all accounts.') . '</span>',
 		));
 

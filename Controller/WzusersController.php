@@ -91,7 +91,7 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* Create list of wzaccounts */
-		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
+		$wzaccounts = array(0 => 'ALL ACCOUNTS') + $this->Wzaccount->find('list', array(
 			'fields' => array('Wzaccount.id', 'Wzaccount.label'),
 			'order' => array('Wzaccount.label')
 		));
@@ -219,7 +219,7 @@ class WzusersController extends WebzashAppController {
 		}
 
 		/* Create list of wzaccounts */
-		$wzaccounts = array(0 => '(ALL ACCOUNTS)') + $this->Wzaccount->find('list', array(
+		$wzaccounts = array(0 => 'ALL ACCOUNTS') + $this->Wzaccount->find('list', array(
 			'fields' => array('Wzaccount.id', 'Wzaccount.label'),
 			'order' => array('Wzaccount.label')
 		));
