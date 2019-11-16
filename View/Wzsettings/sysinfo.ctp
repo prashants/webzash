@@ -53,3 +53,8 @@
 		}
 	?>
 </div>
+<div>
+	<?php
+		echo __d('webzash', 'CakePHP version : %s', Configure::version());
+	?>
+</div>
