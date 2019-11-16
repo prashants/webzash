@@ -194,13 +194,14 @@ if (calculate($bsheet['final_liabilities_total'], $bsheet['final_assets_total'],
 			'class' => 'checkbox',
 		));
 
-		echo $this->Form->input('startdate', array(
-			'label' => __d('webzash', 'Start date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave start date as empty if you want statement from the start of the financial year.') . '</span>',
-		));
+		// As per suggestions from Sam McDonald, the start date is not required hence it has been temp. commented out
+		//echo $this->Form->input('startdate', array(
+		//	'label' => __d('webzash', 'Start date'),
+		//	'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave start date as empty if you want statement from the start of the financial year.') . '</span>',
+		//));
 		echo $this->Form->input('enddate', array(
-			'label' => __d('webzash', 'End date'),
-			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave end date as empty if you want statement till the end of the financial year.') . '</span>',
+			'label' => __d('webzash', 'Particular date'),
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Leave particular date as empty if you want statement till the end of the financial year.') . '</span>',
 		));
 
 		echo '<div class="form-group">';
