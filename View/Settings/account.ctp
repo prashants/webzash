@@ -64,7 +64,7 @@ $(document).ready(function() {
 	));
 
 	echo $this->Form->input('name', array('label' => __d('webzash', 'Company / Personal Name')));
-	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address'), 'rows' => '3'));
+	echo $this->Form->input('address', array('type' => 'textarea', 'label' => __d('webzash', 'Address and other details'), 'rows' => '4'));
 	echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 	echo $this->Form->input('currency_symbol', array('label' => __d('webzash', 'Currency symbol')));
 	echo $this->Form->input('currency_format', array('type' => 'select', 'options' => $this->Generic->currency_format_options(), 'label' => __d('webzash', 'Currency format')));

@@ -42,8 +42,11 @@ if (!extension_loaded('bcmath')) {
 			<div class="panel-body">
 				<table>
 					<tr>
-						<td><?php echo __d('webzash', 'Name'); ?></td>
-						<td><?php echo h(Configure::read('Account.name')); ?></td>
+						<td valign="top"><?php echo __d('webzash', 'Name'); ?></td>
+						<td>
+							<?php echo h(Configure::read('Account.name')); ?><br />
+							<?php echo nl2br(h(Configure::read('Account.address'))); ?>
+						</td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Email'); ?></td>
