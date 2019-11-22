@@ -195,16 +195,18 @@ $(document).ready(function() {
 	foreach ($entries as $entry) {
 		$entryTypeName = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.name');
 		$entryTypeLabel = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.label');
-		echo '<tr>';
+		echo '<tr valign="top">';
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 
 		echo '<td>';
-		echo h($this->Generic->entryLedgers($entry['Entry']['id']));
+		echo $this->Generic->reportEntryLedgers($entry['Entry']['id'], $entry['Entryitem']['id']);
 		if (strlen($entry['Entry']['narration']) > 0) {
-			echo '<br/>' . $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
-		} else {
-			echo h($this->Generic->entryLedgers($entry['Entry']['id']));
+			if (strlen($entry['Entry']['narration']) > 60) {
+				echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
+			} else {
+				echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60), array('class' => 'text-small'));
+			}
 		}
 		echo '</td>';
 

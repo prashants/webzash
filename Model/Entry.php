@@ -406,48 +406,136 @@ class Entry extends WebzashAppModel {
 
 		$rawentryitems = $Entryitem->find('all', array(
 			'conditions' => array('Entryitem.entry_id' => $id),
-			'order' => array('Entryitem.id desc'),
 		));
 
-		/* Get dr and cr ledger id and count */
+		/* Initialize */
 		$dr_count = 0;
 		$cr_count = 0;
-		$dr_ledger_id = '';
-		$cr_ledger_id = '';
+		$dr_ledgerstr = '';
+		$cr_ledgerstr = '';
+		$dr_cr_first = '';
+
+		/* Get the debit and credit ledgers */
 		foreach ($rawentryitems as $row => $entryitem) {
 			if ($entryitem['Entryitem']['dc'] == 'D') {
-				$dr_ledger_id = $entryitem['Entryitem']['ledger_id'];
 				$dr_count++;
+
+				/* Check and set dr_cr_first */
+				if ($dr_cr_first == '') {
+					$dr_cr_first = 'D';
+				}
+
+				/* if more than one ledger on dr then add [+] sign */
+				if ($dr_count == 2) {
+					$dr_ledgerstr .= ' [+]';
+					continue;
+				}
+				if ($dr_count > 2) {
+					continue;
+				}
+
+				/* Get ledger name */
+				$dr_ledger_id = $entryitem['Entryitem']['ledger_id'];
+				$dr_name = $Ledger->getName($dr_ledger_id);
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$dr_ledgerstr .= 'By ' . $dr_name;
+				} else {
+					$dr_ledgerstr .= 'Dr ' . $dr_name;
+				}
 			} else {
-				$cr_ledger_id = $entryitem['Entryitem']['ledger_id'];
 				$cr_count++;
+
+				/* Check and set dr_cr_first */
+				if ($dr_cr_first == '') {
+					$dr_cr_first = 'C';
+				}
+
+				/* if more than one ledger on cr then add [+] sign */
+				if ($cr_count == 2) {
+					$cr_ledgerstr .= ' [+]';
+					continue;
+				}
+				if ($cr_count > 2) {
+					continue;
+				}
+
+				/* Get ledger name */
+				$cr_ledger_id = $entryitem['Entryitem']['ledger_id'];
+				$cr_name = $Ledger->getName($cr_ledger_id);
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$cr_ledgerstr .= 'To ' . $cr_name;
+				} else {
+					$cr_ledgerstr .= 'Cr ' . $cr_name;
+				}
 			}
 		}
 
-		/* Get ledger name */
-		$dr_name = $Ledger->getName($dr_ledger_id);
-		$cr_name = $Ledger->getName($cr_ledger_id);
 
-		if (strlen($dr_name) > 15) {
-			$dr_name = substr($dr_name, 0, 15) . '...';
-		}
-		if (strlen($cr_name) > 15) {
-			$cr_name = substr($cr_name, 0, 15) . '...';
-		}
-
-		/* if more than one ledger on dr / cr then add [+] sign */
-		if ($dr_count > 1) {
-			$dr_name = $dr_name . ' [+]';
-		}
-		if ($cr_count > 1) {
-			$cr_name = $cr_name . ' [+]';
-		}
-
-		if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
-			$ledgerstr = 'By ' . $dr_name . ' / ' . 'To ' . $cr_name;
+		if ($dr_cr_first == 'D') {
+			$ledgerstr = h($dr_ledgerstr) . '<br/>' . h($cr_ledgerstr);
 		} else {
-			$ledgerstr = 'Dr ' . $dr_name . ' / ' . 'Cr ' . $cr_name;
+			$ledgerstr = h($cr_ledgerstr) . '<br/>' . h($dr_ledgerstr);
 		}
+
+		return $ledgerstr;
+	}
+
+/**
+ * Show the report format entry ledger details
+ */
+	public function reportEntryLedgers($id, $entryitem_id) {
+		/* Load the Entryitem model */
+		App::import("Webzash.Model", "Entryitem");
+		$Entryitem = new Entryitem();
+
+		/* Load the Ledger model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+
+		$rawentryitems = $Entryitem->find('all', array(
+			'conditions' => array('Entryitem.entry_id' => $id),
+		));
+
+		/* Initialize */
+		$ledgerstr = '';
+
+		/* Get the debit and credit ledgers */
+		foreach ($rawentryitems as $row => $entryitem) {
+			/* Get ledger name */
+			$ledger_id = $entryitem['Entryitem']['ledger_id'];
+			$ledger_name = $Ledger->getName($ledger_id);
+
+			/* Check if the current ledger is the one that is active */
+			if ($entryitem['Entryitem']['id'] == $entryitem_id) {
+				$ledgerstr .= '<span class="bold-text">';
+			}
+
+			/* Add the ledger name */
+			if ($entryitem['Entryitem']['dc'] == 'D') {
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$ledgerstr .= 'By ' . h($ledger_name);
+				} else {
+					$ledgerstr .= 'Dr ' . h($ledger_name);
+				}
+				/* Add the amount */
+				$ledgerstr .=  ' <span class="text-extra-small">(Dr ' . $entryitem['Entryitem']['amount'] . ')</span>';
+			} elseif ($entryitem['Entryitem']['dc'] == 'C') {
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$ledgerstr .= 'To ' . h($ledger_name);
+				} else {
+					$ledgerstr .= 'Cr ' . h($ledger_name);
+				}
+				$ledgerstr .=  ' <span class="text-extra-small">(Cr ' . $entryitem['Entryitem']['amount'] . ')</span>';
+			}
+
+			$ledgerstr .= "<br/>";
+
+			/* Check if the current ledger is the one that is active */
+			if ($entryitem['Entryitem']['id'] == $entryitem_id) {
+				$ledgerstr .= "</span>";
+			}
+		}
+
 		return $ledgerstr;
 	}
 }

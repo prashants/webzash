@@ -79,6 +79,16 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
+ * Show the report format entry ledger details
+ */
+	function reportEntryLedgers($id, $entryitem_id) {
+		/* Load the Entry model */
+		App::import("Webzash.Model", "Entry");
+		$Entry = new Entry();
+		return $Entry->reportEntryLedgers($id, $entryitem_id);
+	}
+
+/**
  * Add a row to excel sheet
  */
 	function xlsAddRow($row)
@@ -217,7 +227,7 @@ class GenericHelper extends AppHelper {
 			'2' => __d('webzash', 'Atleast one Bank or Cash account must be present on Debit side'),
 			'3' => __d('webzash', 'Atleast one Bank or Cash account must be present on Credit side'),
 			'4' => __d('webzash', 'Only Bank or Cash account can be present on both Debit and Credit side'),
-			'5' => __d('webzash', 'Only NON Bank or Cash account can be present on both Debit and Credit side'),
+			'5' => __d('webzash', 'Only Non Bank or Non Cash account can be present on both Debit and Credit side'),
 		);
 	}
 

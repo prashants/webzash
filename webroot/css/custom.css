@@ -392,3 +392,8 @@ div.kb-shorcuts:hover {
 	font-style: italic;
 	color: #666;
 }
+
+.text-extra-small {
+	font-size:10px;
+	color: #666;
+}

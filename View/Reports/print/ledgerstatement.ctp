@@ -84,17 +84,28 @@
 		/* Negative balance if its a cash or bank account and balance is Cr */
 		if ($ledger['Ledger']['type'] == 1) {
 			if ($entry_balance['dc'] == 'C' && $entry_balance['amount'] != '0.00') {
-				echo '<tr class="error-text">';
+				echo '<tr class="error-text" valign="top">';
 			} else {
-				echo '<tr>';
+				echo '<tr valign="top">';
 			}
 		} else {
-			echo '<tr>';
+			echo '<tr valign="top">';
 		}
 
 		echo '<td>' . dateFromSql($entry['Entry']['date']) . '</td>';
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
-		echo '<td>' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '</td>';
+
+		echo '<td>';
+		echo $this->Generic->reportEntryLedgers($entry['Entry']['id'], $entry['Entryitem']['id']);
+		if (strlen($entry['Entry']['narration']) > 0) {
+			if (strlen($entry['Entry']['narration']) > 60) {
+				echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
+			} else {
+				echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60), array('class' => 'text-small'));
+			}
+		}
+		echo '</td>';
+
 		echo '<td>' . h($entryTypeName) . '</td>';
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';
 
