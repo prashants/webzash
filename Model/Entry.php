@@ -395,95 +395,7 @@ class Entry extends WebzashAppModel {
 /**
  * Show the entry ledger details
  */
-	public function entryLedgers($id) {
-		/* Load the Entryitem model */
-		App::import("Webzash.Model", "Entryitem");
-		$Entryitem = new Entryitem();
-
-		/* Load the Ledger model */
-		App::import("Webzash.Model", "Ledger");
-		$Ledger = new Ledger();
-
-		$rawentryitems = $Entryitem->find('all', array(
-			'conditions' => array('Entryitem.entry_id' => $id),
-		));
-
-		/* Initialize */
-		$dr_count = 0;
-		$cr_count = 0;
-		$dr_ledgerstr = '';
-		$cr_ledgerstr = '';
-		$dr_cr_first = '';
-
-		/* Get the debit and credit ledgers */
-		foreach ($rawentryitems as $row => $entryitem) {
-			if ($entryitem['Entryitem']['dc'] == 'D') {
-				$dr_count++;
-
-				/* Check and set dr_cr_first */
-				if ($dr_cr_first == '') {
-					$dr_cr_first = 'D';
-				}
-
-				/* if more than one ledger on dr then add [+] sign */
-				if ($dr_count == 2) {
-					$dr_ledgerstr .= ' [+]';
-					continue;
-				}
-				if ($dr_count > 2) {
-					continue;
-				}
-
-				/* Get ledger name */
-				$dr_ledger_id = $entryitem['Entryitem']['ledger_id'];
-				$dr_name = $Ledger->getName($dr_ledger_id);
-				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
-					$dr_ledgerstr .= 'By ' . $dr_name;
-				} else {
-					$dr_ledgerstr .= 'Dr ' . $dr_name;
-				}
-			} else {
-				$cr_count++;
-
-				/* Check and set dr_cr_first */
-				if ($dr_cr_first == '') {
-					$dr_cr_first = 'C';
-				}
-
-				/* if more than one ledger on cr then add [+] sign */
-				if ($cr_count == 2) {
-					$cr_ledgerstr .= ' [+]';
-					continue;
-				}
-				if ($cr_count > 2) {
-					continue;
-				}
-
-				/* Get ledger name */
-				$cr_ledger_id = $entryitem['Entryitem']['ledger_id'];
-				$cr_name = $Ledger->getName($cr_ledger_id);
-				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
-					$cr_ledgerstr .= 'To ' . $cr_name;
-				} else {
-					$cr_ledgerstr .= 'Cr ' . $cr_name;
-				}
-			}
-		}
-
-
-		if ($dr_cr_first == 'D') {
-			$ledgerstr = h($dr_ledgerstr) . '<br/>' . h($cr_ledgerstr);
-		} else {
-			$ledgerstr = h($cr_ledgerstr) . '<br/>' . h($dr_ledgerstr);
-		}
-
-		return $ledgerstr;
-	}
-
-/**
- * Show the report format entry ledger details
- */
-	public function reportEntryLedgers($id, $entryitem_id) {
+	public function entryLedgers($id, $entryitem_id = 0) {
 		/* Load the Entryitem model */
 		App::import("Webzash.Model", "Entryitem");
 		$Entryitem = new Entryitem();
@@ -507,7 +419,7 @@ class Entry extends WebzashAppModel {
 
 			/* Check if the current ledger is the one that is active */
 			if ($entryitem['Entryitem']['id'] == $entryitem_id) {
-				$ledgerstr .= '<span class="bold-text">';
+				$ledgerstr .= '<span class="bold-text green">';
 			}
 
 			/* Add the ledger name */

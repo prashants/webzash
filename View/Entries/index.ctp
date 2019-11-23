@@ -132,12 +132,12 @@ foreach ($entries as $entry) {
 	echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 
 	echo '<td>';
-	echo $this->Generic->entryLedgers($entry['Entry']['id']);
+	echo $this->Generic->entryLedgers($entry['Entry']['id'], 0);
 	if (strlen($entry['Entry']['narration']) > 0) {
 		if (strlen($entry['Entry']['narration']) > 60) {
-			echo '<br/>' . $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
+			echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));
 		} else {
-			echo '<br/>' . $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60), array('class' => 'text-small'));
+			echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60), array('class' => 'text-small'));
 		}
 	}
 	echo '</td>';

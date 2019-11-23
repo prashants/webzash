@@ -76,7 +76,7 @@
 		echo '<td>' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '</td>';
 
 		echo '<td>';
-		echo $this->Generic->reportEntryLedgers($entry['Entry']['id'], $entry['Entryitem']['id']);
+		echo $this->Generic->entryLedgers($entry['Entry']['id'], $entry['Entryitem']['id']);
 		if (strlen($entry['Entry']['narration']) > 0) {
 			if (strlen($entry['Entry']['narration']) > 60) {
 				echo $this->Html->tag('span', substr(h($entry['Entry']['narration']), 0, 60) . '...', array('class' => 'text-small'));

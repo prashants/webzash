@@ -71,28 +71,17 @@ class GenericHelper extends AppHelper {
 /**
  * Show the entry ledger details
  */
-	function entryLedgers($id) {
+	function entryLedgers($id, $entryitem_id) {
 		/* Load the Entry model */
 		App::import("Webzash.Model", "Entry");
 		$Entry = new Entry();
-		return $Entry->entryLedgers($id);
-	}
-
-/**
- * Show the report format entry ledger details
- */
-	function reportEntryLedgers($id, $entryitem_id) {
-		/* Load the Entry model */
-		App::import("Webzash.Model", "Entry");
-		$Entry = new Entry();
-		return $Entry->reportEntryLedgers($id, $entryitem_id);
+		return $Entry->entryLedgers($id, $entryitem_id);
 	}
 
 /**
  * Add a row to excel sheet
  */
-	function xlsAddRow($row)
-	{
+	function xlsAddRow($row) {
 		$cells = "";
 		foreach ($row as $k => $v) {
 			$type = 'String';
@@ -105,7 +94,6 @@ class GenericHelper extends AppHelper {
 		return "<Row>\n" . $cells . "</Row>\n";
 	}
 
-
 /**
  * Wzuser return status string
  */
@@ -116,6 +104,7 @@ class GenericHelper extends AppHelper {
 			default: return __d('webzash', 'ERROR');
 		}
 	}
+
 /**
  * Wzuser return status options
  */
@@ -139,6 +128,7 @@ class GenericHelper extends AppHelper {
 			default: return __d('webzash', 'ERROR');
 		}
 	}
+
 /**
  * Wzuser return status options
  */
@@ -307,4 +297,5 @@ class GenericHelper extends AppHelper {
 			'###,###.##' => '###,###.##',
 		);
 	}
+
 }
