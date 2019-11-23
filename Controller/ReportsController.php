@@ -348,7 +348,8 @@ class ReportsController extends WebzashAppController {
 			$this->set('options', false);
 
 			/* Sub-title*/
-			$this->set('subtitle', __d('webzash', 'Closing Trading and Profit & Loss Statement as on ') .
+			$this->set('subtitle', __d('webzash', 'Trading and Profit & Loss Statement from ') .
+				dateFromSql(Configure::read('Account.startdate')) . ' to ' .
 				dateFromSql(Configure::read('Account.enddate')));
 		} else {
 			$this->set('options', true);

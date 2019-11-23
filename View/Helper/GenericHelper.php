@@ -71,7 +71,7 @@ class GenericHelper extends AppHelper {
 /**
  * Show the entry ledger details
  */
-	function entryLedgers($id, $entryitem_id) {
+	function entryLedgers($id, $entryitem_id = 0) {
 		/* Load the Entry model */
 		App::import("Webzash.Model", "Entry");
 		$Entry = new Entry();

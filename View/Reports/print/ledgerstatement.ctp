@@ -29,6 +29,11 @@
 <?php if ($showEntries) { ?>
 
 <div class="subtitle">
+	<?php
+	if (Configure::read('Account.name')) {
+		echo '<div>' . h(Configure::read('Account.name')) . '</div>';
+	}
+	?>
 	<?php echo $subtitle; ?>
 </div>
 

@@ -103,6 +103,11 @@ $positive_net_pl = 0;
 ?>
 
 <div class="subtitle text-center">
+	<?php
+	if (Configure::read('Account.name')) {
+		echo '<div>' . h(Configure::read('Account.name')) . '</div>';
+	}
+	?>
 	<?php echo $subtitle ?>
 </div>
 
