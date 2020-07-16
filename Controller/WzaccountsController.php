@@ -53,8 +53,8 @@ class WzaccountsController extends WebzashAppController {
 		$this->Wzaccount->useDbConfig = 'wz';
 
 		$this->set('actionlinks', array(
-			array('controller' => 'wzaccounts', 'action' => 'add', 'title' => __d('webzash', 'Add Account Config')),
 			array('controller' => 'wzaccounts', 'action' => 'create', 'title' => __d('webzash', 'Create Account')),
+			array('controller' => 'wzaccounts', 'action' => 'add', 'title' => __d('webzash', 'Import Account Config')),
 			array('controller' => 'admin', 'action' => 'index', 'title' => __d('webzash', 'Back')),
 		));
 
@@ -423,7 +423,7 @@ class WzaccountsController extends WebzashAppController {
  */
 	public function add() {
 
-		$this->set('title_for_layout', __d('webzash', 'Add Account Config'));
+		$this->set('title_for_layout', __d('webzash', 'Import Account Config'));
 
 		$this->Wzaccount->useDbConfig = 'wz';
 		$this->Wzuser->useDbConfig = 'wz';

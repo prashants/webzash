@@ -99,7 +99,7 @@ $(document).ready(function() {
 	echo $this->Form->input('db_host', array('label' => __d('webzash', 'Database host'), 'default' => 'localhost'));
 	echo $this->Form->input('db_port', array('label' => __d('webzash', 'Database port'), 'default' => '3306' ));
 	echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
-	echo $this->Form->input('db_password', array('label' => __d('webzash', 'Database password')));
+	echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
 	echo $this->Form->input('db_prefix', array(
 		'label' => __d('webzash', 'Database prefix'),
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts.') . '</span>',

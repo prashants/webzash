@@ -25,6 +25,13 @@
  * THE SOFTWARE.
  */
 ?>
+
+<?php
+	echo '<div><div role="alert" class="alert alert-warning">' .
+		__d('webzash', 'Please use this to add an already existing database configuration to the system.') .
+		'</div></div>';
+?>
+
 <div class="wzaccount add form">
 	<?php
 		echo $this->Form->create('Wzaccount', array(
