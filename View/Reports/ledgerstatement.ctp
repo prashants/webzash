@@ -212,6 +212,8 @@ $(document).ready(function() {
 
 	<?php
 	/* Show the entries table */
+	$dr_total = 0;
+	$cr_total = 0;
 	foreach ($entries as $entry) {
 		/* Calculate current entry balance */
 		$entry_balance = calculate_withdc(
@@ -251,9 +253,11 @@ $(document).ready(function() {
 		echo '<td>' . $this->Generic->showTag($entry['Entry']['tag_id'])  . '</td>';
 
 		if ($entry['Entryitem']['dc'] == 'D') {
+			$dr_total += $entry['Entryitem']['amount'];
 			echo '<td>' . toCurrency('D', $entry['Entryitem']['amount']) . '</td>';
 			echo '<td>' . '</td>';
 		} else if ($entry['Entryitem']['dc'] == 'C') {
+			$cr_total += $entry['Entryitem']['amount'];
 			echo '<td>' . '</td>';
 			echo '<td>' . toCurrency('C', $entry['Entryitem']['amount']) . '</td>';
 		} else {
@@ -277,9 +281,11 @@ $(document).ready(function() {
 	<?php
 		/* Current closing balance */
 		echo '<tr class="tr-highlight">';
-		echo '<td colspan="7">';
+		echo '<td colspan="5">';
 		echo __d('webzash', 'Current closing balance');
 		echo '</td>';
+		echo '<td>' . toCurrency('D', $dr_total) . '</td>';
+		echo '<td>' . toCurrency('C', $cr_total) . '</td>';
 		echo '<td>' . toCurrency($entry_balance['dc'], $entry_balance['amount']) . '</td>';
 		echo '<td></td>';
 		echo '</tr>';

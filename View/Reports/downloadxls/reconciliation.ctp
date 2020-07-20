@@ -73,7 +73,7 @@
 		echo $xRS;
 		echo $xCS . dateFromSql($entry['Entry']['date']) . $xCE;
 		echo $xCS . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . $xCE;
-		echo $xCS . h($this->Generic->entryLedgers($entry['Entry']['id'])) . $xCE;
+		echo $xCS . h($this->Generic->entryLedgersReport($entry['Entry']['id'])) . $xCE;
 		echo $xCS . h($entryTypeName) . $xCE;
 
 		if ($entry['Entryitem']['dc'] == 'D') {

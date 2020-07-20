@@ -450,4 +450,50 @@ class Entry extends WebzashAppModel {
 
 		return $ledgerstr;
 	}
+
+/**
+ * Show the entry ledger details
+ */
+	public function entryLedgersReport($id, $entryitem_id = 0, $report_type = 'csv') {
+		/* Load the Entryitem model */
+		App::import("Webzash.Model", "Entryitem");
+		$Entryitem = new Entryitem();
+
+		/* Load the Ledger model */
+		App::import("Webzash.Model", "Ledger");
+		$Ledger = new Ledger();
+
+		$rawentryitems = $Entryitem->find('all', array(
+			'conditions' => array('Entryitem.entry_id' => $id),
+		));
+
+		/* Initialize */
+		$ledgerstr = '';
+
+		/* Get the debit and credit ledgers */
+		foreach ($rawentryitems as $row => $entryitem) {
+			/* Get ledger name */
+			$ledger_id = $entryitem['Entryitem']['ledger_id'];
+			$ledger_name = $Ledger->getName($ledger_id);
+
+			/* Add the ledger name */
+			if ($entryitem['Entryitem']['dc'] == 'D') {
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$ledgerstr .= 'By ' . h($ledger_name) . ' / ';
+				} else {
+					$ledgerstr .= 'Dr ' . h($ledger_name) . ' / ';
+				}
+			} elseif ($entryitem['Entryitem']['dc'] == 'C') {
+				if (CakeSession::read('Wzsetting.drcr_toby') == 'toby') {
+					$ledgerstr .= 'To ' . h($ledger_name) . ' / ';
+				} else {
+					$ledgerstr .= 'Cr ' . h($ledger_name) . ' / ';
+				}
+			}
+
+		}
+
+		// Return after removing the last 3 char i.e. ' / ' from string
+		return substr($ledgerstr, 0, -3);
+	}
 }

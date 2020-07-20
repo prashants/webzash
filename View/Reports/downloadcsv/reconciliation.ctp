@@ -59,7 +59,7 @@
 		$entryTypeName = Configure::read('Account.ET.' . $entry['Entry']['entrytype_id'] . '.name');
 		echo '"' . dateFromSql($entry['Entry']['date']) . '",';
 		echo '"' . h(toEntryNumber($entry['Entry']['number'], $entry['Entry']['entrytype_id'])) . '",';
-		echo '"' . h($this->Generic->entryLedgers($entry['Entry']['id'])) . '",';
+		echo '"' . h($this->Generic->entryLedgersReport($entry['Entry']['id'])) . '",';
 		echo '"' . h($entryTypeName) . '",';
 
 		if ($entry['Entryitem']['dc'] == 'D') {

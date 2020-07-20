@@ -69,13 +69,23 @@ class GenericHelper extends AppHelper {
 	}
 
 /**
- * Show the entry ledger details
+ * Show the entry ledger details - proxy function
  */
 	function entryLedgers($id, $entryitem_id = 0) {
 		/* Load the Entry model */
 		App::import("Webzash.Model", "Entry");
 		$Entry = new Entry();
 		return $Entry->entryLedgers($id, $entryitem_id);
+	}
+
+/**
+ * Show the entry ledger details - proxy function
+ */
+	function entryLedgersReport($id, $entryitem_id = 0, $report_type = 'csv') {
+		/* Load the Entry model */
+		App::import("Webzash.Model", "Entry");
+		$Entry = new Entry();
+		return $Entry->entryLedgersReport($id, $entryitem_id, $report_type);
 	}
 
 /**
