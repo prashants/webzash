@@ -49,7 +49,7 @@
 				<li><?php echo $this->Html->link(__d('webzash', 'Accounts'), array('plugin' => 'webzash', 'controller' => 'accounts', 'action' => 'show')); ?></li>
 				<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Entries'), array('plugin' => 'webzash', 'controller' => 'entries', 'action' => 'index')); ?></li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (__d('webzash', 'Reports ')); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Balance Sheet'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'balancesheet')); ?></li>
 						<li><?php echo '<li>' . $this->Html->link(__d('webzash', 'Profit & Loss'), array('plugin' => 'webzash', 'controller' => 'reports', 'action' => 'profitloss')); ?></li>
