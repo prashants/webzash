@@ -1,0 +1,3755 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright 2020 Ralse Hsu <ralse.hsu@my.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2020-08-15 00:39+0800\n"
+"PO-Revision-Date: 2020-08-15 00:44+0800\n"
+"Last-Translator: Ralse Hsu <ralse.hsu@my.com>\n"
+"Language-Team: Language: zh_TW\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-KeywordsList: __d:2\n"
+"X-Poedit-Basepath: "
+"Webzash\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Config/bootstrap.php:278 Model/Ledger.php:312
+#: View/Helper/GenericHelper.php:54 View/Helper/GenericHelper.php:114
+#: View/Helper/GenericHelper.php:138 View/Helper/GenericHelper.php:163
+#: View/Reports/downloadcsv/ledgerentries.ctp:66
+#: View/Reports/downloadcsv/ledgerentries.ctp:67
+#: View/Reports/downloadcsv/ledgerstatement.ctp:77
+#: View/Reports/downloadcsv/ledgerstatement.ctp:78
+#: View/Reports/downloadcsv/reconciliation.ctp:72
+#: View/Reports/downloadcsv/reconciliation.ctp:73
+#: View/Reports/downloadxls/ledgerentries.ctp:76
+#: View/Reports/downloadxls/ledgerentries.ctp:77
+#: View/Reports/downloadxls/ledgerstatement.ctp:87
+#: View/Reports/downloadxls/ledgerstatement.ctp:88
+#: View/Reports/downloadxls/reconciliation.ctp:86
+#: View/Reports/downloadxls/reconciliation.ctp:87
+#: View/Reports/ledgerentries.ctp:228 View/Reports/ledgerentries.ctp:229
+#: View/Reports/ledgerstatement.ctp:264 View/Reports/ledgerstatement.ctp:265
+#: View/Reports/print/ledgerentries.ctp:114
+#: View/Reports/print/ledgerentries.ctp:115
+#: View/Reports/print/ledgerstatement.ctp:124
+#: View/Reports/print/ledgerstatement.ctp:125
+#: View/Reports/print/reconciliation.ctp:104
+#: View/Reports/print/reconciliation.ctp:105
+#: View/Reports/reconciliation.ctp:256 View/Reports/reconciliation.ctp:257
+#: View/Search/index.ctp:265 View/Search/index.ctp:266
+msgid "ERROR"
+msgstr "錯誤"
+
+#: Controller/AccountsController.php:57
+msgid "Chart Of Accounts"
+msgstr "會計科目表"
+
+#: Controller/AccountsController.php:60
+msgid "Add Group"
+msgstr "建立帳戶群組"
+
+#: Controller/AccountsController.php:61
+msgid "Add Ledger"
+msgstr "建立帳戶分類帳"
+
+#: Controller/AdminController.php:54 View/Elements/adminnavbar.ctp:47
+msgid "Administrator Dashboard"
+msgstr "管理員儀表板"
+
+#: Controller/AdminController.php:60
+msgid "Please update your setting first."
+msgstr "請先更新您的設定。"
+
+#: Controller/Component/PermissionComponent.php:142
+#: Controller/Component/PermissionComponent.php:153
+#: Controller/Component/PermissionComponent.php:161
+#: Controller/Component/PermissionComponent.php:176
+#: Controller/Component/PermissionComponent.php:193
+#: Controller/Component/PermissionComponent.php:202
+#: Controller/WzusersController.php:1180 Controller/WzusersController.php:1184
+#: Controller/WzusersController.php:1188 Controller/WzusersController.php:1192
+msgid "Access denied."
+msgstr "禁止存取。"
+
+#: Controller/DashboardController.php:49
+msgid "Account Dashboard"
+msgstr "帳戶儀表板"
+
+#: Controller/DashboardController.php:58
+msgid ""
+"Groups table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到群組資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/DashboardController.php:67 Controller/DashboardController.php:118
+msgid ""
+"Ledgers table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到分類帳資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/DashboardController.php:76
+msgid ""
+"Entries table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到分錄資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/DashboardController.php:85
+msgid ""
+"Entryitems table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到分錄項目資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/DashboardController.php:94
+msgid ""
+"Tags table is missing. Please check whether this is a valid account database."
+msgstr "找不到標籤資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/DashboardController.php:103
+msgid ""
+"Logs table is missing. Please check whether this is a valid account database."
+msgstr "找不到記錄資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/EntriesController.php:49
+msgid "List Of Entries"
+msgstr "分錄清單"
+
+#: Controller/EntriesController.php:57
+msgid "Entry type not found. Showing all entries."
+msgstr "未找到分錄類型，顯示所有分錄。"
+
+#: Controller/EntriesController.php:110 Controller/EntriesController.php:177
+#: Controller/EntriesController.php:475 Controller/EntriesController.php:795
+#: Controller/EntrytypesController.php:126
+#: Controller/EntrytypesController.php:195
+msgid "Entry type not specified."
+msgstr "未指定分錄類型。"
+
+#: Controller/EntriesController.php:115 Controller/EntriesController.php:182
+#: Controller/EntriesController.php:480 Controller/EntriesController.php:800
+#: Controller/EntrytypesController.php:131
+#: Controller/EntrytypesController.php:202
+msgid "Entry type not found."
+msgstr "未找到分錄類型。"
+
+#: Controller/EntriesController.php:120
+#, php-format
+msgid "View %s Entry"
+msgstr "檢視%s分錄"
+
+#: Controller/EntriesController.php:124 Controller/EntriesController.php:508
+#: Controller/EntriesController.php:811 Controller/EntriesController.php:885
+#: Controller/EntriesController.php:1000 Controller/EntriesController.php:1072
+msgid "Entry not specified."
+msgstr "未指定分錄。"
+
+#: Controller/EntriesController.php:129 Controller/EntriesController.php:513
+#: Controller/EntriesController.php:818 Controller/EntriesController.php:896
+#: Controller/EntriesController.php:1007 Controller/EntriesController.php:1079
+msgid "Entry not found."
+msgstr "未找到分錄。"
+
+#: Controller/EntriesController.php:187
+#, php-format
+msgid "Add %s Entry"
+msgstr "建立%s分錄"
+
+#: Controller/EntriesController.php:261
+msgid "Entry number cannot be empty."
+msgstr "分錄編號不能空白。"
+
+#: Controller/EntriesController.php:299 Controller/EntriesController.php:609
+msgid "Invalid ledger selected."
+msgstr "選擇的分類帳無效。"
+
+#: Controller/EntriesController.php:305 Controller/EntriesController.php:615
+msgid "Only bank or cash ledgers are allowed for this entry type."
+msgstr "僅 銀行 或 現金分類帳 能存在此分錄類型。"
+
+#: Controller/EntriesController.php:311 Controller/EntriesController.php:621
+msgid "Bank or cash ledgers are not allowed for this entry type."
+msgstr "銀行或現金分類帳不允許用於此分錄類型。"
+
+#: Controller/EntriesController.php:332 Controller/EntriesController.php:642
+msgid ""
+"Atleast one bank or cash ledger has to be on debit side for this entry type."
+msgstr "這種分錄類型至少要有一個銀行或現金分類帳在借方。"
+
+#: Controller/EntriesController.php:338 Controller/EntriesController.php:648
+msgid ""
+"Atleast one bank or cash ledger has to be on credit side for this entry type."
+msgstr "這種分錄類型至少要有一個銀行或現金分類帳在貸方。"
+
+#: Controller/EntriesController.php:354 Controller/EntriesController.php:364
+#: Controller/EntriesController.php:664 Controller/EntriesController.php:674
+msgid "Invalid amount specified. Amount cannot be negative or zero."
+msgstr "指定的金額無效。金額不能為負數或零。"
+
+#: Controller/EntriesController.php:358 Controller/EntriesController.php:368
+#: Controller/EntriesController.php:668 Controller/EntriesController.php:678
+#: Controller/LedgersController.php:87 Controller/LedgersController.php:163
+#, php-format
+msgid "Invalid amount specified. Maximum %s decimal places allowed."
+msgstr "指定的金額無效。最大允許的小數點位數為%s。"
+
+#: Controller/EntriesController.php:373 Controller/EntriesController.php:683
+msgid "Invalid Dr/Cr option selected."
+msgstr "選擇的借/貸選項無效。"
+
+#: Controller/EntriesController.php:378 Controller/EntriesController.php:688
+msgid "Debit and Credit total do not match."
+msgstr "借方和貸方總額不一致。"
+
+#: Controller/EntriesController.php:426 Controller/EntriesController.php:743
+#, php-format
+msgid "Failed to save entry ledgers. Error is : %s"
+msgstr "儲存分類帳分錄失敗。錯誤：%s"
+
+#: Controller/EntriesController.php:433
+msgid "Oh snap ! Failed to create entry. Please, try again."
+msgstr "糟糕！建立分錄失敗，請再試一次。"
+
+#: Controller/EntriesController.php:446
+#, php-format
+msgid "%s entry numbered \"%s\" created."
+msgstr "%s 分錄編號 \"%s\" 已建立。"
+
+#: Controller/EntriesController.php:453
+msgid "Failed to create entry. Please, try again."
+msgstr "建立分錄失敗，請再試一次。"
+
+#: Controller/EntriesController.php:457 Controller/EntriesController.php:774
+#: Controller/EntriesController.php:979 Controller/EntrytypesController.php:105
+#: Controller/GroupsController.php:94 Controller/LedgersController.php:106
+#: Controller/TagsController.php:98 Controller/WzaccountsController.php:459
+#: Controller/WzusersController.php:182 Controller/WzusersController.php:1163
+msgid "No data. Please, try again."
+msgstr "無資料，請再試一次。"
+
+#: Controller/EntriesController.php:485
+#, php-format
+msgid "Edit %s Entry"
+msgstr "編輯%s分錄"
+
+#: Controller/EntriesController.php:563 Controller/EntriesController.php:1170
+#: Controller/EntrytypesController.php:140
+#: Controller/EntrytypesController.php:235 Controller/GroupsController.php:141
+#: Controller/GroupsController.php:250 Controller/LedgersController.php:147
+#: Controller/LedgersController.php:294 Controller/LogsController.php:80
+#: Controller/ReportsController.php:1165 Controller/SettingsController.php:75
+#: Controller/SettingsController.php:603 Controller/SettingsController.php:669
+#: Controller/TagsController.php:133 Controller/TagsController.php:218
+msgid "Sorry, no changes are possible since the account is locked."
+msgstr "抱歉，由於帳戶被鎖定，無法更改。"
+
+#: Controller/EntriesController.php:729
+msgid "Previous entry items could not be deleted."
+msgstr "上一條項目無法刪除。"
+
+#: Controller/EntriesController.php:750
+msgid "Oh snap ! Failed to update entry. Please, try again."
+msgstr "糟糕！更新分錄失敗，請再試一次。"
+
+#: Controller/EntriesController.php:763
+#, php-format
+msgid "%s entry numbered \"%s\" updated."
+msgstr "%s 分錄編號 \"%s\" 已更新。"
+
+#: Controller/EntriesController.php:770
+msgid "Failed to update entry. Please, try again."
+msgstr "更新分錄失敗，請再試一次。"
+
+#: Controller/EntriesController.php:828
+msgid "Failed to delete entry items. Please, try again."
+msgstr "刪除分錄項目失敗，請再試一次。"
+
+#: Controller/EntriesController.php:835
+msgid "Failed to delete entry. Please, try again."
+msgstr "刪除分錄失敗，請再試一次。"
+
+#: Controller/EntriesController.php:844
+#, php-format
+msgid "%s entry numbered \"%s\" deleted."
+msgstr "%s 分錄編號 \"%s\" 已刪除。"
+
+#: Controller/EntriesController.php:875
+msgid "Method not allowed."
+msgstr "方法不允許。"
+
+#: Controller/EntriesController.php:908
+msgid "Invalid email specified."
+msgstr "指定的Email無效。"
+
+#: Controller/EntriesController.php:919 Controller/EntriesController.php:1014
+#: Controller/EntriesController.php:1086
+msgid "Invalid entry type."
+msgstr "分錄類型無效。"
+
+#: Controller/EntriesController.php:966
+msgid "Email sent."
+msgstr "Email已發送。"
+
+#: Controller/EntriesController.php:971 View/Elements/emailerror.ctp:29
+msgid "Failed to send email. Please check your email settings."
+msgstr "Email發送失敗。請檢查您的Email設定。"
+
+#: Controller/EntrytypesController.php:47 View/Settings/index.ctp:82
+msgid "Entry Types"
+msgstr "分錄類型"
+
+#: Controller/EntrytypesController.php:50
+#: Controller/EntrytypesController.php:71
+msgid "Add Entry Type"
+msgstr "建立分錄類型"
+
+#: Controller/EntrytypesController.php:97
+#, php-format
+msgid "Entry Type \"%s\" created."
+msgstr "分錄類型 \"%s\" 已建立。"
+
+#: Controller/EntrytypesController.php:101
+msgid "Failed to create entry type. Please, try again."
+msgstr "建立分錄類型失敗，請再試一次。"
+
+#: Controller/EntrytypesController.php:122
+msgid "Edit Entry Type"
+msgstr "編輯分錄類型"
+
+#: Controller/EntrytypesController.php:165
+#, php-format
+msgid "Entry type \"%s\" updated."
+msgstr "分錄類型 \"%s\" 已更新。"
+
+#: Controller/EntrytypesController.php:169
+msgid "Failed to update entry type. Please, try again."
+msgstr "更新分錄類型失敗，請再試一次。"
+
+#: Controller/EntrytypesController.php:209
+msgid ""
+"Entry type cannot be deleted since one or more entries are still using it."
+msgstr "因一或多個分錄使用此分錄類型，無法刪除。"
+
+#: Controller/EntrytypesController.php:220
+#, php-format
+msgid "Entry type \"%s\" deleted."
+msgstr "分錄類型 \"%s\" 已刪除。"
+
+#: Controller/EntrytypesController.php:223
+msgid "Failed to delete entry type. Please, try again."
+msgstr "刪除分錄類型失敗，請再試一次。"
+
+#: Controller/GroupsController.php:57
+msgid "Add Account Group"
+msgstr "建立帳戶群組"
+
+#: Controller/GroupsController.php:86
+#, php-format
+msgid "Account group \"%s\" created."
+msgstr "帳戶群組 \"%s\" 已建立。"
+
+#: Controller/GroupsController.php:90
+msgid "Failed to create account group. Please, try again."
+msgstr "建立帳戶群組失敗，請再試一次。"
+
+#: Controller/GroupsController.php:111
+msgid "Edit Account Group"
+msgstr "編輯帳戶群組"
+
+#: Controller/GroupsController.php:115 Controller/GroupsController.php:197
+msgid "Account group not specified."
+msgstr "未指定帳戶群組。"
+
+#: Controller/GroupsController.php:120 Controller/GroupsController.php:204
+msgid "Account group not found."
+msgstr "未找到帳戶群組。"
+
+#: Controller/GroupsController.php:124
+msgid "Cannot edit basic account groups."
+msgstr "不能編輯基本帳戶群組。"
+
+#: Controller/GroupsController.php:151
+msgid "Account group and parent group cannot be same."
+msgstr "帳戶群組和母群不能相同。"
+
+#: Controller/GroupsController.php:167
+#, php-format
+msgid "Account group \"%s\" updated."
+msgstr "帳戶群組 \"%s\" 已更新。"
+
+#: Controller/GroupsController.php:171
+msgid "Failed to update account group. Please, try again."
+msgstr "更新帳戶群組失敗，請再試一次。"
+
+#: Controller/GroupsController.php:210
+msgid "Cannot delete basic account groups."
+msgstr "無法刪除基本帳戶群組。"
+
+#: Controller/GroupsController.php:217
+msgid ""
+"Account group cannot be deleted since it has one or more child group "
+"accounts still present."
+msgstr "帳戶群組不能刪除，因為它仍有一個或多個子群組帳戶存在。"
+
+#: Controller/GroupsController.php:224
+msgid ""
+"Account group cannot not be deleted since it has one or more child ledger "
+"accounts still present."
+msgstr "帳戶群組不能刪除，因為它仍有一個或多個子分類帳帳戶存在。"
+
+#: Controller/GroupsController.php:235
+#, php-format
+msgid "Account group \"%s\" deleted."
+msgstr "帳戶群組 \"%s\" 已刪除。"
+
+#: Controller/GroupsController.php:238
+msgid "Failed to delete account group. Please, try again."
+msgstr "刪除帳戶群組失敗，請再試一次。"
+
+#: Controller/HelpController.php:52 View/Elements/defaultnavbar.ctp:64
+msgid "Help"
+msgstr "幫助"
+
+#: Controller/LedgersController.php:58
+msgid "Add Account Ledger"
+msgstr "建立帳戶分類帳"
+
+#: Controller/LedgersController.php:98
+#, php-format
+msgid "Account ledger \"%s\" created."
+msgstr "已建立帳戶分類帳\"%s\"。"
+
+#: Controller/LedgersController.php:102
+msgid "Failed to create account ledger. Please, try again."
+msgstr "建立分類帳失敗，請再試一次。"
+
+#: Controller/LedgersController.php:121
+msgid "Edit Account Ledger"
+msgstr "編輯帳戶分類帳"
+
+#: Controller/LedgersController.php:125 Controller/LedgersController.php:208
+msgid "Account ledger not specified."
+msgstr "未指定帳戶分類帳。"
+
+#: Controller/LedgersController.php:130 Controller/LedgersController.php:215
+msgid "Account ledger not found."
+msgstr "未找到帳戶分類帳。"
+
+#: Controller/LedgersController.php:178
+#, php-format
+msgid "Account ledger \"%s\" updated."
+msgstr "帳戶分類帳 \"%s\" 已更新。"
+
+#: Controller/LedgersController.php:182
+msgid "Failed to update account ledger. Please, try again."
+msgstr "更新帳戶分類帳失敗，請再試一次。"
+
+#: Controller/LedgersController.php:222
+msgid ""
+"Account ledger cannot not be deleted since it has one or more entries still "
+"present."
+msgstr "帳戶分類帳不能刪除，因為它仍有一個或多個分錄存在。"
+
+#: Controller/LedgersController.php:233
+#, php-format
+msgid "Account ledger \"%s\" deleted."
+msgstr "帳戶分類帳 \"%s\" 已刪除。"
+
+#: Controller/LedgersController.php:236
+msgid "Failed to delete account ledger. Please, try again."
+msgstr "刪除分類帳失敗，請再試一次。"
+
+#: Controller/LogsController.php:45
+msgid "Logs"
+msgstr "記錄"
+
+#: Controller/LogsController.php:48
+msgid "Clear Logs"
+msgstr "清除日誌"
+
+#: Controller/LogsController.php:49 Controller/WzaccountsController.php:58
+#: Controller/WzsettingsController.php:106 Controller/WzusersController.php:58
+msgid "Back"
+msgstr "返回"
+
+#: Controller/LogsController.php:66
+msgid "Logs cleared."
+msgstr "日誌已清除。"
+
+#: Controller/LogsController.php:68
+msgid "Failed to clear logs. Please, try again."
+msgstr "清除紀錄失敗，請再試一次。"
+
+#: Controller/ReportsController.php:54
+msgid "Reports"
+msgstr "報告"
+
+#: Controller/ReportsController.php:66 View/Elements/defaultnavbar.ctp:54
+msgid "Balance Sheet"
+msgstr "資產負債表"
+
+#: Controller/ReportsController.php:107 Controller/ReportsController.php:143
+msgid "Balance Sheet as on "
+msgstr "資產負債表 於 "
+
+#: Controller/ReportsController.php:116
+msgid "Opening Balance Sheet as on "
+msgstr "期初餘額表 於 "
+
+#: Controller/ReportsController.php:133 Controller/ReportsController.php:138
+msgid "Balance Sheet from "
+msgstr "資產負債表 從 "
+
+#: Controller/ReportsController.php:309
+msgid "Trading and Profit & Loss Statement"
+msgstr "交易和損益表"
+
+#: Controller/ReportsController.php:351 Controller/ReportsController.php:376
+#: Controller/ReportsController.php:381 Controller/ReportsController.php:386
+msgid "Trading and Profit & Loss Statement from "
+msgstr "交易和損益表 從 "
+
+#: Controller/ReportsController.php:361
+msgid "Opening Trading and Profit & Loss Statement as on "
+msgstr "於下列日期的期初交易及損益表 "
+
+#: Controller/ReportsController.php:530 View/Elements/defaultnavbar.ctp:56
+msgid "Trial Balance"
+msgstr "試算表"
+
+#: Controller/ReportsController.php:533
+#, php-format
+msgid "Trial Balance from %s to %s"
+msgstr "試算表 從 %s 至 %s"
+
+#: Controller/ReportsController.php:593 View/Elements/defaultnavbar.ctp:57
+msgid "Ledger Statement"
+msgstr "分類帳報表"
+
+#: Controller/ReportsController.php:615 Controller/ReportsController.php:902
+#: Controller/ReportsController.php:1141
+msgid "Invalid ledger."
+msgstr "無效分類帳。"
+
+#: Controller/ReportsController.php:647 Controller/ReportsController.php:934
+#: Controller/ReportsController.php:1211
+msgid "Ledger not found."
+msgstr "未找到分類帳。"
+
+#: Controller/ReportsController.php:666 Controller/ReportsController.php:690
+#: Controller/ReportsController.php:696 Controller/ReportsController.php:702
+#, php-format
+msgid "Ledger statement for %s from %s to %s"
+msgstr "%s分類帳報表 從 %s 至 %s"
+
+#: Controller/ReportsController.php:712 Controller/ReportsController.php:715
+#: Controller/ReportsController.php:999 Controller/ReportsController.php:1002
+#: Controller/ReportsController.php:1293 Controller/ReportsController.php:1296
+#, php-format
+msgid "Opening balance as on %s"
+msgstr "期初餘額 於 %s"
+
+#: Controller/ReportsController.php:719 Controller/ReportsController.php:722
+#: Controller/ReportsController.php:1006 Controller/ReportsController.php:1009
+#: Controller/ReportsController.php:1300 Controller/ReportsController.php:1303
+#, php-format
+msgid "Closing balance as on %s"
+msgstr "期終餘額 於 %s"
+
+#: Controller/ReportsController.php:880 View/Elements/defaultnavbar.ctp:58
+msgid "Ledger Entries"
+msgstr "分類帳分錄"
+
+#: Controller/ReportsController.php:953 Controller/ReportsController.php:977
+#: Controller/ReportsController.php:983 Controller/ReportsController.php:989
+#, php-format
+msgid "Ledger entries for %s from %s to %s"
+msgstr "%s分類帳分錄 從 %s 至 %s"
+
+#: Controller/ReportsController.php:1118
+msgid "Ledger Reconciliation"
+msgstr "分類帳對帳"
+
+#: Controller/ReportsController.php:1126
+msgid "Please select..."
+msgstr "請選擇..."
+
+#: Controller/ReportsController.php:1177
+msgid "Invalid reconciliation date."
+msgstr "對帳日期無效。"
+
+#: Controller/ReportsController.php:1231 Controller/ReportsController.php:1258
+#: Controller/ReportsController.php:1264 Controller/ReportsController.php:1270
+#: Controller/ReportsController.php:1277
+#, php-format
+msgid "Reconciliation report for %s from %s to %s"
+msgstr "從%s至%s的%s對帳報告"
+
+#: Controller/ReportsController.php:1309 Controller/ReportsController.php:1314
+#: Controller/ReportsController.php:1318 Controller/ReportsController.php:1323
+#, php-format
+msgid "Reconciliation pending from %s to %s"
+msgstr "從%s至%s的待核對數"
+
+#: Controller/SearchController.php:49 View/Elements/defaultnavbar.ctp:62
+#: View/Search/index.ctp:208
+msgid "Search"
+msgstr "搜尋"
+
+#: Controller/SettingsController.php:50 View/Elements/defaultnavbar.ctp:63
+msgid "Settings"
+msgstr "設定"
+
+#: Controller/SettingsController.php:62
+msgid "Account Settings"
+msgstr "帳戶設定"
+
+#: Controller/SettingsController.php:66 Controller/SettingsController.php:594
+#: Controller/SettingsController.php:660 Controller/SettingsController.php:717
+msgid "Account settings not found."
+msgstr "未找到帳戶設定。"
+
+#: Controller/SettingsController.php:97
+#, php-format
+msgid ""
+"Failed to update account setting since there are %d entries beyond the "
+"selected financial year start and end dates."
+msgstr "更新帳戶設定失敗，因為有%d項超過了所選財政年度的開始和結束日期。"
+
+#: Controller/SettingsController.php:105
+msgid ""
+"Failed to update account setting since financial year end should be after "
+"financial year start."
+msgstr "由於財政年度結束應在財政年度開始後，所以未能更新帳戶設定。"
+
+#: Controller/SettingsController.php:116
+msgid "Account settings updated."
+msgstr "帳戶設定已更新。"
+
+#: Controller/SettingsController.php:120
+msgid "Failed to update account settings. Please, try again."
+msgstr "更新帳戶設定失敗，請再試一次。"
+
+#: Controller/SettingsController.php:140
+msgid "Carry Forward Account"
+msgstr "遞轉下期帳戶"
+
+#: Controller/SettingsController.php:149 Controller/WzaccountsController.php:89
+msgid ""
+"Sorry, currently MS SQL Server is not supported. We might add it soon, if "
+"you want to help let us know."
+msgstr ""
+"對不起，目前不支援MS SQL Server。我們可能會很快新增，如果你想幫助我們，請告訴"
+"我們。"
+
+#: Controller/SettingsController.php:158 Controller/WzaccountsController.php:98
+msgid "Label is already in use. Please, try again."
+msgstr "標籤已在使用中，請再試一次。"
+
+#: Controller/SettingsController.php:164
+#: Controller/WzaccountsController.php:104
+msgid "Label is required."
+msgstr "必須輸入標籤。"
+
+#: Controller/SettingsController.php:168
+#: Controller/WzaccountsController.php:108
+msgid "Company / Personal Name is required."
+msgstr "必須輸入公司 / 個人名稱。"
+
+#: Controller/SettingsController.php:172
+#: Controller/WzaccountsController.php:112
+msgid "Date format is required."
+msgstr "必須輸入日期格式。"
+
+#: Controller/SettingsController.php:176
+#: Controller/WzaccountsController.php:124
+msgid "Financial year start is required."
+msgstr "必須輸入財政年度開始日。"
+
+#: Controller/SettingsController.php:180
+#: Controller/WzaccountsController.php:128
+msgid "Financial year end is required."
+msgstr "必須輸入財政年度結束日。"
+
+#: Controller/SettingsController.php:184
+#: Controller/WzaccountsController.php:132
+msgid "Database name is required."
+msgstr "必須輸入資料庫名稱。"
+
+#: Controller/SettingsController.php:188
+#: Controller/WzaccountsController.php:136
+msgid "Database host is required."
+msgstr "必須輸入資料庫位址。"
+
+#: Controller/SettingsController.php:192
+#: Controller/WzaccountsController.php:140
+msgid "Database port is required."
+msgstr "必須輸入資料庫通訊埠。"
+
+#: Controller/SettingsController.php:196
+#: Controller/WzaccountsController.php:144
+msgid "Database login is required."
+msgstr "必須輸入資料庫登入帳號。"
+
+#: Controller/SettingsController.php:200
+msgid "Database password is required."
+msgstr "必須輸入資料庫密碼。"
+
+#: Controller/SettingsController.php:208
+#: Controller/WzaccountsController.php:152
+msgid "Financial year start date cannot be after end date."
+msgstr "財政年度開始日須早於結束日。"
+
+#: Controller/SettingsController.php:266
+#: Controller/WzaccountsController.php:222
+msgid "Cound not connect to database. Please, check your database settings."
+msgstr "無法連線到資料庫。請檢查您的資料庫設定。"
+
+#: Controller/SettingsController.php:274
+msgid "Could not read original settings. Please, try again."
+msgstr "無法讀取原始設定，請再試一次。"
+
+#: Controller/SettingsController.php:312
+#: Controller/WzaccountsController.php:260
+#, php-format
+msgid ""
+"Table with the same name as \"%s\" already existsin the \"%s\" database. "
+"Please, use another database or use a different prefix."
+msgstr ""
+"在 \"%s\" 資料庫中已經存在與 \"%s\" 同名的資料表。請使用其他資料庫或使用不同"
+"的前綴。"
+
+#: Controller/SettingsController.php:347
+#: Controller/WzaccountsController.php:295
+msgid ""
+"Oh Snap ! Something went wrong while creating the database tables. Please "
+"check your settings and try again."
+msgstr "糟糕！建立資料庫資料表時出了點問題。請檢查您的設定後再試一次。"
+
+#: Controller/SettingsController.php:404
+msgid ""
+"Account database created, but could not carry forward account groups. "
+"Please, try again."
+msgstr "已建立帳戶資料庫，但無法帶入帳戶群組，請再試一次。"
+
+#: Controller/SettingsController.php:415
+msgid ""
+"Account database created, but could not carry forward account ledgers. "
+"Please, try again."
+msgstr "已建立帳戶資料庫，但無法帶入帳戶分類帳，請再試一次。"
+
+#: Controller/SettingsController.php:430
+msgid ""
+"Account database created, but could not carry forward entrytypes. Please, "
+"try again."
+msgstr "已建立帳戶資料庫，但無法帶入分錄類型，請再試一次。"
+
+#: Controller/SettingsController.php:445
+msgid ""
+"Account database created, but could not carry forward tags. Please, try "
+"again."
+msgstr "已建立帳戶資料庫，但無法帶入標籤，請再試一次。"
+
+#: Controller/SettingsController.php:494
+#: Controller/WzaccountsController.php:379
+#, php-format
+msgid ""
+"Account database created, but account settings could not be saved. Please, "
+"try again. Error is : \"%s\"."
+msgstr "建立了帳戶資料庫，但無法保存帳戶設定，請再試一次。錯誤訊息：\"%s\"。"
+
+#: Controller/SettingsController.php:521
+#: Controller/WzaccountsController.php:406
+msgid "Account created."
+msgstr "帳戶已建立。"
+
+#: Controller/SettingsController.php:528
+#: Controller/WzaccountsController.php:413
+#, php-format
+msgid ""
+"Account database created, but account config could not be saved. Please, try "
+"again. Error is : \"%s\"."
+msgstr "已建立帳戶資料庫，但無法儲存帳戶設定，請再試一次。錯誤訊息：\"%s\"。"
+
+#: Controller/SettingsController.php:590
+msgid "Email Settings"
+msgstr "Email設定"
+
+#: Controller/SettingsController.php:624 Controller/SettingsController.php:635
+msgid "Email settings updated."
+msgstr "Email設定已更新。"
+
+#: Controller/SettingsController.php:628 Controller/SettingsController.php:639
+msgid "Failed to update email settings. Please, try again."
+msgstr "更新Email設定失敗，請再試一次。"
+
+#: Controller/SettingsController.php:656
+msgid "Printer Settings"
+msgstr "列印設定"
+
+#: Controller/SettingsController.php:684
+msgid "Printer settings updated."
+msgstr "列印設定已更新。"
+
+#: Controller/SettingsController.php:688
+msgid "Failed to update printer settings. Please, try again."
+msgstr "更新列印設定失敗，請再試一次。"
+
+#: Controller/SettingsController.php:713
+msgid "Lock Account"
+msgstr "鎖定帳戶"
+
+#: Controller/SettingsController.php:741
+msgid "Account locked."
+msgstr "帳戶已鎖定。"
+
+#: Controller/SettingsController.php:743
+msgid "Account unlocked."
+msgstr "帳戶已解鎖。"
+
+#: Controller/SettingsController.php:749
+msgid "Failed to lock account. Please, try again."
+msgstr "鎖定帳戶失敗，請再試一次。"
+
+#: Controller/SettingsController.php:751
+msgid "Failed to unlock account. Please, try again."
+msgstr "解鎖帳戶失敗，請再試一次。"
+
+#: Controller/TagsController.php:47 View/Search/index.ctp:202
+#: View/Settings/index.ctp:74
+msgid "Tags"
+msgstr "標籤"
+
+#: Controller/TagsController.php:50 Controller/TagsController.php:74
+msgid "Add Tag"
+msgstr "新增標籤"
+
+#: Controller/TagsController.php:90
+#, php-format
+msgid "Tag \"%s\" created."
+msgstr "已建立標籤：\"%s\"。"
+
+#: Controller/TagsController.php:94
+msgid "Failed to create tag. Please, try again."
+msgstr "標籤建立失敗，請再試一次。"
+
+#: Controller/TagsController.php:115
+msgid "Edit Tag"
+msgstr "編輯標籤"
+
+#: Controller/TagsController.php:119 Controller/TagsController.php:178
+msgid "Tag not specified."
+msgstr "未指定標籤。"
+
+#: Controller/TagsController.php:124 Controller/TagsController.php:185
+msgid "Tag not found."
+msgstr "未找到標籤。"
+
+#: Controller/TagsController.php:148
+#, php-format
+msgid "Tag \"%s\" updated."
+msgstr "標籤 \"%s\" 已更新。"
+
+#: Controller/TagsController.php:152
+msgid "Failed to update tag. Please, try again."
+msgstr "更新標籤失敗，請再試一次。"
+
+#: Controller/TagsController.php:192
+msgid "Tag cannot be deleted since one or more entries are still using it."
+msgstr "因一或多個分錄使用此標籤，無法刪除。"
+
+#: Controller/TagsController.php:203
+#, php-format
+msgid "Tag \"%s\" deleted."
+msgstr "標籤 \"%s\" 已刪除。"
+
+#: Controller/TagsController.php:206
+msgid "Failed to delete tag. Please, try again."
+msgstr "刪除標籤失敗，請再試一次。"
+
+#: Controller/WebzashAppController.php:108
+msgid "Please choose a account."
+msgstr "請選擇帳戶。"
+
+#: Controller/WebzashAppController.php:122
+msgid ""
+"Settings table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到設定資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/WebzashAppController.php:128
+msgid ""
+"Account settings not found. Please check if the database settings are "
+"correct."
+msgstr "未找到帳戶設定，請檢查資料庫設定是否正確。"
+
+#: Controller/WebzashAppController.php:136
+msgid ""
+"You are connecting to a database which belongs to older version of this "
+"application. Please check the Wiki in the help section on how to upgrade "
+"your database."
+msgstr ""
+"您連線的資料庫屬於此應用程序的舊版本。請查看Wiki的幫助部分，瞭解如何升級您的"
+"資料庫。"
+
+#: Controller/WebzashAppController.php:142
+msgid "You need to update the account database before activating this account."
+msgstr "在啟動這個帳戶之前，您需要更新帳戶資料庫。"
+
+#: Controller/WebzashAppController.php:148
+msgid ""
+"You need to update the account database before activating this account. "
+"Kindly contact the site administrator to update the account database."
+msgstr ""
+"在啟動這個帳戶之前，您需要更新帳戶資料庫。 請聯繫網站管理員更新帳戶資料庫。"
+
+#: Controller/WebzashAppController.php:154
+msgid ""
+"You are connecting to a database which belongs to newer version of this "
+"application. Please upgrade this application before you can connect to the "
+"database."
+msgstr ""
+"您連線的資料庫屬於此應用程序的較新版本。請在連線到資料庫之前升級此應用程序。"
+
+#: Controller/WebzashAppController.php:162
+msgid "Decimal places should be set to 2 or 3 in account settings."
+msgstr "帳戶設定的小數位數應設定成2或3。"
+
+#: Controller/WebzashAppController.php:192
+msgid ""
+"Entry types table is missing. Please check whether this is a valid account "
+"database."
+msgstr "找不到分錄類型資料表，請檢查帳戶資料庫是否有效。"
+
+#: Controller/WebzashAppController.php:213
+msgid ""
+"CSRF Token Expired ! You have exceeded the time limit set to complete a "
+"request, so for security reasons you need to redo whatever you were trying "
+"to do."
+msgstr ""
+"CSRF token過期！你已超過完成請求的時間限制，為了安全起見，你需要再試一次。"
+
+#: Controller/WzaccountsController.php:51 View/Elements/adminnavbar.ctp:50
+#: View/Elements/defaultnavbar.ctp:49
+msgid "Accounts"
+msgstr "帳戶"
+
+#: Controller/WzaccountsController.php:56
+msgid "Create Account"
+msgstr "建立帳戶"
+
+#: Controller/WzaccountsController.php:57
+#: Controller/WzaccountsController.php:426
+msgid "Import Account Config"
+msgstr "匯入帳戶設定"
+
+#: Controller/WzaccountsController.php:80
+msgid "Create new account"
+msgstr "建立新帳戶"
+
+#: Controller/WzaccountsController.php:116
+msgid "Currency format is required."
+msgstr "必須輸入貨幣格式。"
+
+#: Controller/WzaccountsController.php:120
+msgid "Decimal places is required."
+msgstr "必須選擇小數位數。"
+
+#: Controller/WzaccountsController.php:158
+msgid "Email address is invalid."
+msgstr "無效的Email信箱。"
+
+#: Controller/WzaccountsController.php:164
+msgid "Decimal places can only be 2 or 3."
+msgstr "小數位數只能選2或3。"
+
+#: Controller/WzaccountsController.php:317
+#: Controller/WzaccountsController.php:330
+msgid ""
+"Oh Snap ! Something went wrong while adding initial data. Please try again."
+msgstr "糟糕！新增初始數據時出了點問題，請再試一次。"
+
+#: Controller/WzaccountsController.php:451
+msgid "Account config added."
+msgstr "已新增帳戶設定。"
+
+#: Controller/WzaccountsController.php:455
+msgid "Failed to add account config. Please, try again."
+msgstr "新增帳戶設定失敗，請再試一次。"
+
+#: Controller/WzaccountsController.php:474
+msgid "Edit Account Config"
+msgstr "編輯帳戶設定"
+
+#: Controller/WzaccountsController.php:481
+#: Controller/WzaccountsController.php:619
+msgid "Account not specified."
+msgstr "未指定帳戶。"
+
+#: Controller/WzaccountsController.php:486
+#: Controller/WzaccountsController.php:625
+#: Controller/WzusersController.php:1329
+msgid "Account not found."
+msgstr "未找到帳戶。"
+
+#: Controller/WzaccountsController.php:509
+msgid "Updated account config."
+msgstr "已更新帳戶設定。"
+
+#: Controller/WzaccountsController.php:513
+msgid "Failed to update account config. Please, try again."
+msgstr "更新帳戶設定失敗，請再試一次。"
+
+#: Controller/WzaccountsController.php:529
+msgid "Update Account"
+msgstr "更新帳戶"
+
+#: Controller/WzaccountsController.php:540
+msgid "Failed to connect to account database."
+msgstr "連線帳戶資料庫失敗。"
+
+#: Controller/WzaccountsController.php:548
+msgid ""
+"You are using very old version of database. Please check Wiki on how to "
+"update database."
+msgstr "您使用的是非常舊版本的資料庫。請檢查Wiki如何更新資料庫。"
+
+#: Controller/WzaccountsController.php:552
+msgid "Account database is already updated."
+msgstr "帳戶資料庫已更新。"
+
+#: Controller/WzaccountsController.php:586
+#, php-format
+msgid ""
+"Oh Snap ! Something went wrong while updating the database tables.<br /"
+">Error is : %s."
+msgstr "糟糕！更新資料庫資料表的時候出了點問題。<br />錯誤訊息：%s."
+
+#: Controller/WzaccountsController.php:593
+msgid "Account database updated successfully."
+msgstr "帳戶資料庫更新成功。"
+
+#: Controller/WzaccountsController.php:636
+msgid "Failed to delete account config. Please, try again."
+msgstr "刪除帳戶設定失敗，請再試一次。"
+
+#: Controller/WzaccountsController.php:643
+msgid "Failed to delete user-account relationship. Please, try again."
+msgstr "刪除使用者-帳戶關係失敗，請再試一次。"
+
+#: Controller/WzaccountsController.php:649
+msgid "Account config deleted. Please delete the account database manually."
+msgstr "已刪除帳戶設定，請手動刪除帳戶資料庫。"
+
+#: Controller/WzsettingsController.php:57
+msgid "Edit General Settings"
+msgstr "一般設定"
+
+#: Controller/WzsettingsController.php:85
+msgid "Settings updated. Please relogin for the new settings to take effect."
+msgstr "設定已更新，請重新登入以套用新設定。"
+
+#: Controller/WzsettingsController.php:89
+msgid "Failed to update settings. Please, try again."
+msgstr "更新設定失敗，請再試一次。"
+
+#: Controller/WzsettingsController.php:109
+msgid "System Information"
+msgstr "系統資訊"
+
+#: Controller/WzusersController.php:52
+msgid "Users"
+msgstr "使用者"
+
+#: Controller/WzusersController.php:57 Controller/WzusersController.php:80
+msgid "Add User"
+msgstr "建立使用者"
+
+#: Controller/WzusersController.php:89
+msgid "Please update your settings below before adding any users."
+msgstr "在建立使用者前，請先更新底下設定。"
+
+#: Controller/WzusersController.php:109 Controller/WzusersController.php:901
+#: Controller/WzusersController.php:975 Controller/WzusersController.php:1113
+msgid "Password should be atleast 4 characters."
+msgstr "密碼最少4位。"
+
+#: Controller/WzusersController.php:152 Controller/WzusersController.php:178
+#: Controller/WzusersController.php:1159
+msgid "Failed to create user account. Please, try again."
+msgstr "建立使用者帳戶失敗，請再試一次。"
+
+#: Controller/WzusersController.php:173 Controller/WzusersController.php:1140
+msgid "User account created."
+msgstr "使用者帳戶已建立。"
+
+#: Controller/WzusersController.php:197
+msgid "Edit User"
+msgstr "編輯使用者"
+
+#: Controller/WzusersController.php:206
+msgid "Please update your settings below before editing any user."
+msgstr "在編輯任何使用者設定前，請先更新底下設定。"
+
+#: Controller/WzusersController.php:212 Controller/WzusersController.php:327
+#: Controller/WzusersController.php:958
+msgid "User account not specified."
+msgstr "未指定使用者帳戶。"
+
+#: Controller/WzusersController.php:217 Controller/WzusersController.php:333
+#: Controller/WzusersController.php:835 Controller/WzusersController.php:894
+#: Controller/WzusersController.php:966
+msgid "User account not found."
+msgstr "未找到使用者帳戶。"
+
+#: Controller/WzusersController.php:259 Controller/WzusersController.php:275
+#: Controller/WzusersController.php:286
+msgid "Failed to update user account. Please, try again."
+msgstr "更新使用者帳戶失敗，請再試一次。"
+
+#: Controller/WzusersController.php:282
+msgid "User account updated."
+msgstr "已更新使用者帳戶。"
+
+#: Controller/WzusersController.php:339
+msgid "Cannot delete own account."
+msgstr "無法刪除擁有的帳戶。"
+
+#: Controller/WzusersController.php:349 Controller/WzusersController.php:356
+msgid "Failed to delete user account. Please, try again."
+msgstr "刪除使用者帳戶失敗，請再試一次。"
+
+#: Controller/WzusersController.php:362
+msgid "User account deleted."
+msgstr "使用者帳戶已刪除。"
+
+#: Controller/WzusersController.php:376 Controller/WzusersController.php:566
+msgid "User Login"
+msgstr "登入"
+
+#: Controller/WzusersController.php:467
+msgid ""
+"Login failed. You have exceed 5 login attempts hence your account has been "
+"disabled. Please contact your administrator to re-enable the account."
+msgstr "登入失敗已達5次，此帳戶已停用。請聯絡管理員重新啟用。"
+
+#: Controller/WzusersController.php:469
+#, php-format
+msgid ""
+"Login failed. You still have %d attempts left out of 5 before the account is "
+"disabled."
+msgstr "登入失敗，您已重試 %d 次，達到5次將停用帳戶。"
+
+#: Controller/WzusersController.php:472 Controller/WzusersController.php:552
+#: Controller/WzusersController.php:682
+msgid "Login failed. Please, try again."
+msgstr "登入失敗，請再試一次。"
+
+#: Controller/WzusersController.php:478
+msgid "User account is diabled. Please contact your administrator."
+msgstr "使用者帳戶已關閉，請聯絡管理員。"
+
+#: Controller/WzusersController.php:483
+msgid "Administrator approval is pending. Please contact your administrator."
+msgstr "正在等待管理員批准，請聯絡管理員。"
+
+#: Controller/WzusersController.php:489 View/Wzusers/account.ctp:32
+#: View/Wzusers/account.ctp:40
+msgid "here"
+msgstr "點擊這裡"
+
+#: Controller/WzusersController.php:490
+msgid ""
+"Email verification is pending. Please verify your email. To resend "
+"verification email click "
+msgstr "Email等待驗證中，請檢查您的Email信箱。若要重新發送驗證信，請點 "
+
+#: Controller/WzusersController.php:537
+msgid "Please update your password, fullname and email address to continue."
+msgstr "請更新您的密碼、姓名和Email信箱以繼續。"
+
+#: Controller/WzusersController.php:541
+msgid ""
+"Warning ! You are using the default password. Please change your password."
+msgstr "警告! 您正在使用預設密碼。請更改您的密碼。"
+
+#: Controller/WzusersController.php:644
+msgid "Failed to create user."
+msgstr "建立使用者失敗。"
+
+#: Controller/WzusersController.php:707
+msgid "User Email Verification"
+msgstr "使用者Email信箱驗證"
+
+#: Controller/WzusersController.php:723 Controller/WzusersController.php:728
+#: Controller/WzusersController.php:740 Controller/WzusersController.php:768
+msgid "Email verification failed. Please, try again."
+msgstr "Email驗證失敗，請再試一次。"
+
+#: Controller/WzusersController.php:764
+msgid "User account verified."
+msgstr "使用者帳戶已驗證。"
+
+#: Controller/WzusersController.php:778
+msgid "Resend Verification Email"
+msgstr "重寄驗證信"
+
+#: Controller/WzusersController.php:796 Controller/WzusersController.php:1040
+msgid "Invalid username or email. Please, try again."
+msgstr "使用者名稱或Email無效，請再試一次。"
+
+#: Controller/WzusersController.php:812
+msgid "Verification email sent. Please check your email."
+msgstr "已寄出驗證信，請檢查您的Email信箱。"
+
+#: Controller/WzusersController.php:823 View/Elements/adminnavbar.ctp:54
+#: View/Elements/defaultnavbar.ctp:73
+msgid "Update Profile"
+msgstr "更新資料"
+
+#: Controller/WzusersController.php:856
+msgid ""
+"Profile updated. You need to verify your new email address, please check "
+"your email for verification details."
+msgstr "個人資料已更新。您需要驗證新的Email信箱，請收信以獲得更多驗證細節。"
+
+#: Controller/WzusersController.php:858 Controller/WzusersController.php:1214
+msgid "Profile updated."
+msgstr "個人資料已更新。"
+
+#: Controller/WzusersController.php:868 Controller/WzusersController.php:1219
+msgid "Failed to update profile. Please, try again."
+msgstr "更新個人資料失敗，請再試一次。"
+
+#: Controller/WzusersController.php:882 View/Elements/adminnavbar.ctp:55
+#: View/Elements/defaultnavbar.ctp:74
+msgid "Change Password"
+msgstr "修改密碼"
+
+#: Controller/WzusersController.php:907
+msgid "Your existing password does not match. Please, try again."
+msgstr "您現有的密碼不一致，請再試一次。"
+
+#: Controller/WzusersController.php:920
+msgid "Password updated."
+msgstr "密碼已更新。"
+
+#: Controller/WzusersController.php:940
+msgid "Failed to update password. Please, try again."
+msgstr "更新密碼失敗，請再試一次。"
+
+#: Controller/WzusersController.php:953
+msgid "Reset Password"
+msgstr "重設密碼"
+
+#: Controller/WzusersController.php:1001
+msgid "User password updated. Email sent to user with the new password."
+msgstr "使用者密碼已更新。新密碼已寄到使用者的eMail信箱。"
+
+#: Controller/WzusersController.php:1003
+msgid "User password updated."
+msgstr "使用者密碼已更新。"
+
+#: Controller/WzusersController.php:1008
+msgid "Failed to update user password. Please, try again."
+msgstr "更新使用者密碼失敗，請再試一次。"
+
+#: Controller/WzusersController.php:1021 View/Wzusers/login.ctp:64
+msgid "Forgot Password"
+msgstr "忘記密碼"
+
+#: Controller/WzusersController.php:1068
+msgid ""
+"Password reset. Please check your email for more details on how to reset "
+"password."
+msgstr "重設密碼。請檢查Email信箱，取得更多關於\"如何重設密碼\"的資訊。"
+
+#: Controller/WzusersController.php:1082
+msgid "User Registration"
+msgstr "使用者註冊"
+
+#: Controller/WzusersController.php:1174
+msgid "First time login"
+msgstr "第一次登入"
+
+#: Controller/WzusersController.php:1230
+msgid "Select account to activate"
+msgstr "帳戶啟動"
+
+#: Controller/WzusersController.php:1240
+msgid "User not found."
+msgstr "未找到使用者。"
+
+#: Controller/WzusersController.php:1278
+msgid ""
+"Failed to connect to account database. Please check your connection settings."
+msgstr "連線帳戶資料庫失敗。請檢查您的連線設定。"
+
+#: Controller/WzusersController.php:1290
+msgid "All accounts deactivated."
+msgstr "所有帳戶已關閉。"
+
+#: Controller/WzusersController.php:1343
+#, php-format
+msgid "Account \"%s\" activated."
+msgstr "帳戶 \"%s\" 已啟動。"
+
+#: Controller/WzusersController.php:1348
+msgid "Failed to activate account. Please, try again."
+msgstr "啟動帳戶失敗，請再試一次。"
+
+#: Model/Ledger.php:328
+msgid "Ledger not specified. Failed to calculate opening balance."
+msgstr "未指定分類帳，無法計算期初餘額。"
+
+#: Model/Ledger.php:342
+msgid "Ledger not found. Failed to calculate opening balance."
+msgstr "未找到分類帳，無法計算期初餘額。"
+
+#: Model/Ledger.php:453 Model/Ledger.php:587
+msgid "Ledger not specified. Failed to calculate closing balance."
+msgstr "未指定分類帳，無法計算期終餘額。"
+
+#: Model/Ledger.php:467
+msgid "Ledger not found. Failed to calculate closing balance."
+msgstr "未找到分類帳，無法計算期終餘額。"
+
+#: View/Helper/GenericHelper.php:112 View/Helper/GenericHelper.php:123
+msgid "Disabled"
+msgstr "停用"
+
+#: View/Helper/GenericHelper.php:113 View/Helper/GenericHelper.php:124
+msgid "Enabled"
+msgstr "啟用"
+
+#: View/Helper/GenericHelper.php:133 View/Helper/GenericHelper.php:147
+msgid "Administrator"
+msgstr "管理員"
+
+#: View/Helper/GenericHelper.php:134 View/Helper/GenericHelper.php:148
+msgid "Manager"
+msgstr "經理"
+
+#: View/Helper/GenericHelper.php:135 View/Helper/GenericHelper.php:149
+msgid "Accountant"
+msgstr "會計"
+
+#: View/Helper/GenericHelper.php:136 View/Helper/GenericHelper.php:150
+msgid "Data entry operator"
+msgstr "數據輸入員"
+
+#: View/Helper/GenericHelper.php:137 View/Helper/GenericHelper.php:151
+msgid "Guest"
+msgstr "訪客"
+
+#: View/Helper/GenericHelper.php:160 View/Helper/GenericHelper.php:172
+msgid "MySQL"
+msgstr "MySQL"
+
+#: View/Helper/GenericHelper.php:161 View/Helper/GenericHelper.php:173
+msgid "MS SQL Server"
+msgstr "MS SQL Server"
+
+#: View/Helper/GenericHelper.php:162 View/Helper/GenericHelper.php:174
+msgid "Postgres SQL (BETA)"
+msgstr "Postgres SQL (BETA)"
+
+#: View/Helper/GenericHelper.php:195
+msgid "Dr / Cr"
+msgstr "借 / 貸 (Dr / Cr)"
+
+#: View/Helper/GenericHelper.php:196
+msgid "To / By"
+msgstr "至 / 由"
+
+#: View/Helper/GenericHelper.php:205
+msgid "Gross Profit & Loss"
+msgstr "毛利和損失"
+
+#: View/Helper/GenericHelper.php:206
+msgid "Net Profit & Loss"
+msgstr "淨利和損失"
+
+#: View/Helper/GenericHelper.php:215
+msgid "Auto"
+msgstr "自動"
+
+#: View/Helper/GenericHelper.php:216
+msgid "Manual (required)"
+msgstr "手動（必須）"
+
+#: View/Helper/GenericHelper.php:217
+msgid "Manual (optional)"
+msgstr "手動（選用）"
+
+#: View/Helper/GenericHelper.php:226
+msgid "Unrestricted"
+msgstr "不受限制"
+
+#: View/Helper/GenericHelper.php:227
+msgid "Atleast one Bank or Cash account must be present on Debit side"
+msgstr "借方必須有至少有一個銀行或現金帳戶"
+
+#: View/Helper/GenericHelper.php:228
+msgid "Atleast one Bank or Cash account must be present on Credit side"
+msgstr "貸方必須有至少有一個銀行或現金帳戶"
+
+#: View/Helper/GenericHelper.php:229
+msgid "Only Bank or Cash account can be present on both Debit and Credit side"
+msgstr "只有銀行或現金帳戶可以同時出現在借方和貸方"
+
+#: View/Helper/GenericHelper.php:230
+msgid ""
+"Only Non Bank or Non Cash account can be present on both Debit and Credit "
+"side"
+msgstr "只有非銀行或非現金帳戶可以同時出現在借方和貸方"
+
+#: View/Helper/GenericHelper.php:239
+msgid "Equal to"
+msgstr "等於"
+
+#: View/Helper/GenericHelper.php:240
+msgid "Less than or Equal to"
+msgstr "小於或等於"
+
+#: View/Helper/GenericHelper.php:241
+msgid "Greater than or equal to"
+msgstr "大於或等於"
+
+#: View/Helper/GenericHelper.php:242
+msgid "In between"
+msgstr "介於"
+
+#: View/Helper/GenericHelper.php:251
+msgid "Potrait"
+msgstr "縱向"
+
+#: View/Helper/GenericHelper.php:252
+msgid "Landscape"
+msgstr "橫向"
+
+#: View/Helper/GenericHelper.php:261
+msgid "HTML"
+msgstr "HTML"
+
+#: View/Helper/GenericHelper.php:262
+msgid "Text"
+msgstr "Text"
+
+#: View/Helper/GenericHelper.php:271
+msgid "smtp"
+msgstr "smtp"
+
+#: View/Helper/GenericHelper.php:272
+msgid "mail"
+msgstr "mail"
+
+#: View/Helper/GenericHelper.php:283
+msgid "Day-Month-Year"
+msgstr "日-月-年"
+
+#: View/Helper/GenericHelper.php:284
+msgid "Month-Day-Year"
+msgstr "月-日-年"
+
+#: View/Helper/GenericHelper.php:285
+msgid "Year-Month-Day"
+msgstr "年-月-日"
+
+#: View/Accounts/show.ctp:66 View/Accounts/show.ctp:94
+#: View/Entries/index.ctp:156 View/Entrytypes/index.ctp:47
+#: View/Reports/ledgerentries.ctp:235 View/Reports/ledgerstatement.ctp:273
+#: View/Search/index.ctp:272 View/Tags/index.ctp:39
+#: View/Wzaccounts/index.ctp:58 View/Wzusers/index.ctp:54
+msgid " Edit"
+msgstr " 編輯"
+
+#: View/Accounts/show.ctp:68 View/Accounts/show.ctp:96 View/Entries/add.ctp:407
+#: View/Entries/addrow.ctp:57 View/Entries/edit.ctp:407
+#: View/Entries/index.ctp:159 View/Entrytypes/index.ctp:49
+#: View/Reports/ledgerentries.ctp:237 View/Reports/ledgerstatement.ctp:275
+#: View/Search/index.ctp:274 View/Tags/index.ctp:41
+#: View/Wzaccounts/index.ctp:60 View/Wzusers/index.ctp:58
+msgid " Delete"
+msgstr " 刪除"
+
+#: View/Accounts/show.ctp:68
+msgid "Are you sure you want to delete the group ?"
+msgstr "您確定要刪除此群組？"
+
+#: View/Accounts/show.ctp:96
+msgid "Are you sure you want to delete the ledger ?"
+msgstr "您確定要刪除此分類帳？"
+
+#: View/Accounts/show.ctp:123 View/Reports/balancesheet.ctp:163
+#: View/Reports/downloadcsv/balancesheet.ctp:79
+#: View/Reports/downloadxls/balancesheet.ctp:91
+#: View/Reports/print/balancesheet.ctp:103
+msgid "There is a difference in opening balance of "
+msgstr "期初餘額有以下差異 "
+
+#: View/Accounts/show.ctp:129 View/Reports/downloadcsv/trialbalance.ctp:111
+#: View/Reports/downloadxls/trialbalance.ctp:122
+#: View/Reports/print/trialbalance.ctp:129 View/Reports/trialbalance.ctp:155
+msgid "Account Name"
+msgstr "帳戶名稱"
+
+#: View/Accounts/show.ctp:130 View/Entries/index.ctp:119
+#: View/Reports/downloadcsv/ledgerentries.ctp:45
+#: View/Reports/downloadcsv/ledgerstatement.ctp:45
+#: View/Reports/downloadcsv/reconciliation.ctp:51
+#: View/Reports/downloadcsv/trialbalance.ctp:112
+#: View/Reports/downloadxls/ledgerentries.ctp:53
+#: View/Reports/downloadxls/ledgerstatement.ctp:53
+#: View/Reports/downloadxls/reconciliation.ctp:63
+#: View/Reports/downloadxls/trialbalance.ctp:123
+#: View/Reports/ledgerentries.ctp:191 View/Reports/ledgerstatement.ctp:192
+#: View/Reports/print/ledgerentries.ctp:78
+#: View/Reports/print/ledgerstatement.ctp:58
+#: View/Reports/print/reconciliation.ctp:68
+#: View/Reports/print/trialbalance.ctp:130 View/Reports/reconciliation.ctp:220
+#: View/Reports/trialbalance.ctp:156 View/Search/index.ctp:228
+msgid "Type"
+msgstr "類型"
+
+#: View/Accounts/show.ctp:131 View/Reports/downloadcsv/trialbalance.ctp:113
+#: View/Reports/downloadxls/trialbalance.ctp:124
+#: View/Reports/print/trialbalance.ctp:131 View/Reports/trialbalance.ctp:157
+msgid "O/P Balance"
+msgstr "期初餘額"
+
+#: View/Accounts/show.ctp:132 View/Reports/downloadcsv/trialbalance.ctp:116
+#: View/Reports/downloadxls/trialbalance.ctp:127
+#: View/Reports/print/trialbalance.ctp:134 View/Reports/trialbalance.ctp:160
+msgid "C/L Balance"
+msgstr "期終餘額"
+
+#: View/Accounts/show.ctp:133 View/Entries/add.ctp:372
+#: View/Entries/edit.ctp:372 View/Entries/index.ctp:123
+#: View/Entrytypes/index.ctp:36 View/Reports/ledgerentries.ctp:195
+#: View/Reports/ledgerstatement.ctp:197 View/Search/index.ctp:232
+#: View/Tags/index.ctp:32 View/Wzaccounts/index.ctp:43
+#: View/Wzusers/index.ctp:36
+msgid "Actions"
+msgstr "動作"
+
+#: View/Admin/index.ctp:32
+msgid "Create account"
+msgstr "建立帳戶"
+
+#: View/Admin/index.ctp:35
+msgid "Create a new account "
+msgstr "建立新的帳戶 "
+
+#: View/Admin/index.ctp:40
+msgid "Manage accounts"
+msgstr "管理帳戶"
+
+#: View/Admin/index.ctp:43
+msgid "Manage existing accounts "
+msgstr "管理已建立的帳戶 "
+
+#: View/Admin/index.ctp:48
+msgid "Manage users"
+msgstr "管理使用者"
+
+#: View/Admin/index.ctp:51
+msgid "Manage users and permissions"
+msgstr "管理使用者與權限"
+
+#: View/Admin/index.ctp:56
+msgid "General settings"
+msgstr "一般設定"
+
+#: View/Admin/index.ctp:59
+msgid "General application settings"
+msgstr "應用設定"
+
+#: View/Admin/index.ctp:64
+msgid "System information"
+msgstr "系統資訊"
+
+#: View/Admin/index.ctp:67
+msgid "General system information"
+msgstr "系統資訊"
+
+#: View/Dashboard/index.ctp:33
+msgid ""
+"PHP BC Math library is missing. Please check the \"Wiki\" section in Help on "
+"how to fix it."
+msgstr "PHP BC Math library遺失。請查看 \"Wiki\" 的幫助部分，瞭解如何修復它。"
+
+#: View/Dashboard/index.ctp:41
+msgid "Account details"
+msgstr "帳戶詳情"
+
+#: View/Dashboard/index.ctp:45 View/Entrytypes/add.ctp:39
+#: View/Entrytypes/edit.ctp:39 View/Entrytypes/index.ctp:31
+#: View/Settings/cf.ctp:71
+msgid "Name"
+msgstr "名稱"
+
+#: View/Dashboard/index.ctp:52 View/Settings/account.ctp:68
+#: View/Settings/cf.ctp:75 View/Wzaccounts/create.ctp:73
+#: View/Wzusers/add.ctp:41 View/Wzusers/edit.ctp:40 View/Wzusers/first.ctp:40
+#: View/Wzusers/index.ctp:32 View/Wzusers/profile.ctp:39
+#: View/Wzusers/register.ctp:42
+msgid "Email"
+msgstr "Email"
+
+#: View/Dashboard/index.ctp:56 View/Wzusers/add.ctp:45 View/Wzusers/edit.ctp:44
+#: View/Wzusers/index.ctp:35
+msgid "Role"
+msgstr "角色"
+
+#: View/Dashboard/index.ctp:60 View/Settings/cf.ctp:79
+msgid "Currency"
+msgstr "貨幣"
+
+#: View/Dashboard/index.ctp:64 View/Settings/cf.ctp:83
+msgid "Financial Year"
+msgstr "財政年度"
+
+#: View/Dashboard/index.ctp:68 View/Settings/cf.ctp:87 View/Wzusers/add.ctp:42
+#: View/Wzusers/edit.ctp:41 View/Wzusers/index.ctp:33
+msgid "Status"
+msgstr "狀態"
+
+#: View/Dashboard/index.ctp:71 View/Settings/cf.ctp:90
+msgid "Unlocked"
+msgstr "已解鎖"
+
+#: View/Dashboard/index.ctp:73 View/Settings/cf.ctp:92
+msgid "Locked"
+msgstr "已鎖定"
+
+#: View/Dashboard/index.ctp:81
+msgid "Bank & cash summary"
+msgstr "銀行與現金摘要"
+
+#: View/Dashboard/index.ctp:96
+msgid "Account summary"
+msgstr "帳戶摘要"
+
+#: View/Dashboard/index.ctp:100
+msgid "Assets"
+msgstr "資產"
+
+#: View/Dashboard/index.ctp:104
+msgid " Liabilities and Owners Equity"
+msgstr " 負債與業主權益"
+
+#: View/Dashboard/index.ctp:108
+msgid "Income"
+msgstr "收入"
+
+#: View/Dashboard/index.ctp:112
+msgid "Expense"
+msgstr "支出"
+
+#: View/Dashboard/index.ctp:121
+msgid "Recent activity"
+msgstr "近期活動"
+
+#: View/Dashboard/index.ctp:135
+msgid "more"
+msgstr "更多"
+
+#: View/Elements/accountinfo.ctp:32
+msgid "(change)"
+msgstr "(切換)"
+
+#: View/Elements/adminnavbar.ctp:56 View/Elements/defaultnavbar.ctp:75
+msgid "Logout"
+msgstr "登出"
+
+#: View/Elements/defaultnavbar.ctp:48
+msgid "Dashboard"
+msgstr "儀表板"
+
+#: View/Elements/defaultnavbar.ctp:50
+msgid "Entries"
+msgstr "分錄清單"
+
+#: View/Elements/defaultnavbar.ctp:52
+msgid "Reports "
+msgstr "報告 "
+
+#: View/Elements/defaultnavbar.ctp:55
+msgid "Profit & Loss"
+msgstr "損益"
+
+#: View/Elements/defaultnavbar.ctp:59 View/Ledgers/add.ctp:77
+#: View/Ledgers/edit.ctp:77 View/Reports/index.ctp:60
+msgid "Reconciliation"
+msgstr "調節"
+
+#: View/Elements/defaultnavbar.ctp:68
+msgid "Administer"
+msgstr "管理員"
+
+#: View/Elements/defaultnavbar.ctp:71
+msgid "Profile "
+msgstr "個人資料 "
+
+#: View/Elements/usernavbar.ctp:48 View/Wzusers/login.ctp:62
+#: View/Wzusers/register.ctp:45
+msgid "Register"
+msgstr "註冊"
+
+#: View/Elements/usernavbar.ctp:49 View/Wzusers/login.ctp:54
+#: View/Wzusers/register.ctp:50 View/Wzusers/register.ctp:58
+#: View/Wzusers/tplogin.ctp:42
+msgid "Login"
+msgstr "登入"
+
+#: View/Emails/html/entry_email.ctp:37 View/Emails/text/entry_email.ctp:6
+#: View/Entries/download.ctp:37 View/Entries/printpreview.ctp:37
+msgid "Entry"
+msgstr "分錄"
+
+#: View/Emails/html/entry_email.ctp:41 View/Emails/text/entry_email.ctp:9
+#: View/Entries/add.ctp:353 View/Entries/download.ctp:41
+#: View/Entries/edit.ctp:353 View/Entries/index.ctp:117
+#: View/Entries/printpreview.ctp:41 View/Entries/view.ctp:83
+#: View/Reports/downloadcsv/ledgerentries.ctp:43
+#: View/Reports/downloadcsv/ledgerstatement.ctp:43
+#: View/Reports/downloadcsv/reconciliation.ctp:49
+#: View/Reports/downloadxls/ledgerentries.ctp:51
+#: View/Reports/downloadxls/ledgerstatement.ctp:51
+#: View/Reports/downloadxls/reconciliation.ctp:61
+#: View/Reports/ledgerentries.ctp:189 View/Reports/ledgerstatement.ctp:190
+#: View/Reports/print/ledgerentries.ctp:76
+#: View/Reports/print/ledgerstatement.ctp:56
+#: View/Reports/print/reconciliation.ctp:66 View/Reports/reconciliation.ctp:218
+#: View/Search/index.ctp:226
+msgid "Number"
+msgstr "編號"
+
+#: View/Emails/html/entry_email.ctp:43 View/Emails/text/entry_email.ctp:12
+#: View/Entries/add.ctp:358 View/Entries/download.ctp:43
+#: View/Entries/edit.ctp:358 View/Entries/index.ctp:116
+#: View/Entries/printpreview.ctp:43 View/Entries/view.ctp:85
+#: View/Logs/index.ctp:30 View/Reports/downloadcsv/ledgerentries.ctp:42
+#: View/Reports/downloadcsv/ledgerstatement.ctp:42
+#: View/Reports/downloadcsv/reconciliation.ctp:48
+#: View/Reports/downloadxls/ledgerentries.ctp:50
+#: View/Reports/downloadxls/ledgerstatement.ctp:50
+#: View/Reports/downloadxls/reconciliation.ctp:60
+#: View/Reports/ledgerentries.ctp:188 View/Reports/ledgerstatement.ctp:189
+#: View/Reports/print/ledgerentries.ctp:75
+#: View/Reports/print/ledgerstatement.ctp:55
+#: View/Reports/print/reconciliation.ctp:65 View/Reports/reconciliation.ctp:217
+#: View/Search/index.ctp:225
+msgid "Date"
+msgstr "日期"
+
+#: View/Emails/html/entry_email.ctp:51 View/Entries/add.ctp:365
+#: View/Entries/download.ctp:51 View/Entries/edit.ctp:365
+#: View/Entries/printpreview.ctp:51 View/Entries/view.ctp:93
+msgid "To/By"
+msgstr "至/由"
+
+#: View/Emails/html/entry_email.ctp:53 View/Entries/add.ctp:367
+#: View/Entries/download.ctp:53 View/Entries/edit.ctp:367
+#: View/Entries/printpreview.ctp:53 View/Entries/view.ctp:95
+msgid "Dr/Cr"
+msgstr "借/貸 (Dr/Cr)"
+
+#: View/Emails/html/entry_email.ctp:55 View/Entries/add.ctp:369
+#: View/Entries/download.ctp:55 View/Entries/edit.ctp:369
+#: View/Entries/index.ctp:118 View/Entries/printpreview.ctp:55
+#: View/Entries/view.ctp:97 View/Reports/downloadcsv/ledgerentries.ctp:44
+#: View/Reports/downloadcsv/ledgerstatement.ctp:44
+#: View/Reports/downloadcsv/reconciliation.ctp:50
+#: View/Reports/downloadcsv/trialbalance.ctp:71
+#: View/Reports/downloadxls/ledgerentries.ctp:52
+#: View/Reports/downloadxls/ledgerstatement.ctp:52
+#: View/Reports/downloadxls/reconciliation.ctp:62
+#: View/Reports/downloadxls/trialbalance.ctp:83
+#: View/Reports/ledgerentries.ctp:190 View/Reports/ledgerstatement.ctp:191
+#: View/Reports/print/ledgerentries.ctp:77
+#: View/Reports/print/ledgerstatement.ctp:57
+#: View/Reports/print/reconciliation.ctp:67 View/Reports/reconciliation.ctp:219
+#: View/Search/index.ctp:227
+msgid "Ledger"
+msgstr "分類帳"
+
+#: View/Emails/html/entry_email.ctp:56 View/Entries/add.ctp:370
+#: View/Entries/download.ctp:56 View/Entries/edit.ctp:370
+#: View/Entries/printpreview.ctp:56 View/Entries/view.ctp:98
+msgid "Dr Amount"
+msgstr "借方金額"
+
+#: View/Emails/html/entry_email.ctp:57 View/Entries/add.ctp:371
+#: View/Entries/download.ctp:57 View/Entries/edit.ctp:371
+#: View/Entries/printpreview.ctp:57 View/Entries/view.ctp:99
+msgid "Cr Amount"
+msgstr "貸方金額"
+
+#: View/Emails/html/entry_email.ctp:103 View/Emails/text/entry_email.ctp:49
+#: View/Entries/add.ctp:415 View/Entries/download.ctp:103
+#: View/Entries/edit.ctp:415 View/Entries/printpreview.ctp:103
+#: View/Entries/view.ctp:145 View/Reports/balancesheet.ctp:343
+#: View/Reports/balancesheet.ctp:406
+#: View/Reports/downloadcsv/balancesheet.ctp:133
+#: View/Reports/downloadcsv/balancesheet.ctp:167
+#: View/Reports/downloadcsv/profitloss.ctp:107
+#: View/Reports/downloadcsv/profitloss.ctp:136
+#: View/Reports/downloadcsv/profitloss.ctp:173
+#: View/Reports/downloadcsv/profitloss.ctp:210
+#: View/Reports/downloadxls/balancesheet.ctp:147
+#: View/Reports/downloadxls/balancesheet.ctp:186
+#: View/Reports/downloadxls/profitloss.ctp:122
+#: View/Reports/downloadxls/profitloss.ctp:155
+#: View/Reports/downloadxls/profitloss.ctp:197
+#: View/Reports/downloadxls/profitloss.ctp:239
+#: View/Reports/print/balancesheet.ctp:213
+#: View/Reports/print/balancesheet.ctp:276
+#: View/Reports/print/profitloss.ctp:173 View/Reports/print/profitloss.ctp:212
+#: View/Reports/print/profitloss.ctp:291 View/Reports/print/profitloss.ctp:343
+#: View/Reports/profitloss.ctp:304 View/Reports/profitloss.ctp:343
+#: View/Reports/profitloss.ctp:422 View/Reports/profitloss.ctp:474
+msgid "Total"
+msgstr "總計"
+
+#: View/Emails/html/entry_email.ctp:110 View/Emails/html/entry_email.ctp:112
+#: View/Emails/text/entry_email.ctp:58 View/Emails/text/entry_email.ctp:60
+#: View/Entries/add.ctp:416 View/Entries/download.ctp:110
+#: View/Entries/download.ctp:112 View/Entries/edit.ctp:416
+#: View/Entries/printpreview.ctp:110 View/Entries/printpreview.ctp:112
+#: View/Entries/view.ctp:152 View/Entries/view.ctp:154
+msgid "Difference"
+msgstr "差額"
+
+#: View/Emails/html/entry_email.ctp:120 View/Emails/text/entry_email.ctp:65
+#: View/Entries/add.ctp:422 View/Entries/download.ctp:120
+#: View/Entries/edit.ctp:422 View/Entries/printpreview.ctp:120
+#: View/Entries/view.ctp:163
+msgid "Narration"
+msgstr "敘事"
+
+#: View/Entries/add.ctp:373 View/Entries/edit.ctp:373
+msgid "Cur Balance"
+msgstr "存款餘額"
+
+#: View/Entries/add.ctp:405 View/Entries/addrow.ctp:55
+#: View/Entries/edit.ctp:405
+msgid " Add"
+msgstr " 建立"
+
+#: View/Entries/add.ctp:423 View/Entries/edit.ctp:423
+#: View/Entries/index.ctp:120 View/Entries/view.ctp:165
+#: View/Reports/ledgerentries.ctp:192 View/Reports/ledgerstatement.ctp:193
+#: View/Reports/print/ledgerentries.ctp:79
+#: View/Reports/print/ledgerstatement.ctp:59
+#: View/Reports/print/reconciliation.ctp:69 View/Reports/reconciliation.ctp:221
+#: View/Search/index.ctp:229 View/Tags/index.ctp:31
+msgid "Tag"
+msgstr "標籤"
+
+#: View/Entries/add.ctp:426 View/Entries/edit.ctp:426
+#: View/Entrytypes/add.ctp:67 View/Entrytypes/edit.ctp:67
+#: View/Groups/add.ctp:81 View/Groups/edit.ctp:81 View/Ledgers/add.ctp:89
+#: View/Ledgers/edit.ctp:89 View/Reports/balancesheet.ctp:208
+#: View/Reports/ledgerentries.ctp:100 View/Reports/ledgerstatement.ctp:100
+#: View/Reports/profitloss.ctp:196 View/Reports/reconciliation.ctp:109
+#: View/Settings/account.ctp:76 View/Settings/cf.ctp:138
+#: View/Settings/email.ctp:82 View/Settings/lock.ctp:51
+#: View/Settings/printer.ctp:64 View/Tags/add.ctp:52 View/Tags/edit.ctp:52
+#: View/Wzaccounts/add.ctp:70 View/Wzaccounts/create.ctp:116
+#: View/Wzaccounts/edit.ctp:63 View/Wzsettings/edit.ctp:77
+#: View/Wzusers/add.ctp:57 View/Wzusers/changepass.ctp:42
+#: View/Wzusers/edit.ctp:56 View/Wzusers/first.ctp:43
+#: View/Wzusers/forgot.ctp:41 View/Wzusers/profile.ctp:42
+#: View/Wzusers/resend.ctp:41 View/Wzusers/resetpass.ctp:43
+msgid "Submit"
+msgstr "儲存"
+
+#: View/Entries/add.ctp:431 View/Entries/edit.ctp:431 View/Entries/view.ctp:195
+#: View/Entrytypes/add.ctp:72 View/Entrytypes/edit.ctp:72
+#: View/Groups/add.ctp:86 View/Groups/edit.ctp:86 View/Ledgers/add.ctp:94
+#: View/Ledgers/edit.ctp:94 View/Settings/account.ctp:81
+#: View/Settings/cf.ctp:143 View/Settings/email.ctp:87
+#: View/Settings/lock.ctp:56 View/Settings/printer.ctp:69 View/Tags/add.ctp:57
+#: View/Tags/edit.ctp:57 View/Wzaccounts/add.ctp:75
+#: View/Wzaccounts/create.ctp:121 View/Wzaccounts/edit.ctp:68
+#: View/Wzaccounts/update.ctp:57 View/Wzsettings/edit.ctp:82
+#: View/Wzusers/account.ctp:68 View/Wzusers/add.ctp:62
+#: View/Wzusers/changepass.ctp:48 View/Wzusers/changepass.ctp:50
+#: View/Wzusers/edit.ctp:61 View/Wzusers/profile.ctp:48
+#: View/Wzusers/profile.ctp:50 View/Wzusers/resetpass.ctp:48
+msgid "Cancel"
+msgstr "取消"
+
+#: View/Entries/index.ctp:87
+msgid "Add Entry"
+msgstr "新增分錄"
+
+#: View/Entries/index.ctp:108
+msgid "Show"
+msgstr "顯示"
+
+#: View/Entries/index.ctp:121 View/Reports/downloadcsv/ledgerentries.ctp:46
+#: View/Reports/downloadcsv/ledgerstatement.ctp:46
+#: View/Reports/downloadcsv/reconciliation.ctp:52
+#: View/Reports/downloadxls/ledgerentries.ctp:54
+#: View/Reports/downloadxls/ledgerstatement.ctp:54
+#: View/Reports/downloadxls/reconciliation.ctp:64
+#: View/Reports/ledgerentries.ctp:193 View/Reports/ledgerstatement.ctp:194
+#: View/Reports/print/ledgerentries.ctp:80
+#: View/Reports/print/ledgerstatement.ctp:60
+#: View/Reports/print/reconciliation.ctp:70 View/Reports/reconciliation.ctp:222
+#: View/Search/index.ctp:230
+msgid "Debit Amount"
+msgstr "借方金額"
+
+#: View/Entries/index.ctp:122 View/Reports/downloadcsv/ledgerentries.ctp:47
+#: View/Reports/downloadcsv/ledgerstatement.ctp:47
+#: View/Reports/downloadcsv/reconciliation.ctp:53
+#: View/Reports/downloadxls/ledgerentries.ctp:55
+#: View/Reports/downloadxls/ledgerstatement.ctp:55
+#: View/Reports/downloadxls/reconciliation.ctp:65
+#: View/Reports/ledgerentries.ctp:194 View/Reports/ledgerstatement.ctp:195
+#: View/Reports/print/ledgerentries.ctp:81
+#: View/Reports/print/ledgerstatement.ctp:61
+#: View/Reports/print/reconciliation.ctp:71 View/Reports/reconciliation.ctp:223
+#: View/Search/index.ctp:231
+msgid "Credit Amount"
+msgstr "貸方金額"
+
+#: View/Entries/index.ctp:153 View/Reports/ledgerentries.ctp:233
+#: View/Reports/ledgerstatement.ctp:271 View/Search/index.ctp:270
+msgid " View"
+msgstr " 檢視"
+
+#: View/Entries/index.ctp:159 View/Reports/ledgerentries.ctp:237
+#: View/Reports/ledgerstatement.ctp:275 View/Search/index.ctp:274
+msgid "Are you sure you want to delete the entry ?"
+msgstr "您確定要刪除此分錄？"
+
+#: View/Entries/index.ctp:180 View/Entrytypes/index.ctp:58
+#: View/Logs/index.ctp:50 View/Reports/ledgerentries.ctp:247
+#: View/Reports/ledgerstatement.ctp:299 View/Reports/reconciliation.ctp:296
+#: View/Search/index.ctp:285 View/Tags/index.ctp:50
+#: View/Wzaccounts/index.ctp:71 View/Wzusers/index.ctp:67
+msgid "first"
+msgstr "第一"
+
+#: View/Entries/index.ctp:181 View/Entrytypes/index.ctp:59
+#: View/Logs/index.ctp:51 View/Reports/ledgerentries.ctp:248
+#: View/Reports/ledgerstatement.ctp:300 View/Reports/reconciliation.ctp:297
+#: View/Search/index.ctp:286 View/Tags/index.ctp:51
+#: View/Wzaccounts/index.ctp:72 View/Wzusers/index.ctp:68
+msgid "prev"
+msgstr "前"
+
+#: View/Entries/index.ctp:183 View/Entrytypes/index.ctp:61
+#: View/Logs/index.ctp:53 View/Reports/ledgerentries.ctp:250
+#: View/Reports/ledgerstatement.ctp:302 View/Reports/reconciliation.ctp:299
+#: View/Search/index.ctp:288 View/Tags/index.ctp:53
+#: View/Wzaccounts/index.ctp:74 View/Wzusers/index.ctp:70
+msgid "next"
+msgstr "後"
+
+#: View/Entries/index.ctp:184 View/Entrytypes/index.ctp:62
+#: View/Logs/index.ctp:54 View/Reports/ledgerentries.ctp:251
+#: View/Reports/ledgerstatement.ctp:303 View/Reports/reconciliation.ctp:300
+#: View/Search/index.ctp:289 View/Tags/index.ctp:54
+#: View/Wzaccounts/index.ctp:75 View/Wzusers/index.ctp:71
+msgid "last"
+msgstr "最後"
+
+#: View/Entries/index.ctp:200 View/Entries/view.ctp:210
+msgid "Email to"
+msgstr "Email至"
+
+#: View/Entries/view.ctp:170
+msgid "Edit"
+msgstr "編輯"
+
+#: View/Entries/view.ctp:175
+msgid "Delete"
+msgstr "刪除"
+
+#: View/Entries/view.ctp:175
+msgid "Are you sure ?"
+msgstr "你確定？"
+
+#: View/Entrytypes/add.ctp:38 View/Entrytypes/edit.ctp:38
+#: View/Entrytypes/index.ctp:30 View/Settings/cf.ctp:105
+#: View/Wzaccounts/add.ctp:46 View/Wzaccounts/create.ctp:68
+#: View/Wzaccounts/edit.ctp:39 View/Wzaccounts/index.ctp:37
+msgid "Label"
+msgstr "標籤"
+
+#: View/Entrytypes/add.ctp:40 View/Entrytypes/edit.ctp:40
+#: View/Entrytypes/index.ctp:32
+msgid "Description"
+msgstr "描述"
+
+#: View/Entrytypes/add.ctp:44 View/Entrytypes/edit.ctp:44
+msgid "Numbering"
+msgstr "編號"
+
+#: View/Entrytypes/add.ctp:45 View/Entrytypes/edit.ctp:45
+msgid "Note : How the entry numbering is handled."
+msgstr "註：如何處理分錄編號。"
+
+#: View/Entrytypes/add.ctp:48 View/Entrytypes/edit.ctp:48
+#: View/Entrytypes/index.ctp:33
+msgid "Prefix"
+msgstr "前綴"
+
+#: View/Entrytypes/add.ctp:49 View/Entrytypes/edit.ctp:49
+msgid "Note : Prefix to add before entry numbers."
+msgstr "註：分錄編號前要加上前綴。"
+
+#: View/Entrytypes/add.ctp:52 View/Entrytypes/edit.ctp:52
+#: View/Entrytypes/index.ctp:34
+msgid "Suffix"
+msgstr "後綴"
+
+#: View/Entrytypes/add.ctp:53 View/Entrytypes/edit.ctp:53
+msgid "Note : Suffix to add after entry numbers."
+msgstr "註：在分錄編號後新增後綴。"
+
+#: View/Entrytypes/add.ctp:56 View/Entrytypes/edit.ctp:56
+#: View/Entrytypes/index.ctp:35
+msgid "Zero Padding"
+msgstr "墊零"
+
+#: View/Entrytypes/add.ctp:57 View/Entrytypes/edit.ctp:57
+msgid "Note : Number of zeros to pad before entry numbers."
+msgstr "註：分錄編號前要墊的零數。"
+
+#: View/Entrytypes/add.ctp:62 View/Entrytypes/edit.ctp:62
+msgid "Restrictions"
+msgstr "限制條件"
+
+#: View/Entrytypes/add.ctp:63 View/Entrytypes/edit.ctp:63
+msgid "Note : Restrictions to be placed on the ledgers selected in entry."
+msgstr "註：對分錄中選擇的分類帳的限制。"
+
+#: View/Entrytypes/index.ctp:49
+msgid "Are you sure you want to delete the entry type?"
+msgstr "您確定要刪除此分錄類型？"
+
+#: View/Groups/add.ctp:65 View/Groups/edit.ctp:65
+msgid "Group name"
+msgstr "群組名稱"
+
+#: View/Groups/add.ctp:66 View/Groups/edit.ctp:66
+msgid "Group code (optional)"
+msgstr "群組代碼（選用）"
+
+#: View/Groups/add.ctp:67 View/Groups/edit.ctp:67 View/Ledgers/add.ctp:54
+#: View/Ledgers/edit.ctp:54
+msgid "Parent group"
+msgstr "母群"
+
+#: View/Groups/add.ctp:73 View/Groups/edit.ctp:73
+msgid "Affects"
+msgstr "影響"
+
+#: View/Groups/add.ctp:77 View/Groups/edit.ctp:77
+msgid ""
+"Note : Changes to whether it affects Gross or Net Profit & Loss is reflected "
+"in final Profit & Loss statement."
+msgstr "註：影響毛利或淨損益的變化在最終損益表中反映。"
+
+#: View/Help/index.ctp:32
+msgid "Wiki"
+msgstr "Wiki"
+
+#: View/Help/index.ctp:40
+msgid "Report Bugs"
+msgstr "回報Bugs"
+
+#: View/Help/index.ctp:48
+msgid "Discussion Groups"
+msgstr "討論群組"
+
+#: View/Help/index.ctp:56
+msgid "Videos"
+msgstr "影片"
+
+#: View/Help/index.ctp:64
+msgid "Contact"
+msgstr "聯絡"
+
+#: View/Ledgers/add.ctp:52 View/Ledgers/edit.ctp:52
+msgid "Ledger name"
+msgstr "分類帳名稱"
+
+#: View/Ledgers/add.ctp:53 View/Ledgers/edit.ctp:53
+msgid "Ledger code (optional)"
+msgstr "分類帳代碼（選用）"
+
+#: View/Ledgers/add.ctp:56 View/Ledgers/edit.ctp:56
+msgid "Opening balance"
+msgstr "期初餘額"
+
+#: View/Ledgers/add.ctp:63 View/Ledgers/edit.ctp:63
+msgid ""
+"Note : Assets / Expenses always have Dr balance and Liabilities / Incomes "
+"always have Cr balance."
+msgstr "註：資產/支出總是有借餘額，負債/收入總是有貸餘額。"
+
+#: View/Ledgers/add.ctp:70 View/Ledgers/edit.ctp:70
+#: View/Reports/ledgerentries.ctp:155 View/Reports/ledgerstatement.ctp:156
+#: View/Reports/print/ledgerentries.ctp:42 View/Reports/reconciliation.ctp:164
+msgid "Bank or cash account"
+msgstr "銀行或現金帳戶"
+
+#: View/Ledgers/add.ctp:72 View/Ledgers/edit.ctp:72
+msgid "Note : Select if the ledger account is a bank or a cash account."
+msgstr "註：選擇屬於 銀行 或 現金帳戶 的分類帳帳戶。"
+
+#: View/Ledgers/add.ctp:79 View/Ledgers/edit.ctp:79
+msgid ""
+"Note : If selected the ledger account can be reconciled from Reports > "
+"Reconciliation."
+msgstr "註：如果選擇了分類帳，可以在報告>調節中進行對帳。"
+
+#: View/Ledgers/add.ctp:84 View/Ledgers/edit.ctp:84
+#: View/Reports/ledgerentries.ctp:167 View/Reports/ledgerstatement.ctp:168
+#: View/Reports/print/ledgerentries.ctp:54 View/Reports/reconciliation.ctp:176
+msgid "Notes"
+msgstr "註"
+
+#: View/Logs/index.ctp:31
+msgid "Host IP"
+msgstr "Host IP"
+
+#: View/Logs/index.ctp:32 View/Settings/email.ctp:77
+#: View/Wzsettings/edit.ctp:71 View/Wzusers/add.ctp:38 View/Wzusers/edit.ctp:38
+#: View/Wzusers/index.ctp:30 View/Wzusers/login.ctp:50
+#: View/Wzusers/register.ctp:39 View/Wzusers/tplogin.ctp:38
+msgid "Username"
+msgstr "使用者名稱"
+
+#: View/Logs/index.ctp:33
+msgid "URL"
+msgstr "URL"
+
+#: View/Logs/index.ctp:34
+msgid "Message"
+msgstr "訊息"
+
+#: View/Reports/balancesheet.ctp:172
+#: View/Reports/downloadcsv/balancesheet.ctp:90
+#: View/Reports/downloadxls/balancesheet.ctp:101
+#: View/Reports/print/balancesheet.ctp:112
+msgid "There is a difference in Total Liabilities and Total Assets of "
+msgstr "負債總額與資產總額有差異的是 "
+
+#: View/Reports/balancesheet.ctp:193
+msgid "Show Opening Balance Sheet"
+msgstr "顯示期初餘額表"
+
+#: View/Reports/balancesheet.ctp:203
+msgid "Particular date"
+msgstr "特定日期"
+
+#: View/Reports/balancesheet.ctp:204
+msgid ""
+"Note : Leave particular date as empty if you want statement till the end of "
+"the financial year."
+msgstr "註：如果您想在財政年度結束提交報表，請將特定日期保持空白。"
+
+#: View/Reports/balancesheet.ctp:213 View/Reports/ledgerentries.ctp:105
+#: View/Reports/ledgerstatement.ctp:105 View/Reports/profitloss.ctp:201
+#: View/Reports/reconciliation.ctp:114 View/Search/index.ctp:213
+msgid "Clear"
+msgstr "清除"
+
+#: View/Reports/balancesheet.ctp:226 View/Reports/ledgerentries.ctp:122
+#: View/Reports/ledgerstatement.ctp:122 View/Reports/profitloss.ctp:214
+#: View/Reports/reconciliation.ctp:131 View/Reports/trialbalance.ctp:122
+msgid "DOWNLOAD .CSV"
+msgstr "下載 .CSV"
+
+#: View/Reports/balancesheet.ctp:232 View/Reports/ledgerentries.ctp:128
+#: View/Reports/ledgerstatement.ctp:128 View/Reports/profitloss.ctp:220
+#: View/Reports/reconciliation.ctp:137 View/Reports/trialbalance.ctp:128
+msgid "DOWNLOAD .XLS"
+msgstr "下載 .XLS"
+
+#: View/Reports/balancesheet.ctp:237 View/Reports/ledgerentries.ctp:133
+#: View/Reports/ledgerstatement.ctp:133 View/Reports/profitloss.ctp:225
+#: View/Reports/reconciliation.ctp:142 View/Reports/trialbalance.ctp:133
+msgid "PRINT"
+msgstr "列印"
+
+#: View/Reports/balancesheet.ctp:266
+#: View/Reports/downloadcsv/balancesheet.ctp:102
+#: View/Reports/downloadxls/balancesheet.ctp:112
+#: View/Reports/print/balancesheet.ctp:136
+msgid "Assets (Dr)"
+msgstr "資產 (借方)"
+
+#: View/Reports/balancesheet.ctp:267 View/Reports/balancesheet.ctp:278
+#: View/Reports/downloadcsv/balancesheet.ctp:103
+#: View/Reports/downloadcsv/balancesheet.ctp:140
+#: View/Reports/downloadxls/balancesheet.ctp:113
+#: View/Reports/downloadxls/balancesheet.ctp:155
+#: View/Reports/print/balancesheet.ctp:137
+#: View/Reports/print/balancesheet.ctp:148 View/Reports/profitloss.ctp:253
+#: View/Reports/profitloss.ctp:264 View/Reports/profitloss.ctp:357
+#: View/Reports/profitloss.ctp:368 View/Search/index.ctp:173
+msgid "Amount"
+msgstr "金額"
+
+#: View/Reports/balancesheet.ctp:277
+#: View/Reports/downloadcsv/balancesheet.ctp:139
+#: View/Reports/downloadxls/balancesheet.ctp:154
+#: View/Reports/print/balancesheet.ctp:147
+msgid "Liabilities and Owners Equity (Cr)"
+msgstr "負債和業主權益 (貸方)"
+
+#: View/Reports/balancesheet.ctp:296 View/Reports/balancesheet.ctp:301
+#: View/Reports/downloadcsv/balancesheet.ctp:109
+#: View/Reports/downloadxls/balancesheet.ctp:120
+#: View/Reports/print/balancesheet.ctp:166
+#: View/Reports/print/balancesheet.ctp:171
+msgid "Total Assets"
+msgstr "總資產"
+
+#: View/Reports/balancesheet.ctp:313
+#: View/Reports/downloadcsv/balancesheet.ctp:117
+#: View/Reports/downloadxls/balancesheet.ctp:129
+#: View/Reports/print/balancesheet.ctp:183
+msgid "Profit & Loss Account (Net Loss)"
+msgstr "損益表 (淨損失)"
+
+#: View/Reports/balancesheet.ctp:325 View/Reports/balancesheet.ctp:388
+#: View/Reports/downloadcsv/balancesheet.ctp:126
+#: View/Reports/downloadcsv/balancesheet.ctp:160
+#: View/Reports/downloadxls/balancesheet.ctp:139
+#: View/Reports/downloadxls/balancesheet.ctp:178
+#: View/Reports/print/balancesheet.ctp:195
+#: View/Reports/print/balancesheet.ctp:258
+msgid "Diff in O/P Balance"
+msgstr "期初餘額的差異"
+
+#: View/Reports/balancesheet.ctp:360 View/Reports/balancesheet.ctp:365
+#: View/Reports/downloadcsv/balancesheet.ctp:146
+#: View/Reports/downloadxls/balancesheet.ctp:162
+#: View/Reports/print/balancesheet.ctp:230
+#: View/Reports/print/balancesheet.ctp:235
+msgid "Total Liability and Owners Equity"
+msgstr "總負債和業主權益"
+
+#: View/Reports/balancesheet.ctp:374
+#: View/Reports/downloadcsv/balancesheet.ctp:152
+#: View/Reports/print/balancesheet.ctp:244
+msgid "Profit & Loss Account (Net Profit)"
+msgstr "損益表 (淨利潤)"
+
+#: View/Reports/downloadcsv/ledgerstatement.ctp:48
+#: View/Reports/downloadxls/ledgerstatement.ctp:56
+#: View/Reports/ledgerstatement.ctp:196
+#: View/Reports/print/ledgerstatement.ctp:62
+msgid "Balance"
+msgstr "餘額"
+
+#: View/Reports/downloadcsv/ledgerstatement.ctp:55
+#: View/Reports/downloadxls/ledgerstatement.ctp:64
+#: View/Reports/ledgerstatement.ctp:206
+#: View/Reports/print/ledgerstatement.ctp:71
+msgid "Current opening balance"
+msgstr "當前期初餘額"
+
+#: View/Reports/downloadcsv/ledgerstatement.ctp:93
+#: View/Reports/downloadxls/ledgerstatement.ctp:104
+#: View/Reports/ledgerstatement.ctp:285
+#: View/Reports/print/ledgerstatement.ctp:137
+msgid "Current closing balance"
+msgstr "當前期終餘額"
+
+#: View/Reports/downloadcsv/profitloss.ctp:87
+#: View/Reports/downloadxls/profitloss.ctp:99
+#: View/Reports/print/profitloss.ctp:121
+msgid "Gross Expenses"
+msgstr "總支出"
+
+#: View/Reports/downloadcsv/profitloss.ctp:88
+#: View/Reports/downloadcsv/profitloss.ctp:143
+#: View/Reports/downloadxls/profitloss.ctp:100
+#: View/Reports/downloadxls/profitloss.ctp:163
+#: View/Reports/print/profitloss.ctp:122 View/Reports/print/profitloss.ctp:226
+msgid "(Dr) Amount"
+msgstr "(借方) 金額"
+
+#: View/Reports/downloadcsv/profitloss.ctp:95
+#: View/Reports/downloadxls/profitloss.ctp:108
+#: View/Reports/print/profitloss.ctp:149 View/Reports/print/profitloss.ctp:154
+#: View/Reports/profitloss.ctp:280 View/Reports/profitloss.ctp:285
+msgid "Total Gross Expenses"
+msgstr "支出總額"
+
+#: View/Reports/downloadcsv/profitloss.ctp:101
+#: View/Reports/downloadxls/profitloss.ctp:115
+#: View/Reports/print/profitloss.ctp:163 View/Reports/profitloss.ctp:294
+msgid "Gross Profit C/D"
+msgstr "毛利餘額移後"
+
+#: View/Reports/downloadcsv/profitloss.ctp:113
+#: View/Reports/downloadxls/profitloss.ctp:129
+#: View/Reports/print/profitloss.ctp:132
+msgid "Gross Incomes"
+msgstr "總收入"
+
+#: View/Reports/downloadcsv/profitloss.ctp:114
+#: View/Reports/downloadcsv/profitloss.ctp:180
+#: View/Reports/downloadxls/profitloss.ctp:130
+#: View/Reports/downloadxls/profitloss.ctp:205
+#: View/Reports/print/profitloss.ctp:133 View/Reports/print/profitloss.ctp:237
+msgid "(Cr) Amount"
+msgstr "(貸方) 金額"
+
+#: View/Reports/downloadcsv/profitloss.ctp:121
+#: View/Reports/downloadxls/profitloss.ctp:138
+#: View/Reports/print/profitloss.ctp:187 View/Reports/print/profitloss.ctp:192
+#: View/Reports/profitloss.ctp:318 View/Reports/profitloss.ctp:323
+msgid "Total Gross Incomes"
+msgstr "收入總額"
+
+#: View/Reports/downloadcsv/profitloss.ctp:129
+#: View/Reports/downloadxls/profitloss.ctp:147
+#: View/Reports/print/profitloss.ctp:204 View/Reports/profitloss.ctp:335
+msgid "Gross Loss C/D"
+msgstr "毛損餘額移後"
+
+#: View/Reports/downloadcsv/profitloss.ctp:142
+#: View/Reports/downloadxls/profitloss.ctp:162
+#: View/Reports/print/profitloss.ctp:225
+msgid "Net Expenses"
+msgstr "淨支出"
+
+#: View/Reports/downloadcsv/profitloss.ctp:150
+#: View/Reports/downloadxls/profitloss.ctp:171
+#: View/Reports/print/profitloss.ctp:253 View/Reports/print/profitloss.ctp:258
+#: View/Reports/profitloss.ctp:384 View/Reports/profitloss.ctp:389
+msgid "Total Expenses"
+msgstr "總支出"
+
+#: View/Reports/downloadcsv/profitloss.ctp:158
+#: View/Reports/downloadxls/profitloss.ctp:180
+#: View/Reports/print/profitloss.ctp:270 View/Reports/profitloss.ctp:401
+msgid "Gross Loss B/D"
+msgstr "毛損餘額承前"
+
+#: View/Reports/downloadcsv/profitloss.ctp:167
+#: View/Reports/downloadxls/profitloss.ctp:190
+#: View/Reports/print/profitloss.ctp:281 View/Reports/profitloss.ctp:412
+msgid "Net Profit"
+msgstr "淨利潤"
+
+#: View/Reports/downloadcsv/profitloss.ctp:179
+#: View/Reports/downloadxls/profitloss.ctp:204
+#: View/Reports/print/profitloss.ctp:236
+msgid "Net Incomes"
+msgstr "淨收入"
+
+#: View/Reports/downloadcsv/profitloss.ctp:187
+#: View/Reports/downloadxls/profitloss.ctp:213
+#: View/Reports/print/profitloss.ctp:305 View/Reports/print/profitloss.ctp:310
+#: View/Reports/profitloss.ctp:436 View/Reports/profitloss.ctp:441
+msgid "Total Incomes"
+msgstr "總收入"
+
+#: View/Reports/downloadcsv/profitloss.ctp:194
+#: View/Reports/downloadxls/profitloss.ctp:221
+#: View/Reports/print/profitloss.ctp:320 View/Reports/profitloss.ctp:451
+msgid "Gross Profit B/D"
+msgstr "毛利餘額承前"
+
+#: View/Reports/downloadcsv/profitloss.ctp:203
+#: View/Reports/downloadxls/profitloss.ctp:231
+#: View/Reports/print/profitloss.ctp:335 View/Reports/profitloss.ctp:466
+msgid "Net Loss"
+msgstr "淨損失"
+
+#: View/Reports/downloadcsv/reconciliation.ctp:40
+#: View/Reports/downloadxls/reconciliation.ctp:49
+#: View/Reports/print/reconciliation.ctp:50 View/Reports/reconciliation.ctp:192
+msgid "Debit "
+msgstr "借方 "
+
+#: View/Reports/downloadcsv/reconciliation.ctp:43
+#: View/Reports/downloadxls/reconciliation.ctp:54
+#: View/Reports/print/reconciliation.ctp:54 View/Reports/reconciliation.ctp:196
+msgid "Credit "
+msgstr "貸方 "
+
+#: View/Reports/downloadcsv/reconciliation.ctp:54
+#: View/Reports/downloadxls/reconciliation.ctp:66
+#: View/Reports/print/reconciliation.ctp:72 View/Reports/reconciliation.ctp:224
+msgid "Reconciliation Date"
+msgstr "核對日期"
+
+#: View/Reports/downloadcsv/trialbalance.ctp:46
+#: View/Reports/downloadxls/trialbalance.ctp:57
+msgid "Group"
+msgstr "群組"
+
+#: View/Reports/downloadcsv/trialbalance.ctp:114
+#: View/Reports/downloadxls/trialbalance.ctp:125
+#: View/Reports/print/trialbalance.ctp:132 View/Reports/trialbalance.ctp:158
+msgid "Debit Total"
+msgstr "借方總計"
+
+#: View/Reports/downloadcsv/trialbalance.ctp:115
+#: View/Reports/downloadxls/trialbalance.ctp:126
+#: View/Reports/print/trialbalance.ctp:133 View/Reports/trialbalance.ctp:159
+msgid "Credit Total"
+msgstr "貸方總計"
+
+#: View/Reports/downloadcsv/trialbalance.ctp:121
+#: View/Reports/downloadxls/trialbalance.ctp:133
+#: View/Reports/print/trialbalance.ctp:143 View/Reports/trialbalance.ctp:169
+msgid "TOTAL"
+msgstr "總計"
+
+#: View/Reports/downloadxls/balancesheet.ctp:169
+msgid "Profit &amp; Loss Account (Net Profit)"
+msgstr "盈利 &amp; 損益表 (淨利潤)"
+
+#: View/Reports/index.ctp:32
+msgid "Balance sheet"
+msgstr "資產負債表"
+
+#: View/Reports/index.ctp:39
+msgid "Profit and Loss statement"
+msgstr "損益表"
+
+#: View/Reports/index.ctp:46
+msgid "Trial balance"
+msgstr "試算表"
+
+#: View/Reports/index.ctp:53
+msgid "Ledger statement"
+msgstr "分類帳報表"
+
+#: View/Reports/ledgerentries.ctp:87 View/Reports/ledgerstatement.ctp:87
+#: View/Reports/reconciliation.ctp:94
+msgid "Ledger account"
+msgstr "分類帳帳戶"
+
+#: View/Reports/ledgerentries.ctp:93 View/Reports/ledgerstatement.ctp:93
+#: View/Reports/profitloss.ctp:187 View/Reports/reconciliation.ctp:101
+msgid "Start date"
+msgstr "開始日期"
+
+#: View/Reports/ledgerentries.ctp:94 View/Reports/ledgerstatement.ctp:94
+#: View/Reports/profitloss.ctp:191 View/Reports/reconciliation.ctp:102
+msgid "End date"
+msgstr "結束日期"
+
+#: View/Reports/ledgerentries.ctp:159 View/Reports/ledgerstatement.ctp:160
+#: View/Reports/print/ledgerentries.ctp:46 View/Reports/reconciliation.ctp:168
+#: View/Wzusers/index.ctp:46
+msgid "Yes"
+msgstr "Yes"
+
+#: View/Reports/ledgerentries.ctp:161 View/Reports/ledgerstatement.ctp:162
+#: View/Reports/print/ledgerentries.ctp:48 View/Reports/reconciliation.ctp:170
+#: View/Wzusers/index.ctp:48
+msgid "No"
+msgstr "No"
+
+#: View/Reports/profitloss.ctp:181
+msgid "Show Opening Profit and Loss Statement"
+msgstr "顯示期初損益表"
+
+#: View/Reports/profitloss.ctp:182
+msgid ""
+"Note : In opening Profit and Loss Statement all ledgers and groups balance "
+"must be zero."
+msgstr "註：在期初損益表中，所有帳目和群組餘額必須為零。"
+
+#: View/Reports/profitloss.ctp:188
+msgid ""
+"Note : Leave start date as empty if you want statement from the start of the "
+"financial year."
+msgstr "註：如果您想從財政年度開始編制報表，請將開始日期保持空白。"
+
+#: View/Reports/profitloss.ctp:192
+msgid ""
+"Note : Leave end date as empty if you want statement till the end of the "
+"financial year."
+msgstr "註：如果您想在財政年度結束提交報表，請將結束日期保持空白。"
+
+#: View/Reports/profitloss.ctp:252
+msgid "Gross Expenses (Dr)"
+msgstr "總支出 (借方)"
+
+#: View/Reports/profitloss.ctp:263
+msgid "Gross Incomes (Cr)"
+msgstr "總收入 (貸方)"
+
+#: View/Reports/profitloss.ctp:356
+msgid "Net Expenses (Dr)"
+msgstr "淨支出 (借方)"
+
+#: View/Reports/profitloss.ctp:367
+msgid "Net Incomes (Cr)"
+msgstr "淨收入 (貸方)"
+
+#: View/Reports/reconciliation.ctp:100
+msgid "Show all entries"
+msgstr "顯示所有分錄"
+
+#: View/Reports/reconciliation.ctp:284
+msgid "Reconile"
+msgstr "調節"
+
+#: View/Search/index.ctp:135
+msgid "Ledgers"
+msgstr "分類帳"
+
+#: View/Search/index.ctp:144
+msgid "Entrytypes"
+msgstr "分錄類型"
+
+#: View/Search/index.ctp:147
+msgid "Entry number"
+msgstr "分錄編號"
+
+#: View/Search/index.ctp:159 View/Search/index.ctp:185
+msgid "and"
+msgstr "與"
+
+#: View/Search/index.ctp:170
+msgid "Dr or Cr"
+msgstr "借或貸 (Dr or Cr)"
+
+#: View/Search/index.ctp:193
+msgid "From date"
+msgstr "起始日"
+
+#: View/Search/index.ctp:194
+msgid "To date"
+msgstr "結束日"
+
+#: View/Search/index.ctp:205
+msgid "Narration contains"
+msgstr "敘述包含"
+
+#: View/Settings/account.ctp:66 View/Settings/cf.ctp:108
+#: View/Wzaccounts/create.ctp:71
+msgid "Company / Personal Name"
+msgstr "公司 / 個人名稱"
+
+#: View/Settings/account.ctp:67
+msgid "Address and other details"
+msgstr "地址與其它細節"
+
+#: View/Settings/account.ctp:69 View/Wzaccounts/create.ctp:74
+msgid "Currency symbol"
+msgstr "貨幣符號"
+
+#: View/Settings/account.ctp:70 View/Wzaccounts/create.ctp:78
+msgid "Currency format"
+msgstr "貨幣格式"
+
+#: View/Settings/account.ctp:71 View/Settings/cf.ctp:109
+#: View/Wzaccounts/create.ctp:87
+msgid "Date format"
+msgstr "日期格式"
+
+#: View/Settings/account.ctp:72 View/Settings/cf.ctp:110
+#: View/Wzaccounts/create.ctp:88
+msgid "Financial year start"
+msgstr "財政年度開始日"
+
+#: View/Settings/account.ctp:73 View/Settings/cf.ctp:111
+#: View/Wzaccounts/create.ctp:89
+msgid "Financial year end"
+msgstr "財政年度結束日"
+
+#: View/Settings/cf.ctp:68
+msgid "Active account details :"
+msgstr "已啟動的帳戶詳情："
+
+#: View/Settings/cf.ctp:99
+msgid ""
+"Important Note : Please manually carry forward the profit and loss balance "
+"for the current year to a ledger account like capital account for the next "
+"year, otherwise the opening balance sheet for the next year will not tally."
+msgstr ""
+"重要提示：請手動將本年度的損益餘額結轉到下一年度的資本帳戶等明細帳科目，否則"
+"下一年度的期初資產負債表將無法統計。"
+
+#: View/Settings/cf.ctp:106 View/Wzaccounts/add.ctp:47
+#: View/Wzaccounts/create.ctp:69 View/Wzaccounts/edit.ctp:40
+msgid ""
+"Note : It is recommended to use a descriptive label like \"sample20142105\" "
+"which includes both a short name and the accounting year."
+msgstr ""
+"註：建議使用 \"sample20142105 \"這樣的描述性標籤，其中包括簡稱和會計年度。"
+
+#: View/Settings/cf.ctp:115 View/Wzaccounts/add.ctp:49
+#: View/Wzaccounts/create.ctp:93 View/Wzaccounts/edit.ctp:42
+msgid "Database type"
+msgstr "資料庫類型"
+
+#: View/Settings/cf.ctp:116 View/Wzaccounts/add.ctp:50
+#: View/Wzaccounts/create.ctp:94 View/Wzaccounts/edit.ctp:43
+msgid "Database name"
+msgstr "資料庫名稱"
+
+#: View/Settings/cf.ctp:118 View/Wzaccounts/add.ctp:52
+#: View/Wzaccounts/create.ctp:96 View/Wzaccounts/edit.ctp:45
+msgid "Database schema"
+msgstr "資料庫綱要 (Database schema)"
+
+#: View/Settings/cf.ctp:119 View/Wzaccounts/add.ctp:53
+#: View/Wzaccounts/create.ctp:97 View/Wzaccounts/edit.ctp:46
+msgid ""
+"Note : Database schema is required for Postgres database connection. Leave "
+"it blank for MySQL connections."
+msgstr ""
+"注意：Postgres資料庫連線需要輸入資料庫綱要 (Database schema)。對於MySQL連線，"
+"請保持空白。"
+
+#: View/Settings/cf.ctp:121 View/Wzaccounts/add.ctp:55
+#: View/Wzaccounts/create.ctp:99 View/Wzaccounts/edit.ctp:48
+msgid "Database host"
+msgstr "資料庫位址"
+
+#: View/Settings/cf.ctp:122 View/Wzaccounts/add.ctp:56
+#: View/Wzaccounts/create.ctp:100 View/Wzaccounts/edit.ctp:49
+msgid "Database port"
+msgstr "資料庫通訊埠"
+
+#: View/Settings/cf.ctp:123 View/Wzaccounts/add.ctp:57
+#: View/Wzaccounts/create.ctp:101 View/Wzaccounts/edit.ctp:50
+msgid "Database login"
+msgstr "資料庫帳號"
+
+#: View/Settings/cf.ctp:124 View/Wzaccounts/add.ctp:58
+#: View/Wzaccounts/create.ctp:102 View/Wzaccounts/edit.ctp:51
+msgid "Database password"
+msgstr "資料庫密碼"
+
+#: View/Settings/cf.ctp:126 View/Wzaccounts/add.ctp:60
+#: View/Wzaccounts/create.ctp:104 View/Wzaccounts/edit.ctp:53
+msgid "Database prefix"
+msgstr "資料庫前綴"
+
+#: View/Settings/cf.ctp:127 View/Wzaccounts/add.ctp:61
+#: View/Wzaccounts/create.ctp:105 View/Wzaccounts/edit.ctp:54
+msgid ""
+"Note : Database table prefix to use (optional). All tables for this account "
+"will be created with this prefix, useful if you have only one database "
+"available and want to use multiple accounts."
+msgstr ""
+"註：要使用的資料庫表前綴（選用）。這個帳戶的所有資料表都會用這個前綴建立，如"
+"果你只有一個資料庫，而想使用多個帳戶，這個前綴很有用。"
+
+#: View/Settings/cf.ctp:129 View/Wzaccounts/add.ctp:63
+#: View/Wzaccounts/create.ctp:107 View/Wzaccounts/edit.ctp:56
+msgid "Use persistent connection"
+msgstr "使用持續連接 (Persistent connection)"
+
+#: View/Settings/cf.ctp:131 View/Wzaccounts/add.ctp:65
+#: View/Wzaccounts/create.ctp:109 View/Wzaccounts/edit.ctp:58
+msgid "Database settings"
+msgstr "資料庫設定"
+
+#: View/Settings/cf.ctp:132 View/Wzaccounts/add.ctp:66
+#: View/Wzaccounts/create.ctp:110 View/Wzaccounts/edit.ctp:59
+msgid "Note : Any additional settings to pass on to the database connection."
+msgstr "註：任何要傳遞給資料庫連線的附加設定。"
+
+#: View/Settings/email.ctp:69
+msgid "Use default email settings"
+msgstr "使用預設Email設定"
+
+#: View/Settings/email.ctp:71
+msgid ""
+"Note : If selected the default email settings in the Administer > General "
+"Settings will be used."
+msgstr "註：勾選此項目，將使用\"管理員\">\"一般設定\"中的預設Email設定。"
+
+#: View/Settings/email.ctp:73 View/Wzsettings/edit.ctp:67
+msgid "Protocol"
+msgstr "通訊協定"
+
+#: View/Settings/email.ctp:74 View/Wzsettings/edit.ctp:68
+msgid "Hostname"
+msgstr "主機名稱"
+
+#: View/Settings/email.ctp:75 View/Wzsettings/edit.ctp:69
+msgid "Port"
+msgstr "通訊埠"
+
+#: View/Settings/email.ctp:76 View/Wzsettings/edit.ctp:70
+msgid "Use TLS"
+msgstr "使用 TLS"
+
+#: View/Settings/email.ctp:78 View/Wzsettings/edit.ctp:72
+#: View/Wzusers/add.ctp:39 View/Wzusers/login.ctp:51
+#: View/Wzusers/register.ctp:40 View/Wzusers/tplogin.ctp:39
+msgid "Password"
+msgstr "密碼"
+
+#: View/Settings/email.ctp:79 View/Wzsettings/edit.ctp:73
+msgid "From"
+msgstr "寄件名稱"
+
+#: View/Settings/index.ctp:32
+msgid "Account settings"
+msgstr "帳戶設定"
+
+#: View/Settings/index.ctp:35
+msgid "Setup account details, currency, time, etc."
+msgstr "設定帳戶細節、貨幣、時區等。"
+
+#: View/Settings/index.ctp:40
+msgid "Carry forward"
+msgstr "遞轉下期"
+
+#: View/Settings/index.ctp:43
+msgid "Carry forward account to next financial year"
+msgstr "帳戶結轉到下一財政年度"
+
+#: View/Settings/index.ctp:48
+msgid "Email settings"
+msgstr "Email設定"
+
+#: View/Settings/index.ctp:51
+msgid "Setup outgoing email"
+msgstr "設定外送郵件"
+
+#: View/Settings/index.ctp:56
+msgid "Printer settings"
+msgstr "列印設定"
+
+#: View/Settings/index.ctp:59
+msgid "Setup printing options for entries, reports, etc."
+msgstr "為分錄、報告等設定列印選項。"
+
+#: View/Settings/index.ctp:64
+msgid "Download backup"
+msgstr "下載備份"
+
+#: View/Settings/index.ctp:67
+msgid "Download backup of current accounts data"
+msgstr "下載目前帳戶資料的備份"
+
+#: View/Settings/index.ctp:77
+msgid "Manage tags"
+msgstr "管理標籤"
+
+#: View/Settings/index.ctp:85
+msgid "Manage entry types"
+msgstr "管理分錄類型"
+
+#: View/Settings/index.ctp:90 View/Settings/lock.ctp:46
+msgid "Lock account"
+msgstr "鎖定帳戶"
+
+#: View/Settings/index.ctp:93
+msgid "Lock account to prevent further changes"
+msgstr "鎖定帳戶以防止進一步更改"
+
+#: View/Settings/lock.ctp:39
+msgid "Currently this account is locked"
+msgstr "目前此帳戶已鎖定"
+
+#: View/Settings/lock.ctp:41
+msgid "Currently this account is unlocked"
+msgstr "目前此帳戶已解鎖"
+
+#: View/Settings/lock.ctp:47
+msgid ""
+"Note : Once a account is locked no further changes will be permitted. You "
+"will have to unlock it to make changes."
+msgstr "注意：一旦帳戶被鎖定，將不允許進一步更改。您必須解鎖才能進行更改。"
+
+#: View/Settings/printer.ctp:31
+msgid "inches"
+msgstr "英吋"
+
+#: View/Settings/printer.ctp:42
+msgid "Paper Size"
+msgstr "紙張大小"
+
+#: View/Settings/printer.ctp:43
+msgid "Height"
+msgstr "高度"
+
+#: View/Settings/printer.ctp:44
+msgid "Width"
+msgstr "寬度"
+
+#: View/Settings/printer.ctp:47
+msgid "Paper Margin"
+msgstr "紙張邊界"
+
+#: View/Settings/printer.ctp:48
+msgid "Top"
+msgstr "上"
+
+#: View/Settings/printer.ctp:49
+msgid "Bottom"
+msgstr "下"
+
+#: View/Settings/printer.ctp:50
+msgid "Left"
+msgstr "左"
+
+#: View/Settings/printer.ctp:51
+msgid "Right"
+msgstr "右"
+
+#: View/Settings/printer.ctp:54
+msgid "Orientation"
+msgstr "方向"
+
+#: View/Settings/printer.ctp:58
+msgid "Output Format"
+msgstr "輸出格式"
+
+#: View/Tags/add.ctp:47 View/Tags/edit.ctp:47 View/Tags/index.ctp:30
+msgid "Title"
+msgstr "標題"
+
+#: View/Tags/add.ctp:48 View/Tags/edit.ctp:48
+msgid "Color"
+msgstr "顏色"
+
+#: View/Tags/add.ctp:49 View/Tags/edit.ctp:49
+msgid "Background"
+msgstr "背景"
+
+#: View/Tags/index.ctp:41
+msgid "Are you sure you want to delete the tag ?"
+msgstr "您確定要刪除此標籤？"
+
+#: View/Wzaccounts/add.ctp:31
+msgid ""
+"Please use this to add an already existing database configuration to the "
+"system."
+msgstr "請使用此功能將已經存在的資料庫設置新增到系統中。"
+
+#: View/Wzaccounts/create.ctp:72
+msgid "Address"
+msgstr "地址"
+
+#: View/Wzaccounts/create.ctp:79
+msgid ""
+"Note : Check the wiki if you want to create a custom format for currency."
+msgstr "注意：如果你想建立一個自定義的貨幣格式，請查看Wiki。"
+
+#: View/Wzaccounts/create.ctp:84
+msgid "Decimal places"
+msgstr "小數位數"
+
+#: View/Wzaccounts/create.ctp:85
+msgid "Note : This options cannot be changed later on."
+msgstr "註：此選項以後不能更改。"
+
+#: View/Wzaccounts/index.ctp:31
+msgid ""
+"Please make sure no user is actively using any account before editing or "
+"deleting it."
+msgstr "在編輯或刪除任何帳戶之前，請確認沒有用戶正在使用該帳戶。"
+
+#: View/Wzaccounts/index.ctp:38
+msgid "DB Type"
+msgstr "資料庫類型"
+
+#: View/Wzaccounts/index.ctp:39
+msgid "DB Name"
+msgstr "資料庫名稱"
+
+#: View/Wzaccounts/index.ctp:40
+msgid "DB Host"
+msgstr "資料庫位址"
+
+#: View/Wzaccounts/index.ctp:41
+msgid "DB Port"
+msgstr "資料庫通訊埠"
+
+#: View/Wzaccounts/index.ctp:42
+msgid "DB Prefix"
+msgstr "資料庫前綴"
+
+#: View/Wzaccounts/index.ctp:56
+msgid "Active"
+msgstr "啟動"
+
+#: View/Wzaccounts/index.ctp:60
+msgid "Are you sure you want to delete the account config ?"
+msgstr "您確定要刪除此帳戶設定？"
+
+#: View/Wzaccounts/update.ctp:38
+#, php-format
+msgid "Account name : %s"
+msgstr "帳戶名稱：%s"
+
+#: View/Wzaccounts/update.ctp:42
+msgid "Click the \"Udpate\" button below to update the database."
+msgstr "點擊下面的 \"更新\" 按鈕，更新資料庫。"
+
+#: View/Wzaccounts/update.ctp:46
+msgid ""
+"Please do keep a backup of the account database incase the update process "
+"fails."
+msgstr "請保留帳戶資料庫的備份，以防更新過程失敗。"
+
+#: View/Wzaccounts/update.ctp:52
+msgid "Update"
+msgstr "更新"
+
+#: View/Wzsettings/edit.ctp:40
+msgid "Sitename"
+msgstr "網站名稱"
+
+#: View/Wzsettings/edit.ctp:41
+msgid "Note : Sitename to use in all user registration related emails."
+msgstr "註：在所有用戶註冊相關Email中會使用的網站名。"
+
+#: View/Wzsettings/edit.ctp:46
+msgid "In entries use"
+msgstr "在分錄中使用"
+
+#: View/Wzsettings/edit.ctp:47
+msgid "Note : Whether to use Dr/Cr or To/By in entries."
+msgstr "註：在分錄中使用Dr/Cr或是To/By。"
+
+#: View/Wzsettings/edit.ctp:51
+msgid "Enable logging"
+msgstr "啟用日誌紀錄"
+
+#: View/Wzsettings/edit.ctp:53
+msgid ""
+"Note : Log changes to the accounts which can be seen in the account "
+"dashboard."
+msgstr "注意：記錄帳戶的活動，可以在帳戶儀表板中看到。"
+
+#: View/Wzsettings/edit.ctp:58
+msgid "Row count"
+msgstr "行數"
+
+#: View/Wzsettings/edit.ctp:59
+msgid "Note : Number of rows to show at a time."
+msgstr "註：每次要顯示的行數。"
+
+#: View/Wzsettings/edit.ctp:62
+msgid "User can create accounts"
+msgstr "使用者可建立帳戶"
+
+#: View/Wzsettings/edit.ctp:63
+msgid "Administrator approval is required for activating user accounts"
+msgstr "使用者帳戶啟動須經管理員批准"
+
+#: View/Wzsettings/edit.ctp:64
+msgid "Email verification required for activating user accounts"
+msgstr "使用者帳戶啟動須經Email驗證"
+
+#: View/Wzsettings/sysinfo.ctp:30
+#, php-format
+msgid "Application version : %s"
+msgstr "Application version : %s"
+
+#: View/Wzsettings/sysinfo.ctp:33
+#, php-format
+msgid "Application database version : %s"
+msgstr "Application database version : %s"
+
+#: View/Wzsettings/sysinfo.ctp:36
+#, php-format
+msgid "PHP version : %s"
+msgstr "PHP version : %s"
+
+#: View/Wzsettings/sysinfo.ctp:41
+msgid "PHP BC Math library : Yes"
+msgstr "PHP BC Math library : Yes"
+
+#: View/Wzsettings/sysinfo.ctp:44
+msgid "PHP BC Math library : No"
+msgstr "PHP BC Math library : No"
+
+#: View/Wzsettings/sysinfo.ctp:52
+#, php-format
+msgid "PHP Sqlite3 library : %s"
+msgstr "PHP Sqlite3 library : %s"
+
+#: View/Wzsettings/sysinfo.ctp:58
+#, php-format
+msgid "CakePHP version : %s"
+msgstr "CakePHP version : %s"
+
+#: View/Wzusers/account.ctp:32
+msgid "Sorry, no accounts are available. Please create a new account "
+msgstr "對不起，沒有帳戶可用。請建立一個新的帳戶 "
+
+#: View/Wzusers/account.ctp:34 View/Wzusers/account.ctp:37
+msgid "Sorry, no accounts are available. Please contact your administrator."
+msgstr "對不起，沒有帳戶可用。請聯繫您的管理員。"
+
+#: View/Wzusers/account.ctp:40
+msgid ""
+"Sorry, you do not have access to any accounts. You can manage your accounts "
+msgstr "對不起，你沒有存取任何帳戶。您可以管理您的帳戶 "
+
+#: View/Wzusers/account.ctp:42
+msgid ""
+"Sorry, you do not have access to any accounts. Please contact your "
+"administrator."
+msgstr "對不起，你沒有存取任何帳戶。請聯繫您的管理員。"
+
+#: View/Wzusers/account.ctp:53
+#, php-format
+msgid "Currently active account : \"%s\""
+msgstr "已啟動帳戶：\"%s\""
+
+#: View/Wzusers/account.ctp:57
+msgid "Select account"
+msgstr "選擇帳戶"
+
+#: View/Wzusers/account.ctp:59
+msgid ""
+"Note : If you wish to use multiple accounts simultaneously, please use "
+"different browsers for each. Also, please select (NONE) if you wish to "
+"deactivate all accounts."
+msgstr ""
+"註：若想同時使用多個帳戶，請用不同瀏覽器登入。若要關閉所有帳戶，請選擇"
+"(NONE)。"
+
+#: View/Wzusers/account.ctp:63
+msgid "Activate"
+msgstr "啟動"
+
+#: View/Wzusers/add.ctp:40 View/Wzusers/edit.ctp:39 View/Wzusers/first.ctp:39
+#: View/Wzusers/index.ctp:31 View/Wzusers/profile.ctp:38
+#: View/Wzusers/register.ctp:41
+msgid "Fullname"
+msgstr "姓名"
+
+#: View/Wzusers/add.ctp:43 View/Wzusers/edit.ctp:42
+msgid "Email verified"
+msgstr "Email已驗證"
+
+#: View/Wzusers/add.ctp:44 View/Wzusers/edit.ctp:43
+msgid "Administrator approved"
+msgstr "管理員已批准"
+
+#: View/Wzusers/add.ctp:51 View/Wzusers/edit.ctp:50
+msgid "Account access"
+msgstr "帳戶存取"
+
+#: View/Wzusers/add.ctp:53 View/Wzusers/edit.ctp:52
+msgid ""
+"Note : Select which accounts a user can access. Selecting \"ALL ACCOUNTS\" "
+"will grant them access to all accounts."
+msgstr ""
+"註：選擇用戶可以存取的帳戶。選擇 \"ALL ACCOUNTS\" 將允許他們存取所有帳戶。"
+
+#: View/Wzusers/changepass.ctp:38
+msgid "Existing password"
+msgstr "舊密碼"
+
+#: View/Wzusers/changepass.ctp:39 View/Wzusers/resetpass.ctp:40
+msgid "New password"
+msgstr "新密碼"
+
+#: View/Wzusers/first.ctp:38
+msgid "New Password"
+msgstr "新密碼"
+
+#: View/Wzusers/forgot.ctp:38 View/Wzusers/resend.ctp:38
+msgid "Registered username or email address"
+msgstr "註冊用戶名或Email信箱"
+
+#: View/Wzusers/index.ctp:34
+msgid "Approved"
+msgstr "已批准"
+
+#: View/Wzusers/index.ctp:56
+msgid " Password"
+msgstr " 重設密碼"
+
+#: View/Wzusers/index.ctp:58
+msgid "Are you sure you want to delete the user ?"
+msgstr "您確定要刪除此使用者？"
+
+#: View/Wzusers/login.ctp:33
+msgid ""
+"Since this is your first time, you can login with username as \"admin\" and "
+"password as \"admin\". Please change your password after login."
+msgstr ""
+"由於您是第一次登入，您可以用用戶名 \"admin\" 和密碼 \"admin\" 登入。登入後請"
+"修改密碼。"
+
+#: View/Wzusers/login.ctp:38
+msgid ""
+"Warning ! Password still not updated for \"admin\" user. Please change your "
+"password after login."
+msgstr "警告! 管理員 \"用戶的密碼仍未更新。請在登入後更改密碼。"
+
+#: View/Wzusers/register.ctp:55
+msgid "Sorry, user registration is disabled."
+msgstr "很抱歉，不開放使用者註冊。"
+
+#: View/Wzusers/resetpass.ctp:38
+#, php-format
+msgid "Reset password for user \"%s\""
+msgstr "重設使用者 \"%s\" 的密碼"
+
+#: View/Wzusers/verify.ctp:31
+msgid "Click here to Login"
+msgstr "登入"
+
+#: View/Wzusers/verify.ctp:33
+msgid "Click here to resend verification email"
+msgstr "點擊這裡重新發送驗證郵件"
+
+#~ msgid "Closing Trading and Profit & Loss Statement as on "
+#~ msgstr "於下列日期的期末交易及損益表 "
+
+#~ msgid "Add Account Config"
+#~ msgstr "建立帳戶設定"
+
+#~ msgid "Tag id is not a valid number"
+#~ msgstr "標籤id數值無效"
+
+#~ msgid "Tag id length cannot be more than 18"
+#~ msgstr "標籤id長度不能超過18"
+
+#~ msgid "Tag id is not valid"
+#~ msgstr "標籤id無效"
+
+#~ msgid "Entry type cannot be empty"
+#~ msgstr "分錄類型不能空白"
+
+#~ msgid "Entry type is not a valid number"
+#~ msgstr "分錄類型數值無效"
+
+#~ msgid "Entry type length cannot be more than 18"
+#~ msgstr "分錄類型長度不能超過18"
+
+#~ msgid "Entry type is not valid"
+#~ msgstr "分錄類型無效"
+
+#~ msgid "Entry number is not a valid number"
+#~ msgstr "分錄編號數值無效"
+
+#~ msgid "Entry number length cannot be more than 18"
+#~ msgstr "分錄編號長度不能超過18"
+
+#~ msgid "Entry number already exists"
+#~ msgstr "分錄編號已存在"
+
+#~ msgid "Invalid value for entry date"
+#~ msgstr "輸入日期無效"
+
+#~ msgid "Entry date should be after financial year start"
+#~ msgstr "分錄日期應在財政年度開始日之後"
+
+#~ msgid "Entry date should be before financial year end"
+#~ msgstr "分錄日期應在財政年度結束前"
+
+#~ msgid "Debit total cannot be empty"
+#~ msgstr "借方總額不能空白"
+
+#~ msgid "Debit total is not a valid amount"
+#~ msgstr "借方總額不是有效金額"
+
+#~ msgid "Debit total length cannot be more than 28"
+#~ msgstr "借方總額長度不能超過28"
+
+#~ msgid "Debit total cannot be less than 0.00"
+#~ msgstr "借方總額不能小於0.00"
+
+#~ msgid "Credit total cannot be empty"
+#~ msgstr "貸方總額不能空白"
+
+#~ msgid "Credit total is not a valid amount"
+#~ msgstr "貸方總額不是有效金額"
+
+#~ msgid "Credit total length cannot be more than 28"
+#~ msgstr "貸方總額長度不能超過28"
+
+#~ msgid "Credit total cannot be less than 0.00"
+#~ msgstr "貸方總額不能小於0.00"
+
+#~ msgid "Credit total is not equal to debit total"
+#~ msgstr "貸方總額不等於借方總額"
+
+#~ msgid "Entry id cannot be empty"
+#~ msgstr "分錄id不能空白"
+
+#~ msgid "Entry id is not a valid number"
+#~ msgstr "分錄id數值無效"
+
+#~ msgid "Entry id length cannot be more than 18"
+#~ msgstr "分錄id長度不能超過18"
+
+#~ msgid "Entry id is not valid"
+#~ msgstr "分錄id無效"
+
+#~ msgid "Ledger id cannot be empty"
+#~ msgstr "分類帳代碼不能空白"
+
+#~ msgid "Ledger id is not a valid number"
+#~ msgstr "分類帳id數值無效"
+
+#~ msgid "Ledger id length cannot be more than 18"
+#~ msgstr "分類帳id長度不能超過18"
+
+#~ msgid "Ledger id is not valid"
+#~ msgstr "分類帳id無效"
+
+#~ msgid "Amount cannot be empty"
+#~ msgstr "金額不能空白"
+
+#~ msgid "Amount is not a valid amount"
+#~ msgstr "金額不是有效金額"
+
+#~ msgid "Amount total length cannot be more than 28"
+#~ msgstr "金額總長度不能超過28"
+
+#~ msgid "Amount cannot be less than 0.00"
+#~ msgstr "金額不能少於0.00"
+
+#~ msgid "Dr/Cr cannot be empty"
+#~ msgstr "借/貸 (Dr/Cr)不能空白"
+
+#~ msgid "Invalid value for Dr/Cr"
+#~ msgstr "借/貸數值無效"
+
+#~ msgid "Invalid value for reconciliation date"
+#~ msgstr "對帳日期無效"
+
+#~ msgid "Label cannot be empty"
+#~ msgstr "標籤不能空白"
+
+#~ msgid "Label is already in use"
+#~ msgstr "標籤已在使用中"
+
+#~ msgid "Label cannot be more than 100 characters"
+#~ msgstr "標籤不能超過100字元"
+
+#~ msgid "Label can contain only letter and digits"
+#~ msgstr "標籤僅允許英文與數字"
+
+#~ msgid "Label cannot be \"0\""
+#~ msgstr "標籤不能為\"0\""
+
+#~ msgid "Name cannot be empty"
+#~ msgstr "名稱不能空白"
+
+#~ msgid "Name is already in use"
+#~ msgstr "名稱已在使用中"
+
+#~ msgid "Name cannot be more than 100 characters"
+#~ msgstr "姓名不能超過100字元"
+
+#~ msgid "Description cannot be more than 255 characters"
+#~ msgstr "描述不能超過255字元"
+
+#~ msgid "Invalid option for base type"
+#~ msgstr "基本類型選項無效"
+
+#~ msgid "Invalid option for numbering"
+#~ msgstr "編號選項無效"
+
+#~ msgid "Prefix cannot be more than 255 characters"
+#~ msgstr "前綴不能超過255字元"
+
+#~ msgid "Suffix cannot be more than 255 characters"
+#~ msgstr "後綴不能超過255字元"
+
+#~ msgid "Zero padding is not valid number"
+#~ msgstr "墊零值無效"
+
+#~ msgid "Zero padding should be more than 0"
+#~ msgstr "墊零值應大於0"
+
+#~ msgid "Zero padding should be less than 99"
+#~ msgstr "墊零值應小於99"
+
+#~ msgid "Zero padding cannot contain a decimal point"
+#~ msgstr "墊零值不能包含小數點"
+
+#~ msgid "Invalid option for restrictions"
+#~ msgstr "限制選項無效"
+
+#~ msgid "Parent group cannot be empty"
+#~ msgstr "母群不能空白"
+
+#~ msgid "Parent group is not a valid number"
+#~ msgstr "母群數值無效"
+
+#~ msgid "Parent group is not valid"
+#~ msgstr "無效"
+
+#~ msgid "Parent group id length cannot be more than 18"
+#~ msgstr "母群id長度不能超過18"
+
+#~ msgid "Group name cannot be empty"
+#~ msgstr "群組名稱不能空白"
+
+#~ msgid "Group name is already in use"
+#~ msgstr "群組名稱已在使用中"
+
+#~ msgid "Group name cannot be more than 255 characters"
+#~ msgstr "群組名稱不能超過255字元"
+
+#~ msgid "Group code is already in use"
+#~ msgstr "群組代碼已在使用中"
+
+#~ msgid "Group code cannot be more than 255 characters"
+#~ msgstr "群組代碼不能超過255字元"
+
+#~ msgid "Group code is already in use by a ledger account"
+#~ msgstr "群組代碼已被分類帳帳號使用"
+
+#~ msgid "Affects Gross or Net Profit & Loss cannot be empty"
+#~ msgstr "影響毛利或淨損益不能空白"
+
+#~ msgid ""
+#~ "Invalid value for whether the account group affects Gross or Net Profit & "
+#~ "Loss"
+#~ msgstr "帳戶群組影響毛額或淨損益的數值無效值"
+
+#~ msgid "Ledger name cannot be empty"
+#~ msgstr "分類帳名稱不能空白"
+
+#~ msgid "Ledger name is already in use"
+#~ msgstr "分類帳名稱已在使用中"
+
+#~ msgid "Ledger name cannot be more than 255 characters"
+#~ msgstr "分類帳名稱不能超過255字元"
+
+#~ msgid "Ledger code is already in use"
+#~ msgstr "分類帳代碼已在使用中"
+
+#~ msgid "Ledger code cannot be more than 255 characters"
+#~ msgstr "分類帳代碼不能超過255字元"
+
+#~ msgid "Ledger code is already in use by a group account"
+#~ msgstr "分類帳代碼已被群組帳戶使用"
+
+#~ msgid "Opening balance cannot be empty"
+#~ msgstr "期初餘額不能空白"
+
+#~ msgid "Opening balance is not a valid amount"
+#~ msgstr "期初餘額不是有效金額"
+
+#~ msgid "Opening balance length cannot be more than 28"
+#~ msgstr "期初餘額長度不能超過28"
+
+#~ msgid "Opening balance cannot be less than 0.00"
+#~ msgstr "期初餘額不能少於0.00"
+
+#~ msgid "Opening balance Dr/Cr cannot be empty"
+#~ msgstr "期初餘額借/貸不能空白"
+
+#~ msgid "Invalid value for opening balance Dr/Cr"
+#~ msgstr "無效的期初餘額借/貸值"
+
+#~ msgid "Bank or cash account cannot be empty"
+#~ msgstr "銀行或現金帳戶不能空白"
+
+#~ msgid "Invalid value for bank or cash account"
+#~ msgstr "銀行或現金帳戶數值無效"
+
+#~ msgid "Bank or cash account cannot be more than 2 integers"
+#~ msgstr "銀行或現金帳戶不能超過2個整數"
+
+#~ msgid "Reconciliation cannot be empty"
+#~ msgstr "對帳不能空白"
+
+#~ msgid "Invalid value for reconciliation"
+#~ msgstr "對帳數值無效"
+
+#~ msgid "Notes length cannot be more than 500"
+#~ msgstr "註長度不能超過500"
+
+#~ msgid "Level cannot be empty"
+#~ msgstr "級別不能空白"
+
+#~ msgid "Invalid value for level"
+#~ msgstr "級別數值無效"
+
+#~ msgid "Date cannot be empty"
+#~ msgstr "日期不能空白"
+
+#~ msgid "Invalid IP address"
+#~ msgstr "IP位址無效"
+
+#~ msgid "Username cannot be more than 100 characters"
+#~ msgstr "使用者名稱不能超過100字元"
+
+#~ msgid "Invalid URL"
+#~ msgstr "URL無效"
+
+#~ msgid "User agent cannot be more than 100 characters"
+#~ msgstr "User agent不能超過100字元"
+
+#~ msgid "Message cannot be more than 255 characters"
+#~ msgstr "訊息不能超過255字元"
+
+#~ msgid "Settings id cannot be empty"
+#~ msgstr "設定id不能空白"
+
+#~ msgid "Invalid value for settings id"
+#~ msgstr "設定id數值無效"
+
+#~ msgid "Company / Personal Name name cannot be empty"
+#~ msgstr "公司 / 個人名稱不能空白"
+
+#~ msgid "Company / Personal Name name cannot be more than 255 characters"
+#~ msgstr "公司 / 個人名稱不能空白不能超過255字元"
+
+#~ msgid "Account address cannot be more than 255 characters"
+#~ msgstr "帳戶位址不能超過255字元"
+
+#~ msgid "Invalid email address"
+#~ msgstr "Email信箱無效"
+
+#~ msgid "Invalid value for financial year start"
+#~ msgstr "財政年度開始數值無效"
+
+#~ msgid "Invalid value for financial year end"
+#~ msgstr "財政年度結束數值無效"
+
+#~ msgid "Financial year end should be after financial year start"
+#~ msgstr "財政年度結束日須晚於開始日"
+
+#~ msgid "Entries present beyond the financial year start and end dates"
+#~ msgstr "超過財政年度開始和結束日期的分錄數"
+
+#~ msgid "Currency symbol cannot be more than 255 characters"
+#~ msgstr "貨幣符號不能超過255字元"
+
+#~ msgid "Currency format cannot be more than 255 characters"
+#~ msgstr "貨幣格式不能超過255字元"
+
+#~ msgid "Invalid value for decimal places"
+#~ msgstr "小數點位數值無效"
+
+#~ msgid "Date format cannot be more than 13 characters"
+#~ msgstr "日期格式不能超過13位元"
+
+#~ msgid "Invalid option for date format"
+#~ msgstr "日期格式選項無效"
+
+#~ msgid "Timezone cannot be more than 100 characters"
+#~ msgstr "時區不能超過100字元"
+
+#~ msgid "Invalid timezone format"
+#~ msgstr "時區格式無效"
+
+#~ msgid "Invalid value for manage inventory"
+#~ msgstr "管理庫存數值無效"
+
+#~ msgid "Invalid value for lock"
+#~ msgstr "鎖定數值無效"
+
+#~ msgid "Invalid value for use default email settings"
+#~ msgstr "使用預設Email設定數值無效"
+
+#~ msgid "Invalid value for email protocol"
+#~ msgstr "Email通訊數值無效"
+
+#~ msgid "Hostname cannot be more than 255 characters"
+#~ msgstr "Hostname不能超過255字元"
+
+#~ msgid "Port is not a valid number"
+#~ msgstr "Port數值無效"
+
+#~ msgid "Port should be greater than 0"
+#~ msgstr "通訊埠值應大於0"
+
+#~ msgid "Port should be less than 65000"
+#~ msgstr "通訊埠值應小於65000"
+
+#~ msgid "Port cannot contain a decimal point"
+#~ msgstr "通訊埠值不能包含小數點"
+
+#~ msgid "Invalid value for Use TLS"
+#~ msgstr "使用TLS數值無效"
+
+#~ msgid "Username cannot be more than 255 characters"
+#~ msgstr "使用者名稱不能超過255字元"
+
+#~ msgid "Password cannot be more than 255 characters"
+#~ msgstr "密碼不能超過255字元"
+
+#~ msgid "From cannot be more than 255 characters"
+#~ msgstr "通訊埠值不能超過255字元"
+
+#~ msgid "Height is not a valid number"
+#~ msgstr "高度數值無效"
+
+#~ msgid "Height should be more than 0"
+#~ msgstr "高度應大於0"
+
+#~ msgid "Height should be less than 1000"
+#~ msgstr "高度應小於1000"
+
+#~ msgid "Width is not a valid number"
+#~ msgstr "寬度數值無效"
+
+#~ msgid "Width should be more than 0"
+#~ msgstr "寬度應大於0"
+
+#~ msgid "Width should be less than 1000"
+#~ msgstr "寬度應小於1000"
+
+#~ msgid "Top margin is not a valid number"
+#~ msgstr "上邊界數值無效"
+
+#~ msgid "Top margin should be more than 0"
+#~ msgstr "上邊界應大於0"
+
+#~ msgid "Top margin should be less than 1000"
+#~ msgstr "上邊界應小於1000"
+
+#~ msgid "Bottom margin is not a valid number"
+#~ msgstr "下邊界數值無效"
+
+#~ msgid "Bottom margin should be more than 0"
+#~ msgstr "下邊界應大於0"
+
+#~ msgid "Bottom margin should be less than 1000"
+#~ msgstr "下邊界應小於1000"
+
+#~ msgid "Left margin is not a valid number"
+#~ msgstr "左邊界數值無效"
+
+#~ msgid "Left margin should be more than 0"
+#~ msgstr "左邊界應大於0"
+
+#~ msgid "Left margin should be less than 1000"
+#~ msgstr "左邊界應小於1000"
+
+#~ msgid "Right margin is not a valid number"
+#~ msgstr "右邊界數值無效"
+
+#~ msgid "Right margin should be more than 0"
+#~ msgstr "右邊界應大於0"
+
+#~ msgid "Right margin should be less than 1000"
+#~ msgstr "右邊界應小於1000"
+
+#~ msgid "Invalid option for orientation"
+#~ msgstr "方向選項無效"
+
+#~ msgid "Invalid option for page format"
+#~ msgstr "頁面格式選項無效"
+
+#~ msgid "Title cannot be empty"
+#~ msgstr "標題不能空白"
+
+#~ msgid "Title is already in use"
+#~ msgstr "標題已在使用中"
+
+#~ msgid "Title cannot be more than 100 characters"
+#~ msgstr "標題不能超過100字元"
+
+#~ msgid "Color cannot be empty"
+#~ msgstr "顏色不能空白"
+
+#~ msgid "Color has to be exactly 6 characters"
+#~ msgstr "顏色值必須符合6字元"
+
+#~ msgid "Color is not a valid hexadecimal color value"
+#~ msgstr "顏色不是一個有效的十六進制顏色值"
+
+#~ msgid "Background cannot be empty"
+#~ msgstr "背景不能空白"
+
+#~ msgid "Background has to be exactly 6 characters"
+#~ msgstr "背景顏色值必須符合6字元"
+
+#~ msgid "Background is not a valid hexadecimal color value"
+#~ msgstr "背景不是一個有效的十六進制顏色值"
+
+#~ msgid "Account label cannot be empty"
+#~ msgstr "帳戶標籤不能空白"
+
+#~ msgid "Account label is already in use"
+#~ msgstr "帳戶標籤已在使用中"
+
+#~ msgid "Account label cannot be more than 255 characters"
+#~ msgstr "帳戶標籤不能超過255字元"
+
+#~ msgid "Account label can only be alpha-numeric"
+#~ msgstr "帳戶標籤只能是字母-數字"
+
+#~ msgid "Database type cannot be empty"
+#~ msgstr "資料庫類型不能空白"
+
+#~ msgid "Invalid value for database type"
+#~ msgstr "資料庫類型數值無效"
+
+#~ msgid "Database name cannot be empty"
+#~ msgstr "資料庫名稱不能空白"
+
+#~ msgid "Database name cannot be more than 255 characters"
+#~ msgstr "資料庫名稱不能超過255字元"
+
+#~ msgid "Database host cannot be empty"
+#~ msgstr "資料庫位址不能空白"
+
+#~ msgid "Database host cannot be more than 255 characters"
+#~ msgstr "資料庫位址不能超過255字元"
+
+#~ msgid "Port should be more than 0"
+#~ msgstr "通訊埠值應大於0"
+
+#~ msgid "Database login cannot be more than 255 characters"
+#~ msgstr "資料庫登入名稱不能超過255字元"
+
+#~ msgid "Database password cannot be more than 255 characters"
+#~ msgstr "資料庫密碼不能超過255字元"
+
+#~ msgid "Database persistent connection cannot be empty"
+#~ msgstr "資料庫持續連接不能空白"
+
+#~ msgid "Invalid value for database persistent connection"
+#~ msgstr "資料庫持續連接數值無效"
+
+#~ msgid "Database schema cannot be more than 255 characters"
+#~ msgstr "資料庫架構不能超過255字元"
+
+#~ msgid "Database unixsocket cannot be more than 255 characters"
+#~ msgstr "資料庫unixsocket不能超過255字元"
+
+#~ msgid "Database settings cannot be more than 255 characters"
+#~ msgstr "資料庫設定不能超過255字元"
+
+#~ msgid "Sitename cannot be more than 255 characters"
+#~ msgstr "網站名稱不能超過255字元"
+
+#~ msgid "For entry use cannot be empty"
+#~ msgstr "在分錄中使用不能空白"
+
+#~ msgid "For entry use is not valid"
+#~ msgstr "在分錄中使用值無效"
+
+#~ msgid "Enable logging cannot be empty"
+#~ msgstr "啟用日誌紀錄不能空白"
+
+#~ msgid "Invalid value for enable logging"
+#~ msgstr "啟用記錄數值無效"
+
+#~ msgid "Row count is not a valid number"
+#~ msgstr "行數值無效"
+
+#~ msgid "Row count should be greater than 0"
+#~ msgstr "行數值應大於0"
+
+#~ msgid "Row count should be less than 1000"
+#~ msgstr "行數值應小於1000"
+
+#~ msgid "Row count cannot contain a decimal point"
+#~ msgstr "行數值不能包含小數點"
+
+#~ msgid "User registration cannot be empty"
+#~ msgstr "使用者註冊不能空白"
+
+#~ msgid "Invalid value for user registration"
+#~ msgstr "使用者註冊數值無效"
+
+#~ msgid "Admin verification cannot be empty"
+#~ msgstr "管理員驗證不能空白"
+
+#~ msgid "Invalid value for admin verification"
+#~ msgstr "管理員驗證數值無效"
+
+#~ msgid "Email verification cannot be empty"
+#~ msgstr "Email驗證不能空白"
+
+#~ msgid "Invalid value for email verification"
+#~ msgstr "Email驗證數值無效"
+
+#~ msgid "Username cannot be empty"
+#~ msgstr "使用者名稱不能空白"
+
+#~ msgid "Username is already in use"
+#~ msgstr "使用者名稱已註冊"
+
+#~ msgid "Fullname cannot be empty"
+#~ msgstr "姓名不能空白"
+
+#~ msgid "Fullname cannot be more than 255 characters"
+#~ msgstr "姓名不能超過255字元"
+
+#~ msgid "Password cannot be empty"
+#~ msgstr "密碼不能空白"
+
+#~ msgid "Email cannot be empty"
+#~ msgstr "Email不能空白"
+
+#~ msgid "Email is not a valid email address"
+#~ msgstr "Email信箱無效"
+
+#~ msgid "Email is already in use"
+#~ msgstr "Email已在使用中"
+
+#~ msgid "Timezone cannot be empty"
+#~ msgstr "時區不能空白"
+
+#~ msgid "Role cannot be empty"
+#~ msgstr "角色不能空白"
+
+#~ msgid "Invalid value for role"
+#~ msgstr "角色數值無效"
+
+#~ msgid "Status cannot be empty"
+#~ msgstr "狀態不能空白"
+
+#~ msgid "Invalid value for status"
+#~ msgstr "狀態數值無效"
+
+#~ msgid "Email verified cannot be empty"
+#~ msgstr "Email已驗證不能空白"
+
+#~ msgid "Invalid value for email verified"
+#~ msgstr "Email已驗證數值無效"
+
+#~ msgid "Administrator approved cannot be empty"
+#~ msgstr "管理員批准不能空白"
+
+#~ msgid "Invalid value for administrator approved"
+#~ msgstr "管理員批准數值無效"
+
+#~ msgid "Retry count is not a valid number"
+#~ msgstr "重試數值無效"
+
+#~ msgid "Retry count cannot contain a decimal point"
+#~ msgstr "重試次數不能包含小數點"
+
+#~ msgid "All accounts access cannot be empty"
+#~ msgstr "所有帳戶存取不能空白"
+
+#~ msgid "Invalid value for all accounts access"
+#~ msgstr "所有帳戶存取數值無效"
+
+#~ msgid "User id cannot be empty"
+#~ msgstr "使用者id不能空白"
+
+#~ msgid "User id cannot be more than 11 characters"
+#~ msgstr "使用者id不能超過11字元"
+
+#~ msgid "Account id cannot be empty"
+#~ msgstr "帳戶id不能空白"
+
+#~ msgid "Account id cannot be more than 11 characters"
+#~ msgstr "使用者id不能超過11字元"
