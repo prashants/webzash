@@ -57,7 +57,7 @@ class AccountsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Chart Of Accounts'));
 
 		$this->set('actionlinks', array(
-			array('controller' => 'groups', 'action' => 'add', 'title' => __d('webzash', 'Add Group'))),
+			array('controller' => 'groups', 'action' => 'add', 'title' => __d('webzash', 'Add Group')),
 			array('controller' => 'ledgers', 'action' => 'add', 'title' => __d('webzash', 'Add Ledger'))
 		));
 		$accountlist = new AccountList();

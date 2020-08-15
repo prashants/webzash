@@ -62,7 +62,7 @@ if (!extension_loaded('bcmath')) {
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Financial Year'); ?></td>
-						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . ' to ' . dateFromSql(Configure::read('Account.enddate')); ?></td>
+						<td><?php echo dateFromSql(Configure::read('Account.startdate')) . __d('webzash', ' to ') . dateFromSql(Configure::read('Account.enddate')); ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __d('webzash', 'Status'); ?></td>
