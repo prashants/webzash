@@ -76,13 +76,13 @@
 		<div id="footer">
 			<div class="kb-shorcuts">
 				<ul>
-					<li>alt + a<span>Chart of Accounts</span></li>
-					<li>alt + e<span>All Entries</span></li>
-					<li>alt + l<span>Add Ledger</span></li>
-					<li>alt + r<span>Add Receipt</span></li>
-					<li>alt + p<span>Add Payment</span></li>
-					<li>alt + c<span>Add Contra</span></li>
-					<li>alt + j<span>Add Journal</span></li>
+					<li>alt + a<span><?php echo __d('webzash', 'Chart of Accounts'); ?></span></li>
+					<li>alt + e<span><?php echo __d('webzash', 'All Entries'); ?></span></li>
+					<li>alt + l<span><?php echo __d('webzash', 'Add Ledger'); ?></span></li>
+					<li>alt + r<span><?php echo __d('webzash', 'Add Receipt'); ?></span></li>
+					<li>alt + p<span><?php echo __d('webzash', 'Add Payment'); ?></span></li>
+					<li>alt + c<span><?php echo __d('webzash', 'Add Contra'); ?></span></li>
+					<li>alt + j<span><?php echo __d('webzash', 'Add Journal'); ?></span></li>
 				</ul>
 			</div>
 			<div class="credits">

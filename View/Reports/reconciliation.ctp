@@ -94,7 +94,7 @@ $(document).ready(function() {
 		echo $this->Form->input('ledger_id', array('type' => 'select', 'options' => $ledgers, 'label' => __d('webzash', 'Ledger account')));
 
 		echo '<div id="accordion">';
-		echo '<h3>Options</h3>';
+		echo '<h3>' . __d('webzash', 'Options') . '</h3>';
 		echo '<div>';
 
 		echo $this->Form->input('showall', array('type' => 'checkbox', 'label' => __d('webzash', 'Show all entries'), 'class' => 'checkbox'));

@@ -164,7 +164,7 @@ $(document).ready(function() {
 </script>
 
 <div id="accordion">
-	<h3>Options</h3>
+	<h3><?php echo __d('webzash', 'Options'); ?></h3>
 
 	<div class="profitandloss form">
 	<?php
