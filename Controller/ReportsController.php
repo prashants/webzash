@@ -104,7 +104,7 @@ class ReportsController extends WebzashAppController {
 			$this->set('options', false);
 
 			/* Sub-title*/
-			$this->set('subtitle', __d('webzash', 'Balance Sheet as on ') .
+			$this->set('subtitle', __d('webzash', 'Closing Balance Sheet as on ') .
 				dateFromSql(Configure::read('Account.enddate')));
 		} else {
 			$this->set('options', true);
@@ -140,7 +140,8 @@ class ReportsController extends WebzashAppController {
 						dateFromSql(Configure::read('Account.enddate'))
 					));
 				} else if (!empty($this->passedArgs['enddate'])) {
-					$this->set('subtitle', __d('webzash', 'Balance Sheet as on ' .
+					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
+						dateFromSql(Configure::read('Account.startdate')) . ' to ' .
 						dateFromSql(dateToSQL($this->passedArgs['enddate']))
 					));
 				}
