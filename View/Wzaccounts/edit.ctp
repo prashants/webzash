@@ -25,6 +25,11 @@
  * THE SOFTWARE.
  */
 ?>
+
+<?php
+	echo '<div>' . __d('webzash', 'Note : To change account related settings like company name, address, email, currency, etc please visit the Settings menu option in the Accounts section after activating a particular account. This is only to change database related settings for a particular account.') . '<br /><br />' . '</div>';
+?>
+
 <div class="wzaccount edit form">
 	<?php
 		echo $this->Form->create('Wzaccount', array(
