@@ -1,3 +1,9 @@
+Webzash version 2.10 - 12 July 2021
+-----------------------------------
+
+- Update to CakePHP 2.10.24
+- Supports PHP version 8.x
+
 Webzash version 2.9 - 21 July 2020
 ----------------------------------
 

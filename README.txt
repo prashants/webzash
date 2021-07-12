@@ -1,6 +1,6 @@
 Webzash - Easy to use web based double entry accounting software
 
-Copyright (c) 2014 Prashant Shah <pshah.mumbai@gmail.com>
+Copyright (c) 2014 - 2021 Prashant Shah <pshah.mumbai@gmail.com>
 
 Website     : http://webzash.org
 Source code : https://github.com/prashants/webzash
@@ -27,8 +27,8 @@ Following step describes how to setup Webzash with CakePHP from scratch,
 remmember these steps are only needed if you wish to develop or contribute
 back to Webzash :
 
-Step 1. Download CakePHP version 2.10.14 from the below link
-https://github.com/cakephp/cakephp/archive/2.10.14.tar.gz
+Step 1. Download CakePHP version 2.10.24 from the below link
+https://github.com/cakephp/cakephp/archive/2.10.24.tar.gz
 
 Step 2. Extract CakePHP into your web server directory and rename the folder
 to "webzash"
