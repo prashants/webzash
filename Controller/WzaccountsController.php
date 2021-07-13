@@ -61,7 +61,7 @@ class WzaccountsController extends WebzashAppController {
 		$this->CustomPaginator->settings = array(
 			'Wzaccount' => array(
 				'limit' => $this->Session->read('Wzsetting.row_count'),
-				'order' => array('Wzaccount.label' => 'asc'),
+				'order' => array('Wzaccount.label' => 'desc'),
 			)
 		);
 

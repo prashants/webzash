@@ -1256,7 +1256,7 @@ class WzusersController extends WebzashAppController {
 		if ($wzuser['Wzuser']['all_accounts'] == 1) {
 			$wzaccounts = $this->Wzaccount->find('list', array(
 				'fields' => array('Wzaccount.id', 'Wzaccount.label'),
-				'order' => array('Wzaccount.label')
+				'order' => array('Wzaccount.label' => 'desc')
 			));
 			$wzaccounts = array(0 => '(NONE)') + $wzaccounts;
 		} else {
