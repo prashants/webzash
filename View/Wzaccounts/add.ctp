@@ -57,7 +57,7 @@
 		echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 		echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
 		echo $this->Form->input('db_prefix', array(
-			'label' => __d('webzash', 'Database prefix'),
+			'label' => __d('webzash', 'Database table prefix'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts.') . '</span>',
 		));
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));

@@ -27,7 +27,7 @@
 ?>
 
 <?php
-	echo '<div>' . __d('webzash', 'Note : To change account related settings like company name, address, email, currency, etc please visit the Settings menu option in the Accounts section after activating a particular account. This is only to change database related settings for a particular account.') . '<br /><br />' . '</div>';
+	echo '<div id="page-title-note">' . __d('webzash', 'Note : To change account related settings like company name, address, email, currency, etc please visit the Settings menu option in the Accounts section after activating a particular account. This is only to change database related settings for a particular account.') . '</div>';
 ?>
 
 <div class="wzaccount edit form">
@@ -55,7 +55,7 @@
 		echo $this->Form->input('db_login', array('label' => __d('webzash', 'Database login')));
 		echo $this->Form->input('db_password', array('type' => 'password', 'label' => __d('webzash', 'Database password')));
 		echo $this->Form->input('db_prefix', array(
-			'label' => __d('webzash', 'Database prefix'),
+			'label' => __d('webzash', 'Database table prefix'),
 			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Database table prefix to use (optional). All tables for this account will be created with this prefix, useful if you have only one database available and want to use multiple accounts.') . '</span>',
 		));
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));

@@ -94,6 +94,23 @@ table td .dc-error {
 	color: #333333;
 }
 
+#page-title-setup {
+	margin: 20px 0 20px 20px;
+	font-size: 30px;
+	color: #333333;
+}
+
+#page-title-second {
+	margin-bottom: 20px;
+	font-size: 19px;
+	color: #333333;
+}
+
+#page-title-note {
+	margin-bottom: 20px;
+	color: #333333;
+}
+
 .pick-a-color-markup {
 	width: 200px;
 }
