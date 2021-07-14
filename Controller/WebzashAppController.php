@@ -92,6 +92,42 @@ class WebzashAppController extends AppController {
 		/* Read URL to get the controller name */
 		$url_params = Router::getParams();
 
+		/* Load main database connection only if the controller is NOT in setup sections */
+		if ($url_params['controller'] == 'wzsetups') {
+			return;
+		}
+
+		/****************************************************/
+		/***** Load the main database connection in $wz *****/
+		/****************************************************/
+
+		/* Load the master database configuration in $wz */
+		if (file_exists(CONFIG . 'webzash.php')) {
+			require_once(CONFIG . 'webzash.php');
+		} else {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+		}
+
+		/* Check $wz */
+		if (!isset($wz)) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+		}
+
+		/* Create master database config and try to connect to it */
+		App::uses('ConnectionManager', 'Model');
+		try {
+			ConnectionManager::create('wz', $wz);
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			$this->Session->setFlash(__d('webzash', 'Error connection to main database. Please check your database settings.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+		}
+
 		/* Load account setting only if the controller is NOT in admin sections */
 		if ($url_params['controller'] == 'admin' || $url_params['controller'] == 'wzusers' ||
 			$url_params['controller'] == 'wzaccounts' || $url_params['controller'] == 'wzsettings') {
@@ -102,12 +138,68 @@ class WebzashAppController extends AppController {
 			return;
 		}
 
-		/* Load account related settings and entry types */
+		/***********************************************************************************************/
+		/***** Read active account related settings and setup database connection in $wz_accconfig *****/
+		/***********************************************************************************************/
+
+		/* Check if account is active */
 		$account_id = CakeSession::read('ActiveAccount.id');
 		if (empty($account_id)) {
 			$this->Session->setFlash(__d('webzash', 'Please choose a account.'), 'danger');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'account'));
 		}
+
+		/* If account is active load the database details from master database */
+		App::import("Webzash.Model", "Wzaccount");
+		$Wzaccount = new Wzaccount();
+		$Wzaccount->useDbConfig = 'wz';
+
+		/* Read the details, if not found delete the active account from session */
+		try {
+			$account = $Wzaccount->findById($account_id);
+		} catch (Exception $e) {
+			debug("Missing active account settings. Please check your setup.");
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			return;
+		}
+		if (!$account) {
+			debug("Active account not found. Please check your accounts in the 'Administer' section.");
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			return;
+		}
+
+		/* Create account database configuration */
+		$wz_accconfig['datasource'] = $account['Wzaccount']['db_datasource'];
+		$wz_accconfig['database'] = $account['Wzaccount']['db_database'];
+		$wz_accconfig['host'] = $account['Wzaccount']['db_host'];
+		$wz_accconfig['port'] = $account['Wzaccount']['db_port'];
+		$wz_accconfig['login'] = $account['Wzaccount']['db_login'];
+		$wz_accconfig['password'] = $account['Wzaccount']['db_password'];
+		$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
+		if ($account['Wzaccount']['db_persistent'] == 1) {
+			$wz_accconfig['persistent'] = TRUE;
+		} else {
+			$wz_accconfig['persistent'] = FALSE;
+		}
+		$wz_accconfig['schema'] = $account['Wzaccount']['db_schema'];
+		$wz_accconfig['unixsocket'] = $account['Wzaccount']['db_unixsocket'];
+		$wz_accconfig['settings'] = $account['Wzaccount']['db_settings'];
+
+		/* Create account database config and try to connect to it */
+		try {
+			ConnectionManager::create('wz_accconfig', $wz_accconfig);
+		} catch (Exception $e) {
+			CakeSession::delete('ActiveAccount.id');
+			CakeSession::delete('ActiveAccount.account_role');
+			CakeSession::write('ActiveAccount.failed', true);
+			return;
+		}
+
+		/***************************************************************/
+		/***** Configure::write() account settings and entry types *****/
+		/***************************************************************/
 
 		/* Write settings */
 		App::import("Webzash.Model", "Setting");
@@ -205,6 +297,8 @@ class WebzashAppController extends AppController {
 		}
 
 		Configure::write('Account.ET', $entrytypes);
+
+		ConnectionManager::drop('wz');
 	}
 
 	/* Custom handling of blackhole error message */

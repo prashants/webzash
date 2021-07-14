@@ -28,43 +28,18 @@
 App::uses('WebzashAppModel', 'Webzash.Model');
 
 /**
-* Webzash Plugin Wzaccount Model
+* Webzash Plugin Wzsetup Model
 *
 * @package Webzash
 * @subpackage Webzash.model
 */
-class Wzaccount extends WebzashAppModel {
+class Wzsetup extends WebzashAppModel {
 
 	public $validationDomain = 'webzash';
+	public $useTable = false;
 
 	/* Validation rules for the Wzaccount table */
 	public $validate = array(
-		'label' => array(
-			'rule1' => array(
-				'rule' => 'notBlank',
-				'message' => 'Account label cannot be empty',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-			'rule2' => array(
-				'rule' => 'isUnique',
-				'message' => 'Account label is already in use',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-			'rule3' => array(
-				'rule' => array('maxLength', 255),
-				'message' => 'Account label cannot be more than 255 characters',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-			'rule4' => array(
-				'rule' => 'alphaNumeric',
-				'message' => 'Account label can only be alpha-numeric',
-				'required' => true,
-				'allowEmpty' => false,
-			),
-		),
 		'db_datasource' => array(
 			'rule1' => array(
 				'rule' => 'notBlank',
@@ -176,22 +151,6 @@ class Wzaccount extends WebzashAppModel {
 				'rule' => array('maxLength', 255),
 				'message' => 'Database schema cannot be more than 255 characters',
 				'required' => false,
-				'allowEmpty' => true,
-			),
-		),
-		'db_unixsocket' => array(
-			'rule1' => array(
-				'rule' => array('maxLength', 255),
-				'message' => 'Database unixsocket cannot be more than 255 characters',
-				'required' => false,
-				'allowEmpty' => true,
-			),
-		),
-		'db_settings' => array(
-			'rule1' => array(
-				'rule' => array('maxLength', 255),
-				'message' => 'Database settings cannot be more than 255 characters',
-				'required' => true,
 				'allowEmpty' => true,
 			),
 		),
