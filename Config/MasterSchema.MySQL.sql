@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `wzaccounts` (
+CREATE TABLE `%_PREFIX_%wzaccounts` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `label` varchar(255) NOT NULL,
         `db_datasource` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -16,9 +16,12 @@ CREATE TABLE IF NOT EXISTS `wzaccounts` (
         `ssl_cert` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_ca` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `wzusers` (
+CREATE TABLE `%_PREFIX_%wzusers` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -33,10 +36,12 @@ CREATE TABLE IF NOT EXISTS `wzusers` (
         `retry_count` int(1) NOT NULL DEFAULT '0',
         `all_accounts` int(1) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2;
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE=InnoDB;
 
-
-CREATE TABLE IF NOT EXISTS `wzsettings` (
+CREATE TABLE `%_PREFIX_%wzsettings` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `sitename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `drcr_toby` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -53,15 +58,21 @@ CREATE TABLE IF NOT EXISTS `wzsettings` (
         `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `wzuseraccounts` (
+CREATE TABLE `%_PREFIX_%wzuseraccounts` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `wzuser_id` int(11) NOT NULL,
         `wzaccount_id` int(11) NOT NULL,
         `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+) DEFAULT CHARSET=utf8,
+COLLATE=utf8_unicode_ci,
+AUTO_INCREMENT=1,
+ENGINE=InnoDB;
 
-INSERT INTO `wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES
+INSERT INTO `%_PREFIX_%wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES
 (1, 'admin', '', 'Administrator', '', 'UTC', 'admin', 1, '', 1, 1, 0, 1);
