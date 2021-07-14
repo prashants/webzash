@@ -15,6 +15,7 @@ CREATE TABLE `%_PREFIX_%wzaccounts` (
         `ssl_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_cert` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_ca` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
@@ -35,6 +36,8 @@ CREATE TABLE `%_PREFIX_%wzusers` (
         `admin_verified` int(1) NOT NULL DEFAULT '0',
         `retry_count` int(1) NOT NULL DEFAULT '0',
         `all_accounts` int(1) NOT NULL DEFAULT '0',
+        `default_account` int(11) NOT NULL DEFAULT '0',
+        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
@@ -57,6 +60,7 @@ CREATE TABLE `%_PREFIX_%wzsettings` (
         `email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
@@ -74,5 +78,11 @@ COLLATE=utf8_unicode_ci,
 AUTO_INCREMENT=1,
 ENGINE=InnoDB;
 
-INSERT INTO `%_PREFIX_%wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES
-(1, 'admin', '', 'Administrator', '', 'UTC', 'admin', 1, '', 1, 1, 0, 1);
+ALTER TABLE `%_PREFIX_%wzuseraccounts`
+        ADD CONSTRAINT `%_PREFIX_%wzuseraccounts_fk_check_wzuser_id` FOREIGN KEY (`wzuser_id`) REFERENCES `%_PREFIX_%wzusers` (`id`);
+
+ALTER TABLE `%_PREFIX_%wzuseraccounts`
+        ADD CONSTRAINT `%_PREFIX_%wzuseraccounts_fk_check_wzaccount_id` FOREIGN KEY (`wzaccount_id`) REFERENCES `%_PREFIX_%wzaccounts` (`id`);
+
+INSERT INTO `%_PREFIX_%wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`, `default_account`) VALUES
+        (1, 'admin', '', 'Administrator', '', 'UTC', 'admin', 1, '', 1, 1, 0, 1, 0);
