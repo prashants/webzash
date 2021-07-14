@@ -107,14 +107,14 @@ class WebzashAppController extends AppController {
 		} else {
 			CakeSession::delete('ActiveAccount.id');
 			CakeSession::delete('ActiveAccount.account_role');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'index'));
 		}
 
 		/* Check $wz */
 		if (!isset($wz)) {
 			CakeSession::delete('ActiveAccount.id');
 			CakeSession::delete('ActiveAccount.account_role');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'index'));
 		}
 
 		/* Create master database config and try to connect to it */
@@ -125,7 +125,7 @@ class WebzashAppController extends AppController {
 			CakeSession::delete('ActiveAccount.id');
 			CakeSession::delete('ActiveAccount.account_role');
 			$this->Session->setFlash(__d('webzash', 'Error connection to main database. Please check your database settings.'), 'danger');
-			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'index'));
 		}
 
 		/* Load account setting only if the controller is NOT in admin sections */

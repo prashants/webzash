@@ -26,11 +26,10 @@
  */
 ?>
 <div>
-	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter database details for installation') . '</div>'; ?>
-	<?php echo '<div id="page-title-note">' . __d('webzash', 'Note : If you have a existing setup, you can enter the database details manually.') . '</div>'; ?>
+	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter database details for upgradation') . '</div>'; ?>
 </div>
 
-<div class="wzinstall install form">
+<div class="wzinstall upgrade form">
 	<?php
 		echo $this->Form->create('Wzsetup', array(
 			'inputDefaults' => array(
@@ -57,7 +56,7 @@
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
 
 		echo '<div class="form-group">';
-		echo $this->Form->submit(__d('webzash', 'Install'), array(
+		echo $this->Form->submit(__d('webzash', 'Upgrade'), array(
 			'div' => false,
 			'class' => 'btn btn-primary'
 		));

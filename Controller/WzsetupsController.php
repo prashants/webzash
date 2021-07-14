@@ -44,11 +44,19 @@ class WzsetupsController extends WebzashAppController {
  * @return void
  */
 	public function index() {
-		return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'install'));
+
+		$this->set('title_for_layout', __d('webzash', 'Welcome to %s Installer', Configure::read('Webzash.AppName') .
+			' v' . Configure::read('Webzash.AppVersion')));
+
+		/* Check if application already installed */
+		if (!$this->checkOkToInstall()) {
+			$this->Session->setFlash(__d('webzash', 'Application already installed. Please contact your administrator.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
+		}
 	}
 
 /**
- * setup method
+ * install method
  *
  * @return void
  */
@@ -56,11 +64,17 @@ class WzsetupsController extends WebzashAppController {
 
 		App::uses('File', 'Utility');
 
-		$this->set('title_for_layout', __d('webzash', 'Welcome to ' . Configure::read('Webzash.AppName')
-			. ' v' . Configure::read('Webzash.AppVersion') . ' Installer'));
+		$this->set('title_for_layout', __d('webzash', 'Welcome to %s Installer', Configure::read('Webzash.AppName') .
+			' v' . Configure::read('Webzash.AppVersion')));
 
 		if (!is_writable(CONFIG)) {
 			$this->Session->setFlash(__d('webzash', 'Error ! The "app/Config" folder is not writable.'), 'danger');
+		}
+
+		/* Check if application already installed */
+		if (!$this->checkOkToInstall()) {
+			$this->Session->setFlash(__d('webzash', 'Application already installed. Please contact your administrator.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
 		}
 
 		/* on POST */
@@ -208,10 +222,52 @@ class WzsetupsController extends WebzashAppController {
 		return;
 	}
 
+/**
+ * upgrade method
+ *
+ * @return void
+ */
+	public function upgrade() {
+
+		$this->set('title_for_layout', __d('webzash', 'Upgrade to %s', Configure::read('Webzash.AppName') .
+			' v' . Configure::read('Webzash.AppVersion')));
+
+		/* Check if application already installed */
+		if (!$this->checkOkToInstall()) {
+			$this->Session->setFlash(__d('webzash', 'Application already installed. Please contact your administrator.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
+		}
+	}
+
+	function checkOkToInstall() {
+
+		/* Load the master database configuration in $wz */
+		if (file_exists(CONFIG . 'webzash.php')) {
+			require_once(CONFIG . 'webzash.php');
+		} else {
+			return TRUE;
+		}
+
+		/* Check $wz */
+		if (!isset($wz)) {
+			return TRUE;
+		}
+
+		/* Create master database config and try to connect to it */
+		App::uses('ConnectionManager', 'Model');
+		try {
+			ConnectionManager::create('wz_test', $wz);
+		} catch (Exception $e) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('index', 'install');
+		$this->Auth->allow('index', 'install', 'upgrade');
 	}
 
 }
