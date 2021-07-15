@@ -26,12 +26,13 @@
  */
 ?>
 <div>
-	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter database details for upgradation') . '</div>'; ?>
+	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter new MySQL database (should be empty) details for importing old application master data. Please note this will "NOT" affect any of the ACCOUNT data which was stored in MySQL.') . '</div>'; ?>
 </div>
 
 <div class="wzinstall upgrade form">
 	<?php
 		echo $this->Form->create('Wzsetup', array(
+			'type' => 'file',
 			'inputDefaults' => array(
 				'div' => 'form-group',
 				'wrapInput' => false,
@@ -55,11 +56,16 @@
 		));
 		echo $this->Form->input('db_persistent', array('type' => 'checkbox', 'label' => __d('webzash', 'Use persistent connection'), 'class' => 'checkbox'));
 
-		echo '<div class="form-group">';
+		echo $this->Form->input('old_sqlite', array(
+			'type' => 'file',
+			'label' => '<span class="alert-text">' . __d('webzash', 'UPLOAD OLD VERSION 2.x MASTER DATA FILE named "webzash.sqlite". DEFAULT LOCATION OF THE FILE WAS "app/Plugin/Webzash/Database/webzash.sqlite"') . '</span>',
+		));
+
 		echo $this->Form->submit(__d('webzash', 'Upgrade'), array(
 			'div' => false,
 			'class' => 'btn btn-primary'
 		));
+
 		echo $this->Html->tag('span', '', array('class' => 'link-pad'));
 		echo $this->Html->link(__d('webzash', 'Cancel'), array('plugin' => 'webzash', 'controller' => 'wzsetups', 'action' => 'index'), array('class' => 'btn btn-default'));
 		echo '</div>';

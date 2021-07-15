@@ -232,9 +232,258 @@ class WzsetupsController extends WebzashAppController {
 		$this->set('title_for_layout', __d('webzash', 'Upgrade to %s', Configure::read('Webzash.AppName') .
 			' v' . Configure::read('Webzash.AppVersion')));
 
+		if (!is_writable(CONFIG)) {
+			$this->Session->setFlash(__d('webzash', 'Error ! The "app/Config" folder is not writable.'), 'danger');
+		}
+
 		/* Check if application already installed */
 		if (!$this->checkOkToInstall()) {
 			$this->Session->setFlash(__d('webzash', 'Application already installed. Please contact your administrator.'), 'danger');
+			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
+		}
+
+		/* on POST */
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			/* Only check for valid input data, save later */
+			$check_data = array('Wzsetup' => array(
+				'db_datasource' => $this->request->data['Wzsetup']['db_datasource'],
+				'db_database' => $this->request->data['Wzsetup']['db_database'],
+				'db_schema' => $this->request->data['Wzsetup']['db_schema'],
+				'db_host' => $this->request->data['Wzsetup']['db_host'],
+				'db_port' => $this->request->data['Wzsetup']['db_port'],
+				'db_login' => $this->request->data['Wzsetup']['db_login'],
+				'db_password' => $this->request->data['Wzsetup']['db_password'],
+				'db_prefix' => strtolower($this->request->data['Wzsetup']['db_prefix']),
+			));
+			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
+				$check_data['Wzsetup']['db_persistent'] = 1;
+			} else {
+				$check_data['Wzsetup']['db_persistent'] = 0;
+			}
+			$this->Wzsetup->set($check_data);
+			if (!$this->Wzsetup->validates()) {
+				foreach ($this->Wzsetup->validationErrors as $field => $msg) {
+					$errmsg = $msg[0];
+					break;
+				}
+				$this->Session->setFlash($errmsg, 'danger');
+				return;
+			}
+			if (empty($this->request->data['Wzsetup']['old_sqlite']['name'])) {
+				$this->Session->setFlash(__d('webzash', 'Old version 2.x master data file named "webzash.sqlite" cannot be empty.'), 'danger');
+				return;
+			}
+
+			/*****************************************************************/
+			/***** Temporarily save old master data from sqlite database *****/
+			/*****************************************************************/
+
+			$wz_oldconfig['datasource'] = 'Database/Sqlite';
+			$wz_oldconfig['database'] = $this->request->data['Wzsetup']['old_sqlite']['tmp_name'];
+			$wz_oldconfig['encoding'] = 'utf8';
+			$wz_oldconfig['persistent'] = false;
+
+			try {
+				ConnectionManager::create('wz_oldconfig', $wz_oldconfig);
+			} catch (Exception $e) {
+				debug("Missing master sqlite database file. Please check your setup.");
+				return;
+			}
+			$db_old = ConnectionManager::getDataSource('wz_oldconfig');
+			$wz_old_accounts = $db_old->fetchAll("SELECT id, label, db_datasource, db_database, db_host, db_port, db_login, db_password, db_prefix, db_persistent, db_schema, db_unixsocket, db_settings, ssl_key, ssl_cert, ssl_ca FROM wzaccounts");
+			$wz_old_users = $db_old->fetchAll("SELECT id, username, password, fullname, email, timezone, role, status, verification_key, email_verified, admin_verified, retry_count, all_accounts FROM wzusers");
+			$wz_old_settings = $db_old->fetchAll("SELECT id, sitename, drcr_toby, enable_logging, row_count, user_registration, admin_verification, email_verification, email_protocol, email_host, email_port, email_tls, email_username, email_password, email_from FROM wzsettings");
+			$wz_old_useraccounts = $db_old->fetchAll("SELECT id, wzuser_id, wzaccount_id, role FROM wzuseraccounts");
+
+			/*************************************/
+			/***** Setup new master database *****/
+			/*************************************/
+
+			/* Create account database configuration */
+			$wz_newconfig['datasource'] = $this->request->data['Wzsetup']['db_datasource'];
+			$wz_newconfig['database'] = $this->request->data['Wzsetup']['db_database'];
+			$wz_newconfig['schema'] = $this->request->data['Wzsetup']['db_schema'];
+			$wz_newconfig['host'] = $this->request->data['Wzsetup']['db_host'];
+			$wz_newconfig['port'] = $this->request->data['Wzsetup']['db_port'];
+			$wz_newconfig['login'] = $this->request->data['Wzsetup']['db_login'];
+			$wz_newconfig['password'] = $this->request->data['Wzsetup']['db_password'];
+			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzsetup']['db_prefix']);
+			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
+				$wz_newconfig['persistent'] = TRUE;
+			} else {
+				$wz_newconfig['persistent'] = FALSE;
+			}
+
+			/* Create account database config and try to connect to it */
+			try {
+				ConnectionManager::create('wz_newconfig', $wz_newconfig);
+			} catch (Exception $e) {
+				$this->Session->setFlash(__d('webzash', 'Cound not connect to database. Please, check your database settings.'), 'danger');
+				return;
+			}
+
+			/* Connection successfull, next check if any table names clash */
+			$db_new = ConnectionManager::getDataSource('wz_newconfig');
+
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$existing_tables = $db_new->query("show tables");
+				/*
+				Format of $existing_tables is
+				array(
+					0 => array(
+						'TABLE_NAMES' => array(
+							'Tables_in_<dbname>' => 'entries'
+						)
+					),
+					...
+				*/
+				/* Array of new tables that are to be created */
+				$new_tables = array(
+					$wz_newconfig['prefix'] . 'wzaccounts',
+					$wz_newconfig['prefix'] . 'wzsettings',
+					$wz_newconfig['prefix'] . 'wzuseraccounts',
+					$wz_newconfig['prefix'] . 'wzusers',
+				);
+
+				/* Check if any table from $new_table already exists */
+				$table_exisits = false;
+				foreach ($existing_tables as $row => $table_1) {
+					foreach ($table_1 as $row => $table_2) {
+						foreach ($table_2 as $row => $table) {
+							if (in_array(strtolower($table), $new_tables)) {
+								$table_exisits = TRUE;
+								$this->Session->setFlash(__d('webzash', 'Table with the same name as "%s" already existsin the "%s" database. Please use another database or use a different prefix.', $table, $wz_newconfig['database']), 'danger');
+							}
+						}
+					}
+				}
+				if ($table_exisits == TRUE) {
+					return;
+				}
+			}
+
+			/**
+			 * At this point the connection is successfull and there are no table clashes,
+			 * we can create the application specific tables.
+			 */
+
+			/* Read the database creation schema from the Config folder */
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.MySQL.sql';
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.Postgres.sql';
+			}
+			$schema_file = new File($schema_filepath, false);
+			$schema = $schema_file->read(true, 'r');
+
+			/* Add prefix to the table names in the schema */
+			$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+
+			/* Create tables */
+			try {
+				$db_new->rawQuery($final_schema);
+			} catch (Exception $e) {
+				$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
+				return;
+			}
+
+			/**************************************************/
+			/***** Import old master data to new database *****/
+			/**************************************************/
+
+			foreach ($wz_old_accounts as $new_account) {
+				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzaccounts` ' .
+					'(`id`, `label`, `db_datasource`, `db_database`, `db_host`, `db_port`, `db_login`, `db_password`, `db_prefix`, `db_persistent`, `db_schema`, `db_unixsocket`, `db_settings`, `ssl_key`, `ssl_cert`, `ssl_ca`) VALUES ' .
+					'(' . $new_account[0]['id'] . ',' .
+					'"' . $new_account[0]['label'] . '",' .
+					'"' . $new_account[0]['db_datasource'] . '",' .
+					'"' . $new_account[0]['db_database'] . '",' .
+					'"' . $new_account[0]['db_host'] . '",' .
+					$new_account[0]['db_port'] . ',' .
+					'"' . $new_account[0]['db_login'] . '",' .
+					'"' . $new_account[0]['db_password'] . '",' .
+					'"' . $new_account[0]['db_prefix'] . '",' .
+					'"' . $new_account[0]['db_persistent'] . '",' .
+					'"' . $new_account[0]['db_schema'] . '",' .
+					'"' . $new_account[0]['db_unixsocket'] . '",' .
+					'"' . $new_account[0]['db_settings'] . '",' .
+					'"' . $new_account[0]['ssl_key'] . '",' .
+					'"' . $new_account[0]['ssl_cert'] . '",' .
+					'"' . $new_account[0]['ssl_ca'] . '"' .
+					');');
+			}
+			foreach ($wz_old_users as $new_user) {
+				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
+					'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES ' .
+					'(' . $new_user[0]['id'] . ',' .
+					'"' . $new_user[0]['username'] . '",' .
+					'"' . $new_user[0]['password'] . '",' .
+					'"' . $new_user[0]['fullname'] . '",' .
+					'"' . $new_user[0]['email'] . '",' .
+					'"' . $new_user[0]['timezone'] . '",' .
+					'"' . $new_user[0]['role'] . '",' .
+					$new_user[0]['status'] . ',' .
+					'"' . $new_user[0]['verification_key'] . '",' .
+					$new_user[0]['email_verified'] . ',' .
+					$new_user[0]['admin_verified'] . ',' .
+					$new_user[0]['retry_count'] . ',' .
+					$new_user[0]['all_accounts'] .
+					');');
+			}
+			foreach ($wz_old_settings as $new_setting) {
+				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzsettings` ' .
+					'(`id`, `sitename`, `drcr_toby`, `enable_logging`, `row_count`, `user_registration`, `admin_verification`, `email_verification`, `email_protocol`, `email_host`, `email_port`, `email_tls`, `email_username`, `email_password`, `email_from`) VALUES ' .
+					'(' . $new_setting[0]['id'] . ',' .
+					'"' . $new_setting[0]['sitename'] . '",' .
+					'"' . $new_setting[0]['drcr_toby'] . '",' .
+					$new_setting[0]['enable_logging'] . ',' .
+					$new_setting[0]['row_count'] . ',' .
+					$new_setting[0]['user_registration'] . ',' .
+					$new_setting[0]['admin_verification'] . ',' .
+					$new_setting[0]['email_verification'] . ',' .
+					'"' . $new_setting[0]['email_protocol'] . '",' .
+					'"' . $new_setting[0]['email_host'] . '",' .
+					$new_setting[0]['email_port'] . ',' .
+					$new_setting[0]['email_tls'] . ',' .
+					'"' . $new_setting[0]['email_username'] . '",' .
+					'"' . $new_setting[0]['email_password'] . '",' .
+					'"' . $new_setting[0]['email_from'] . '"' .
+					');');
+			}
+			foreach ($wz_old_useraccounts as $new_useraccount) {
+				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzuseraccounts` ' .
+					'(`id`, `wzuser_id`, `wzaccount_id`, `role`) VALUES ' .
+					'(' . $new_useraccount[0]['id'] . ',' .
+					$new_useraccount[0]['wzuser_id'] . ',' .
+					$new_useraccount[0]['wzaccount_id'] . ',' .
+					'"' . $new_useraccount[0]['role'] . '"' .
+					');');
+			}
+
+			/* Write database configuration to file */
+			$database_settings = '<' . '?' . 'php' . "\n" .
+			'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+			'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+			'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+			'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+			'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+			'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+			'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
+			'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+			'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+			'?' . '>';
+
+			$database_settings_file = new File(CONFIG . 'webzash.php', true, 0600);
+			if (!$database_settings_file->write($database_settings)) {
+				$database_settings_file->close();
+				$this->Session->setFlash(__d('webzash', 'Failed to write database settings to "app/Config/webzash.php". You will have to manually create the file with the necessary database settings.'), 'danger');
+				return;
+			}
+			$database_settings_file->close();
+
+			/* All done */
+			$this->Session->setFlash(__d('webzash', 'Setup completed successfully.'), 'success');
 			return $this->redirect(array('plugin' => 'webzash', 'controller' => 'wzusers', 'action' => 'login'));
 		}
 	}
