@@ -15,7 +15,7 @@ CREATE TABLE `%_PREFIX_%wzaccounts` (
         `ssl_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_cert` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_ca` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `others` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
@@ -37,7 +37,7 @@ CREATE TABLE `%_PREFIX_%wzusers` (
         `retry_count` int(1) NOT NULL DEFAULT '0',
         `all_accounts` int(1) NOT NULL DEFAULT '0',
         `default_account` int(11) NOT NULL DEFAULT '0',
-        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `others` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
@@ -60,7 +60,7 @@ CREATE TABLE `%_PREFIX_%wzsettings` (
         `email_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `email_from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-        `others` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+        `others` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
 COLLATE=utf8_unicode_ci,
