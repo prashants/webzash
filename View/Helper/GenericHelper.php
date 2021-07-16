@@ -170,8 +170,8 @@ class GenericHelper extends AppHelper {
 	function wzaccount_dbtype_options() {
 		return array(
 			'Database/Mysql' => __d('webzash', 'MySQL'),
-			'Database/Sqlserver' => __d('webzash', 'MS SQL Server'),
-			'Database/Postgres' => __d('webzash', 'Postgres SQL (BETA)'),
+			// 'Database/Sqlserver' => __d('webzash', 'MS SQL Server'),
+			'Database/Postgres' => __d('webzash', 'Postgres SQL (UNSUPPORTED)'),
 		);
 	}
 
