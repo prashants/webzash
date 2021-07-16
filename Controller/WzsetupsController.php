@@ -96,6 +96,19 @@ class WzsetupsController extends WebzashAppController {
 			} else {
 				$check_data['Wzsetup']['db_persistent'] = 0;
 			}
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				if ($this->request->data['Wzsetup']['db_schema'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($this->request->data['Wzsetup']['db_prefix'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+
 			$this->Wzsetup->set($check_data);
 			if (!$this->Wzsetup->validates()) {
 				foreach ($this->Wzsetup->validationErrors as $field => $msg) {
@@ -177,14 +190,24 @@ class WzsetupsController extends WebzashAppController {
 			/* Read the database creation schema from the Config folder */
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.MySQL.sql';
-			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.Postgres.sql';
 			}
 			$schema_file = new File($schema_filepath, false);
 			$schema = $schema_file->read(true, 'r');
 
-			/* Add prefix to the table names in the schema */
-			$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+			/* Add prefix / schema to the table names in the database final_schema string */
+			$final_schema = '';
+			$postgres_schema_name = '';
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['schema'], $schema);
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($wz_newconfig['schema'] != "") {
+					$postgres_schema_name = $wz_newconfig['schema'] . '.';
+				}
+				$final_schema = str_replace('%_SCHEMA_%', $postgres_schema_name, $schema);
+				debug($final_schema);
+			}
 
 			/* Create tables */
 			try {
@@ -195,22 +218,56 @@ class WzsetupsController extends WebzashAppController {
 			}
 
 			/* insert admin user */
-			$db->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
-				'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`, `default_account`) VALUES ' .
-				'(1, "admin", "", "Administrator", "", "UTC", "admin", 1, "", 1, 1, 0, 1, 0);');
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$db->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
+					'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`, `default_account`) VALUES ' .
+					'(1, "admin", "", "Administrator", "", "UTC", "admin", 1, "", 1, 1, 0, 1, 0);');
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				$db->query('INSERT INTO ' . $postgres_schema_name . 'wzusers ' .
+					'(id, username, password, fullname, email, timezone, role, status, verification_key, email_verified, admin_verified, retry_count, all_accounts, default_account) VALUES ' .
+					'(1, \'admin\', \'\', \'Administrator\', \'\', \'UTC\', \'admin\', 1, \'\', 1, 1, 0, 1, 0);');
+			}
 
 			/* Write database configuration to file */
-			$database_settings = '<' . '?' . 'php' . "\n" .
-			'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
-			'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
-			'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
-			'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
-			'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
-			'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
-			'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
-			'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
-			'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
-			'?' . '>';
+			$database_settings = '';
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$database_settings = '<' . '?' . 'php' . "\n" .
+				'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+				'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+				'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+				'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+				'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+				'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+				'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
+				'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+				'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+				'?' . '>';
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($wz_newconfig['schema'] == "") {
+					$database_settings = '<' . '?' . 'php' . "\n" .
+					'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+					'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+					'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+					'?' . '>';
+				} else {
+					$database_settings = '<' . '?' . 'php' . "\n" .
+					'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+					'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+					'	$wz[\'schema\'] = \'' . $wz_newconfig['schema'] . '\';' . "\n" .
+					'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+					'?' . '>';
+				}
+			}
 
 			$database_settings_file = new File(CONFIG . 'webzash.php', true, 0600);
 			if (!$database_settings_file->write($database_settings)) {
@@ -265,6 +322,18 @@ class WzsetupsController extends WebzashAppController {
 				$check_data['Wzsetup']['db_persistent'] = 1;
 			} else {
 				$check_data['Wzsetup']['db_persistent'] = 0;
+			}
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				if ($this->request->data['Wzsetup']['db_schema'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($this->request->data['Wzsetup']['db_prefix'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
+					return;
+				}
 			}
 			$this->Wzsetup->set($check_data);
 			if (!$this->Wzsetup->validates()) {
