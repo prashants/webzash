@@ -206,7 +206,6 @@ class WzsetupsController extends WebzashAppController {
 					$postgres_schema_name = $wz_newconfig['schema'] . '.';
 				}
 				$final_schema = str_replace('%_SCHEMA_%', $postgres_schema_name, $schema);
-				debug($final_schema);
 			}
 
 			/* Create tables */
@@ -244,6 +243,7 @@ class WzsetupsController extends WebzashAppController {
 				'?' . '>';
 			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
 				if ($wz_newconfig['schema'] == "") {
+					/* if schema is empty then dont add it to config file else it will give error */
 					$database_settings = '<' . '?' . 'php' . "\n" .
 					'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
 					'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
@@ -361,7 +361,7 @@ class WzsetupsController extends WebzashAppController {
 			try {
 				ConnectionManager::create('wz_oldconfig', $wz_oldconfig);
 			} catch (Exception $e) {
-				debug("Missing master sqlite database file. Please check your setup.");
+				$this->Session->setFlash(__d('webzash', 'Failed to open "webzash.sqlite".'), 'danger');
 				return;
 			}
 			$db_old = ConnectionManager::getDataSource('wz_oldconfig');
@@ -445,14 +445,23 @@ class WzsetupsController extends WebzashAppController {
 			/* Read the database creation schema from the Config folder */
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.MySQL.sql';
-			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
 				$schema_filepath = App::pluginPath('Webzash') . 'Config/MasterSchema.Postgres.sql';
 			}
 			$schema_file = new File($schema_filepath, false);
 			$schema = $schema_file->read(true, 'r');
 
-			/* Add prefix to the table names in the schema */
-			$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+			/* Add prefix / schema to the table names in the database final_schema string */
+			$final_schema = '';
+			$postgres_schema_name = '';
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['schema'], $schema);
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($wz_newconfig['schema'] != "") {
+					$postgres_schema_name = $wz_newconfig['schema'] . '.';
+				}
+				$final_schema = str_replace('%_SCHEMA_%', $postgres_schema_name, $schema);
+			}
 
 			/* Create tables */
 			try {
@@ -466,87 +475,119 @@ class WzsetupsController extends WebzashAppController {
 			/***** Import old master data to new database *****/
 			/**************************************************/
 
-			foreach ($wz_old_accounts as $new_account) {
-				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzaccounts` ' .
-					'(`id`, `label`, `db_datasource`, `db_database`, `db_host`, `db_port`, `db_login`, `db_password`, `db_prefix`, `db_persistent`, `db_schema`, `db_unixsocket`, `db_settings`, `ssl_key`, `ssl_cert`, `ssl_ca`) VALUES ' .
-					'(' . $new_account[0]['id'] . ',' .
-					'"' . $new_account[0]['label'] . '",' .
-					'"' . $new_account[0]['db_datasource'] . '",' .
-					'"' . $new_account[0]['db_database'] . '",' .
-					'"' . $new_account[0]['db_host'] . '",' .
-					$new_account[0]['db_port'] . ',' .
-					'"' . $new_account[0]['db_login'] . '",' .
-					'"' . $new_account[0]['db_password'] . '",' .
-					'"' . $new_account[0]['db_prefix'] . '",' .
-					'"' . $new_account[0]['db_persistent'] . '",' .
-					'"' . $new_account[0]['db_schema'] . '",' .
-					'"' . $new_account[0]['db_unixsocket'] . '",' .
-					'"' . $new_account[0]['db_settings'] . '",' .
-					'"' . $new_account[0]['ssl_key'] . '",' .
-					'"' . $new_account[0]['ssl_cert'] . '",' .
-					'"' . $new_account[0]['ssl_ca'] . '"' .
-					');');
-			}
-			foreach ($wz_old_users as $new_user) {
-				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
-					'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES ' .
-					'(' . $new_user[0]['id'] . ',' .
-					'"' . $new_user[0]['username'] . '",' .
-					'"' . $new_user[0]['password'] . '",' .
-					'"' . $new_user[0]['fullname'] . '",' .
-					'"' . $new_user[0]['email'] . '",' .
-					'"' . $new_user[0]['timezone'] . '",' .
-					'"' . $new_user[0]['role'] . '",' .
-					$new_user[0]['status'] . ',' .
-					'"' . $new_user[0]['verification_key'] . '",' .
-					$new_user[0]['email_verified'] . ',' .
-					$new_user[0]['admin_verified'] . ',' .
-					$new_user[0]['retry_count'] . ',' .
-					$new_user[0]['all_accounts'] .
-					');');
-			}
-			foreach ($wz_old_settings as $new_setting) {
-				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzsettings` ' .
-					'(`id`, `sitename`, `drcr_toby`, `enable_logging`, `row_count`, `user_registration`, `admin_verification`, `email_verification`, `email_protocol`, `email_host`, `email_port`, `email_tls`, `email_username`, `email_password`, `email_from`) VALUES ' .
-					'(' . $new_setting[0]['id'] . ',' .
-					'"' . $new_setting[0]['sitename'] . '",' .
-					'"' . $new_setting[0]['drcr_toby'] . '",' .
-					$new_setting[0]['enable_logging'] . ',' .
-					$new_setting[0]['row_count'] . ',' .
-					$new_setting[0]['user_registration'] . ',' .
-					$new_setting[0]['admin_verification'] . ',' .
-					$new_setting[0]['email_verification'] . ',' .
-					'"' . $new_setting[0]['email_protocol'] . '",' .
-					'"' . $new_setting[0]['email_host'] . '",' .
-					$new_setting[0]['email_port'] . ',' .
-					$new_setting[0]['email_tls'] . ',' .
-					'"' . $new_setting[0]['email_username'] . '",' .
-					'"' . $new_setting[0]['email_password'] . '",' .
-					'"' . $new_setting[0]['email_from'] . '"' .
-					');');
-			}
-			foreach ($wz_old_useraccounts as $new_useraccount) {
-				$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzuseraccounts` ' .
-					'(`id`, `wzuser_id`, `wzaccount_id`, `role`) VALUES ' .
-					'(' . $new_useraccount[0]['id'] . ',' .
-					$new_useraccount[0]['wzuser_id'] . ',' .
-					$new_useraccount[0]['wzaccount_id'] . ',' .
-					'"' . $new_useraccount[0]['role'] . '"' .
-					');');
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				foreach ($wz_old_accounts as $new_account) {
+					$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzaccounts` ' .
+						'(`id`, `label`, `db_datasource`, `db_database`, `db_host`, `db_port`, `db_login`, `db_password`, `db_prefix`, `db_persistent`, `db_schema`, `db_unixsocket`, `db_settings`, `ssl_key`, `ssl_cert`, `ssl_ca`) VALUES ' .
+						'(' . $new_account[0]['id'] . ',' .
+						'"' . $new_account[0]['label'] . '",' .
+						'"' . $new_account[0]['db_datasource'] . '",' .
+						'"' . $new_account[0]['db_database'] . '",' .
+						'"' . $new_account[0]['db_host'] . '",' .
+						$new_account[0]['db_port'] . ',' .
+						'"' . $new_account[0]['db_login'] . '",' .
+						'"' . $new_account[0]['db_password'] . '",' .
+						'"' . $new_account[0]['db_prefix'] . '",' .
+						'"' . $new_account[0]['db_persistent'] . '",' .
+						'"' . $new_account[0]['db_schema'] . '",' .
+						'"' . $new_account[0]['db_unixsocket'] . '",' .
+						'"' . $new_account[0]['db_settings'] . '",' .
+						'"' . $new_account[0]['ssl_key'] . '",' .
+						'"' . $new_account[0]['ssl_cert'] . '",' .
+						'"' . $new_account[0]['ssl_ca'] . '"' .
+						');');
+				}
+				foreach ($wz_old_users as $new_user) {
+					$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
+						'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`) VALUES ' .
+						'(' . $new_user[0]['id'] . ',' .
+						'"' . $new_user[0]['username'] . '",' .
+						'"' . $new_user[0]['password'] . '",' .
+						'"' . $new_user[0]['fullname'] . '",' .
+						'"' . $new_user[0]['email'] . '",' .
+						'"' . $new_user[0]['timezone'] . '",' .
+						'"' . $new_user[0]['role'] . '",' .
+						$new_user[0]['status'] . ',' .
+						'"' . $new_user[0]['verification_key'] . '",' .
+						$new_user[0]['email_verified'] . ',' .
+						$new_user[0]['admin_verified'] . ',' .
+						$new_user[0]['retry_count'] . ',' .
+						$new_user[0]['all_accounts'] .
+						');');
+				}
+				foreach ($wz_old_settings as $new_setting) {
+					$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzsettings` ' .
+						'(`id`, `sitename`, `drcr_toby`, `enable_logging`, `row_count`, `user_registration`, `admin_verification`, `email_verification`, `email_protocol`, `email_host`, `email_port`, `email_tls`, `email_username`, `email_password`, `email_from`) VALUES ' .
+						'(' . $new_setting[0]['id'] . ',' .
+						'"' . $new_setting[0]['sitename'] . '",' .
+						'"' . $new_setting[0]['drcr_toby'] . '",' .
+						$new_setting[0]['enable_logging'] . ',' .
+						$new_setting[0]['row_count'] . ',' .
+						$new_setting[0]['user_registration'] . ',' .
+						$new_setting[0]['admin_verification'] . ',' .
+						$new_setting[0]['email_verification'] . ',' .
+						'"' . $new_setting[0]['email_protocol'] . '",' .
+						'"' . $new_setting[0]['email_host'] . '",' .
+						$new_setting[0]['email_port'] . ',' .
+						$new_setting[0]['email_tls'] . ',' .
+						'"' . $new_setting[0]['email_username'] . '",' .
+						'"' . $new_setting[0]['email_password'] . '",' .
+						'"' . $new_setting[0]['email_from'] . '"' .
+						');');
+				}
+				foreach ($wz_old_useraccounts as $new_useraccount) {
+					$db_new->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzuseraccounts` ' .
+						'(`id`, `wzuser_id`, `wzaccount_id`, `role`) VALUES ' .
+						'(' . $new_useraccount[0]['id'] . ',' .
+						$new_useraccount[0]['wzuser_id'] . ',' .
+						$new_useraccount[0]['wzaccount_id'] . ',' .
+						'"' . $new_useraccount[0]['role'] . '"' .
+						');');
+				}
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
 			}
 
 			/* Write database configuration to file */
-			$database_settings = '<' . '?' . 'php' . "\n" .
-			'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
-			'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
-			'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
-			'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
-			'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
-			'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
-			'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
-			'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
-			'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
-			'?' . '>';
+			$database_settings = '';
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
+				$database_settings = '<' . '?' . 'php' . "\n" .
+				'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+				'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+				'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+				'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+				'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+				'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+				'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
+				'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+				'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+				'?' . '>';
+			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				if ($wz_newconfig['schema'] == "") {
+					/* if schema is empty then dont add it to config file else it will give error */
+					$database_settings = '<' . '?' . 'php' . "\n" .
+					'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+					'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+					'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+					'?' . '>';
+				} else {
+					$database_settings = '<' . '?' . 'php' . "\n" .
+					'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
+					'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
+					'	$wz[\'schema\'] = \'' . $wz_newconfig['schema'] . '\';' . "\n" .
+					'	$wz[\'host\'] = \'' . $wz_newconfig['host'] . '\';' . "\n" .
+					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
+					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
+					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
+					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
+					'?' . '>';
+				}
+			}
 
 			$database_settings_file = new File(CONFIG . 'webzash.php', true, 0600);
 			if (!$database_settings_file->write($database_settings)) {
