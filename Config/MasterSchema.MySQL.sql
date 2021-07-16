@@ -83,6 +83,3 @@ ALTER TABLE `%_PREFIX_%wzuseraccounts`
 
 ALTER TABLE `%_PREFIX_%wzuseraccounts`
         ADD CONSTRAINT `%_PREFIX_%wzuseraccounts_fk_check_wzaccount_id` FOREIGN KEY (`wzaccount_id`) REFERENCES `%_PREFIX_%wzaccounts` (`id`);
-
-INSERT INTO `%_PREFIX_%wzusers` (`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`, `default_account`) VALUES
-        (1, 'admin', '', 'Administrator', '', 'UTC', 'admin', 1, '', 1, 1, 0, 1, 0);

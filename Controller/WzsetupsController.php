@@ -194,6 +194,11 @@ class WzsetupsController extends WebzashAppController {
 				return;
 			}
 
+			/* insert admin user */
+			$db->query('INSERT INTO `' . $wz_newconfig['prefix'] . 'wzusers` ' .
+				'(`id`, `username`, `password`, `fullname`, `email`, `timezone`, `role`, `status`, `verification_key`, `email_verified`, `admin_verified`, `retry_count`, `all_accounts`, `default_account`) VALUES ' .
+				'(1, "admin", "", "Administrator", "", "UTC", "admin", 1, "", 1, 1, 0, 1, 0);');
+
 			/* Write database configuration to file */
 			$database_settings = '<' . '?' . 'php' . "\n" .
 			'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
