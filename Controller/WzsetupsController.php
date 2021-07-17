@@ -102,12 +102,6 @@ class WzsetupsController extends WebzashAppController {
 					return;
 				}
 			}
-			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
-				if ($this->request->data['Wzsetup']['db_prefix'] != "") {
-					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
-					return;
-				}
-			}
 
 			$this->Wzsetup->set($check_data);
 			if (!$this->Wzsetup->validates()) {
@@ -196,17 +190,20 @@ class WzsetupsController extends WebzashAppController {
 			$schema_file = new File($schema_filepath, false);
 			$schema = $schema_file->read(true, 'r');
 
-			/* Add prefix / schema to the table names in the database prefix_schema_replace string */
+			/* Add prefix / schema to the table names */
 			$final_schema = '';
-			$prefix_schema_replace = '';
+			$replace_prefix_schema_str = '';
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
-				$prefix_schema_replace = $wz_newconfig['schema'];
-				$final_schema = str_replace('%_PREFIX_%', $prefix_schema_replace, $schema);
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$tmp_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 				if ($wz_newconfig['schema'] != "") {
-					$prefix_schema_replace = $wz_newconfig['schema'] . '.';
+					$final_schema = str_replace('%_SCHEMA_%', $wz_newconfig['schema'] . '.', $tmp_schema);
+				} else {
+					$final_schema = str_replace('%_SCHEMA_%', '', $tmp_schema);
 				}
-				$final_schema = str_replace('%_SCHEMA_%', $prefix_schema_replace, $schema);
 			}
 
 			/* Create tables */
@@ -218,14 +215,14 @@ class WzsetupsController extends WebzashAppController {
 			}
 
 			/* insert admin user */
-			$db->query('INSERT INTO ' . $prefix_schema_replace . 'wzusers ' .
+			$db->query('INSERT INTO ' . $replace_prefix_schema_str . 'wzusers ' .
 				'(id, username, password, fullname, email, timezone, role, status, verification_key, email_verified, admin_verified, retry_count, all_accounts, default_account) VALUES ' .
 				'(1, \'admin\', \'\', \'Administrator\', \'\', \'UTC\', \'admin\', 1, \'\', 1, 1, 0, 1, 0);');
 
 			/* Write database configuration to file */
 			$database_settings = '';
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
-				/* Use prefix. Schema not used */
+				/* Schema not used */
 				$database_settings = '<' . '?' . 'php' . "\n" .
 				'	$wz[\'datasource\'] = \'' . $wz_newconfig['datasource'] . '\';' . "\n" .
 				'	$wz[\'database\'] = \'' . $wz_newconfig['database'] . '\';' . "\n" .
@@ -238,7 +235,7 @@ class WzsetupsController extends WebzashAppController {
 				'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 				'?' . '>';
 			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
-				/* Use schema. Prefix not used */
+				/* Use schema only if set */
 				if ($wz_newconfig['schema'] == "") {
 					/* if schema is empty then dont add it to config file else it will give error */
 					$database_settings = '<' . '?' . 'php' . "\n" .
@@ -248,6 +245,7 @@ class WzsetupsController extends WebzashAppController {
 					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
 					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
 					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
 					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
 					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 					'?' . '>';
@@ -260,6 +258,7 @@ class WzsetupsController extends WebzashAppController {
 					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
 					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
 					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
 					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
 					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 					'?' . '>';
@@ -323,12 +322,6 @@ class WzsetupsController extends WebzashAppController {
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
 				if ($this->request->data['Wzsetup']['db_schema'] != "") {
 					$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
-					return;
-				}
-			}
-			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
-				if ($this->request->data['Wzsetup']['db_prefix'] != "") {
-					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
 					return;
 				}
 			}
@@ -448,17 +441,20 @@ class WzsetupsController extends WebzashAppController {
 			$schema_file = new File($schema_filepath, false);
 			$schema = $schema_file->read(true, 'r');
 
-			/* Add prefix / schema to the table names in the database prefix_schema_replace string */
+			/* Add prefix / schema to the table names */
 			$final_schema = '';
-			$prefix_schema_replace = '';
+			$replace_prefix_schema_str = '';
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
-				$prefix_schema_replace = $wz_newconfig['schema'];
-				$final_schema = str_replace('%_PREFIX_%', $prefix_schema_replace, $schema);
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$tmp_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 				if ($wz_newconfig['schema'] != "") {
-					$prefix_schema_replace = $wz_newconfig['schema'] . '.';
+					$final_schema = str_replace('%_SCHEMA_%', $wz_newconfig['schema'] . '.', $tmp_schema);
+				} else {
+					$final_schema = str_replace('%_SCHEMA_%', '', $tmp_schema);
 				}
-				$final_schema = str_replace('%_SCHEMA_%', $prefix_schema_replace, $schema);
 			}
 
 			/* Create tables */
@@ -474,7 +470,7 @@ class WzsetupsController extends WebzashAppController {
 			/**************************************************/
 
 			foreach ($wz_old_accounts as $new_account) {
-				$db_new->query('INSERT INTO ' . $prefix_schema_replace . 'wzaccounts ' .
+				$db_new->query('INSERT INTO ' . $replace_prefix_schema_str . 'wzaccounts ' .
 					'(id, label, db_datasource, db_database, db_host, db_port, db_login, db_password, db_prefix, db_persistent, db_schema, db_unixsocket, db_settings, ssl_key, ssl_cert, ssl_ca) VALUES ' .
 					'(' . $new_account[0]['id'] . ',' .
 					'\'' . $new_account[0]['label'] . '\',' .
@@ -495,7 +491,7 @@ class WzsetupsController extends WebzashAppController {
 					');');
 			}
 			foreach ($wz_old_users as $new_user) {
-				$db_new->query('INSERT INTO ' . $prefix_schema_replace . 'wzusers ' .
+				$db_new->query('INSERT INTO ' . $replace_prefix_schema_str . 'wzusers ' .
 					'(id, username, password, fullname, email, timezone, role, status, verification_key, email_verified, admin_verified, retry_count, all_accounts) VALUES ' .
 					'(' . $new_user[0]['id'] . ',' .
 					'\'' . $new_user[0]['username'] . '\',' .
@@ -513,7 +509,7 @@ class WzsetupsController extends WebzashAppController {
 					');');
 			}
 			foreach ($wz_old_settings as $new_setting) {
-				$db_new->query('INSERT INTO ' . $prefix_schema_replace . 'wzsettings ' .
+				$db_new->query('INSERT INTO ' . $replace_prefix_schema_str . 'wzsettings ' .
 					'(id, sitename, drcr_toby, enable_logging, row_count, user_registration, admin_verification, email_verification, email_protocol, email_host, email_port, email_tls, email_username, email_password, email_from) VALUES ' .
 					'(' . $new_setting[0]['id'] . ',' .
 					'\'' . $new_setting[0]['sitename'] . '\',' .
@@ -533,7 +529,7 @@ class WzsetupsController extends WebzashAppController {
 					');');
 			}
 			foreach ($wz_old_useraccounts as $new_useraccount) {
-				$db_new->query('INSERT INTO ' . $prefix_schema_replace . 'wzuseraccounts ' .
+				$db_new->query('INSERT INTO ' . $replace_prefix_schema_str . 'wzuseraccounts ' .
 					'(id, wzuser_id, wzaccount_id, role) VALUES ' .
 					'(' . $new_useraccount[0]['id'] . ',' .
 					$new_useraccount[0]['wzuser_id'] . ',' .
@@ -558,7 +554,7 @@ class WzsetupsController extends WebzashAppController {
 				'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 				'?' . '>';
 			} else if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
-				/* Use schema. Prefix not used */
+				/* Use schema */
 				if ($wz_newconfig['schema'] == "") {
 					/* If schema is empty then dont add it to config file else it will give error */
 					$database_settings = '<' . '?' . 'php' . "\n" .
@@ -568,6 +564,7 @@ class WzsetupsController extends WebzashAppController {
 					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
 					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
 					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
 					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
 					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 					'?' . '>';
@@ -580,6 +577,7 @@ class WzsetupsController extends WebzashAppController {
 					'	$wz[\'port\'] = \'' . $wz_newconfig['port'] . '\';' . "\n" .
 					'	$wz[\'login\'] = \'' . $wz_newconfig['login'] . '\';' . "\n" .
 					'	$wz[\'password\'] = \'' . $wz_newconfig['password'] . '\';' . "\n" .
+					'	$wz[\'prefix\'] = \'' . $wz_newconfig['prefix'] . '\';' . "\n" .
 					'	$wz[\'encoding\'] = \'utf8\';' . "\n" .
 					'	$wz[\'persistent\'] = \'' . $wz_newconfig['persistent'] . '\';' . "\n" .
 					'?' . '>';

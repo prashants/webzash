@@ -1,4 +1,4 @@
-CREATE TABLE %_SCHEMA_%wzaccounts (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%wzaccounts (
         id serial PRIMARY KEY,
         label varchar(255) NOT NULL,
         db_datasource varchar(255) DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE %_SCHEMA_%wzaccounts (
         others varchar(255) DEFAULT NULL
 );
 
-CREATE TABLE %_SCHEMA_%wzusers (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%wzusers (
         id serial PRIMARY KEY,
         username varchar(255) NOT NULL,
         password varchar(255) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE %_SCHEMA_%wzusers (
         others varchar(255) DEFAULT NULL
 );
 
-CREATE TABLE %_SCHEMA_%wzsettings (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%wzsettings (
         id serial PRIMARY KEY,
         sitename varchar(255)  DEFAULT NULL,
         drcr_toby varchar(255)  DEFAULT NULL,
@@ -55,9 +55,9 @@ CREATE TABLE %_SCHEMA_%wzsettings (
         others varchar(255)  DEFAULT NULL
 );
 
-CREATE TABLE %_SCHEMA_%wzuseraccounts (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%wzuseraccounts (
         id serial PRIMARY KEY,
-        wzuser_id int NOT NULL REFERENCES %_SCHEMA_%wzusers (id),
-        wzaccount_id int NOT NULL REFERENCES %_SCHEMA_%wzaccounts (id),
+        wzuser_id int NOT NULL REFERENCES %_SCHEMA_%%_PREFIX_%wzusers (id),
+        wzaccount_id int NOT NULL REFERENCES %_SCHEMA_%%_PREFIX_%wzaccounts (id),
         role varchar(255)  DEFAULT NULL
 );

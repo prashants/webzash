@@ -177,9 +177,8 @@ class WebzashAppController extends AppController {
 		$wz_accconfig['port'] = $account['Wzaccount']['db_port'];
 		$wz_accconfig['login'] = $account['Wzaccount']['db_login'];
 		$wz_accconfig['password'] = $account['Wzaccount']['db_password'];
-		if ($wz_accconfig['datasource'] == 'Database/Mysql') {
-			$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
-		}
+		$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
+
 		if ($account['Wzaccount']['db_persistent'] == 1) {
 			$wz_accconfig['persistent'] = TRUE;
 		} else {
