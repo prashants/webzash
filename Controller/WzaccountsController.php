@@ -174,7 +174,7 @@ class WzaccountsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzaccount']['db_port'],
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzaccount']['db_prefix'],
 				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
@@ -184,6 +184,19 @@ class WzaccountsController extends WebzashAppController {
 			} else {
 				$check_data['Wzaccount']['db_persistent'] = 0;
 			}
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+				if ($this->request->data['Wzaccount']['db_schema'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				if ($this->request->data['Wzaccount']['db_prefix'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+
 			$this->Wzaccount->set($check_data);
 			if (!$this->Wzaccount->validates()) {
 				foreach ($this->Wzaccount->validationErrors as $field => $msg) {
@@ -201,8 +214,14 @@ class WzaccountsController extends WebzashAppController {
 			$wz_newconfig['port'] = $this->request->data['Wzaccount']['db_port'];
 			$wz_newconfig['login'] = $this->request->data['Wzaccount']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzaccount']['db_password'];
-			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzaccount']['db_prefix']);
-			$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+				$wz_newconfig['prefix'] = $this->request->data['Wzaccount']['db_prefix'];
+			}
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				if ($this->request->data['Wzaccount']['db_schema'] != "") {
+					$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
+				}
+			}
 			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
@@ -283,7 +302,17 @@ class WzaccountsController extends WebzashAppController {
 			$schema = $schema_file->read(true, 'r');
 
 			/* Add prefix to the table names in the schema */
-			$prefix_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
+			$prefix_schema = '';
+			$prefix_schema_replace = '';
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+				$prefix_schema_replace = $wz_newconfig['prefix'];
+				$prefix_schema = str_replace('%_PREFIX_%', $prefix_schema_replace, $schema);
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				if (isset($wz_newconfig['schema'])) {
+					$prefix_schema_replace = $wz_newconfig['schema'] . '.';
+				}
+				$prefix_schema = str_replace('%_SCHEMA_%', $prefix_schema_replace, $schema);
+			}
 
 			/* Add decimal places */
 			$final_schema = str_replace('%_DECIMAL_%', $this->request->data['Wzaccount']['decimal_places'], $prefix_schema);
@@ -307,7 +336,12 @@ class WzaccountsController extends WebzashAppController {
 			$initdata = $initdata_file->read(true, 'r');
 
 			/* Add prefix to the table names in the intial data */
-			$final_initdata = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $initdata);
+			$final_initdata = '';
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+				$final_initdata = str_replace('%_PREFIX_%', $prefix_schema_replace, $initdata);
+			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$final_initdata = str_replace('%_SCHEMA_%', $prefix_schema_replace, $initdata);
+			}
 
 			/* Add initial data */
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
@@ -389,7 +423,7 @@ class WzaccountsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzaccount']['db_port'],
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzaccount']['db_prefix'],
 				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],

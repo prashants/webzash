@@ -177,13 +177,19 @@ class WebzashAppController extends AppController {
 		$wz_accconfig['port'] = $account['Wzaccount']['db_port'];
 		$wz_accconfig['login'] = $account['Wzaccount']['db_login'];
 		$wz_accconfig['password'] = $account['Wzaccount']['db_password'];
-		$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
+		if ($wz_accconfig['datasource'] == 'Database/Mysql') {
+			$wz_accconfig['prefix'] = $account['Wzaccount']['db_prefix'];
+		}
 		if ($account['Wzaccount']['db_persistent'] == 1) {
 			$wz_accconfig['persistent'] = TRUE;
 		} else {
 			$wz_accconfig['persistent'] = FALSE;
 		}
-		$wz_accconfig['schema'] = $account['Wzaccount']['db_schema'];
+		if ($wz_accconfig['datasource'] == 'Database/Postgres') {
+			if ($account['Wzaccount']['db_schema'] != "") {
+				$wz_accconfig['schema'] = $account['Wzaccount']['db_schema'];
+			}
+		}
 		$wz_accconfig['unixsocket'] = $account['Wzaccount']['db_unixsocket'];
 		$wz_accconfig['settings'] = $account['Wzaccount']['db_settings'];
 
@@ -297,8 +303,6 @@ class WebzashAppController extends AppController {
 		}
 
 		Configure::write('Account.ET', $entrytypes);
-
-		ConnectionManager::drop('wz');
 	}
 
 	/* Custom handling of blackhole error message */
