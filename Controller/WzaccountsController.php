@@ -476,6 +476,19 @@ class WzaccountsController extends WebzashAppController {
 				/* Unset ID */
 				unset($this->request->data['Wzaccount']['id']);
 
+				if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+					if ($this->request->data['Wzaccount']['db_schema'] != "") {
+						$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
+						return;
+					}
+				}
+				if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+					if ($this->request->data['Wzaccount']['db_prefix'] != "") {
+						$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
+						return;
+					}
+				}
+
 				/* Save account */
 				$ds = $this->Wzaccount->getDataSource();
 				$ds->begin();
@@ -533,6 +546,19 @@ class WzaccountsController extends WebzashAppController {
 			/* Set user id */
 			unset($this->request->data['Wzaccount']['id']);
 			$this->Wzaccount->id = $id;
+
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
+				if ($this->request->data['Wzaccount']['db_schema'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database schema should be empty for MySQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				if ($this->request->data['Wzaccount']['db_prefix'] != "") {
+					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
+					return;
+				}
+			}
 
 			/* Save account config */
 			$ds = $this->Wzaccount->getDataSource();

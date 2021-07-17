@@ -40,6 +40,7 @@
 		<th><?php echo $this->Paginator->sort('db_host', __d('webzash', 'DB Host')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_port', __d('webzash', 'DB Port')); ?></th>
 		<th><?php echo $this->Paginator->sort('db_prefix', __d('webzash', 'DB Prefix')); ?></th>
+		<th><?php echo $this->Paginator->sort('db_schema', __d('webzash', 'DB Schema')); ?></th>
 		<th><?php echo __d('webzash', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($wzaccounts as $wzaccount) { ?>
@@ -50,6 +51,7 @@
 			<td><?php echo h($wzaccount['Wzaccount']['db_host']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_port']); ?></td>
 			<td><?php echo h($wzaccount['Wzaccount']['db_prefix']); ?></td>
+			<td><?php echo h($wzaccount['Wzaccount']['db_schema']); ?></td>
 			<td>
 				<?php
 				if ($wzaccount['Wzaccount']['id'] == $this->Session->read('ActiveAccount.id')) {
