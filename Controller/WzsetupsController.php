@@ -219,6 +219,14 @@ class WzsetupsController extends WebzashAppController {
 				'(id, username, password, fullname, email, timezone, role, status, verification_key, email_verified, admin_verified, retry_count, all_accounts, default_account) VALUES ' .
 				'(1, \'admin\', \'\', \'Administrator\', \'\', \'UTC\', \'admin\', 1, \'\', 1, 1, 0, 1, 0);');
 
+			/* Since manually inserted data with id, postgres does not update sequence hence updating sequence */
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzaccounts\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzaccounts));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzusers\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzusers));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzsettings\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzsettings));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzuseraccounts\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzuseraccounts));');
+			}
+
 			/* Write database configuration to file */
 			$database_settings = '';
 			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Mysql') {
@@ -373,6 +381,7 @@ class WzsetupsController extends WebzashAppController {
 			$wz_newconfig['login'] = $this->request->data['Wzsetup']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzsetup']['db_password'];
 			$wz_newconfig['prefix'] = $this->request->data['Wzsetup']['db_prefix'];
+			/* TODO SCHEMA */
 			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
@@ -536,6 +545,14 @@ class WzsetupsController extends WebzashAppController {
 					$new_useraccount[0]['wzaccount_id'] . ',' .
 					'\'' . $new_useraccount[0]['role'] . '\'' .
 					');');
+			}
+
+			/* Since manually inserted data with id, postgres does not update sequence hence updating sequence */
+			if ($this->request->data['Wzsetup']['db_datasource'] == 'Database/Postgres') {
+				$db_new->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzaccounts\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzaccounts));');
+				$db_new->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzusers\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzusers));');
+				$db_new->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzsettings\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzsettings));');
+				$db_new->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'wzuseraccounts\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'wzuseraccounts));');
 			}
 
 			/* Write database configuration to file */
