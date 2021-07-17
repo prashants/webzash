@@ -1,4 +1,4 @@
-CREATE TABLE %_SCHEMA_%groups (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%groups (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"parent_id" bigint DEFAULT '0',
 	"name" varchar(255) NOT NULL,
@@ -8,10 +8,10 @@ CREATE TABLE %_SCHEMA_%groups (
 	UNIQUE(name),
 	UNIQUE(code)
 );
-CREATE INDEX groups_id ON %_SCHEMA_%groups ("id");
-CREATE INDEX groups_parent_id ON %_SCHEMA_%groups ("parent_id");
+CREATE INDEX %_PREFIX_%groups_id ON %_SCHEMA_%%_PREFIX_%groups ("id");
+CREATE INDEX %_PREFIX_%groups_parent_id ON %_SCHEMA_%%_PREFIX_%groups ("parent_id");
 
-CREATE TABLE %_SCHEMA_%ledgers (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%ledgers (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"group_id" bigint NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -25,10 +25,10 @@ CREATE TABLE %_SCHEMA_%ledgers (
 	UNIQUE("name"),
 	UNIQUE("code")
 );
-CREATE INDEX ledgers_id ON %_SCHEMA_%ledgers ("id");
-CREATE INDEX ledgers_group_id ON %_SCHEMA_%ledgers ("group_id");
+CREATE INDEX %_PREFIX_%ledgers_id ON %_SCHEMA_%%_PREFIX_%ledgers ("id");
+CREATE INDEX %_PREFIX_%ledgers_group_id ON %_SCHEMA_%%_PREFIX_%ledgers ("group_id");
 
-CREATE TABLE %_SCHEMA_%entrytypes (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%entrytypes (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"label" varchar(255) NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -42,9 +42,9 @@ CREATE TABLE %_SCHEMA_%entrytypes (
 	UNIQUE("id"),
 	UNIQUE("label")
 );
-CREATE INDEX entrytypes_id ON %_SCHEMA_%entrytypes ("id");
+CREATE INDEX %_PREFIX_%entrytypes_id ON %_SCHEMA_%%_PREFIX_%entrytypes ("id");
 
-CREATE TABLE %_SCHEMA_%tags (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%tags (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"title" varchar(255) NOT NULL,
 	"color" char(6) NOT NULL,
@@ -52,9 +52,9 @@ CREATE TABLE %_SCHEMA_%tags (
 	UNIQUE("id"),
 	UNIQUE("title")
 );
-CREATE INDEX tags_id ON %_SCHEMA_%tags ("id");
+CREATE INDEX %_PREFIX_%tags_id ON %_SCHEMA_%%_PREFIX_%tags ("id");
 
-CREATE TABLE %_SCHEMA_%entries (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%entries (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"tag_id" bigint DEFAULT NULL,
 	"entrytype_id" bigint NOT NULL,
@@ -65,11 +65,11 @@ CREATE TABLE %_SCHEMA_%entries (
 	"narration" varchar(500) NOT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX entries_id ON %_SCHEMA_%entries ("id");
-CREATE INDEX entries_tag_id ON %_SCHEMA_%entries ("tag_id");
-CREATE INDEX entries_entrytype_id ON %_SCHEMA_%entries ("entrytype_id");
+CREATE INDEX %_PREFIX_%entries_id ON %_SCHEMA_%%_PREFIX_%entries ("id");
+CREATE INDEX %_PREFIX_%entries_tag_id ON %_SCHEMA_%%_PREFIX_%entries ("tag_id");
+CREATE INDEX %_PREFIX_%entries_entrytype_id ON %_SCHEMA_%%_PREFIX_%entries ("entrytype_id");
 
-CREATE TABLE %_SCHEMA_%entryitems (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%entryitems (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"entry_id" bigint NOT NULL,
 	"ledger_id" bigint NOT NULL,
@@ -78,11 +78,11 @@ CREATE TABLE %_SCHEMA_%entryitems (
 	"reconciliation_date" date DEFAULT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX entryitems_id ON %_SCHEMA_%entryitems ("id");
-CREATE INDEX entryitems_entry_id ON %_SCHEMA_%entryitems ("entry_id");
-CREATE INDEX entryitems_ledger_id ON %_SCHEMA_%entryitems ("ledger_id");
+CREATE INDEX %_PREFIX_%entryitems_id ON %_SCHEMA_%%_PREFIX_%entryitems ("id");
+CREATE INDEX %_PREFIX_%entryitems_entry_id ON %_SCHEMA_%%_PREFIX_%entryitems ("entry_id");
+CREATE INDEX %_PREFIX_%entryitems_ledger_id ON %_SCHEMA_%%_PREFIX_%entryitems ("ledger_id");
 
-CREATE TABLE %_SCHEMA_%settings (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%settings (
 	"id" serial NOT NULL PRIMARY KEY,
 	"name" varchar(255) NOT NULL,
 	"address" varchar(255) NOT NULL,
@@ -116,9 +116,9 @@ CREATE TABLE %_SCHEMA_%settings (
 	"settings" bytea NULL DEFAULT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX settings_id ON %_SCHEMA_%settings ("id");
+CREATE INDEX %_PREFIX_%settings_id ON %_SCHEMA_%%_PREFIX_%settings ("id");
 
-CREATE TABLE %_SCHEMA_%logs (
+CREATE TABLE %_SCHEMA_%%_PREFIX_%logs (
 	"id" bigserial NOT NULL PRIMARY KEY,
 	"date" timestamp NOT NULL,
 	"level" integer NOT NULL,
@@ -129,11 +129,11 @@ CREATE TABLE %_SCHEMA_%logs (
 	"message" varchar(255) NOT NULL,
 	UNIQUE("id")
 );
-CREATE INDEX logs_id ON %_SCHEMA_%logs ("id");
+CREATE INDEX %_PREFIX_%logs_id ON %_SCHEMA_%%_PREFIX_%logs ("id");
 
-ALTER TABLE %_SCHEMA_%groups ADD CONSTRAINT groups_fk_check_parent_id FOREIGN KEY ("parent_id") REFERENCES %_SCHEMA_%groups ("id");
-ALTER TABLE %_SCHEMA_%ledgers ADD CONSTRAINT ledgers_fk_check_group_id FOREIGN KEY ("group_id") REFERENCES %_SCHEMA_%groups ("id");
-ALTER TABLE %_SCHEMA_%entries ADD CONSTRAINT entries_fk_check_entrytype_id FOREIGN KEY ("entrytype_id") REFERENCES %_SCHEMA_%entrytypes ("id");
-ALTER TABLE %_SCHEMA_%entries ADD CONSTRAINT entries_fk_check_tag_id FOREIGN KEY ("tag_id") REFERENCES %_SCHEMA_%tags ("id");
-ALTER TABLE %_SCHEMA_%entryitems ADD CONSTRAINT entryitems_fk_check_entry_id FOREIGN KEY ("entry_id") REFERENCES %_SCHEMA_%entries ("id");
-ALTER TABLE %_SCHEMA_%entryitems ADD CONSTRAINT entryitems_fk_check_ledger_id FOREIGN KEY ("ledger_id") REFERENCES %_SCHEMA_%ledgers ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%groups ADD CONSTRAINT groups_fk_check_parent_id FOREIGN KEY ("parent_id") REFERENCES %_SCHEMA_%%_PREFIX_%groups ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%ledgers ADD CONSTRAINT ledgers_fk_check_group_id FOREIGN KEY ("group_id") REFERENCES %_SCHEMA_%%_PREFIX_%groups ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%entries ADD CONSTRAINT entries_fk_check_entrytype_id FOREIGN KEY ("entrytype_id") REFERENCES %_SCHEMA_%%_PREFIX_%entrytypes ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%entries ADD CONSTRAINT entries_fk_check_tag_id FOREIGN KEY ("tag_id") REFERENCES %_SCHEMA_%%_PREFIX_%tags ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%entryitems ADD CONSTRAINT entryitems_fk_check_entry_id FOREIGN KEY ("entry_id") REFERENCES %_SCHEMA_%%_PREFIX_%entries ("id");
+ALTER TABLE %_SCHEMA_%%_PREFIX_%entryitems ADD CONSTRAINT entryitems_fk_check_ledger_id FOREIGN KEY ("ledger_id") REFERENCES %_SCHEMA_%%_PREFIX_%ledgers ("id");
