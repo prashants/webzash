@@ -218,7 +218,7 @@ class SettingsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzaccount']['db_port'],
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzaccount']['db_prefix'],
 				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],
@@ -245,7 +245,7 @@ class SettingsController extends WebzashAppController {
 			$wz_newconfig['port'] = $this->request->data['Wzaccount']['db_port'];
 			$wz_newconfig['login'] = $this->request->data['Wzaccount']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzaccount']['db_password'];
-			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzaccount']['db_prefix']);
+			$wz_newconfig['prefix'] = $this->request->data['Wzaccount']['db_prefix'];
 			$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
 			if ($this->request->data['Wzaccount']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
@@ -504,7 +504,7 @@ class SettingsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzaccount']['db_port'],
 				'db_login' => $this->request->data['Wzaccount']['db_login'],
 				'db_password' => $this->request->data['Wzaccount']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzaccount']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzaccount']['db_prefix'],
 				'db_schema' => $this->request->data['Wzaccount']['db_schema'],
 				'db_unixsocket' => '',
 				'db_settings' => $this->request->data['Wzaccount']['db_settings'],

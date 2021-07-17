@@ -89,7 +89,7 @@ class WzsetupsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzsetup']['db_port'],
 				'db_login' => $this->request->data['Wzsetup']['db_login'],
 				'db_password' => $this->request->data['Wzsetup']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzsetup']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzsetup']['db_prefix'],
 			));
 			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
 				$check_data['Wzsetup']['db_persistent'] = 1;
@@ -127,7 +127,7 @@ class WzsetupsController extends WebzashAppController {
 			$wz_newconfig['port'] = $this->request->data['Wzsetup']['db_port'];
 			$wz_newconfig['login'] = $this->request->data['Wzsetup']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzsetup']['db_password'];
-			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzsetup']['db_prefix']);
+			$wz_newconfig['prefix'] = $this->request->data['Wzsetup']['db_prefix'];
 			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
@@ -313,7 +313,7 @@ class WzsetupsController extends WebzashAppController {
 				'db_port' => $this->request->data['Wzsetup']['db_port'],
 				'db_login' => $this->request->data['Wzsetup']['db_login'],
 				'db_password' => $this->request->data['Wzsetup']['db_password'],
-				'db_prefix' => strtolower($this->request->data['Wzsetup']['db_prefix']),
+				'db_prefix' => $this->request->data['Wzsetup']['db_prefix'],
 			));
 			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
 				$check_data['Wzsetup']['db_persistent'] = 1;
@@ -379,7 +379,7 @@ class WzsetupsController extends WebzashAppController {
 			$wz_newconfig['port'] = $this->request->data['Wzsetup']['db_port'];
 			$wz_newconfig['login'] = $this->request->data['Wzsetup']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzsetup']['db_password'];
-			$wz_newconfig['prefix'] = strtolower($this->request->data['Wzsetup']['db_prefix']);
+			$wz_newconfig['prefix'] = $this->request->data['Wzsetup']['db_prefix'];
 			if ($this->request->data['Wzsetup']['db_persistent'] == 1) {
 				$wz_newconfig['persistent'] = TRUE;
 			} else {
