@@ -64,12 +64,6 @@ class Entrytype extends WebzashAppModel {
 				'required' => true,
 				'allowEmpty' => false,
 			),
-			'rule5' => array(
-				'rule' => array('comparison', 'not equal', '0'),
-				'message' => 'Label cannot be "0"',
-				'required' => true,
-				'allowEmpty' => false,
-			),
 		),
 		'name' => array(
 			'rule1' => array(

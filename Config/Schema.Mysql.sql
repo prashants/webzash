@@ -47,7 +47,7 @@ CREATE TABLE `%_PREFIX_%entrytypes` (
 	`suffix` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`zero_padding` int(2) NOT NULL DEFAULT '0',
 	`restriction_bankcash` int(2) NOT NULL DEFAULT '1',
-    PRIMARY KEY(`id`),
+	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `label` (`label`),
 	KEY `id` (`id`)
