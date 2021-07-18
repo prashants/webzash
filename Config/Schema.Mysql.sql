@@ -4,7 +4,7 @@ CREATE TABLE `%_PREFIX_%groups` (
 	`name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	`code` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
 	`affects_gross` int(1) NOT NULL DEFAULT '0',
-    PRIMARY KEY(`id`),
+	PRIMARY KEY(`id`),
 	UNIQUE KEY `unique_id` (`id`),
 	UNIQUE KEY `name` (`name`),
 	UNIQUE KEY `code` (`code`),
