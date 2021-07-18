@@ -28,10 +28,11 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#WzsetupDbDatasource").change(function() {
-		if ($(this).val() == "Database/Mysql") {
-			$("#WzsetupDbSchema").parent().hide();
-		} else {
+		if ($(this).val() == "Database/Postgres") {
 			$("#WzsetupDbSchema").parent().show();
+		} else {
+			$("#WzsetupDbSchema").parent().hide();
+			$("#WzsetupDbSchema").val("");
 		}
 	});
 	$('#WzsetupDbDatasource').trigger('change');
