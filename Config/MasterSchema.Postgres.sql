@@ -15,6 +15,7 @@ CREATE TABLE %_SCHEMA_%%_PREFIX_%wzaccounts (
         ssl_key varchar(255) DEFAULT NULL,
         ssl_cert varchar(255) DEFAULT NULL,
         ssl_ca varchar(255) DEFAULT NULL,
+        hidden integer NOT NULL DEFAULT '0',
         others varchar(255) DEFAULT NULL
 );
 

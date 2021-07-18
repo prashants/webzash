@@ -15,6 +15,7 @@ CREATE TABLE `%_PREFIX_%wzaccounts` (
         `ssl_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_cert` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         `ssl_ca` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+        `hidden` int(1) NOT NULL DEFAULT '0',
         `others` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
         PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8,
