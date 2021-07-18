@@ -25,6 +25,19 @@
  * THE SOFTWARE.
  */
 ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#WzsetupDbDatasource").change(function() {
+		if ($(this).val() == "Database/Mysql") {
+			$("#WzsetupDbSchema").parent().hide();
+		} else {
+			$("#WzsetupDbSchema").parent().show();
+		}
+	});
+	$('#WzsetupDbDatasource').trigger('change');
+});
+</script>
+
 <div>
 	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter new MySQL database (should be empty) details for importing old application master data. Please note this will "NOT" affect any of the ACCOUNT data which was stored in MySQL.') . '</div>'; ?>
 </div>

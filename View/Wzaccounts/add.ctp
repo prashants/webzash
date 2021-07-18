@@ -25,6 +25,18 @@
  * THE SOFTWARE.
  */
 ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#WzaccountDbDatasource").change(function() {
+		if ($(this).val() == "Database/Mysql") {
+			$("#WzaccountDbSchema").parent().hide();
+		} else {
+			$("#WzaccountDbSchema").parent().show();
+		}
+	});
+	$('#WzaccountDbDatasource').trigger('change');
+});
+</script>
 
 <?php
 	echo '<div><div role="alert" class="alert alert-warning">' .

@@ -50,6 +50,15 @@ $(document).ready(function() {
 		$("#WzaccountFyStart").datepicker("option", "dateFormat", dateFormat);
 		$("#WzaccountFyEnd").datepicker("option", "dateFormat", dateFormat);
 	});
+
+	$("#WzaccountDbDatasource").change(function() {
+		if ($(this).val() == "Database/Mysql") {
+			$("#WzaccountDbSchema").parent().hide();
+		} else {
+			$("#WzaccountDbSchema").parent().show();
+		}
+	});
+	$('#WzaccountDbDatasource').trigger('change');
 });
 </script>
 

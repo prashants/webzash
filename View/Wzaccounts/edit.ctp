@@ -25,6 +25,18 @@
  * THE SOFTWARE.
  */
 ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#WzaccountDbDatasource").change(function() {
+		if ($(this).val() == "Database/Mysql") {
+			$("#WzaccountDbSchema").parent().hide();
+		} else {
+			$("#WzaccountDbSchema").parent().show();
+		}
+	});
+	$('#WzaccountDbDatasource').trigger('change');
+});
+</script>
 
 <?php
 	echo '<div id="page-title-note">' . __d('webzash', 'Note : To change account related settings like company name, address, email, currency, etc please visit the Settings menu option in the Accounts section after activating a particular account. This is only to change database related settings for a particular account.') . '</div>';

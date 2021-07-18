@@ -25,6 +25,19 @@
  * THE SOFTWARE.
  */
 ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#WzsetupDbDatasource").change(function() {
+		if ($(this).val() == "Database/Mysql") {
+			$("#WzsetupDbSchema").parent().hide();
+		} else {
+			$("#WzsetupDbSchema").parent().show();
+		}
+	});
+	$('#WzsetupDbDatasource').trigger('change');
+});
+</script>
+
 <div>
 	<?php echo '<div id="page-title-second">' . __d('webzash', 'Please enter database details for installation') . '</div>'; ?>
 	<?php echo '<div id="page-title-note">' . __d('webzash', 'Note : If you have a existing setup, you can enter the database details manually.') . '</div>'; ?>
