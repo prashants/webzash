@@ -234,12 +234,6 @@ class SettingsController extends WebzashAppController {
 					return;
 				}
 			}
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
-				if ($this->request->data['Wzaccount']['db_prefix'] != "") {
-					$this->Session->setFlash(__d('webzash', 'Database table prefix should be empty for Postgres SQL since it is not supported.'), 'danger');
-					return;
-				}
-			}
 
 			$this->Wzaccount->set($check_data);
 			if (!$this->Wzaccount->validates()) {
@@ -258,9 +252,7 @@ class SettingsController extends WebzashAppController {
 			$wz_newconfig['port'] = $this->request->data['Wzaccount']['db_port'];
 			$wz_newconfig['login'] = $this->request->data['Wzaccount']['db_login'];
 			$wz_newconfig['password'] = $this->request->data['Wzaccount']['db_password'];
-			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
-				$wz_newconfig['prefix'] = $this->request->data['Wzaccount']['db_prefix'];
-			}
+			$wz_newconfig['prefix'] = $this->request->data['Wzaccount']['db_prefix'];
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
 				if ($this->request->data['Wzaccount']['db_schema'] != "") {
 					$wz_newconfig['schema'] = $this->request->data['Wzaccount']['db_schema'];
@@ -354,24 +346,27 @@ class SettingsController extends WebzashAppController {
 			$schema = $schema_file->read(true, 'r');
 
 			/* Add prefix to the table names in the schema */
-			$prefix_schema = '';
-			$prefix_schema_replace = '';
+			$final_schema = '';
+			$replace_prefix_schema_str = '';
 			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Mysql') {
-				$prefix_schema_replace = $wz_newconfig['prefix'];
-				$prefix_schema = str_replace('%_PREFIX_%', $prefix_schema_replace, $schema);
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$final_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 			} else if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$replace_prefix_schema_str = $wz_newconfig['prefix'];
+				$tmp_schema = str_replace('%_PREFIX_%', $wz_newconfig['prefix'], $schema);
 				if (isset($wz_newconfig['schema'])) {
-					$prefix_schema_replace = $wz_newconfig['schema'] . '.';
+					$final_schema = str_replace('%_SCHEMA_%', $wz_newconfig['schema'] . '.', $tmp_schema);
+				} else {
+					$final_schema = str_replace('%_SCHEMA_%', '', $tmp_schema);
 				}
-				$prefix_schema = str_replace('%_SCHEMA_%', $prefix_schema_replace, $schema);
 			}
 
 			/* Add decimal places */
-			$final_schema = str_replace('%_DECIMAL_%', $old_account_setting['Setting']['decimal_places'], $prefix_schema);
+			$ultimate_final_schema = str_replace('%_DECIMAL_%', $old_account_setting['Setting']['decimal_places'], $final_schema);
 
 			/* Create tables */
 			try {
-				$db->rawQuery($final_schema);
+				$db->rawQuery($ultimate_final_schema);
 			} catch (Exception $e) {
 				$this->Session->setFlash(__d('webzash', 'Oh Snap ! Something went wrong while creating the database tables. Please check your settings and try again.'), 'danger');
 				return;
@@ -522,6 +517,18 @@ class SettingsController extends WebzashAppController {
 
 				$this->Session->setFlash(__d('webzash', 'Account database created, but account settings could not be saved. Please, try again. Error is : "%s".', $errmsg), 'danger');
 				return;
+			}
+
+			/* Since manually inserted data with id, postgres does not update sequence hence updating sequence */
+			if ($this->request->data['Wzaccount']['db_datasource'] == 'Database/Postgres') {
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'groups\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'groups));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'ledgers\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'ledgers));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'entrytypes\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'entrytypes));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'tags\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'tags));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'entries\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'entries));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'entryitems\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'entryitems));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'settings\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'settings));');
+				$db->query('SELECT setval((select pg_get_serial_sequence(\'' . $replace_prefix_schema_str . 'logs\', \'id\')), (SELECT MAX(id) from ' . $replace_prefix_schema_str . 'logs));');
 			}
 
 			/******* Add to wzaccount table *******/
