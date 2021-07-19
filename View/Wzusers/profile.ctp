@@ -38,6 +38,14 @@
 		echo $this->Form->input('fullname', array('label' => __d('webzash', 'Fullname')));
 		echo $this->Form->input('email', array('label' => __d('webzash', 'Email')));
 
+		echo $this->Form->input('default_account', array(
+			'type' => 'select',
+			'options' => $wzaccounts,
+			'label' => __d('webzash', 'Default active account'),
+			'multiple' => false,
+			'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Please select (NONE) if you do not wish to set a default account.') . '</span>'
+		));
+
 		echo '<div class="form-group">';
 		echo $this->Form->submit(__d('webzash', 'Submit'), array(
 			'div' => false,

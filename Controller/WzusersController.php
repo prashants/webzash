@@ -543,6 +543,13 @@ class WzusersController extends WebzashAppController {
 					}
 				}
 
+				/* Default account */
+				if ($user['Wzuser']['default_account'] > 0) {
+					$this->Session->write('DefaultAccount', $user['Wzuser']['default_account']);
+				} else {
+					$this->Session->delete('DefaultAccount');
+				}
+
 				if ($this->Auth->user('role') == 'admin') {
 					return $this->redirect(array('plugin' => 'webzash', 'controller' => 'admin', 'action' => 'index'));
 				} else {
@@ -838,6 +845,28 @@ class WzusersController extends WebzashAppController {
 
 		$prev_email = $wzuser['Wzuser']['email'];
 
+		/* Create list of wzaccounts */
+		$wzaccounts = array();
+		if ($wzuser['Wzuser']['all_accounts'] == 1) {
+			$wzaccounts = $this->Wzaccount->find('list', array(
+				'fields' => array('Wzaccount.id', 'Wzaccount.label'),
+				'order' => array('Wzaccount.label' => 'desc')
+			));
+			$wzaccounts = array(0 => '(NONE)') + $wzaccounts;
+		} else {
+			$rawwzaccounts = $this->Wzuseraccount->find('all', array(
+				'conditions' => array('Wzuseraccount.wzuser_id' => $this->Auth->user('id')),
+			));
+			foreach ($rawwzaccounts as $row => $wzaccount) {
+				$account = $this->Wzaccount->findById($wzaccount['Wzuseraccount']['wzaccount_id']);
+				if ($account) {
+					$wzaccounts[$account['Wzaccount']['id']] = $account['Wzaccount']['label'];
+				}
+			}
+			$wzaccounts = array(0 => '(NONE)') + $wzaccounts;
+		}
+		$this->set('wzaccounts', $wzaccounts);
+
 		if ($this->request->is('post') || $this->request->is('put')) {
 
 			$this->Wzuser->id = $this->Auth->user('id');
@@ -846,7 +875,7 @@ class WzusersController extends WebzashAppController {
 			$ds = $this->Wzuser->getDataSource();
 			$ds->begin();
 
-			if ($this->Wzuser->save($this->request->data, true, array('fullname', 'email'))) {
+			if ($this->Wzuser->save($this->request->data, true, array('fullname', 'email', 'default_account'))) {
 				$ds->commit();
 
 				/* If email changed, reset email verification */
@@ -1283,6 +1312,8 @@ class WzusersController extends WebzashAppController {
 		/* On POST */
 		if ($this->request->is('post') || $this->request->is('put')) {
 
+			$this->Session->delete('DefaultAccount');
+
 			/* Check if NONE selected */
 			if ($this->request->data['Wzuser']['wzaccount_id'] == 0) {
 				$this->Session->delete('ActiveAccount.id');
@@ -1352,7 +1383,12 @@ class WzusersController extends WebzashAppController {
 			if ($curActiveAccount) {
 				$this->request->data['Wzuser']['wzaccount_id'] = $this->Session->read('ActiveAccount.id');
 			} else {
-				$this->request->data['Wzuser']['wzaccount_id'] = 0;
+				if ($this->Session->check('DefaultAccount')) {
+					$this->request->data['Wzuser']['wzaccount_id'] = $this->Session->read('DefaultAccount');
+					$this->Session->setFlash(__d('webzash', 'Default account selected. Kindly activate to use it.'), 'success');
+				} else {
+					$this->request->data['Wzuser']['wzaccount_id'] = 0;
+				}
 			}
 		}
 	}
