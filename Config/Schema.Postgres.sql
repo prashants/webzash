@@ -101,7 +101,7 @@ CREATE TABLE %_SCHEMA_%%_PREFIX_%settings (
 	"print_orientation" char(1) NOT NULL,
 	"print_page_format" char(1) NOT NULL,
 	"database_version" integer NOT NULL,
-	"settings" bytea NULL DEFAULT NULL,
+	"settings" varchar(2048) NULL DEFAULT NULL,
 	UNIQUE("id")
 );
 
