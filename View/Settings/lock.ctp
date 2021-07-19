@@ -44,6 +44,7 @@
 		'type' => 'checkbox',
 		'checked' => $locked,
 		'label' => __d('webzash', 'Lock account'),
+		'class' => 'checkbox',
 		'afterInput' => '<span class="help-block">' . __d('webzash', 'Note : Once a account is locked no further changes will be permitted. You will have to unlock it to make changes.') . '</span>',
 	));
 
