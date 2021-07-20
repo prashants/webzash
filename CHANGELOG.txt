@@ -1,3 +1,12 @@
+Webzash version 3.0 - 20 July 2021
+----------------------------------
+
+- Remove dependency on Sqlite
+- Full support for MySQL and Postgres database
+- Installer and upgrade for 3.x
+- Miscellaneous bug fixes
+- Add support for default account to activate
+
 Webzash version 2.10 - 12 July 2021
 -----------------------------------
 
