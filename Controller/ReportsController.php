@@ -131,12 +131,12 @@ class ReportsController extends WebzashAppController {
 				if (!empty($this->passedArgs['startdate']) &&
 					!empty($this->passedArgs['enddate'])) {
 					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
-						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . __d('webzash', ' to ') .
 						dateFromSql(dateToSQL($this->passedArgs['enddate']))
 					));
 				} else if (!empty($this->passedArgs['startdate'])) {
 					$this->set('subtitle', __d('webzash', 'Balance Sheet from ' .
-						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . __d('webzash', ' to ') .
 						dateFromSql(Configure::read('Account.enddate'))
 					));
 				} else if (!empty($this->passedArgs['enddate'])) {
@@ -350,7 +350,7 @@ class ReportsController extends WebzashAppController {
 
 			/* Sub-title*/
 			$this->set('subtitle', __d('webzash', 'Trading and Profit & Loss Statement from ') .
-				dateFromSql(Configure::read('Account.startdate')) . ' to ' .
+				dateFromSql(Configure::read('Account.startdate')) . __d('webzash', ' to ') .
 				dateFromSql(Configure::read('Account.enddate')));
 		} else {
 			$this->set('options', true);
@@ -375,17 +375,17 @@ class ReportsController extends WebzashAppController {
 				if (!empty($this->passedArgs['startdate']) &&
 					!empty($this->passedArgs['enddate'])) {
 					$this->set('subtitle', __d('webzash', 'Trading and Profit & Loss Statement from ' .
-						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . __d('webzash', ' to ') .
 						dateFromSql(dateToSQL($this->passedArgs['enddate']))
 					));
 				} else if (!empty($this->passedArgs['startdate'])) {
 					$this->set('subtitle', __d('webzash', 'Trading and Profit & Loss Statement from ' .
-						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . ' to ' .
+						dateFromSql(dateToSQL($this->passedArgs['startdate'])) . __d('webzash', ' to ') .
 						dateFromSql(Configure::read('Account.enddate'))
 					));
 				} else if (!empty($this->passedArgs['enddate'])) {
 					$this->set('subtitle', __d('webzash', 'Trading and Profit & Loss Statement from ' .
-						dateFromSql(Configure::read('Account.startdate')) . ' to ' .
+						dateFromSql(Configure::read('Account.startdate')) . __d('webzash', ' to ') .
 						dateFromSql(dateToSQL($this->passedArgs['enddate']))
 					));
 				}

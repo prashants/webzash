@@ -98,7 +98,7 @@ $(document).ready(function() {
 	echo $this->Form->input('fy_start', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year start')));
 	echo $this->Form->input('fy_end', array('type' => 'text', 'required' => 'required', 'div' => 'form-group required', 'label' => __d('webzash', 'Financial year end')));
 
-	echo "<fieldset><legend>Database Settings</legend>";
+	echo "<fieldset><legend>" . __d('webzash', 'Database Settings') . "</legend>";
 	// TODO echo $this->Form->input('create_db', array('type' => 'checkbox', 'label' => __d('webzash', 'Create database if it does not exists')));
 	echo $this->Form->input('db_datasource', array('type' => 'select', 'options' => $this->Generic->wzaccount_dbtype_options(), 'label' => __d('webzash', 'Database type')));
 	echo $this->Form->input('db_database', array('label' => __d('webzash', 'Database name')));
